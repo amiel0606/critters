@@ -1,6 +1,6 @@
 <?php 
- require('inc/essentials.php'); 
- adminLogin();
+//  require('inc/essentials.php'); 
+//  adminLogin();
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +36,7 @@
                             <thead class="sticky-top">
                                 <tr class="bg-dark text-light">
                                     <th scope="col">#</th>
+                                    <th scope="col">Image</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -75,7 +76,7 @@
             <!-- Service Modal -->
             <div class="modal fade" id="service-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="service_s_form">
+                    <form action="./inc/addService.php" method="post" enctype="multipart/form-data">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="serviceModalLabel">Add Offer</h1>
@@ -84,7 +85,9 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Name</label>
-                                    <input type="text" name="service_name" id="service_name_inp" class="form-control shadow-none" required>
+                                    <input type="text" name="offer_name" id="service_name_inp" class="form-control shadow-none" required>
+                                    <br>
+                                    <input type="file" name="image" id="image" accept="image/png, image/jpeg">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -120,7 +123,7 @@
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="offers">
                                             <tr>
                                                 <td>1</td>
                                                 <td><img src="images/features/grooms.png" width="100px"></td>
@@ -152,7 +155,7 @@
                         <!-- Service MODAL -->
                         <div class="modal fade" id="offer-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <form id="offer_s_form">
+                                <form action="./inc/addOffer.php" method="POST" id="offer_s_form" enctype="multipart/form-data">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="serviceModalLabel">Add Service</h1>
@@ -165,7 +168,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Icon</label>
-                                                <input type="file" name="offer_icon" id="offer_icon_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>
+                                                <input type="file" name="image" id="offer_icon_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Description</label>
@@ -181,33 +184,8 @@
                                 </form>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 <script>
@@ -218,6 +196,66 @@
     function resetForm() {
         document.getElementById('offer_s_form').reset();
     }
+    $(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "./inc/getOffers.php",
+        dataType: "json",
+        success: function(data) {
+            var html = "";
+            $.each(data, function(index, offer) {
+                html += "<tr>";
+                html += "<td>" + offer.id + "</td>";
+                html += "<td><img src='./inc/uploads/" + offer.image + "' height='50px' width='50px'></td>";
+                html += "<td>" + offer.offer_name + "</td>";
+                html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + offer.id + "'>Delete</a></td>";
+                html += "</tr>";
+            });
+            $("#service-data").html(html);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "./inc/getService.php", 
+        dataType: "json",
+        success: function(data) {
+            var html = "";
+            $.each(data, function(index, row) {
+                html += "<tr>";
+                html += "<td>" + row.id + "</td>";
+                html += "<td><img src='./inc/uploads/" + row.image + "' height='50px' width='50px'></td>";
+                html += "<td>" + row.service_name + "</td>";
+                html += "<td>" + row.service_description + "</td>";
+                html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + row.id + "'>Delete</a></td>";
+                html += "</tr>";
+            });
+            $("#offers").html(html);
+        }
+    });
+
+        $(document).on("click", ".delete-btn", function() {
+            var id = $(this).data("id");
+            $.ajax({
+                type: "POST",
+                url: "./inc/delete_offer.php", 
+                data: { id: id },
+                success: function() {
+                    window.location.reload();
+                    $(this).closest("tr").remove();
+                }
+            });
+            $.ajax({ 
+                type: "POST",
+                url: "./inc/deleteService.php", 
+                data: { id: id },
+                success: function() {
+                    window.location.reload();
+                    $(this).closest("tr").remove();
+                }
+            });
+        });
+    });
 </script>
 
 <?php require('inc/scripts.php'); ?>

@@ -39,88 +39,37 @@
 
   <div class="container">
   <div class="row">
-    <div class="col-lg-4 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
-        <div class="d-flex aligh-item-center mb-2 ">
-          <img src="images/features/syringe.png" width="40px">
-          <h5 class="m-0 ms-3">Service Vaccine</h5>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!
-        </p>
-      </div>
+  <div id="services-container"></div>
+      
     </div>
-    
-
-    <div class="col-lg-4 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
-        <div class="d-flex aligh-item-center mb-2 ">
-          <img src="images/features/surgery.png" width="40px">
-          <h5 class="m-0 ms-3">Service Surgery</h5>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!
-        </p>
-      </div>
-    </div>
-
-
-    <div class="col-lg-4 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
-        <div class="d-flex aligh-item-center mb-2 ">
-          <img src="images/features/grooms.png" width="40px">
-          <h5 class="m-0 ms-3">Service Groom</h5>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!
-        </p>
-      </div>
-    </div>  
-
-    <div class="col-lg-4 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
-        <div class="d-flex aligh-item-center mb-2 ">
-          <img src="images/features/diagnostic-icon.webp" width="40px">
-          <h5 class="m-0 ms-3">Service Checkup</h5>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!
-        </p>
-      </div>
-    </div>
-
-
-    <div class="col-lg-4 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
-        <div class="d-flex aligh-item-center mb-2 ">
-          <img src="images/features/teeth.png" width="40px">
-          <h5 class="m-0 ms-3">Service Dental</h5>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!
-        </p>
-      </div>
-    </div>
-
-    <div class="col-lg-4 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4 border-top border-4 border-dark pop">
-        <div class="d-flex aligh-item-center mb-2 ">
-          <img src="images/features/laboratory.png" width="40px">
-          <h5 class="m-0 ms-3">Service Laboratory Testing</h5>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!
-        </p>
-      </div>
-    </div>
-
-
-
-    
   </div>
-</div>
 
 
+<script>
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "./admin/inc/getService.php",
+        dataType: "json",
+        success: function(data) {
+            var html = "";
+            console.log(data);
+            $.each(data, function(index, service) {
+                html += "<div class='col-lg-4 col-md-6 mb-5 px-4'>";
+                html += "<div class='bg-white rounded shadow p-4 border-top border-4 border-dark pop'>";
+                html += "<div class='d-flex align-item-center mb-2'>";
+                html += "<img src='./admin/inc/uploads/" + service.image + "' width='40px'>";
+                html += "<h5 class='m-0 ms-3'>" + service.service_name + "</h5>";
+                html += "</div>";
+                html += "<p>" + service.service_description + "</p>";
+                html += "</div>";
+                html += "</div>";
+            });
+            $("#services-container").html(html);
+        }
+    });
+});
+</script>
              
  <?php require('inc/footer.php');?>
 
