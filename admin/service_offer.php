@@ -205,10 +205,10 @@
             var html = "";
             $.each(data, function(index, offer) {
                 html += "<tr>";
-                html += "<td>" + offer.id + "</td>";
-                html += "<td><img src='./inc/uploads/" + offer.image + "' height='50px' width='50px'></td>";
+                html += "<td>" + offer.offer_id + "</td>";
+                html += "<td><img src='./inc/uploads/" + offer.offer_image + "' height='50px' width='50px'></td>";
                 html += "<td>" + offer.offer_name + "</td>";
-                html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + offer.id + "'>Delete</a></td>";
+                html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + offer.offer_id + "'>Delete</a></td>";
                 html += "</tr>";
             });
             $("#service-data").html(html);
@@ -223,11 +223,11 @@
             var html = "";
             $.each(data, function(index, row) {
                 html += "<tr>";
-                html += "<td>" + row.id + "</td>";
-                html += "<td><img src='./inc/uploads/" + row.image + "' height='50px' width='50px'></td>";
+                html += "<td>" + row.service_id + "</td>";
+                html += "<td><img src='./inc/uploads/" + row.service_image + "' height='50px' width='50px'></td>";
                 html += "<td>" + row.service_name + "</td>";
                 html += "<td>" + row.service_description + "</td>";
-                html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + row.id + "'>Delete</a></td>";
+                html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + row.service_id + "'>Delete</a></td>";
                 html += "</tr>";
             });
             $("#offers").html(html);
@@ -242,7 +242,6 @@
                 data: { id: id },
                 success: function() {
                     window.location.reload();
-                    $(this).closest("tr").remove();
                 }
             });
             $.ajax({ 

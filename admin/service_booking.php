@@ -1,6 +1,6 @@
 <?php 
-require('inc/essentials.php'); 
-adminLogin();
+// require('inc/essentials.php'); 
+// adminLogin();
 ?>
 
 <!DOCTYPE html>
@@ -173,6 +173,12 @@ adminLogin();
     function resetForm() {
         document.getElementById('add_service_booking_form').reset();
     }
+    $(document).ready(function() {
+        $('#add_service_booking_form').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+        });
+    });
 </script>
 
 <?php require('inc/scripts.php'); ?>

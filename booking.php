@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <?php require('inc/links.php');?>
     
-   
 
   
 
@@ -88,101 +87,55 @@
        </div>
 
         <div class="col-lg-9 col-md-12 px-4">
-           <div class="card mb-4 border-0 shadow">
-            <div class="row g-0 p-3 align-items-center">
-              <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
-                <img src="images/carousel//Grooming-1.jpg" class="img-fluid rounded">
-              </div>
-              <div class="col-md-3 px-lg-3 px-md-3 px">
-                <h5 class="mb-3">Groom</h5>
-                <div class="service-types mb-4">
-                  <h6 class="mb-1">Services</h6>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">Full Body Bathing</span>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">Ear Cleaning</span>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">Nail Clippings</span>
-                  </div>
-                      <div class="slot mb-4">
-                    <h6>Available Slot</h6>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">5</span>
-                </div>
-              </div>
-              <div class="col-md-2 text-align-center">
-                 <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2">Book Now</a>
-                 <a href="#" class="btn btn-sm w-100 text-white shadow-none mb-2" style="background-color: gray;">Details</a>
-              </div>
-            </div>
-          </div>
+          <div id="services"></div>
 
-          <div class="card mb-4 border-0 shadow">
-            <div class="row g-0 p-3 align-items-center">
-              <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
-                <img src="images/carousel/checkup.jpg" class="img-fluid rounded">
-              </div>
-              <div class="col-md-3 px-lg-3 px-md-3 px">
-                <h5 class="mb-3">Cheeckup</h5>
-                <div class="service-types mb-3">
-                <h6 class="mb-1">Services</h6>
-                   <span class="badge rounded-pill bg-light text-dark text-wrap">General Wellness</span>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Puppy/Kitten</span>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Senior Pet</span>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Vaccination</span>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Behavioral</span>
-                </div>
-                                <div class="slot mb-4">
-                  <h6>Available Slot</h6>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">5</span>
-                </div>
-              </div>
-              <div class="col-md-2 text-align-center">
-                 <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2">Book Now</a>
-                 <a href="#" class="btn btn-sm w-100 text-white shadow-none mb-2" style="background-color: gray;">Details</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="card mb-4 border-0 shadow">
-            <div class="row g-0 p-3 align-items-center">
-              <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
-                <img src="images/carousel/Vaccine.jpg" class="img-fluid rounded">
-              </div>
-              <div class="col-md-3 px-lg-3 px-md-3 px">
-                  <h5 class="mb-3">Vaccine</h5>
-                  <div class="service-types mb-3">
-                    <h6 class="mb-1">Services</h6>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Rabies Vaccine</span>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Canine Influenza</span>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">Feline Leukemia Virus</span>
-                    </div>
-                      <div class="slot mb-4">
-                    <h6>Available Slot</h6>
-                    <span class="badge rounded-pill bg-light text-dark text-wrap">5</span>
-                  </div>
-              </div>
-              
-              <div class="col-md-2 text-align-center">
-                 <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2">Book Now</a>
-                 <a href="#" class="btn btn-sm w-100 text-white shadow-none mb-2" style="background-color: gray;">Details</a>
-              </div>
-            </div>
-          </div>
-
-          </div>
-          
-
-          
 
 
 
+          </div>
     </div>
   </div>
-
-
-             
+  
+  <script>
+    $(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "./admin/inc/getService.php",
+        dataType: "json",
+        success: function(data) {
+            var html = "";
+            console.log(data);
+            $.each(data, function(index, service) {
+                html += `<div class="card mb-4 border-0 shadow">
+            <div class="row g-0 p-3 align-items-center">
+              <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
+                <img height=100px width=200px src="./admin/inc/uploads/`+service.service_image+`" class="img-fluid rounded">
+              </div>
+              <div class="col-md-3 px-lg-3 px-md-3 px">
+                <h5 class="mb-3">`+service.service_name+`</h5>
+                <div class="service-types mb-4">
+                  <h6 class="mb-1">Services</h6>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
+                  <span class="badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
+                  </div>
+                      <div class="slot mb-4">
+                    <h6>Available Slot</h6>
+                    <span class="badge rounded-pill bg-light text-dark text-wrap">5</span>
+                </div>
+              </div>
+              <div class="col-md-2 text-align-center">
+                 <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2">Book Now</a>
+                 <a href="#" class="btn btn-sm w-100 text-white shadow-none mb-2" style="background-color: gray;">Details</a>
+              </div>
+            </div>
+          </div>`;
+            });
+            $("#services").html(html);
+        }
+    });
+});
+  </script>
  <?php require('inc/footer.php');?>
-
-
-
-
-
 </body>
 </html>

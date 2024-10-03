@@ -14,13 +14,7 @@
     <?php require('inc/header.php'); ?>
 </head>
 <body class="bg-light">
-
-
-
-
-        
-
-           
+   
     <?php require('inc/scripts.php');?>
     
 </body>

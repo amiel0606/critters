@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2024 at 02:05 AM
+-- Generation Time: Oct 03, 2024 at 05:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,17 +28,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_offers` (
-  `id` int(255) NOT NULL,
+  `offer_id` int(255) NOT NULL,
   `offer_name` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `offer_image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_offers`
 --
 
-INSERT INTO `tbl_offers` (`id`, `offer_name`, `image`) VALUES
-(11, 'ewan dito eh HAHAH', '66fddf99736a00.13275949.jpg');
+INSERT INTO `tbl_offers` (`offer_id`, `offer_name`, `offer_image`) VALUES
+(20, 'Blood test', '66fe0e6d764957.98187899.png');
 
 -- --------------------------------------------------------
 
@@ -47,18 +47,19 @@ INSERT INTO `tbl_offers` (`id`, `offer_name`, `image`) VALUES
 --
 
 CREATE TABLE `tbl_services` (
-  `id` int(255) NOT NULL,
+  `service_id` int(255) NOT NULL,
   `service_name` varchar(255) NOT NULL,
   `service_description` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `service_image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_services`
 --
 
-INSERT INTO `tbl_services` (`id`, `service_name`, `service_description`, `image`) VALUES
-(3, 'Vaccination', 'We vaccine hehe', '66fddf8694f7b1.46609844.png');
+INSERT INTO `tbl_services` (`service_id`, `service_name`, `service_description`, `service_image`) VALUES
+(7, 'Vaccination', 'Pharvo', '66fe0b445268b0.33572491.png'),
+(8, 'Checkup', 'Tootbrush', '66fe0e7d797b70.54119985.png');
 
 --
 -- Indexes for dumped tables
@@ -68,13 +69,13 @@ INSERT INTO `tbl_services` (`id`, `service_name`, `service_description`, `image`
 -- Indexes for table `tbl_offers`
 --
 ALTER TABLE `tbl_offers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`offer_id`);
 
 --
 -- Indexes for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`service_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -84,13 +85,13 @@ ALTER TABLE `tbl_services`
 -- AUTO_INCREMENT for table `tbl_offers`
 --
 ALTER TABLE `tbl_offers`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `offer_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

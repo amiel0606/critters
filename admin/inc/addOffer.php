@@ -8,7 +8,7 @@ move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $img);
 
 $service_name = $_POST['offer_name'];
 $service_description = $_POST['discription_name'];
-$sql = "INSERT INTO tbl_services(service_name, service_description, image) VALUES (?, ?, ?)";
+$sql = "INSERT INTO tbl_services(service_name, service_description, service_image) VALUES (?, ?, ?)";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
     header("location: ./service_offer.php?stmtFailed");

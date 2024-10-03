@@ -7,7 +7,7 @@ $img = uniqid('', true) . '.' . $fileExtension;
 move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $img);
 
 $service_name = $_POST['offer_name'];
-$sql = "INSERT INTO tbl_offers(offer_name, image) VALUES (?, ?)";
+$sql = "INSERT INTO tbl_offers(offer_name, offer_image) VALUES (?, ?)";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
     header("location: ./service_offer.php?stmtFailed");
