@@ -18,13 +18,13 @@
 <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-            <h4 class="mb-4">SERVICE & OFFERS</h4>
+            <h4 class="mb-4">SERVICE & CATEGORY</h4>
 
             <!-- Service List -->
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="card-title m-0">Offer</h5>
+                        <h5 class="card-title m-0">Category</h5>
                         <!-- Trigger Modal for Service -->
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#service-s">
                             <i class="bi bi-plus-square"></i> Add
@@ -79,7 +79,7 @@
                     <form action="./inc/addService.php" method="post" enctype="multipart/form-data">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="serviceModalLabel">Add Offer</h1>
+                                <h1 class="modal-title fs-5" id="serviceModalLabel">Add Category</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -222,6 +222,7 @@
         success: function(data) {
             var html = "";
             $.each(data, function(index, row) {
+                console.log(row);
                 html += "<tr>";
                 html += "<td>" + row.service_id + "</td>";
                 html += "<td><img src='./inc/uploads/" + row.service_image + "' height='50px' width='50px'></td>";

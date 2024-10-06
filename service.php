@@ -58,7 +58,7 @@ $(document).ready(function() {
                 html += "<div class='col-lg-4 col-md-6 mb-5 px-4'>";
                 html += "<div class='bg-white rounded shadow p-4 border-top border-4 border-dark pop'>";
                 html += "<div class='d-flex align-item-center mb-2'>";
-                html += "<img src='./admin/inc/uploads/" + service.image + "' width='40px'>";
+                html += "<img src='./admin/inc/uploads/" + service.service_image + "' width='40px'>";
                 html += "<h5 class='m-0 ms-3'>" + service.service_name + "</h5>";
                 html += "</div>";
                 html += "<p>" + service.service_description + "</p>";

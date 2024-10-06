@@ -115,9 +115,9 @@
                 <h5 class="mb-3">`+service.service_name+`</h5>
                 <div class="service-types mb-4">
                   <h6 class="mb-1">Services</h6>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
-                  <span class="badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
+                  <span class="offer badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
+                  <span class="offer badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
+                  <span class="offer badge rounded-pill bg-light text-dark text-wrap">`+service.offer_name+`</span>
                   </div>
                       <div class="slot mb-4">
                     <h6>Available Slot</h6>
@@ -133,6 +133,16 @@
             });
             $("#services").html(html);
         }
+    });
+    $.ajax({
+      type: "GET",
+      url: "./admin/inc/getOffers.php",
+      dataType: "json",
+      success: function(data) {
+        $.each(data, function(index, offer) {
+          $(".offer").text(offer.offer_name);
+        });
+      }
     });
 });
   </script>

@@ -53,31 +53,60 @@
 
         <?php 
 
-            if(isset($_POST['login'])) {
-                $frm_data = filteration($_POST);
+            // if(isset($_POST['login'])) {
+            //     $frm_data = filteration($_POST);
 
                 
-                $query = "SELECT * FROM `admin_cred` WHERE `admin_name`=? AND `admin_pass`=?";
-                $values = [$frm_data['admin_name'], $frm_data['admin_pass']]; 
+            //     $query = "SELECT * FROM `admin_cred` WHERE `admin_name`=? AND `admin_pass`=?";
+            //     $values = [$frm_data['admin_name'], $frm_data['admin_pass']]; 
 
-                $res = select($query, $values, "ss");
+            //     $res = select($query, $values, "ss");
 
-                if($res->num_rows == 1) {
-                    $row = mysqli_fetch_assoc($res); 
+            //     if($res->num_rows == 1) {
+            //         $row = mysqli_fetch_assoc($res); 
 
                 
-                    $_SESSION['adminLogin'] = true;
-                    $_SESSION['adminId'] = $row['sr_no'];
-                    redirect('dashboard.php');
+            //         $_SESSION['adminLogin'] = true;
+            //         $_SESSION['adminId'] = $row['sr_no'];
+            //         redirect('dashboard.php');
                 
-                } else {
-                    alert('error', 'Login failed - Invalid Credentials!');
-                }
-            }
+            //     } else {
+            //         alert('error', 'Login failed - Invalid Credentials!');
+            //     }
+            // }
 
             
         ?>
              
+
+        <!--Password reset modal and code-->
+        <div class="modal fade" id="recoveryModal" data-bs-backdrop="static" data-data-bs-keyboard="false" tabindex="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="recovery-form">
+                        <div class="modal-header">
+                            <h5 class="modal-title d-flex align-items-center">
+                                <i class="bi bi-shield-lock fs-3 me-2"></i>Set Up new Password
+                            </h5> 
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-4">
+                                <label class="form-label">New Password</label>
+                                <input type="pw" name="pass" required class="form-control shadow-none">
+                            </div>
+                        
+                            <div class="mb-2 text-end">
+                                
+                                <button type="button" class="btn  shadow-none p-0 me-2" data-data-bs-dismiss="modal">Cancel
+                                </button>
+                                <button type="submit" class="btn btn-dark shadow-none">Submit</button>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+     </div>
              
             
 

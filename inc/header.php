@@ -82,22 +82,45 @@
       <div class="modal-body">
       <div class="container-fluid"> 
         <div class="row">
-          <div class="col-md-6 ps-0 mb-3">
-            <label class="form-label">First Name</label>
-                    <input type="text" class="form-control shadow-none">
-                </div>
-            <div class="col-md-6 ps-0 mb-3">
-                <label class="form-label">Last Name</label>
-                     <input type="text" class="form-control shadow-none">
-             </div>
+              <div class="col-md-6 ps-0 mb-3">
+                 <label class="form-label">Name</label>
+                 <input type="text" class="form-control shadow-none">
+              </div>
+
              <div class="col-md-6">
                 <label class="form-label">Email</label>
-                     <input type="email" class="form-control shadow-none">
-                    </div>
+                <input type="email" class="form-control shadow-none">
+            </div>
+
              <div class="col-md-6 ps-0 mb-3">
                    <label class="form-label">Phone Number</label>
-                    <input type="number" class="form-control shadow-none">
-              </div>   
+                    <input type="phonenum" class="form-control shadow-none">
+              </div> 
+
+              <div class="col-md-6 ps-0 mb-3">
+                 <label class="form-label">Picture</label>
+                 <input name="profile" type="file" accept=".jpg, .jpng, .png, .webp" class="form-control shadow-none" required>
+              </div>
+
+              <div class="col-md-6 ps-0 mb-3">
+                   <label class="form-label">Pet Name</label>
+                    <input type="pet-name" class="form-control shadow-none">
+              </div>
+
+              <div class="col-md-6 ps-0 mb-3">
+                   <label class="form-label">Pet Type</label>
+                    <input type="pet-type" class="form-control shadow-none">
+              </div>
+
+              <div class="col-md-6 ps-0 mb-3">
+                 <label class="form-label">Pet Picture</label>
+                 <input name="pet-profile" type="file" accept=".jpg, .jpng, .png, .webp" class="form-control shadow-none" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Address</label>
+                <input type="address" class="form-control shadow-none">
+            </div>
 
              <div class="col-md-6 ps-0 mb-3">
                   <label class="form-label">Password</label>
@@ -105,7 +128,7 @@
             </div>
             <div class="col-md-6 p-0 mb-3">
                 <label class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control shadow-none">   
+                  <input type="password" class="form-control shadow-none"> 
               </div>
                 </div>
             <div class="text-center my-1">
