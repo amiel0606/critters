@@ -21,12 +21,5 @@
         
     }
 
-    xhr.onload = function() {
-    try {
-        general_data = JSON.parse(this.responseText);
-        // Rest of your code
-    } catch (e) {
-        console.error("Error parsing JSON: ", this.responseText);
-    }
-};
+
 </script>

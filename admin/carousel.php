@@ -38,7 +38,7 @@
             <!-- Carousel Modal -->
             <div class="modal fade" id="carousel-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="carousel_s_form">
+                    <form action="./inc/addCarousel.php" method="post" enctype="multipart/form-data">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5">Add Image</h1>
@@ -46,12 +46,8 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Name</label>
-                                    <input type="text" name="member_name" id="member_name_inp" class="form-control shadow-none" required>
-                                </div>
-                                <div class="mb-3">
                                     <label class="form-label fw-bold">Picture</label>
-                                    <input type="file" name="carousel_picture" id="carousel_picture_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>
+                                    <input type="file" name="img1" id="carousel_picture_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>
                                 </div>
                             </div>
                             <div class="modal-footer">

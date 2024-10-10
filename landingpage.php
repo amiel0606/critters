@@ -334,7 +334,7 @@
 
 
 
- 
+            <script src="https://cdn.jsdelivr.net/npm/swiper@8.3.2/dist/swiper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
@@ -378,6 +378,33 @@
       },
       }
     });
+fetch('./admin/inc/showImage.php')
+    .then(response => response.json())
+    .then(data => {
+        const swiperWrapper = document.querySelector('.swiper-wrapper');
+
+        swiperWrapper.innerHTML = '';
+
+        data.forEach(item => {
+          console.log(item);
+            const carouselItem = document.createElement('div');
+            carouselItem.className = 'swiper-slide'; 
+            carouselItem.innerHTML = `<img src="./admin/inc/uploads/${item.img1}" class="w-100 d-block" alt="${item.id}">`;
+            swiperWrapper.appendChild(carouselItem);
+        });
+
+        const swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    })
+    .catch(error => console.error('Error:', error));
 </script>
 
 </body>

@@ -36,37 +36,12 @@
                             <thead class="sticky-top">
                                 <tr class="bg-dark text-light">
                                     <th scope="col">#</th>
-                                    <th scope="col">Image</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="service-data">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nail Clippings</td>
-                                    <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>General Wellness</td>
-                                    <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Rabies Vaccine</td>
-                                    <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Tooth Brushing</td>
-                                    <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Vaccination</td>
-                                    <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -206,7 +181,6 @@
             $.each(data, function(index, offer) {
                 html += "<tr>";
                 html += "<td>" + offer.offer_id + "</td>";
-                html += "<td><img src='./inc/uploads/" + offer.offer_image + "' height='50px' width='50px'></td>";
                 html += "<td>" + offer.offer_name + "</td>";
                 html += "<td><a class='btn btn-sm rounded-pill btn-danger delete-btn' data-id='" + offer.offer_id + "'>Delete</a></td>";
                 html += "</tr>";

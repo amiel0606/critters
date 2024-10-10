@@ -64,7 +64,7 @@
             <!-- Add Service Booking Modal -->
             <div class="modal fade" id="add-service-booking" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="add_service_booking_form" autocomplete="off">
+                    <form id="./inc/addBooking.php" autocomplete="off" method="post">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="serviceModalLabel">Add Service Booking</h1>
@@ -74,46 +74,14 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold">Name</label>
-                                        <input type="text" name="name" class="form-control shadow-none" required>
+                                        <input type="text" name="bookingName" class="form-control shadow-none" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold">Slot</label>
                                         <input type="number" name="slot" class="form-control shadow-none" required>
                                     </div>
 
-                                    <!-- Offers Section with Checkboxes -->
-                                    <div class="col-12 mb-3">
-                                        <label class="form-label fw-bold">Category</label>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="offers[]" value="Nail Clippings" id="nail-clippings">
-                                                    <label class="form-check-label" for="nail-clippings">Nail Clippings</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="offers[]" value="Rabies Vaccine" id="rabies-vaccine">
-                                                    <label class="form-check-label" for="rabies-vaccine">Rabies Vaccine</label>
-                                                </div>
-                                            </div>
-                                            <!-- Additional checkboxes -->
-                                        </div>
-                                    </div>
 
-                                    <!-- Service Section with Checkboxes -->
-                                    <div class="col-12 mb-3">
-                                        <label class="form-label fw-bold">Service</label>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="service[]" value="Groom" id="groom-service">
-                                                    <label class="form-check-label" for="groom-service">Groom</label>
-                                                </div>
-                                            </div>
-                                            <!-- Additional checkboxes -->
-                                        </div>
-                                    </div>
 
                                     <div class="col-12 mb-3">
                                         <label class="form-label fw-bold">Description</label>
@@ -250,7 +218,34 @@
             var formData = new FormData(this);
         });
     });
+    $(document).ready(function() {
+    $('form').submit(function(event) {
+        event.preventDefault();
+        var formData = {
+            bookingName: $('input[name="bookingName"]').val(),
+            slot: $('input[name="slot"]').val(),
+            description: $('textarea[name="description"]').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: './inc/addBooking.php',
+            data: formData,
+            dataType: 'json',
+            encode: true
+        })
+        .done(function(data) {
+            console.log(data);
+            if (data.status === 'success') {
+                alert('Booking added successfully');
+                $('form')[0].reset();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        });
+    });
+});
+
 </script>
 
 <?php require('inc/scripts.php'); ?>
-<script src="scripts/settings
