@@ -1,4 +1,3 @@
-
 <?php 
 //  require('inc/essentials.php'); 
 //  adminLogin();
@@ -84,5 +83,4 @@ function resetForm() {
 
 
 </body>
-</html>
-
+</html

@@ -95,6 +95,7 @@
                                                 <th scope="col">Icon</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Description</th>
+                                                <th scope="col">Price</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -142,8 +143,13 @@
                                                 <input type="text" name="offer_name" id="offer_name_inp" class="form-control shadow-none" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label fw-bold">Icon</label>
+                                                <label class="form-label fw-bold">Image</label>
                                                 <input type="file" name="image" id="offer_icon_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>
+                                            </div>
+                                            <div class="mb-3">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Price</label>
+                                                <input type="text" name="price" id="offer_icon_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Description</label>

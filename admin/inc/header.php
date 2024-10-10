@@ -41,9 +41,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="users.php">User</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="service_booking.php">Booking</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link text-white" href="user_queries.php">User Queries</a>
                         </li>

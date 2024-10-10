@@ -61,11 +61,5 @@
     </div>
 </div>
 
-<script>
-    function resetForm() {
-        document.getElementById('add_service_booking_form').reset();
-    }
-</script>
-
 <?php require('inc/scripts.php'); ?>
 <script src="scripts/users.js
