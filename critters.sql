@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2024 at 05:26 AM
+-- Generation Time: Oct 10, 2024 at 02:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,41 @@ SET time_zone = "+00:00";
 --
 -- Database: `critters`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_bookings`
+--
+
+CREATE TABLE `tbl_bookings` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slot` int(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_images`
+--
+
+CREATE TABLE `tbl_images` (
+  `id` int(11) NOT NULL,
+  `img1` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_images`
+--
+
+INSERT INTO `tbl_images` (`id`, `img1`) VALUES
+(6, '6707256e1d0573.46051183.jpg'),
+(7, '67072572c8a1a3.55075689.jpg'),
+(8, '6707257813a8a0.66644681.jpg'),
+(9, '6707257c72fbd0.88243231.jpg'),
+(10, '67072581689195.06162654.jpg');
 
 -- --------------------------------------------------------
 
@@ -66,6 +101,18 @@ INSERT INTO `tbl_services` (`service_id`, `service_name`, `service_description`,
 --
 
 --
+-- Indexes for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_images`
+--
+ALTER TABLE `tbl_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_offers`
 --
 ALTER TABLE `tbl_offers`
@@ -80,6 +127,18 @@ ALTER TABLE `tbl_services`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_images`
+--
+ALTER TABLE `tbl_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_offers`
