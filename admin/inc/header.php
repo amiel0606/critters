@@ -6,7 +6,6 @@
         <a href="logout.php" class="btn btn-light btn-sm">LOG OUT</a>
     </div>
 
-  
     <div class="col-lg-2 bg-danger border-top border-3 border-secondary" id="dashboard-menu">
         <nav class="navbar navbar-expand-lg navbar-danger">
             <div class="container-fluid flex-lg-column align-items-stretch">
@@ -28,13 +27,11 @@
                             <ul class="nav nav-pills flex-column rounded border border-secondary">
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="new_bookings.php">New Bookinsg</a>
+                                    <a class="nav-link text-white" href="new_bookings2.php">New Bookinsg</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="bookings_record.php">Bookings Record</a>
+                                    <a class="nav-link text-white" href="bookings_record2.php">Bookings Record</a>
                                 </li>
-                               
-                               
                             </ul>
                         </div>
                         </li>
@@ -130,7 +127,6 @@
                                     <label class="form-label">Pet Name</label>
                                     <textarea name="pet-name" class="form-control shadow-none" row="1"required></textarea>     
                                 </div>
-
                                 <div class="col-md-6 ps-0 mb-3">
                                     <label class="form-label">Pet Picture</label>
                                     <input name="pet-profile" type="file" accept=".jpg, .jpng, .png, .webp" class="form-control shadow-none" required>

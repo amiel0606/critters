@@ -40,9 +40,7 @@
                                 <tr class="bg-dark text-light">
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col" width="20%">Subject</th>
-                                    <th scope="col" width="30%">Message</th>
+                                    <th scope="col">Email</th>      
                                     <th scope="col">Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -53,7 +51,6 @@
                                     <td>1</td>
                                     <td>John Doe</td>
                                     <td>johndoe@example.com</td>
-                                    <td>Subject Example</td>
                                     <td>This is a sample message.</td>
                                     <td>2024-09-30</td>
                                     <td>

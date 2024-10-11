@@ -19,7 +19,6 @@
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
             <h4 class="mb-4">SERVICE & CATEGORY</h4>
-
             <!-- Service List -->
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
@@ -30,18 +29,16 @@
                             <i class="bi bi-plus-square"></i> Add
                         </button>
                     </div>
-
                     <div class="table-responsive-md" style="height: 350px; overflow-y: scroll;">
                         <table class="table table-hover border">
-                            <thead class="sticky-top">
+
                                 <tr class="bg-dark text-light">
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Action</th>
                                 </tr>
-                            </thead>
-                            <tbody id="service-data">
-                                
+
+                            <tbody id="service-data">   
                             </tbody>
                         </table>
                     </div>
@@ -86,7 +83,6 @@
                                         <i class="bi bi-plus-square"></i> Add
                                     </button>
                                 </div>
-
                                 <div class="table-responsive-md" style="height: 300px; overflow-y: scroll;">
                                     <table class="table table-hover border">
                                         <thead class="sticky-top">
@@ -94,33 +90,35 @@
                                                 <th scope="col">#</th>
                                                 <th scope="col">Icon</th>
                                                 <th scope="col">Name</th>
+                                                <th scope="col">Category</th>
                                                 <th scope="col">Description</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="offers">
+                                        <tbody id="offers">  
                                             <tr>
                                                 <td>1</td>
-                                                <td><img src="images/features/grooms.png" width="100px"></td>
-                                                <td>Groom</td>
-                                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!</td>
-                                                <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td><img src="images/features/diagnostic-icon.webp" width="100px"></td>
-                                                <td>Checkup</td>
-                                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!</td>
-                                                <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
                                                 <td><img src="images/features/syringe.png" width="100px"></td>
                                                 <td>Vaccine</td>
+                                                <td>
+                                                <select name="service" id="vaccine">
+                                                <option value="4in1">4in1</option>
+                                                <option value="saab">Saab</option>
+                                                <option value="mercedes">Mercedes</option>
+                                                <option value="audi">Audi</option>
+                                                </select>
+
+                                                </td>
                                                 <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quaerat non nam aperiam exercitationem neque a!</td>
-                                                <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a></td>
+                                                <td>Price</td>
+                                                <td><a class='btn btn-sm rounded-pill btn-danger'>Delete</a>
+                                                <a class='btn btn-sm rounded-pill btn-primary'>Edit</a>
+                                            
+                                                </td>
+                                                
                                             </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -142,6 +140,7 @@
                                                 <label class="form-label fw-bold">Name</label>
                                                 <input type="text" name="offer_name" id="offer_name_inp" class="form-control shadow-none" required>
                                             </div>
+                                           
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold">Image</label>
                                                 <input type="file" name="image" id="offer_icon_inp" class="form-control shadow-none" accept=".jpg,.jpeg,.png" required>

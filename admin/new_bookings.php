@@ -1,8 +1,6 @@
-
-
 <?php 
-require('inc/essentials.php'); 
-adminLogin();
+//  require('inc/essentials.php'); 
+//  adminLogin();
 ?>
 
 <!DOCTYPE html>
@@ -20,48 +18,52 @@ adminLogin();
 <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-            <h3 class="mb-4">New Bookings</h3>
+            <h4 class="mb-4">New Bookings</h4>
 
-            <!-- Service Booking List -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <div class="text-end mb-3">
-                        <!-- Trigger Modal for Service -->
-                        <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#add-service-booking">
-                            <i class="bi bi-plus-square"></i> Add
-                        </button> 
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table table-hover border">
-                            <thead class="sticky-top">
-                                <tr class="bg-dark text-light">
-                                    <th scope="col">#</th>
-                                    <th scope="col">User Details</th>
-                                    <th scope="col">Bookins Details</th>
-                                    <th scope="col">Action</th>
-                                </tr>-
-                            </thead>
-                            <tbody id="users-data">
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Pet's Name</th>
+                            <th>Owner's Name</th>
+                            <th>Breed</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Sample</td>
+                            <td>Sample</td>
+                            <td>Dog</td>
+                            <td>10-29-2004</td>
+                            <td>
+                                <button class="btn btn-success btn-sm">Accept Booking</button>
+                                <button class="btn btn-danger btn-sm">Cancel Booking</button>
+                            </td>
+                        </tr>
+                        <!-- You can add more rows as needed -->
+                    </tbody>
+                </table>
             </div>
 
- 
-           
+            <div class="mt-4">
+                <h5>Accept Booking</h5>
+                <form action="./inc/acceptBooking.php" method="post">
+                    <div class="mb-3">
+                        <label for="patient_number" class="form-label">Patient Number</label>
+                        <input type="text" class="form-control" id="patient_number" name="patient_number" required>
+                        <div class="form-text">Note: Accept Booking ...</div>
+                    </div>
+                    <button type="submit" class="btn custom-bg text-white">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-    function resetForm() {
-        document.getElementById('add_service_booking_form').reset();
-    }
-</script>
-
 <?php require('inc/scripts.php'); ?>
-<script src="scripts/users.js
+</body>
+</html>

@@ -18,7 +18,13 @@
 <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="mb-4">User</h3>
+            <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search by pet or owner" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+</form>
+</div>
 
             <!-- Service Booking List -->
             <div class="card border-0 shadow-sm mb-4">
@@ -37,15 +43,10 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Phone No.</th>
-                                    <th scope="col">User Profile</th>
                                     <th scope="col">Pet Name</th>
                                     <th scope="col">Pet Type</th>
-                                    <th scope="col">Address</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Verified</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="users_data"></tbody>

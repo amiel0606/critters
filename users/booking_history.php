@@ -81,45 +81,32 @@
             <h2>Booking History</h2>
 
             <!-- Booking History Section -->
-            <div class="profile-section">
-                <h4>Your Previous Bookings</h4>
-                <table class="table table-bordered booking-history-table">
-                    <thead class="table-dark">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
                         <tr>
+                            <th>#</th>
+                            <th>Pet's Name</th>
+                            <th>Owner's Name</th>
+                            <th>Breed</th>
                             <th>Service</th>
                             <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>General Checkup</td>
-                            <td>2024-10-01</td>
-                            <td>10:00 AM</td>
-                            <td>Completed</td>
-                        </tr>
-                        <tr>
-                            <td>Vaccination</td>
-                            <td>2024-09-15</td>
-                            <td>1:30 PM</td>
-                            <td>Completed</td>
-                        </tr>
-                        <tr>
-                            <td>Deworming</td>
-                            <td>2024-08-20</td>
-                            <td>9:00 AM</td>
-                            <td>Canceled</td>
-                        </tr>
-                        <tr>
+                            <td>1</td>
+                            <td>Sample</td>
+                            <td>Sample</td>
+                            <td>Dog</td>
                             <td>Grooming</td>
-                            <td>2024-07-12</td>
-                            <td>11:00 AM</td>
-                            <td>Completed</td>
+                            <td>10-29-2004</td>
+                           
                         </tr>
+                        <!-- You can add more rows as needed -->
                     </tbody>
                 </table>
-            </div>
 
         </div>
     </div>

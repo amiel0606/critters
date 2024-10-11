@@ -15,7 +15,6 @@
 
 <?php require('inc/header.php'); ?>
 
-
 <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
@@ -30,6 +29,9 @@
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#carousel-s">
                             <i class="bi bi-plus-square"></i> Add
                         </button>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="image-placeholder.jpg" alt="Image" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -57,7 +59,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -68,19 +69,8 @@ function resetForm() {
 }
 </script>
 
-
-
-
-
-
-
-    
-
-
 <?php require('inc/scripts.php');?>
 <script src="scripts/settings.js"></script>
 
-
-
 </body>
-</html
+</html>
