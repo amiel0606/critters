@@ -328,13 +328,8 @@
             </div>
           
                 
-            <?php require('inc/footer.php');?>
-
-
-
-
-
-            <script src="https://cdn.jsdelivr.net/npm/swiper@8.3.2/dist/swiper.min.js"></script>
+<?php require('inc/footer.php');?>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.3.2/dist/swiper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
@@ -404,7 +399,6 @@ fetch('./admin/inc/showImage.php')
             },
         });
     })
-    .catch(error => console.error('Error:', error));
 </script>
 
 </body>

@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if (isset($_GET['login']) && $_GET['login'] == 'success'): ?>
+    <script>
+        alert('Logged in successfully');
+    </script>
+<?php endif; ?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Critters Agrivet</a>
@@ -23,23 +31,22 @@
         </li>
       </ul>
       <div class="d-flex">
-          <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2 <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" data-bs-toggle="modal" data-bs-target="#loginModal">
               Login
           </button>
-          <button type="button" class="btn btn-outline-dark shadow-none" data-bs-toggle="modal" data-bs-target="#registerModal">
+          <button type="button" class="btn btn-outline-dark shadow-none <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" data-bs-toggle="modal" data-bs-target="#registerModal">
               Register
           </button>
-          <!-- input code here -->
             <!-- Dropdown -->
-    <div class="dropdown">
+    <div id="dropdown" class="dropdown <?php echo isset($_SESSION["id"]) ? "" : "invisible"; ?>">
         <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Ej Dev
+            <?php echo isset($_SESSION["firstName"]) ? $_SESSION["firstName"]." ".$_SESSION["lastName"] : ""; ?>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Pet Profile</a></li>
             <li><a class="dropdown-item" href="#">Booking History</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="./inc/logout.php">Logout</a></li>
         </ul>
     </div>
       </div>
@@ -48,10 +55,10 @@
 </nav>
 
 
-<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form>
+      <form action="./inc/login.php" method="post" >
         
       <div class="modal-header">
         <h5 class="modal-title d-flex align-items-center ">
@@ -61,15 +68,14 @@
       <div class="modal-body">
           <div class="mb-3">
                  <label for="form-label">Email address</label>
-                  <input type="email" class="form-control shadow--none">
+                  <input name="email" type="email" class="form-control shadow--none">
               </div>
               <div class="mb-3">
                   <label for="form-label">Password</label>
-                 <input type="password" class="form-control shadow--none">
+                 <input name="password" type="password" class="form-control shadow--none">
               </div>
               <div class="d-flex align-items-center justify-content-between  ">
-                <button type="submit"  class="btn btn-dark shadow-none">LOGIN</button>
-                <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
+                <button name="submit" type="submit"  class="btn btn-dark shadow-none">LOGIN</button>
               </div>
 
 
@@ -80,10 +86,10 @@
   </div>
 </div>
 
-<div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form>
+      <form action="./inc/register.php" method="post">
         
       <div class="modal-header">
         <h5 class="modal-title d-flex align-items-center ">
@@ -95,35 +101,36 @@
       <div class="container-fluid"> 
         <div class="row">
               <div class="col-md-6 ps-0 mb-3">
-                 <label class="form-label">Name</label>
-                 <input type="text" class="form-control shadow-none">
+                 <label class="form-label">First Name</label>
+                 <input name="Fname" type="text" class="form-control shadow-none">
+              </div>
+              <div class="col-md-6 ps-0 mb-3">
+                 <label class="form-label">Last Name</label>
+                 <input name="Lname" type="text" class="form-control shadow-none">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control shadow-none">
+                <input name="email" type="email" class="form-control shadow-none">
             </div>
               <div class="col-md-6 ps-0 mb-3">
                  <label class="form-label">Pet Type</label>
-                 <input type="text" class="form-control shadow-none">
+                 <input name="petType" type="text" class="form-control shadow-none">
               </div>
               <div class="col-md-6 ps-0 mb-3">
                  <label class="form-label">Pet Name</label>
-                 <input type="text" class="form-control shadow-none">
+                 <input name="petName" type="text" class="form-control shadow-none">
               </div>
-
-             
-            
              <div class="col-md-6 ps-0 mb-3">
                   <label class="form-label">Password</label>
-                 <input type="password" class="form-control shadow-none">
+                 <input name="password" type="password" class="form-control shadow-none">
             </div>
             <div class="col-md-6 p-0 mb-3">
                 <label class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control shadow-none"> 
+                  <input name="ConfPassword" type="password" class="form-control shadow-none"> 
               </div>
                 </div>
             <div class="text-center my-1">
-               <button type="submit" class="btn btn-dark shadow-none">REGISTER</button>
+               <button name="submit" type="submit" class="btn btn-dark shadow-none">REGISTER</button>
                 </div>
           </div>
           </div>

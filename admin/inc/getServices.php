@@ -1,8 +1,9 @@
 <?php
+require_once 'dbCon.php';
 
 function getOffers() {
-    require_once 'dbCon.php';
-    $sql = "SELECT * FROM tbl_offers";
+    global $conn;
+    $sql = "SELECT * FROM tbl_services";
     $result = $conn->query($sql);
     $offers = array();
     while ($row = $result->fetch_assoc()) {
