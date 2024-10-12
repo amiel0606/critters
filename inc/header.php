@@ -89,9 +89,9 @@ try {
             <?php echo isset($_SESSION["firstName"]) ? $_SESSION["firstName"]." ".$_SESSION["lastName"] : ""; ?>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Pet Profile</a></li>
-            <li><a class="dropdown-item" href="#">Booking History</a></li>
+            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+            <li><a class="dropdown-item" href="pet_profile.php">Pet Profile</a></li>
+            <li><a class="dropdown-item" href="booking_history.php">Booking History</a></li>
             <li><a class="dropdown-item" href="./inc/logout.php">Logout</a></li>
         </ul>
     </div>

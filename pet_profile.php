@@ -33,41 +33,12 @@
     </style>
 </head>
 <body>
-
+<?php
+  session_start();
+  require('inc/header.php');
+  ?>
     <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #cc0000;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="color: white;">Critters Agrivet</a>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Service</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Bookings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">About</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-                        Client's Name
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                        <li><a class="dropdown-item" href="pet_profile.php">Pet Profile</a></li>
-                        <li><a class="dropdown-item" href="booking_history.php">Booking History</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+ 
     <div class="container">
         <div class="profile-container">
             <h2>Pet Profile</h2>
@@ -121,9 +92,6 @@
             </div>
         </div>
     </div>
-
-  
-  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

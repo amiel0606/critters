@@ -51,28 +51,11 @@
     </style>
 </head>
 <body>
-
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #cc0000;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="color: white;">Critters Agrivet</a>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Service</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Bookings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white;">About</a>
-                </li>
-                <li class="nav-item dropdown">
+<?php
+  session_start();
+  require('inc/header.php');
+  ?>
+   
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
                         Client's Name
                     </a>
