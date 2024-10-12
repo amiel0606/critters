@@ -64,32 +64,13 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Icon</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Category</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="services">
-                                <tr>
-                                    <td>1</td>
-                                    <td><img src="images/features/syringe.png" width="50" height="50"></td>
-                                    <td>Vaccine</td>
-                                    <td>
-                                        <select name="service" id="vaccine" class="form-select">
-                                            <option value="4in1">4in1</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="mercedes">Mercedes</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                    </td>
-                                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                                    <td>$100</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-danger rounded-pill">Delete</button>
-                                        <button class="btn btn-sm btn-primary rounded-pill">Edit</button>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -127,7 +108,6 @@
             html += "<tr>";
             html += "<td>" + row.service_id + "</td>";
             html += "<td><img src='./inc/uploads/" + row.service_image + "' height='50' width='50'></td>";
-            html += "<td>" + row.service_name + "</td>";
             html += "<td>" + row.service_name + "</td>";
             html += "<td>" + row.service_description + "</td>";
             html += "<td>" + row.service_price + "</td>";

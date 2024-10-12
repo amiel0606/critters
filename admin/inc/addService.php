@@ -7,7 +7,7 @@ $img = uniqid('', true) . '.' . $fileExtension;
 move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $img);
 
 $service_name = $_POST['offer_name'];
-$description_name = $_POST['offer_name'];
+$description_name = $_POST['description'];
 $price = $_POST['price'];
 
 $sql = "INSERT INTO tbl_services(service_name, service_image, service_description, service_price) VALUES (?, ?, ?, ?)";
