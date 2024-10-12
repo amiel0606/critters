@@ -1,8 +1,3 @@
-<?php 
-//  require('inc/essentials.php'); 
-//  adminLogin();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,43 +101,10 @@
 
     
     <!-- Category Table -->
-    <div class="category-section">
-        <h6>Vaccine</h6>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Service Name</th>
-                        <th>Category Name</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="category">
-                    <tr>
-                        <td>Vaccine</td>
-                        <td>Anti-Rabies</td>
-                        <td>120</td>
-                        <td>
-                            <div class="d-flex justify-content-around">
-                                <button class="btn btn-sm btn-primary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- You can add more rows here as needed -->
-                </tbody>
-            </table>
-        </div>
-        <!-- Add New Category Form -->
-        <form method="POST" action="./inc/addCategory.php" class="d-flex mt-3">
-            <input type="text" name="category" placeholder="Add New Category" class="form-control me-2" required>
-            <input type="number" name="price" placeholder="Add Price" class="form-control me-2" required>
-            <button type="submit" class="btn btn-success">Add Category</button>
-        </form>
-
+     <div id="category-containers">
         
-    </div>
+     </div>
+    
 </div>
 
         </div>
@@ -156,48 +118,76 @@
 
     $(document).ready(function() {
         $.ajax({
-            type: "GET",
-            url: "./inc/getServices.php",
-            dataType: "json",
-            success: function(data) {
-                var html = "";
-                $.each(data, function(index, row) {
-                    html += "<tr>";
-                    html += "<td>" + row.service_id + "</td>";
-                    html += "<td><img src='./inc/uploads/" + row.service_image + "' height='50' width='50'></td>";
-                    html += "<td>" + row.service_name + "</td>";
-                    html += "<td>" + row.service_name + "</td>";
-                    html += "<td>" + row.service_description + "</td>";
-                    html += "<td>" + row.service_price + "</td>";
-                    html += "<td><button class='btn btn-sm btn-danger delete-btn' data-id='" + row.service_id + "'>Delete</button></td>";
-                    html += "</tr>";
-                });
-                $("#services").html(html);
-            }
-        });
+        type: "GET",
+        url: "./inc/getServices.php",
+        dataType: "json",
+        success: function(data) {
+            var html = "";
+            $.each(data, function(index, row) {
+            html += "<tr>";
+            html += "<td>" + row.service_id + "</td>";
+            html += "<td><img src='./inc/uploads/" + row.service_image + "' height='50' width='50'></td>";
+            html += "<td>" + row.service_name + "</td>";
+            html += "<td>" + row.service_name + "</td>";
+            html += "<td>" + row.service_description + "</td>";
+            html += "<td>" + row.service_price + "</td>";
+            html += "<td><button class='btn btn-sm btn-danger delete-btn' data-id='" + row.service_id + "'>Delete</button></td>";
+            html += "</tr>";
 
-        $.ajax({
-            type: "GET",
+            const categorySection = $("<div class='category-section'></div>");
+            const categoryHeader = $("<h6>" + row.service_name + "</h6>");
+            const categoryTableContainer = $("<div class='table-responsive'></div>");
+            const categoryTable = $("<table class='table table-bordered table-striped'></table>");
+            const categoryTableHead = $("<thead><tr><th>Service Name</th><th>Category Name</th><th>Price</th><th>Action</th></tr></thead>");
+            const categoryTableBody = $("<tbody class='categories'></tbody>");
+            categoryTable.append(categoryTableHead);
+            categoryTable.append(categoryTableBody);
+            categoryTableContainer.append(categoryTable);
+            categorySection.append(categoryHeader);
+            categorySection.append(categoryTableContainer);
+
+            const addCategoryForm = $("<form method='POST' action='./inc/addCategory.php' class='d-flex mt-3'></form>");
+            const categoryNameInput = $("<input type='text' name='category' placeholder='Add New Category' class='form-control me-2' required>");
+            const categoryParent = $("<input type='hidden' name='parent' value='" + row.service_id + "' readonly>");
+            const categoryPriceInput = $("<input type='number' name='price' placeholder='Add Price' class='form-control me-2' required>");
+            const addCategoryButton = $("<button type='submit' class='btn btn-success'>Add Category</button>");
+            addCategoryForm.append(categoryNameInput);
+            addCategoryForm.append(categoryParent);
+            addCategoryForm.append(categoryPriceInput);
+            addCategoryForm.append(addCategoryButton);
+            categorySection.append(addCategoryForm);
+
+            $("#category-containers").append(categorySection);
+
+            $.ajax({
+            type: "POST",
             url: "./inc/getCategories.php",
+            data: { service_id: row.service_id },
             dataType: "json",
-            success: function(data) {
-                var html = "";
-                $.each(data, function(index, row) {
-                    html += "<tr>";
-                    html += "<td>" + row.offer_parent + "</td>";
-                    html += "<td>" + row.offer_name + "</td>";
-                    html += "<td>" + row.offer_price + "</td>";
-                    html += `<td>
-                        <button class="btn btn-sm btn-primary" data-id='" + ${row.offer_id} +"'>Edit</button>
-                        <button class='btn btn-sm btn-danger delete-button' data-id='"${row.offer_id}"'>Delete</button>
-                    </td>`;
-                    html += "</tr>";
+            success: function(categories) {
+                $.each(categories, function(index, category) {
+                    const categoryRow = $("<tr></tr>");
+                    const serviceNameCell = $("<td>" + row.service_name + "</td>");
+                    const categoryNameCell = $("<td>" + category.category_name + "</td>");
+                    const categoryPriceCell = $("<td>" + category.category_price + "</td>");
+                    const actionCell = $("<td><div class='d-flex justify-content-around'>" +
+    "<button class='edit-categ btn btn-sm btn-primary' data-id='" + category.category_id + "'>Edit</button>" +
+    "<button class='delete-categ btn btn-sm btn-danger delete-button' data-id='" + category.category_id + "'>Delete</button>" +
+    "</div></td>");
+                    categoryRow.append(serviceNameCell);
+                    categoryRow.append(categoryNameCell);
+                    categoryRow.append(categoryPriceCell);
+                    categoryRow.append(actionCell);
+                    categoryTableBody.append(categoryRow);
                 });
-                $("#category").html(html);
-            }
+                }
+            });
+            });
+            $("#services").html(html);
+        }
         });
 
-        $(document).on("click", ".delete-btn", function() {
+        $(document).on("click", ".delete-categ", function() {
             var id = $(this).data("id");
             $.ajax({
                 type: "POST",
@@ -220,6 +210,47 @@
                 }
             });
         });
+
+        $(document).on('click', '.save-categ', function() {
+            const categoryId = $(this).data('id');
+            const row = $(this).closest('tr');
+            const categoryName = row.find('td:eq(1) input').val();
+            const categoryPrice = row.find('td:eq(2) input').val();
+            $.ajax({
+                type: "POST",
+                url: "./inc/updateCategory.php",
+                data: {
+                    id: categoryId,
+                    category_name: categoryName,
+                    category_price: categoryPrice
+                },
+                success: function(response) {
+                    console.log('Category updated successfully:', response);
+
+                    row.find('td:eq(1)').text(categoryName);
+                    row.find('td:eq(2)').text(categoryPrice);
+
+                    $(this).text('Edit').removeClass('save-categ').addClass('edit-categ');
+                },
+                error: function(error) {
+                    console.error('Error updating category:', error);
+                }
+            });
+        });
+
+        $(document).on('click', '.edit-categ', function() {
+            const categoryId = $(this).data('id');
+            const row = $(this).closest('tr');
+
+            const categoryName = row.find('td:eq(1)').text();
+            const categoryPrice = row.find('td:eq(2)').text();
+
+            row.find('td:eq(1)').html("<input type='text' class='form-control form-control-sm' value='" + categoryName + "'>");
+            row.find('td:eq(2)').html("<input type='number' class='form-control form-control-sm' value='" + categoryPrice + "'>");
+
+            $(this).text('Save').removeClass('edit-categ').addClass('save-categ');
+        });
+
     });
 </script>
 

@@ -37,23 +37,12 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Slot</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Service</th>
+                                    <th scope="col">Categories</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="booking-data">
-                                <!-- Example row with values -->
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Vaccination</td>
-                                    <td>5</td>
-                                    <td>Pending</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-warning bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#edit-service-booking"></button> <!-- Edit Button -->
-                                        <button class="btn btn-sm btn-gray bi bi-image-fill" data-bs-toggle="modal" data-bs-target="#booking-image" onclick="loadBookingImages(1, 'Vaccination')"></button> <!-- Image Button -->
-                                        <button class="btn btn-sm btn-danger bi bi-trash3"></button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -64,7 +53,7 @@
             <!-- Add Service Booking Modal -->
             <div class="modal fade" id="add-service-booking" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="./inc/addBooking.php" autocomplete="off" method="post">
+                    <form action="./inc/addBooking.php" method="post">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="serviceModalLabel">Add Service Booking</h1>
@@ -80,6 +69,34 @@
                                         <label class="form-label fw-bold">Slot</label>
                                         <input type="number" name="slot" class="form-control shadow-none" required>
                                     </div>
+                                    <!-- Service Section with Checkboxes -->
+                                    <div class="col-12 mb-3 ">
+                                        <label class="form-label fw-bold">Service</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check">
+                                                    <select name="service" id="service">
+                                                        <option value="">Select a service</option>
+                                                        <?php
+                                                        include './inc/getServicesArray.php';
+                                                        $data = json_decode(getBothTableData(), true);
+                                                        foreach ($data as $service) {
+                                                            echo "<option data-id='" . $service['service_id'] . "' value='" . $service['service_name'] . "'>" . $service['service_name'] . "</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- Additional checkboxes -->
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-bold">Categories</label>
+                                        <div class="row" id="offers-container">
+                                            <!-- checkboxes will be generated here -->
+                                        </div>
+                                    </div>
+
 
 
 
@@ -179,11 +196,11 @@
                     </div>
                     <div class="modal-body">
                         <div class="border-bottom border-3 pb-3 mb-3">
-                            <form id="add_image_form">
+                            <form action="./inc/addImageBooking.php" method="post" enctype="multipart/form-data">
                                 <label class="form-label fw-bold">Add Image</label>
                                 <input type="file" name="image" accept=".jpg, .png, .webp, .jpeg" class="form-control shadow-none mb-3" required>
-                                <button type="submit" class="btn custom-bg text-white shadow-none">ADD</button>
                                 <input type="hidden" name="booking_id" id="booking_id">
+                                <button type="submit" class="btn custom-bg text-white shadow-none">ADD</button>
                             </form>
                         </div>
                         <div class="table-responsive-lg" style="height: 350px; overflow-y: scroll;">
@@ -213,38 +230,117 @@
         document.getElementById('add_service_booking_form').reset();
     }
     $(document).ready(function() {
-        $('#add_service_booking_form').on('submit', function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
+        $('#service').on('change', function() {
+            var selectedOption = $(this).find('option:selected');
+            var selectedServiceId = selectedOption.attr('data-id');
+                $.ajax({
+                type: 'POST',
+                url: './inc/getCatArray.php',
+                data: { service_id: selectedServiceId },
+                dataType: 'json', 
+                success: function(data) {
+                    if (Array.isArray(data)) {
+                        var offersHtml = '';
+                        $.each(data, function(index, category) {
+                            offersHtml += '<div class="col-md-6">';
+                            offersHtml += '    <div class="form-check">';
+                            offersHtml += '        <label class="form-check-label" for="' + category.category_id + '">' + category.category_name + '</label>';
+                            offersHtml += '        <input class="form-check-input" type="checkbox" name="categories[]" value="' + category.category_name + '" id="' + category.category_id + '">';
+                            offersHtml += '    </div>';
+                            offersHtml += '</div>';
+                        });
+                        $('#offers-container').html(offersHtml);
+                    } else {
+                        console.error("Expected an array but got:", data);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
+            });
         });
-    });
-    $(document).ready(function() {
-    $('form').submit(function(event) {
-        event.preventDefault();
-        var formData = {
-            bookingName: $('input[name="bookingName"]').val(),
-            slot: $('input[name="slot"]').val(),
-            description: $('textarea[name="description"]').val()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: './inc/addBooking.php',
-            data: formData,
-            dataType: 'json',
-            encode: true
-        })
-        .done(function(data) {
-            console.log(data);
-            if (data.status === 'success') {
-                alert('Booking added successfully');
-                $('form')[0].reset();
-            } else {
-                alert('Error: ' + data.message);
+            $.ajax({
+            type: "GET",
+            url: "./inc/getBookings.php",
+            dataType: "json",
+            success: function(data) {
+                var html = '';
+                $.each(data, function(index, item) {
+                    html += '<tr>';
+                    html += '<th scope="row">' + item.id + '</th>';
+                    html += '<td>' + item.name + '</td>';
+                    html += '<td>' + item.slot + '</td>';
+                    html += '<td>' + item.service + '</td>';
+                    html += '<td>' + item.categories + '</td>';
+                    html += '<td>';
+                    html += '<button class="btn btn-sm btn-warning bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#edit-service-booking" data-id="'+ item.id + '>"</button>';
+                    html += '<button class="btn btn-sm btn-gray bi bi-image-fill image-btn" data-bs-toggle="modal" data-id="'+ item.id +'" data-bs-target="#booking-image"></button>'; 
+                    html += '<button class="btn btn-sm btn-danger bi bi-trash3" data-id="'+ item.id + '"></button>';
+                    html += '</td>';
+                    html += '</tr>';
+                });
+                $('#booking-data').html(html);
             }
         });
+
+        $(document).on('click', '.image-btn', function(event) {
+            const bookingID = $(event.target).data('id');
+            $("#booking_id").val(bookingID);            
+            $("#booking-image-data").empty();
+            $.ajax({
+                type: "GET",
+                url: "./inc/getSingleBooking.php",
+                data: { bookingID: bookingID },
+                dataType: "json",
+                success: function(data) {
+                    console.log(bookingID);
+                    if (data.length > 0) {
+                        $.each(data, function(index, item) {
+                            $("#booking-image-data").append(`
+                                <tr>
+                                    <td><img src="./inc/uploads/${item.img}" alt="No Image Available" width="50px" height="50px" /></td>
+                                    <td><button class="btn btn-danger delete-img" data-id="${item.id}" class="delete-btn">Delete</button></td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        $("#booking-image-data").append(`
+                            <tr>
+                                <td colspan="2">No images found for this booking.</td>
+                            </tr>
+                        `);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX request failed: ", textStatus, errorThrown);
+                    alert("An error occurred while fetching images. Please try again.");
+                }
+            });
+        });
+
+        $(document).on('click', '.delete-img', function(event) {
+            const bookingID = $(event.target).data('id');
+            $.ajax({
+                type: "POST",
+                url: "./inc/deleteBookingImage.php",
+                data: { bookingID: bookingID },
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    if (data.status ==='success') {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX request failed: ", textStatus, errorThrown);
+                    alert("An error occurred while deleting the image. Please try again.");
+                }
+            });
+        });
     });
-});
+
 
 </script>
 

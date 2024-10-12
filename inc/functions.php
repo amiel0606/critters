@@ -102,14 +102,14 @@ function loginUser($conn, $uName, $pwd) {
     $UserExists = userExist($conn,$uName);
 
     if ($UserExists == false) {
-        header("location: ../landing.php?error=WrongLogin");
+        header("location: ../landingpage.php?error=WrongLogin");
         exit();
     }
     $pwdHashed = $UserExists["password"];
     $checkPass = password_verify($pwd, $pwdHashed);
 
     if ($checkPass === false) {
-        header("location: ../landing.php?error=WrongLogin");
+        header("location: ../landingpage.php?error=WrongLogin");
         exit();
     }
     else if ($checkPass === true) {
@@ -118,6 +118,8 @@ function loginUser($conn, $uName, $pwd) {
         $_SESSION["username"] = $UserExists["username"];
         $_SESSION["firstName"] = $UserExists["firstName"];
         $_SESSION["lastName"] = $UserExists["lastName"];
+        $_SESSION["petName"] = $UserExists["petName"];
+        $_SESSION["petType"] = $UserExists["petType"];
         header("Location: ../landingpage.php?login=success"); 
 
     }

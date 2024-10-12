@@ -21,12 +21,9 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="mb-4">New Bookings</h4>
               <!-- Search Bar -->
-              <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search by pet or owner" aria-label="Search">
             <button class="btn btn-outline-primary" type="submit">Search</button>
-        </form>
     </div>
-
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -40,29 +37,42 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Sample</td>
-                            <td>Sample</td>
-                            <td>Dog</td>
-                            <td>Grooming</td>
-                            <td>10-29-2004</td>
-                            <td>
-                                <button class="btn btn-success btn-sm">Accept Booking</button>
-                                <button class="btn btn-danger btn-sm">Cancel Booking</button>
-                            </td>
-                        </tr>
-                        <!-- You can add more rows as needed -->
+                    <tbody id="appointments">
+                        <!-- Data will be appended here -->
                     </tbody>
                 </table>
             </div>
-
-            
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "inc/getAppointments.php",
+        dataType: "json",
+        success: function(data) {
+            var tableBody = $("#appointments");
+            tableBody.empty();
+            $.each(data, function(index, appointment) {
+                tableBody.append("<tr>");
+                tableBody.append("<td>" + appointment.appointment_id + "</td>");
+                tableBody.append("<td>" + appointment.petName + "</td>");
+                tableBody.append("<td>" + appointment.ownerName + "</td>");
+                tableBody.append("<td>" + appointment.petType + "</td>");
+                tableBody.append("<td>" + appointment.name + "</td>");
+                tableBody.append("<td>" + appointment.booking_date + "</td>");
+                tableBody.append("<td>");
+                tableBody.append("<button class='btn btn-success btn-sm'>Accept Booking</button>");
+                tableBody.append("<button class='btn btn-danger btn-sm'>Cancel Booking</button>");
+                tableBody.append("</td>");
+                tableBody.append("</tr>");
+            });
+        }
+    });
+});
 
+</script>
 <?php require('inc/scripts.php'); ?>
 </body>
 </html>

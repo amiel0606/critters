@@ -1,11 +1,49 @@
-<?php 
-session_start();
-if (isset($_GET['login']) && $_GET['login'] == 'success'): ?>
-    <script>
-        alert('Logged in successfully');
-    </script>
-<?php endif; ?>
-
+<?php
+try {
+    if (isset($_GET['login'])) {
+        if ($_GET['login'] == 'success') { ?>
+            <script>
+                alert('Logged in successfully');
+            </script>
+        <?php } elseif ($_GET['login'] == 'notLoggedIn') { ?>
+            <script>
+                alert('Please login to access this page');
+            </script>
+        <?php } elseif ($_GET['login'] == 'WrongLogin') { ?>
+            <script>
+                alert('Wrong login credentials');
+            </script>
+        <?php } elseif ($_GET['login'] == 'stmtFailed') { ?>
+            <script>
+                alert('Failed to execute statement');
+            </script>
+        <?php } elseif ($_GET['login'] == 'none') { ?>
+            <script>
+                alert('Success!');
+            </script>
+        <?php } elseif ($_GET['login'] == 'EmptyInput') { ?>
+            <script>
+                alert('Please fill in all fields');
+            </script>
+        <?php } elseif ($_GET['login'] == 'PassNotMatching') { ?>
+            <script>
+                alert('Passwords do not match');
+            </script>
+        <?php } elseif ($_GET['login'] == 'InvalidUsername') { ?>
+            <script>
+                alert('Invalid username');
+            </script>
+        <?php } elseif ($_GET['login'] == 'UsernameTaken') { ?>
+            <script>
+                alert('Username already taken');
+            </script>
+        <?php }
+    }
+} catch (\Throwable $th) {
+    throw new Exception("An unexpected error occurred: " . $th->getMessage());
+}
+?>
+        
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Critters Agrivet</a>
