@@ -21,7 +21,10 @@
 
 </head>
 <body class="bg-light">
-  <?php require('inc/header.php');?>
+  <?php
+  session_start();
+  require('inc/header.php');
+  ?>
 
   <div class="my-5 px-4">
     <h2 class="fw-bold h-font text-center">Our Service</h2> 

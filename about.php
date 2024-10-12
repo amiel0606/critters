@@ -21,7 +21,10 @@
 
 </head>
 <body class="bg-light">
-  <?php require('inc/header.php');?>
+<?php
+  session_start();
+  require('inc/header.php');
+  ?>
 
   <style>
     .box{
