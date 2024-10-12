@@ -40,7 +40,8 @@
                                 <tr class="bg-dark text-light">
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Email</th>      
+                                    <th scope="col">Email</th>   
+                                    <th scope="col">Message</th>   
                                     <th scope="col">Date</th>
                                     <th scope="col">Action</th>
                                 </tr>

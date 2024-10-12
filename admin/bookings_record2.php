@@ -19,7 +19,8 @@
 <!-- Include header -->
 <?php require('inc/header.php'); ?>
 
-
+<div class="container-fluid" id="main-content">
+    <div class="row">
         <!-- Main Content -->
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
             <div class="d-flex justify-content-between align-items-center mb-4">

@@ -37,6 +37,17 @@
             text-align: center;
             vertical-align: middle;
         }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -102,12 +113,14 @@
                             <td>Dog</td>
                             <td>Grooming</td>
                             <td>10-29-2004</td>
-                           
+                            <td>
+                                <button class="delete-btn">Delete</button>
+                            </td>
                         </tr>
                         <!-- You can add more rows as needed -->
                     </tbody>
                 </table>
-
+            </div>
         </div>
     </div>
 

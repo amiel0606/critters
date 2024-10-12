@@ -1,11 +1,8 @@
 
-
-
 <div class="container-fluid bg-danger text-light p-3 d-flex align-items-center justify-content-between sticky-top">
         <h3 class="mb-0 h-font">CRITTERS AGRIVET</h3>
         <a href="logout.php" class="btn btn-light btn-sm">LOG OUT</a>
     </div>
-
     <div class="col-lg-2 bg-danger border-top border-3 border-secondary" id="dashboard-menu">
         <nav class="navbar navbar-expand-lg navbar-danger">
             <div class="container-fluid flex-lg-column align-items-stretch">
@@ -19,21 +16,22 @@
                             <a class="nav-link text-white" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                        <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="#bookingLinks">
-                            <span>Bookings</span>
-                            <span><i class="bi bi-caret-down-fill"></i></span>
-                        </button>
-                        <div class="collpase show px-3 small mb-1" id="bookingLinks">
-                            <ul class="nav nav-pills flex-column rounded border border-secondary">
-                                
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="new_bookings2.php">New Bookinsg</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="bookings_record2.php">Bookings Record</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#bookingLinks">
+                    <span>Bookings</span>
+                    <span><i class="bi bi-caret-down-fill"></i></span>
+                </button>
+
+                <div class="collapse show px-3 small mb-1" id="bookingLinks">
+                    <ul class="nav nav-pills flex-column rounded border border-secondary">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="new_bookings2.php">New Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="bookings_record2.php">Bookings Record</a>
+                        </li>
+                    </ul>
+                    </div>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="users.php">User</a>
@@ -46,7 +44,13 @@
                             <a class="nav-link text-white" href="service_offer.php">Available Service</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-white" href="product_offer.php">Product</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" href="carousel.php">Carousel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="calendar.php">Calendar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="settings.php">Settings</a>
