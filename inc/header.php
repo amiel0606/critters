@@ -59,7 +59,13 @@ try {
           <a class="nav-link me-2 " href="service.php">Service</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link me-2 " href="product.php">Product</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link me-2 " href="booking.php">Bookings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link me-2 " href="calendar.php">Calendar</a>
         </li>
         <li class="nav-item">
           <a class="nav-link me-2 " href="contact.php">Contact Us</a>
@@ -76,7 +82,9 @@ try {
               Register
           </button>
             <!-- Dropdown -->
-    <div id="dropdown" class="dropdown <?php echo isset($_SESSION["id"]) ? "" : "invisible"; ?>">
+    
+    
+            <div id="dropdown" class="dropdown <?php echo isset($_SESSION["id"]) ? "" : "invisible"; ?>">
         <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             <?php echo isset($_SESSION["firstName"]) ? $_SESSION["firstName"]." ".$_SESSION["lastName"] : ""; ?>
         </button>
@@ -87,7 +95,8 @@ try {
             <li><a class="dropdown-item" href="./inc/logout.php">Logout</a></li>
         </ul>
     </div>
-      </div>
+      
+  </div>
     </div>
   </div>
 </nav>
