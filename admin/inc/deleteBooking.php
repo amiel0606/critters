@@ -4,9 +4,7 @@ include_once './dbCon.php';
 if (isset($_POST['bookingID'])) {
     $bookingID = $_POST['bookingID'];
 
-    $query = "UPDATE tbl_bookings SET 
-                img = 'No Image Available'
-              WHERE id = ?";
+    $query = "DELETE FROM tbl_bookings WHERE id = ?";
 
     $stmt = mysqli_prepare($conn, $query);
 
@@ -16,12 +14,12 @@ if (isset($_POST['bookingID'])) {
         echo "<script> 
         alert('Booking Deleted successfully'); 
         window.location.href='../service_booking.php';
-        </script>";
+        </script>";    
     } else {
         echo "<script> 
         alert('Statement preparation failed'); 
         window.location.href='../service_booking.php';
-        </script>";    
+        </script>";      
     }
 
     mysqli_close($conn);
@@ -29,5 +27,5 @@ if (isset($_POST['bookingID'])) {
     echo "<script> 
     alert('Statement preparation failed'); 
     window.location.href='../service_booking.php';
-    </script>";  
+    </script>";   
 }

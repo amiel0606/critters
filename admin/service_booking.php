@@ -1,8 +1,3 @@
-<?php 
-// require('inc/essentials.php'); 
-// adminLogin();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +8,28 @@
 </head>
 <body class="bg-light">
 
-<?php require('inc/header.php'); ?>
+<?php
+require('inc/header.php');
+
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+
+    switch ($error) {
+        case 'invalid_request':
+            echo '<script>alert("Invalid request. Please try again.");</script>';
+            break;
+        case 'failed_to_update_booking':
+            echo '<script>alert("Failed to update booking. Please try again.");</script>';
+            break;
+        case 'booking_updated_successfully':
+            echo '<script>alert("Booking updated successfully!");</script>';
+            break;
+        default:
+            echo '<script>alert("An unknown error occurred. Please try again.");</script>';
+            break;
+    }
+}
+?>
 
 <div class="container-fluid" id="main-content">
     <div class="row">
@@ -275,7 +291,7 @@
                     html += '<td>';
                     html += '<button class="btn btn-sm btn-warning bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#edit-service-booking" data-id="'+ item.id + '>"</button>';
                     html += '<button class="btn btn-sm btn-gray bi bi-image-fill image-btn" data-bs-toggle="modal" data-id="'+ item.id +'" data-bs-target="#booking-image"></button>'; 
-                    html += '<button class="btn btn-sm btn-danger bi bi-trash3" data-id="'+ item.id + '"></button>';
+                    html += '<button class="btn btn-sm btn-danger bi bi-trash3 delete-booking" data-id="'+ item.id + '"></button>';
                     html += '</td>';
                     html += '</tr>';
                 });
@@ -339,6 +355,28 @@
                 }
             });
         });
+        $(document).on('click', '.delete-booking', function(event) {
+            const bookingID = $(event.target).data('id');
+            $.ajax({
+                type: "POST",
+                url: "./inc/deleteBooking.php",
+                data: { bookingID: bookingID },
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    if (data.status ==='success') {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX request failed: ", textStatus, errorThrown);
+                    alert("An error occurred while deleting the image. Please try again.");
+                }
+            });
+        });
+
     });
 
 
