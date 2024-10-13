@@ -68,6 +68,9 @@ try {
           <a class="nav-link me-2 " href="calendar.php">Calendar</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link me-2 " href="reviews.php">Reviews</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link me-2 " href="contact.php">Contact Us</a>
         </li>
         <li class="nav-item">

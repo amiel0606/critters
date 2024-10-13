@@ -97,26 +97,29 @@
       <div class="swiper-wrapper mb-5">
       
       <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-      </div>
+    <img src="images/about/emplo1.jpg" class="w-100">
+    <h5>RANDOM NAME</h5>
+    <p>Position: Manager</p> <!-- Position added -->
+</div>
 
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-      </div>
+<div class="swiper-slide bg-white text-center overflow-hidden rounded">
+    <img src="images/about/emplo1.jpg" class="w-100">
+    <h5>RANDOM NAME</h5>
+    <p>Position: Designer</p> <!-- Position added -->
+</div>
 
-      
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-      </div>
+<div class="swiper-slide bg-white text-center overflow-hidden rounded">
+    <img src="images/about/emplo1.jpg" class="w-100">
+    <h5>RANDOM NAME</h5>
+    <p>Position: Developer</p> <!-- Position added -->
+</div>
 
-      
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-      </div>
+<div class="swiper-slide bg-white text-center overflow-hidden rounded">
+    <img src="images/about/emplo1.jpg" class="w-100">
+    <h5>RANDOM NAME</h5>
+    <p>Position: Marketing Lead</p> <!-- Position added -->
+</div>
+
       
     </div>
   </div>

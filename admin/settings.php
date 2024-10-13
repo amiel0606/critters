@@ -10,6 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Settings</title>
     <?php require('inc/links.php'); ?>
+    <style>
+        .delete-btn {
+            cursor: pointer;
+            color: red;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -32,9 +40,9 @@
                         </button>
                     </div>
                     <h6 class="card-subtitle mb-1 fw-bold">Site Title</h6>
-                    <p class="card-text" id="site_title"></p>
+                    <p class="card-text" id="site_title">Example Site Title</p>
                     <h6 class="card-subtitle mb-1 fw-bold">About us</h6>
-                    <p class="card-text" id="site_about"></p>
+                    <p class="card-text" id="site_about">We are a fictional company dedicated to providing the best service to our customers. Our mission is to deliver quality and excellence.</p>
                 </div>
             </div>
 
@@ -48,11 +56,11 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Site Title</label>
-                                <input type="text" name="site_title" id="site_title_inp" class="form-control shadow-none" required>
+                                <input type="text" name="site_title" id="site_title_inp" class="form-control shadow-none" value="Example Site Title" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">About Us</label>
-                                <textarea name="site_about" id="site_about_inp" class="form-control shadow-none" rows="6" required></textarea>
+                                <textarea name="site_about" id="site_about_inp" class="form-control shadow-none" rows="6" required>We are a fictional company dedicated to providing the best service to our customers. Our mission is to deliver quality and excellence.</textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -86,22 +94,21 @@
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#contacts-s">
                              <i class="bi bi-pencil-square"></i> Edit
                         </button>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="mb-4">
                                 <h6 class="card-subtitle mb-1 fw-bold">Address</h6>
-                                <p class="card-text" id="address"></p>
+                                <p class="card-text" id="address">123 Example Street, Sample City, SC 12345</p>
                             </div>
                             <div class="mb-4">
                                 <h6 class="card-subtitle mb-1 fw-bold">Google Map</h6>
-                                <p class="card-text" id="gmap"></p>
+                                <p class="card-text" id="gmap">https://maps.google.com/?q=123+Example+Street,+Sample+City</p>
                             </div>
                             <div class="mb-4">
                                 <h6 class="card-subtitle mb-1 fw-bold">Viber Contact Message</h6>
                                 <p class="card-text">
-                                    <i class="bi bi-chat-left-text-fill"></i> <span id="pn1"></span>
+                                    <i class="bi bi-chat-left-text-fill"></i> <span id="pn1">Hello! You can reach us at +123456789</span>
                                 </p>
                             </div>
                         </div>
@@ -109,7 +116,7 @@
                             <div class="mb-4">
                                 <h6 class="card-subtitle mb-1 fw-bold">Social Links</h6>
                                 <p class="card-text mb-1">
-                                    <i class="bi bi-facebook me-1"></i><span id="fb"></span>
+                                    <i class="bi bi-facebook me-1"></i><span id="fb">https://facebook.com/example</span>
                                 </p>
                             </div>
                             <div class="mb-4">
@@ -134,17 +141,17 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Address</label>
-                                            <input type="text" name="address" id="address_inp" class="form-control shadow-none" required>
+                                            <input type="text" name="address" id="address_inp" class="form-control shadow-none" value="123 Example Street, Sample City, SC 12345" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Google Map Link</label>
-                                            <textarea name="gmap" id="gmap_inp" class="form-control shadow-none" rows="6" required></textarea>
+                                            <textarea name="gmap" id="gmap_inp" class="form-control shadow-none" rows="6" required>https://maps.google.com/?q=123+Example+Street,+Sample+City</textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Phone Number (with country code)</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text"><i class="bi bi-chat-left-text-fill"></i></span>
-                                                <input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" required>
+                                                <input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" value="+123456789" required>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +160,7 @@
                                             <label class="form-label fw-bold">Social Links</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text"><i class="bi bi-facebook"></i></span>
-                                                <input type="text" name="fb" id="fb_inp" class="form-control shadow-none" required>
+                                                <input type="text" name="fb" id="fb_inp" class="form-control shadow-none" value="https://facebook.com/example" required>
                                             </div>
                                         </div>
                                     </div>
@@ -169,48 +176,84 @@
             </div>
 
             <!-- TEAM MANAGEMENT SECTION -->
-            <div class="card border shadow-sm mb-4">
+            <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Team Management</h5>
-                        <button type="button" class="btn btn-dark shadow-none btn-sm">
+                        <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#teamModal">
                             <i class="bi bi-pencil-square"></i> Edit
                         </button>
                     </div>
 
                     <div class="row" id="team-data">
-
+                        <!-- Team members will be dynamically populated here -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h6 class="card-title">Bench Joshua Timonio</h6>
+                                    <p class="card-text">Ang pogi position</p>
+                                    <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h6 class="card-title">Joshua Timonio</h6>
+                                    <p class="card-text">Pogi Position</p>
+                                    <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h6 class="card-title">Bench Timonio</h6>
+                                    <p class="card-text">Most handsome</p>
+                                    <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- TEAM MANAGEMENT MODAL -->
-            <div class="modal fade" id="general-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="teamModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title">Add Team Member</h1>
+                            <h5 class="modal-title" id="teamModalLabel">Add Team Member</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Name</label>
-                                <input type="text" name="member_name" id="member_name_inp" class="form-control shadow-none" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Picture</label>
-                                <input type="text" name="member_picture" id="member_picture_inp" accept="[.jpg, .png, .webp, .jpeg]" class="form-control shadow-none" required>
-                            </div>
+                            <form id="teamForm">
+                                <div class="mb-3">
+                                    <label for="member_name_inp" class="form-label fw-bold">Name</label>
+                                    <input type="text" name="member_name" id="member_name_inp" class="form-control shadow-none" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="member_position_inp" class="form-label fw-bold">Position</label>
+                                    <input type="text" name="member_position" id="member_position_inp" class="form-control shadow-none" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="member_picture_inp" class="form-label fw-bold">Picture</label>
+                                    <input type="file" name="member_picture" id="member_picture_inp" accept=".jpg, .png, .webp, .jpeg" class="form-control shadow-none" required>
+                                </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                            <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary" form="teamForm">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
+        
 
         </div>
     </div>

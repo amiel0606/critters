@@ -1,3 +1,8 @@
+<?php 
+//  require('inc/essentials.php'); 
+//  adminLogin();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,21 +20,29 @@
     <style>
         /* Custom styles to adjust the calendar layout */
         #calendar {
-            max-width: 90%;
+            max-width: 100%;
             margin: 30px auto;
         }
     </style>
 </head>
 
 <body class="bg-light">
+
     <?php require('inc/header.php'); ?>
 
-    <!-- Calendar content -->
-    <div class="container p-5">
-        <h4>Appointment Calendar</h4>
+    <div class="container-fluid" id="main-content">
+        <div class="row">
+            <div class="col-lg-10 ms-auto p-4 overflow-hidden">
+                <h4 class="mb-4">Appointment Calendar</h4>
 
-        <!-- FullCalendar -->
-        <div id="calendar"></div>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap and FullCalendar JS -->
