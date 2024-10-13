@@ -84,8 +84,9 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Contacts Settings</h5>
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#contacts-s">
-                            <i class="bi bi-pencil-square"></i> Edit
+                             <i class="bi bi-pencil-square"></i> Edit
                         </button>
+
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -207,6 +208,9 @@
                     </div>
                 </div>
             </div>
+
+
+
 
         </div>
     </div>
