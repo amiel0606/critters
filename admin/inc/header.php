@@ -17,7 +17,7 @@
                         </li>
                         <li class="nav-item">
                         <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#bookingLinks">
-                    <span>Bookings</span>
+                    <span><i class="bi bi-clipboard-check"></i> Bookings</span>
                     <span><i class="bi bi-caret-down-fill"></i></span>
                 </button>
 
@@ -34,27 +34,27 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="users.php">User</a>
+                            <a class="nav-link text-white" href="users.php"><i class="bi bi-person"></i> User</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="user_queries.php">User Queries</a>
+                            <a class="nav-link text-white" href="user_queries.php"> <i class="bi bi-chat-left-text"></i> User Queries</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="service_offer.php">Available Service</a>
+                            <a class="nav-link text-white" href="service_offer.php"><i class="bi bi-heart-pulse"></i> Service & Categories</a>
                         </li>
                         <li class="nav-item">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="service_booking.php">Service Booking</a>
+                            <a class="nav-link text-white" href="service_booking.php"><i class="bi bi-newspaper"></i> Service Booking</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="product_offer.php">Product</a>
+                            <a class="nav-link text-white" href="product_offer.php"><i class="bi bi-cart3"></i> Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="carousel.php">Carousel</a>
+                            <a class="nav-link text-white" href="carousel.php"> Carousel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="calendar.php">Calendar</a>
+                            <a class="nav-link text-white" href="calendar.php"><i class="bi bi-calendar3"></i> Calendar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="settings.php">Settings</a>
