@@ -9,26 +9,20 @@
   <?php require('inc/links.php'); ?>
 </head>
 <body class="bg-light">
-
-  <!-- Include the header without changing it -->
   <?php require('inc/header.php'); ?>
-
   <div class="container-fluid" id="main-content">
     <div class="row">
       <div class="col-lg-10 ms-auto p-4 overflow-hidden">
         <h4 class="mb-4">Manage Reviews</h4>
 
-        <!-- Card container with buttons -->
         <div class="card border-0 shadow-sm mb-4">
           <div class="card-body">
-            <!-- Action buttons -->
             <div class="text-end mb-4">
               <a class="btn btn-danger rounded-pill shadow-none btn-sm">
                 <i class="bi bi-trash3-fill"></i> Delete All
               </a>
             </div>
 
-            <!-- Table with reviews -->
             <div class="table-responsive-md" style="height: 450px; overflow-y: auto;">
               <table class="table table-hover border">
                 <thead class="sticky-top bg-dark text-light">
@@ -42,7 +36,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- Static sample review -->
+
                   <tr>
                     <td>1</td>
                     <td>Juan Dela Cruz</td>
@@ -69,12 +63,11 @@
                       </div>
                     </td>
                   </tr>
-                  <!-- More reviews can go here -->
+
                 </tbody>
               </table>
             </div>
 
-            <!-- Save button -->
             <div class="text-end mt-3">
               <button class="btn btn-dark rounded-pill shadow-none btn-sm" id="save-button">
                 <i class="bi bi-save"></i> Save Changes
@@ -88,27 +81,25 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // JavaScript for handling visibility changes
-    document.querySelectorAll('.visibility-toggle').forEach(toggle => {
-      // Update the label text based on the toggle state
-      const label = toggle.nextElementSibling; // Get the associated label
 
+    document.querySelectorAll('.visibility-toggle').forEach(toggle => {
+
+      const label = toggle.nextElementSibling; 
       toggle.addEventListener('change', () => {
         const reviewId = toggle.getAttribute('data-review-id');
         const visibility = toggle.checked ? 'visible' : 'hidden';
         
-        // Update label text
+
         label.textContent = toggle.checked ? 'Visible' : 'Hidden';
         
         console.log(`Review ID: ${reviewId}, New Visibility: ${visibility}`);
       });
     });
 
-    // Save button functionality
+
     document.getElementById('save-button').addEventListener('click', () => {
       const visibilityChanges = [];
       document.querySelectorAll('.visibility-toggle').forEach(toggle => {
@@ -117,7 +108,7 @@
         visibilityChanges.push({ reviewId, visibility });
       });
 
-      // Example: Handle save operation (e.g., make an API call)
+
       console.log('Saving changes:', visibilityChanges);
       alert('Changes saved successfully!');
     });

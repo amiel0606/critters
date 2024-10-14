@@ -13,7 +13,7 @@
                 <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="adminDropdown">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="dashboard.php">Dashboard</a>
+                            <a class="nav-link text-white" href="admin_dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
                         <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#bookingLinks">
@@ -57,7 +57,7 @@
                             <a class="nav-link text-white" href="admin_reviews.php"><i class="bi bi-star"></i> Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="calendar.php"><i class="bi bi-calendar3"></i> Calendar</a>
+                            <a class="nav-link text-white" href="admin_calendar.php"><i class="bi bi-calendar3"></i> Calendar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="settings.php"><i class="bi bi-gear"></i> Settings</a>

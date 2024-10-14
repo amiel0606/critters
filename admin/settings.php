@@ -186,35 +186,50 @@
                     </div>
 
                     <div class="row" id="team-data">
-                        <!-- Team members will be dynamically populated here -->
-                        <div class="col-md-4 mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <h6 class="card-title">Bench Joshua Timonio</h6>
-                                    <p class="card-text">Ang pogi position</p>
-                                    <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <h6 class="card-title">Joshua Timonio</h6>
-                                    <p class="card-text">Pogi Position</p>
-                                    <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <h6 class="card-title">Bench Timonio</h6>
-                                    <p class="card-text">Most handsome</p>
-                                    <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Team members will be dynamically populated here -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title">Bench Joshua Timonio</h6>
+                <p class="card-text">Ang pogi position</p>
+                <span class="availability-status">Available</span>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="toggleAvailability(this)">
+                    <label class="form-check-label">Available</label>
+                </div>
+                <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title">Joshua Timonio</h6>
+                <p class="card-text">Pogi Position</p>
+                <span class="availability-status">Available</span>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="toggleAvailability(this)">
+                    <label class="form-check-label">Available</label>
+                </div>
+                <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title">Bench Timonio</h6>
+                <p class="card-text">Most handsome</p>
+                <span class="availability-status">Available</span>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="toggleAvailability(this)">
+                    <label class="form-check-label">Available</label>
+                </div>
+                <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
 
@@ -258,6 +273,21 @@
         </div>
     </div>
 </div>
+<script>
+    function toggleAvailability(element) {
+        const cardBody = element.closest('.card-body');
+        const status = cardBody.querySelector('.availability-status');
+        if (element.checked) {
+            status.textContent = 'Available';
+        } else {
+            status.textContent = 'Not Available';
+        }
+    }
 
+    function deleteMember(element) {
+        const card = element.closest('.col-md-4');
+        card.remove();
+    }
+</script>
 </body>
 </html>

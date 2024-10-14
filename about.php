@@ -92,35 +92,36 @@
 
     <h3 class="my-5 fw-bold h-font text-center">MANAGEMENT TEAM</h3>
 
-    <div class="container px-4">
-      <div class="swiper mySwiper">
-      <div class="swiper-wrapper mb-5">
-      
+<div class="container px-4">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper mb-5">
       <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-    <img src="images/about/emplo1.jpg" class="w-100">
-    <h5>RANDOM NAME</h5>
-    <p>Position: Manager</p> <!-- Position added -->
-</div>
+        <img src="images/about/emplo1.jpg" class="w-100">
+        <h5>RANDOM NAME</h5>
+        <p>Position: Manager</p>
+        <p class="availability-status">Available</p> <!-- Availability status added -->
+      </div>
 
-<div class="swiper-slide bg-white text-center overflow-hidden rounded">
-    <img src="images/about/emplo1.jpg" class="w-100">
-    <h5>RANDOM NAME</h5>
-    <p>Position: Designer</p> <!-- Position added -->
-</div>
+      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
+        <img src="images/about/emplo1.jpg" class="w-100">
+        <h5>RANDOM NAME</h5>
+        <p>Position: Designer</p>
+        <p class="availability-status">Available</p> <!-- Availability status added -->
+      </div>
 
-<div class="swiper-slide bg-white text-center overflow-hidden rounded">
-    <img src="images/about/emplo1.jpg" class="w-100">
-    <h5>RANDOM NAME</h5>
-    <p>Position: Developer</p> <!-- Position added -->
-</div>
+      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
+        <img src="images/about/emplo1.jpg" class="w-100">
+        <h5>RANDOM NAME</h5>
+        <p>Position: Developer</p>
+        <p class="availability-status">Available</p> <!-- Availability status added -->
+      </div>
 
-<div class="swiper-slide bg-white text-center overflow-hidden rounded">
-    <img src="images/about/emplo1.jpg" class="w-100">
-    <h5>RANDOM NAME</h5>
-    <p>Position: Marketing Lead</p> <!-- Position added -->
-</div>
-
-      
+      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
+        <img src="images/about/emplo1.jpg" class="w-100">
+        <h5>RANDOM NAME</h5>
+        <p>Position: Marketing Lead</p>
+        <p class="availability-status">Available</p> <!-- Availability status added -->
+      </div>
     </div>
   </div>
   
