@@ -23,12 +23,6 @@ require('inc/header.php');
     </style>
 </head>
 <body class="bg-light">
-<?php
-    if (!isset($_SESSION["id"])) {
-        header('Location: landingpage.php?login=notLoggedIn');
-        exit;
-    }
-?>
 
 <div class="my-5 px-4">
     <h2 class="fw-bold h-font text-center">Customer Reviews</h2>

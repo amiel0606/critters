@@ -38,9 +38,6 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="user_queries.php"> <i class="bi bi-chat-left-text"></i> User Queries</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white" href="service_offer.php"><i class="bi bi-heart-pulse"></i> Service & Categories</a>
                         </li>
                         <li class="nav-item">
@@ -202,3 +199,4 @@
         </div>
     </div>
 </div>
+

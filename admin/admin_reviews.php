@@ -44,10 +44,11 @@
                     <td>★★★★★</td>
                     <td>2024-10-01</td>
                     <td>
-                      <div class="form-check form-switch">
+                    <div class="form-check form-switch">
                         <input class="form-check-input visibility-toggle" type="checkbox" data-review-id="1" checked>
                         <label class="form-check-label" for="flexSwitchCheckDefault1">Visible</label>
-                      </div>
+                        <button class="btn btn-danger ms-3">Delete</button> 
+                    </div>
                     </td>
                   </tr>
                   <tr>
@@ -60,6 +61,9 @@
                       <div class="form-check form-switch">
                         <input class="form-check-input visibility-toggle" type="checkbox" data-review-id="2">
                         <label class="form-check-label" for="flexSwitchCheckDefault2">Hidden</label>
+                        <button class="btn btn-danger ms-3">Delete
+                        
+                        </button>
                       </div>
                     </td>
                   </tr>

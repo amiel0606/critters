@@ -21,7 +21,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="mb-4">New Bookings</h4>
               <!-- Search Bar -->
-            <input class="form-control me-2" type="search" placeholder="Search by pet or owner" aria-label="Search">
+            <input class="form-control me-6" type="search" placeholder="Search by pet or owner" aria-label="Search">
             <button class="btn btn-outline-primary" type="submit">Search</button>
     </div>
             <div class="table-responsive">
@@ -63,8 +63,8 @@ $(document).ready(function() {
                 tableBody.append("<td>" + appointment.name + "</td>");
                 tableBody.append("<td>" + appointment.booking_date + "</td>");
                 tableBody.append("<td>");
-                tableBody.append("<button class='btn btn-success btn-sm'>Accept Booking</button>");
                 tableBody.append("<button class='btn btn-danger btn-sm'>Cancel Booking</button>");
+                tableBody.append("<button class='btn btn-success btn-sm'>Completed</button>");
                 tableBody.append("</td>");
                 tableBody.append("</tr>");
             });

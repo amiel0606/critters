@@ -61,8 +61,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                        <li><a class="dropdown-item" href="pet_profile.php">Pet Profile</a></li>
-                        <li><a class="dropdown-item" href="booking_history.php">Booking History</a></li>
+                        <li><a class="dropdown-item" href="Show_history.php">Show Booking</a></li>
                         <li><a class="dropdown-item" href="#">Logout</a></li>
                     </ul>
                 </li>
@@ -95,9 +94,12 @@
                             <td>Sample</td>
                             <td>Dog</td>
                             <td>Grooming</td>
-                            <td>10-29-2004</td>
+                            <td>10-29-2024</td>
                             <td>
-                                <button class="delete-btn">Delete</button>
+                                <button class="btn btn-danger">Delete</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning">Cancel Booking</button>
                             </td>
                         </tr>
                         <!-- You can add more rows as needed -->

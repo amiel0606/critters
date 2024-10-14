@@ -56,37 +56,7 @@
     </div>
     
 
-    <div class="col-lg-6 col-md-6 mb-5 px-4">
-      <div class="bg-white rounded shadow p-4">
-          <form>
-              <h5>Send a message</h5>
-              
-              <!-- Name Input -->
-              <div class="mt-3">
-                <label class="form-label" style="font-weight: 500;">Name</label>
-                <input type="text" class="form-control shadow-none">
-              </div>
-              
-              <!-- Email Input -->
-              <div class="mt-3">
-                <label class="form-label" style="font-weight: 500;">Email</label>
-                <input type="email" class="form-control shadow-none">
-              </div>
-              
-              <!-- Subject Input -->
-              <div class="mt-3">
-                <label class="form-label" style="font-weight: 500;">Subject</label>
-                <input type="text" class="form-control shadow-none">
-              </div>
-
-              <div class="mt-3">
-                <label class="form-label" style="font-weight: 500;">Message</label>
-                <textarea class="form-control shadow-none" rows="5" style="resize: none;"></textarea> 
-              </div>
-              <button type="submit"  class="btn text-white custom-bg mt-3 shadow-none">Send</button>
-            </form>  
-      </div>
-    </div>
+    
 
 
   </div>

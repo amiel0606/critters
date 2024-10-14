@@ -38,11 +38,9 @@
 </head>
 <body>
 <?php require('inc/header.php'); ?>
-   
+
 <div class="container-fluid">
   <div class="row">
-
-   
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -100,10 +98,49 @@
   </div>
 </div>
 
+<!-- Chatbot Button Positioned at the Bottom Right Corner -->
+<button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="adminChatbotButton" data-bs-toggle="modal" data-bs-target="#adminChatbotModal">
+    <i class="bi bi-chat-square-dots me-2"></i> Admin Chatbot
+</button>
+
+<!-- Admin Chatbot Modal -->
+<div class="modal fade" id="adminChatbotModal" tabindex="-1" aria-labelledby="adminChatbotModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminChatbotModalLabel">Admin Chatbot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-window">
+                    <!-- Chat messages will be displayed here -->
+                    <div class="chat-messages" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 10px;">
+                        <!-- Sample User Message -->
+                        <div class="message user-message mb-2 d-flex align-items-center">
+                            <strong>User:</strong>
+                            <span class="ms-2">What services do you offer?</span>
+                        </div>
+                        <!-- Sample Bot Response -->
+                        <div class="message bot-message mb-2 d-flex align-items-center">
+                            <img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle">
+                            <strong>Bot:</strong>
+                            <span class="ms-2">We offer a range of veterinary services including check-ups, vaccinations, and surgeries.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="text" class="form-control" placeholder="Type your response..." aria-label="Admin response" id="adminResponse">
+                <button type="button" class="btn btn-primary" onclick="sendAdminMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Script for Chart.js and Data Handling -->
 <script>
   const serviceData = {
-    labels: ['Groom', 'Deworming', 'Checkup',],
+    labels: ['Groom', 'Deworming', 'Checkup'],
     months: [
       [150, 120, 90, 70, 50], 
       [160, 130, 100, 80, 60], 
@@ -174,6 +211,22 @@
 
   // Initialize table with January data
   updateMonthlyData();
+
+  function sendAdminMessage() {
+      const chatMessages = document.querySelector('.chat-messages');
+      const adminResponseInput = document.getElementById('adminResponse');
+      const adminResponseText = adminResponseInput.value.trim();
+
+      if (adminResponseText) {
+          // Create admin message
+          const adminMessage = document.createElement('div');
+          adminMessage.className = 'message admin-message mb-2 d-flex align-items-center';
+          adminMessage.innerHTML = `<strong>Admin:</strong><span class="ms-2">${adminResponseText}</span>`;
+          chatMessages.appendChild(adminMessage);
+          adminResponseInput.value = ''; // Clear input field
+          chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+      }
+  }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

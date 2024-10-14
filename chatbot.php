@@ -16,7 +16,7 @@
         <!-- Chatbot UI -->
         <div class="card">
           <div class="card-header bg-primary text-white text-center">
-            Chatbot
+            Critter Chat
           </div>
           <div class="card-body chat-box" id="chat-box">
             <!-- Messages will appear here -->
