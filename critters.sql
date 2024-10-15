@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2024 at 05:05 PM
+-- Generation Time: Oct 15, 2024 at 05:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,13 +36,6 @@ CREATE TABLE `tbl_bookings` (
   `service` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_bookings`
---
-
-INSERT INTO `tbl_bookings` (`id`, `name`, `slot`, `description`, `categories`, `service`, `img`) VALUES
-(1, 'hehe', 2, 'wdzaxcqw', 'ewahhahw,sa sample itu', 'Sample po haha', '670a7688448574.84000547-1728738952.png');
 
 -- --------------------------------------------------------
 
@@ -99,6 +92,9 @@ CREATE TABLE `tbl_pets` (
   `id` int(255) NOT NULL,
   `petType` varchar(255) NOT NULL,
   `petName` varchar(255) NOT NULL,
+  `breed` varchar(255) NOT NULL,
+  `birth_date` varchar(255) NOT NULL,
+  `gender` varchar(255) NOT NULL,
   `owner_ID` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -106,8 +102,10 @@ CREATE TABLE `tbl_pets` (
 -- Dumping data for table `tbl_pets`
 --
 
-INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `owner_ID`) VALUES
-(1, 'Dog', 'Stark', 1);
+INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`) VALUES
+(1, 'Dog', 'Stark', '', '', '', 1),
+(2, 'Dog', 'Calcifer', 'Beagle', '2021-08-15', 'Male', 1),
+(3, 'Dog', 'Sophie', 'Beagle', '2022-01-21', 'Female', 1);
 
 -- --------------------------------------------------------
 
@@ -164,8 +162,6 @@ CREATE TABLE `tbl_users` (
   `id` int(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `petType` varchar(255) NOT NULL,
-  `petName` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -174,8 +170,9 @@ CREATE TABLE `tbl_users` (
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `username`, `password`, `petType`, `petName`, `firstName`, `lastName`) VALUES
-(1, 'amiel@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Dog', 'Stark', 'Amiel Carhyl', 'Lapid');
+INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`) VALUES
+(1, 'amiel@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Amiel Carhyl', 'Lapid'),
+(2, 'heart@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Nicole Heart', 'Mendoza');
 
 --
 -- Indexes for dumped tables
@@ -231,7 +228,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_bookings`
 --
 ALTER TABLE `tbl_bookings`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
@@ -249,7 +246,7 @@ ALTER TABLE `tbl_images`
 -- AUTO_INCREMENT for table `tbl_pets`
 --
 ALTER TABLE `tbl_pets`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_services`
@@ -267,7 +264,7 @@ ALTER TABLE `tbl_setappointment`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
