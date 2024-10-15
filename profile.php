@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Profile</title>
+    <?php require('inc/links.php');?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -58,25 +59,24 @@
             <!-- Owner Information Section -->
             <div class="profile-section">
                 <h4>Owner Information</h4>
-                <form>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="ownerName" class="form-label">Owner's Name</label>
-                            <input type="text" class="form-control" id="ownerName" placeholder="Owner's Name">
+                            <p id="ownerName"><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="ownerEmail" class="form-label">Owner's Email</label>
-                            <input type="email" class="form-control" id="ownerEmail" placeholder="Owner's Email">
+                            <p id="ownerEmail"><?php echo $_SESSION['username'] ?></p>
                         </div>
                     </div>
-                </form>
             </div>
 
             <!-- Pet Section (Multiple Pets) -->
             <div id="pets-container">
                 <div class="profile-section pet-entry">
                     <h4>Pet Information</h4>
-                    <form>
+                    <form action="./inc/addPet.php" method="post">
+                        <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="petName" class="form-label">Pet's Name</label>
@@ -104,15 +104,13 @@
                             </div>
                         </div>
                         <button type="button" class="btn delete-pet-btn">Delete Pet</button>
+                        <button type="submit" class="btn save-btn" name="submit">Save</button>
                     </form>
                 </div>
-            </div>
+            </div>                    
+            <h4>Pet Information</h4>
+            <div id="pet-list"></div>
 
-            <!-- Add More Pets Button -->
-            <button type="button" class="btn add-pet-btn" id="add-pet-btn">Add Another Pet</button>
-            
-            <!-- Save Changes Button -->
-            <button type="submit" class="btn save-btn">Save All Pets</button>
 
         </div>
     </div>
@@ -120,66 +118,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Function to dynamically add more pet forms
-        document.getElementById('add-pet-btn').addEventListener('click', function() {
-            var petsContainer = document.getElementById('pets-container');
+$(document).ready(function() {
+  $.ajax({
+    type: "POST",
+    url: "./inc/getPets.php",
+    data: { owner_id: "<?php echo $_SESSION['id'] ?>" },
+    dataType: "json",
+    success: function(response) {
+      var petContainer = $("<div>").appendTo("#pet-list");
 
-            // Create a new pet form section
-            var newPetEntry = document.createElement('div');
-            newPetEntry.classList.add('profile-section', 'pet-entry');
-
-            newPetEntry.innerHTML = `
-                <h4>Pet Information</h4>
-                <form>
+      $.each(response, function(index, pet) {
+        var petHTML = `
+                    <div id="pets-container">
+                <div class="profile-section pet-entry">
+                    <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="petName" class="form-label">Pet's Name</label>
-                            <input type="text" class="form-control" name="petName" placeholder="Pet's Name" required>
+                            <p>${pet.name}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="petType" class="form-label">Pet Type</label>
-                            <input type="text" class="form-control" name="petType" placeholder="Pet Type" required>
+                            <p>${pet.type}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="breed" class="form-label">Breed</label>
-                            <input type="text" class="form-control" name="breed" placeholder="Breed" required>
-                        </div>
+                            <p>${pet.breed}</p>
+                            </div>
                         <div class="col-md-6 mb-3">
                             <label for="birthdate" class="form-label">Birthdate</label>
-                            <input type="date" class="form-control" name="birthdate" required>
+                            <p>${pet.birthdate}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="gender" class="form-label">Gender</label>
-                            <select class="form-select" name="gender" required>
-                                <option value="" selected disabled>Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
+                            <p>${pet.gender}</p>
                         </div>
                     </div>
-                    <button type="button" class="btn delete-pet-btn">Delete Pet</button>
-                </form>
-            `;
+                </div>
+            </div>
+        `;
+        petContainer.append(petHTML);
+      });
+    }
+  });
+});
 
-            // Append the new pet form to the pets container
-            petsContainer.appendChild(newPetEntry);
-
-            // Add delete functionality to the newly added pet
-            addDeleteFunctionality(newPetEntry);
-        });
-
-        // Function to handle deleting a pet form
-        function addDeleteFunctionality(petEntry) {
-            var deleteBtn = petEntry.querySelector('.delete-pet-btn');
-            deleteBtn.addEventListener('click', function() {
-                petEntry.remove();
-            });
-        }
-
-        // Initially add delete functionality to the first pet form
-        document.querySelectorAll('.pet-entry').forEach(function(petEntry) {
-            addDeleteFunctionality(petEntry);
-        });
-    </script>
+</script>
 </body>
 </html>
