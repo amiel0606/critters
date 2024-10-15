@@ -53,8 +53,16 @@
 </head>
 
 <body class="bg-light">
+<?php
+session_start();
 
-    <?php require('inc/header.php'); ?>
+if (!isset($_SESSION["id"])) {
+    header('Location: landingpage.php?login=notLoggedIn');
+    exit;
+}
+
+
+     require('inc/header.php'); ?>
 
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">Appointment Calendar</h2>
