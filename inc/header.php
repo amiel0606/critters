@@ -172,50 +172,51 @@ try {
 </div>
 <div class="container text-center my-4">
     <!-- Chatbot Button Positioned at the Bottom Right Corner -->
-    <button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="chatbotButton" data-bs-toggle="modal" data-bs-target="#chatbotModal">
-        <i class="bi bi-chat-square-dots me-2"></i> Chat with Us
-    </button>
+<button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="chatbotButton" data-bs-toggle="modal" data-bs-target="#chatbotModal">
+    <i class="bi bi-chat-square-dots me-2"></i> Chat with Us
+</button>
 
-    <!-- Chatbot Modal -->
-    <div class="modal fade" id="chatbotModal" tabindex="-1" aria-labelledby="chatbotModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="chatbotModalLabel">Chatbot</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="chat-window">
-                        <!-- Chat messages will be displayed here -->
-                        <div class="chat-messages" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 10px;">
-                            <!-- Bot message with dog image -->
-                            <div class="message bot-message mb-2 d-flex align-items-center">
-                                <img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle">
-                                <strong>Bot:</strong>
-                                <span class="ms-2">Woof! How can I help you today?</span>
-                            </div>
+<!-- Chatbot Modal -->
+<div class="modal fade" id="chatbotModal" tabindex="-1" aria-labelledby="chatbotModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatbotModalLabel">Chatbot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-window">
+                    <!-- Chat messages will be displayed here -->
+                    <div class="chat-messages" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 10px;">
+                        <!-- Bot message with dog image -->
+                        <div class="message bot-message mb-2 d-flex align-items-center">
+                            <img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle">
+                            <strong>Bot:</strong>
+                            <span class="ms-2 bot-text">Woof! How can I help you today?</span>
+                            <button class="btn btn-sm btn-outline-secondary ms-2" onclick="editBotMessage(this)">Edit</button>
                         </div>
                     </div>
-                    <!-- Predefined Questions -->
-                    <div class="my-3">
-                        <h6>Quick Questions:</h6>
-                        <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
-                        <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('How can I book an appointment?')">How can I book an appointment?</button>
-                        <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('What are your opening hours?')">What are your opening hours?</button>
-                        <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Do you have any promotions?')">Do you have any promotions?</button>
-                        <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Can I return a product?')">Can I return a product?</button>
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="text" class="form-control" placeholder="Type your message..." aria-label="User message" id="userMessage">
-                    <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
+                <!-- Predefined Questions -->
+                <div class="my-3">
+                    <h6>Quick Questions:</h6>
+                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
+                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('How can I book an appointment?')">How can I book an appointment?</button>
+                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('What are your opening hours?')">What are your opening hours?</button>
+                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Do you have any promotions?')">Do you have any promotions?</button>
+                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Can I return a product?')">Can I return a product?</button>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <input type="text" class="form-control" placeholder="Type your message..." aria-label="User message" id="userMessage">
+                <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // Function to send a message
     function sendMessage(message) {
         const chatMessages = document.querySelector('.chat-messages');
         const userMessageInput = document.getElementById('userMessage');
@@ -237,13 +238,56 @@ try {
             }
         }
 
-        // Example bot response (you can customize this logic)
+        // Example bot response
         const botMessage = document.createElement('div');
         botMessage.className = 'message bot-message mb-2 d-flex align-items-center';
-        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2">I'm here to help!</span>`;
+        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2 bot-text">I'm here to help!</span><button class="btn btn-sm btn-outline-secondary ms-2" onclick="editBotMessage(this)">Edit</button>`;
         chatMessages.appendChild(botMessage);
 
         // Scroll to the bottom of the chat messages
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+
+    // Function to edit bot messages
+    function editBotMessage(button) {
+        const botText = button.previousElementSibling;
+        const currentText = botText.textContent;
+
+        // Replace bot message with an input field for editing
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.value = currentText;
+        inputField.className = 'form-control me-2';
+        inputField.style.width = 'auto'; // Adjust input field size
+
+        // Replace message text with input field
+        botText.replaceWith(inputField);
+
+        // Change the button to "Save"
+        button.textContent = 'Save';
+        button.onclick = function () {
+            saveBotMessage(inputField, button);
+        };
+    }
+
+    // Function to save the edited bot message
+    function saveBotMessage(inputField, button) {
+        const newText = inputField.value.trim();
+
+        // Create a new span with the updated bot message
+        const newSpan = document.createElement('span');
+        newSpan.className = 'ms-2 bot-text';
+        newSpan.textContent = newText;
+
+        // Replace the input field with the updated message
+        inputField.replaceWith(newSpan);
+
+        // Change the button back to "Edit"
+        button.textContent = 'Edit';
+        button.onclick = function () {
+            editBotMessage(button);
+        };
+    }
+</script>
+
 </script>
