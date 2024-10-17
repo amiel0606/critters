@@ -19,9 +19,9 @@
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="mb-4">User</h3>
+            <h3 class="mb-4">Pets</h3>
             <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search by owner" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Search pet" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Search</button>
 </form>
 </div>
@@ -41,10 +41,11 @@
                     <thead class="sticky-top">
                         <tr class="bg-dark text-light">
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">Pet Name</th>
+                            <th scope="col">Pet Type</th>
+                            <th scope="col">Breed</th>
+                            <th scope="col">Birth Date</th>
+                            <th scope="col">Gender</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -52,10 +53,11 @@
                         <!-- Example row (you will generate these dynamically with data) -->
                         <tr>
                             <td>1</td>
-                            <td>John Doe</td>
-                            <td>johndoe@example.com</td>
-                            <td>Active</td>
-                            <td>2024-10-12</td>
+                            <td>Aso</td>
+                            <td>Dog</td>
+                            <td>Bulldog</td>
+                            <td>12/25/2021</td>
+                            <td>Male</td>
                             <td>
                                 <button class="btn btn-danger btn-sm" onclick="deleteUser(1)">Delete</button>
                             </td>

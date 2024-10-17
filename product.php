@@ -3,76 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Critters Agrivet - Service</title>
+    <title>Product Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <?php require('inc/links.php');?>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <?php require('inc/links.php');?>
-    
     <style>
-  .pop:hover {
-    border-top-color: var(--teal) !important;
-    transform: scale(1.03);
-    transition: all 0.3s;
-    }
-</style>
-
-  
-
+        body {
+            padding: 40px;
+            background-color: #f7f7f7;
+        }
+        .product-card {
+            transition:  0.3s ease;
+            max-width: 300px;
+            margin: 0 auto;
+            border-top: 4px solid var(--dark); 
+        }
+        .product-card:hover {
+            transform: scale(1.03); 
+            transition: all 0.3s;
+            border-top-color: var(--teal);
+        }
+        .product-image {
+            object-fit: cover;
+            height: 200px;
+        }
+        .h-line {
+            width: 100px;
+            height: 3px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <?php
-  session_start();
-  require('inc/header.php');
-  ?>
+        session_start();
+        require('inc/header.php');
+    ?>
 
-  <div class="my-5 px-4">
-    <h2 class="fw-bold h-font text-center">Our Products</h2> 
-    <div class="h-line bg-dark"></div>
-    
-
-
-  </div>
-
-  <div class="container">
-  <div class="row">
-  <div id="services-container"></div>
-      
+    <div class="my-5 px-4">
+        <h2 class="fw-bold h-font text-center">Product Gallery</h2> 
+        <div class="h-line bg-dark"></div> 
+        <p class="text-center mt-3">
+            Explore our range of high-quality products designed to solve various problems and meet your needs.
+        </p>
     </div>
-  </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="product-gallery">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        const products = [
+            {
+                name: 'Product 1',
+                price: '$100',
+                description: 'This is a great product that solves many problems.',
+                image: 'https://via.placeholder.com/300x200'
+            },
+            {
+                name: 'Product 2',
+                price: '$150',
+                description: 'This product has amazing features and excellent quality.',
+                image: 'https://via.placeholder.com/300x200'
+            },
+            {
+                name: 'Product 3',
+                price: '$200',
+                description: 'A high-quality product that provides value and performance.',
+                image: 'https://via.placeholder.com/300x200'
+            },
+            {
+                name: 'Product 4',
+                price: '$120',
+                description: 'This product is affordable yet highly functional.',
+                image: 'https://via.placeholder.com/300x200'
+            }
+        ];
 
-<script>
-$(document).ready(function() {
-    $.ajax({
-        type: "GET",
-        url: "./admin/inc/getService.php",
-        dataType: "json",
-        success: function(data) {
-            var html = "";
-            console.log(data);
-            $.each(data, function(index, service) {
-                html += "<div class='col-lg-4 col-md-6 mb-5 px-4'>";
-                html += "<div class='bg-white rounded shadow p-4 border-top border-4 border-dark pop'>";
-                html += "<div class='d-flex align-item-center mb-2'>";
-                html += "<img src='./admin/inc/uploads/" + service.service_image + "' width='40px'>";
-                html += "<h5 class='m-0 ms-3'>" + service.service_name + "</h5>";
-                html += "</div>";
-                html += "<p>" + service.service_description + "</p>";
-                html += "</div>";
-                html += "</div>";
-            });
-            $("#services-container").html(html);
+        function createProductCard(product) {
+            return `
+                <div class="col">
+                    <div class="card product-card h-100 shadow bg-white rounded p-4">
+                        <img src="${product.image}" class="card-img-top product-image" alt="${product.name}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text text-danger">${product.price}</p>
+                            <p class="card-text">${product.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
-    });
-});
-</script>
-             
- <?php require('inc/footer.php');?>
 
-
-
-
+        const gallery = document.getElementById('product-gallery');
+        products.forEach(product => {
+            gallery.innerHTML += createProductCard(product);
+        });
+    </script>
 
 </body>
 </html>

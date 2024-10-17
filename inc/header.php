@@ -66,9 +66,7 @@ try {
         <li class="nav-item">
           <a class="nav-link me-2" href="calendar.php">Calendar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link me-2" href="reviews.php">Reviews</a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link me-2" href="contact.php">Contact Us</a>
         </li>
@@ -172,7 +170,7 @@ try {
 </div>
 <div class="container text-center my-4">
     <!-- Chatbot Button Positioned at the Bottom Right Corner -->
-<button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="chatbotButton" data-bs-toggle="modal" data-bs-target="#chatbotModal">
+    <button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="chatbotButton" data-bs-toggle="modal" data-bs-target="#chatbotModal">
     <i class="bi bi-chat-square-dots me-2"></i> Chat with Us
 </button>
 
@@ -193,7 +191,6 @@ try {
                             <img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle">
                             <strong>Bot:</strong>
                             <span class="ms-2 bot-text">Woof! How can I help you today?</span>
-                            <button class="btn btn-sm btn-outline-secondary ms-2" onclick="editBotMessage(this)">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -207,21 +204,17 @@ try {
                     <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Can I return a product?')">Can I return a product?</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <input type="text" class="form-control" placeholder="Type your message..." aria-label="User message" id="userMessage">
-                <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
-            </div>
+           
         </div>
     </div>
 </div>
 
 <script>
-    // Function to send a message
+
     function sendMessage(message) {
         const chatMessages = document.querySelector('.chat-messages');
         const userMessageInput = document.getElementById('userMessage');
 
-        // If a predefined question is clicked
         if (message) {
             const userMessage = document.createElement('div');
             userMessage.className = 'message user-message mb-2 text-end';
@@ -234,60 +227,16 @@ try {
                 userMessage.className = 'message user-message mb-2 text-end';
                 userMessage.innerHTML = `<strong>You:</strong> ${userMessageText}`;
                 chatMessages.appendChild(userMessage);
-                userMessageInput.value = ''; // Clear input
+                userMessageInput.value = ''; 
             }
         }
-
-        // Example bot response
         const botMessage = document.createElement('div');
         botMessage.className = 'message bot-message mb-2 d-flex align-items-center';
-        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2 bot-text">I'm here to help!</span><button class="btn btn-sm btn-outline-secondary ms-2" onclick="editBotMessage(this)">Edit</button>`;
+        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2 bot-text">I'm here to help!</span>`;
         chatMessages.appendChild(botMessage);
-
-        // Scroll to the bottom of the chat messages
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-
-    // Function to edit bot messages
-    function editBotMessage(button) {
-        const botText = button.previousElementSibling;
-        const currentText = botText.textContent;
-
-        // Replace bot message with an input field for editing
-        const inputField = document.createElement('input');
-        inputField.type = 'text';
-        inputField.value = currentText;
-        inputField.className = 'form-control me-2';
-        inputField.style.width = 'auto'; // Adjust input field size
-
-        // Replace message text with input field
-        botText.replaceWith(inputField);
-
-        // Change the button to "Save"
-        button.textContent = 'Save';
-        button.onclick = function () {
-            saveBotMessage(inputField, button);
-        };
-    }
-
-    // Function to save the edited bot message
-    function saveBotMessage(inputField, button) {
-        const newText = inputField.value.trim();
-
-        // Create a new span with the updated bot message
-        const newSpan = document.createElement('span');
-        newSpan.className = 'ms-2 bot-text';
-        newSpan.textContent = newText;
-
-        // Replace the input field with the updated message
-        inputField.replaceWith(newSpan);
-
-        // Change the button back to "Edit"
-        button.textContent = 'Edit';
-        button.onclick = function () {
-            editBotMessage(button);
-        };
-    }
 </script>
+
 
 </script>

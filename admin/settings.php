@@ -106,9 +106,15 @@
                                 <p class="card-text" id="gmap">https://maps.google.com/?q=123+Example+Street,+Sample+City</p>
                             </div>
                             <div class="mb-4">
-                                <h6 class="card-subtitle mb-1 fw-bold">Viber Contact Message</h6>
+                                <h6 class="card-subtitle mb-1 fw-bold">Contact Number</h6>
                                 <p class="card-text">
                                     <i class="bi bi-chat-left-text-fill"></i> <span id="pn1">Hello! You can reach us at +123456789</span>
+                                </p>
+                            </div>
+                            <div class="mb-4">
+                                <h6 class="card-subtitle mb-1 fw-bold">Email</h6>
+                                <p class="card-text">
+                                    <i class=""></i> <span id="pn1">critters@gmail.com</span>
                                 </p>
                             </div>
                         </div>
@@ -153,6 +159,10 @@
                                                 <span class="input-group-text"><i class="bi bi-chat-left-text-fill"></i></span>
                                                 <input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" value="+123456789" required>
                                             </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Email</label>
+                                            <textarea name="text" id="em1" class="form-control shadow-none" rows="6" required>critters@gmail.com</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

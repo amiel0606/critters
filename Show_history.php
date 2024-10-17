@@ -48,6 +48,36 @@
         .delete-btn:hover {
             background-color: #c82333;
         }
+        .cancel-btn {
+            background-color: #ffc107;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cancel-btn:hover {
+            background-color: #e0a800;
+        }
+        .review-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .review-btn:hover {
+            background-color: #0056b3;
+        }
+        .completed {
+            color: green;
+            font-weight: bold;
+        }
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -55,16 +85,15 @@
   session_start();
   require('inc/header.php');
   ?>
-   
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-                        Client's Name
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                        <li><a class="dropdown-item" href="Show_history.php">Show Booking</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
-                </li>
+    <div class="container main-container">
+        <div class="row">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                Client's Name
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                <li><a class="dropdown-item" href="Show_history.php">Show Booking</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -84,6 +113,7 @@
                             <th>Breed</th>
                             <th>Service</th>
                             <th>Date</th>
+                            <th>Status</th> <!-- New Status Column -->
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -95,16 +125,77 @@
                             <td>Dog</td>
                             <td>Grooming</td>
                             <td>10-29-2024</td>
+                            <td class="completed">Completed</td> <!-- Completed Status -->
                             <td>
-                                <button class="btn btn-danger">Delete</button>
+                                <button class="btn btn-danger delete-btn">Delete</button>
+                                <button class="btn btn-warning cancel-btn">Cancel Booking</button>
+                                <button class="btn btn-primary review-btn" data-bs-toggle="modal" data-bs-target="#reviewModal">Add Review</button> <!-- Show this button only if Completed -->
                             </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Buddy</td>
+                            <td>John Doe</td>
+                            <td>Cat</td>
+                            <td>Boarding</td>
+                            <td>10-15-2024</td>
+                            <td class="pending">Pending</td> <!-- Pending Status -->
                             <td>
-                                <button class="btn btn-warning">Cancel Booking</button>
+                                <button class="btn btn-danger delete-btn">Delete</button>
+                                <button class="btn btn-warning cancel-btn">Cancel Booking</button>
+                                <!-- Do not show Add Review button if status is Pending -->
                             </td>
                         </tr>
                         <!-- You can add more rows as needed -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Customer Reviews</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-5 px-4">
+                        <div class="h-line bg-dark"></div>
+                    </div>
+
+                    <div class="review-form-container">
+                        <div class="review-form">
+                            <div class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">
+                                <div class="container-fluid flex-lg-column align-items-stretch">
+                                    <h4 class="mt-0">Review Options</h4>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse flex-column align-items-stretch mt-1" id="filterDropdown">
+                                        <div class="border bg-light p-3 rounded mb-3">
+                                            <h5 class="mb-3" style="font-size: 22px;">Submit a Review</h5> 
+                                            <textarea class="form-control mb-3" rows="5" placeholder="Write your review here..."></textarea> 
+                                            <div class="rating mb-3">
+                                                <label for="rating" class="form-label">Rating:</label>
+                                                <select id="rating" class="form-select w-auto">
+                                                    <option value="5">5 Stars</option>
+                                                    <option value="4">4 Stars</option>
+                                                    <option value="3">3 Stars</option>
+                                                    <option value="2">2 Stars</option>
+                                                    <option value="1">1 Star</option>
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-primary mt-3">Submit Review</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -36,7 +36,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="users.php"><i class="bi bi-person"></i> User</a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="user_pets.php"><i class="bi bi-dog"></i> Pet</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="admin_chatbot.php"><i class="bi bi-dog"></i> Chatbot</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="service_offer.php"><i class="bi bi-heart-pulse"></i> Service & Categories</a>
                         </li>

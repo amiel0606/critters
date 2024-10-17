@@ -25,13 +25,17 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Image</h5>
-                        <!-- Corrected the data-bs-toggle and data-bs-target attributes -->
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#carousel-s">
                             <i class="bi bi-plus-square"></i> Add
                         </button>
                     </div>
-                    <div class="image-placeholder">
-                        <img src="image-placeholder.jpg" alt="Image" class="img-fluid">
+
+                    <!-- Container for viewing added images -->
+                    <div id="image-preview-container" class="mt-3">
+                        <h6>Added Images</h6>
+                        <div class="row" id="image-preview-row">
+                            <!-- Images will be displayed here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,7 +43,7 @@
             <!-- Carousel Modal -->
             <div class="modal fade" id="carousel-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form action="./inc/addCarousel.php" method="post" enctype="multipart/form-data">
+                    <form id="carousel_s_form" action="./inc/addCarousel.php" method="post" enctype="multipart/form-data">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5">Add Image</h1>
@@ -59,6 +63,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -67,9 +72,32 @@
 function resetForm() {
     document.getElementById('carousel_s_form').reset();
 }
+
+// This function is to preview the image before submission
+document.getElementById('carousel_picture_inp').addEventListener('change', function() {
+    const imagePreviewRow = document.getElementById('image-preview-row');
+    imagePreviewRow.innerHTML = ''; // Clear previous previews
+
+    Array.from(this.files).forEach(file => {
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            const imgCol = document.createElement('div');
+            imgCol.classList.add('col-6', 'col-md-4', 'mb-2');
+            imgCol.innerHTML = `
+                <div class="card">
+                    <img src="${event.target.result}" class="card-img-top" alt="Preview Image">
+                </div>
+            `;
+            imagePreviewRow.appendChild(imgCol);
+        };
+
+        reader.readAsDataURL(file);
+    });
+});
 </script>
 
-<?php require('inc/scripts.php');?>
+<?php require('inc/scripts.php'); ?>
 <script src="scripts/settings.js"></script>
 
 </body>

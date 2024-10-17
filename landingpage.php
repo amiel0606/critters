@@ -48,41 +48,6 @@
     </div>
 
 
-    <div class="container availability-form">
-      <div class="row">
-        <div class="col-lg-12 bg-white shadow p-4 rounded">
-            <h5 class="mb-4">Check Booking Availability</h5>
-            <form>
-                <div class="row align-items-end">
-
-                    <div class="col-lg-3">
-                        <label class="form-label" style="font-weight: 500">Select Date</label>
-                        <input type="date" class="form-control shadow-none">
-                    </div>
-                    
-                    <div class="col-lg-3">
-                        <label class="form-label" style="font-weight: 500">Select Time</label>
-                        <input type="time" class="form-control shadow-none">
-                    </div>
-                    
-                    <div class="col-lg-3">
-                        <label class="form-label" style="font-weight: 500">Select Service</label>
-                        <select class="form-select shadow-none" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">Vaccine</option>
-                            <option value="2">Checkup</option>
-                            <option value="3">Groom</option>
-                            <option value="4">Nutritional Counseling</option>
-                        </select>
-                    </div>
-                   
-                    <div class="col-lg-3">
-                        <button type="submit" class="btn text-white custom-bg">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
  
@@ -112,7 +77,6 @@
             <i class="bi bi-star-fill text-warning"></i>
           </div>
           <div class="d-flex justify-content-evenly mb-2">
-            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
           </div>
         </div>
       </div>
@@ -140,7 +104,6 @@
             <i class="bi bi-star-fill text-warning"></i>
           </div>
           <div class="d-flex justify-content-evenly mb-2">
-            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
           </div>
         </div>
       </div>
@@ -166,14 +129,13 @@
             <i class="bi bi-star-fill text-warning"></i>
           </div>
           <div class="d-flex justify-content-evenly mb-2">
-            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-lg-12 text-center mt-5">
-    <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Service</a>
+    <a href="service.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Service</a>
   </div>
 </div>
 
@@ -210,7 +172,7 @@
                 </div>
       
                   <div class="col-lg-12 text-center mt-5">
-                      <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Products</a>
+                      <a href="product.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Products</a>
 
                     </div>
                   </div>
@@ -296,40 +258,6 @@
             <div class="swiper-pagination"></div>
           </div>
         </div>
-
-
-        <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">REACH US</h2>
-
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 p-4 mb-lg-0 mb-3 bg-white rounded">
-                  <iframe class="w-100 rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123696.17652061458!2d120.8539778823972!3d14.340131258755854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1725476937233!5m2!1sen!2sph" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                  <div class="bg-white p-4 rounded mb-4">
-                    <h5>Call Us</h5>
-                    <a href="Phone: 09568432651" class="d-inline-block mb-2 text-decoration-none text-dark"> 
-                      <i class="bi bi-phone-fill"></i> 09568432651
-                    </a>
-                </div>
-                <div class="bg-white p-4 rounded mb-4">
-                    <h5>Follow Us</h5>
-                    <a href="#" class="d-inline-block mb-3"> 
-                      <span class="badge bg-light text-dark fs-6 p-2">
-                      <i class="bi bi-facebook me-1"></i>
-                      Facebook
-                      </span>
-                    </a>
-                    <br>
-                    <a href="#" class="d-inline-block mb-3"> 
-                      <span class="badge bg-light text-dark fs-6 p-2">
-                      <i class="bi bi-chat-left-text-fill"></i>
-                        Viber
-                      </span>
-                    </a>
-              </div>
-            </div>
-          
                 
 <?php require('inc/footer.php');?>
   <script src="https://cdn.jsdelivr.net/npm/swiper@8.3.2/dist/swiper.min.js"></script>
