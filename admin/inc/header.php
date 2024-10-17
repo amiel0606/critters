@@ -209,7 +209,7 @@
     function fetchCmsData() {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost/critters/admin/inc/getCMS.php',
+            url: 'http://critters.rf.gd/critters/admin/inc/getCMS.php',
             dataType: 'json',
             success: function(response) {
                 var cms_title = response[0].title;

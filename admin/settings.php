@@ -147,7 +147,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Google Map Link</label>
-                                            <textarea name="gmap" id="gmap_outp" class="form-control shadow-none" rows="6" required>https://maps.google.com/?q=123+Example+Street,+Sample+City</textarea>
+                                            <textarea name="gmap_link" id="gmap_outp" class="form-control shadow-none" rows="6" required>https://maps.google.com/?q=123+Example+Street,+Sample+City</textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Google Map Embed HTML</label>
