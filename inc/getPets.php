@@ -14,7 +14,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     "type" => $row["petType"],
     "breed" => $row["breed"],
     "birthdate" => $row["birth_date"],
-    "gender" => $row["gender"]
+    "gender" => $row["gender"],
+    "id" => $row["id"]
   );
 }
 

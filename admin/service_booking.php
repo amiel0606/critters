@@ -25,7 +25,7 @@ if (isset($_GET['error'])) {
             echo '<script>alert("Booking updated successfully!");</script>';
             break;
         default:
-            echo '<script>alert("An unknown error occurred. Please try again.");</script>';
+            echo '<script>alert("Booking updated successfully!");</script>';
             break;
     }
 }

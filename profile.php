@@ -103,12 +103,11 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="button" class="btn delete-pet-btn">Delete Pet</button>
-                        <button type="submit" class="btn save-btn" name="submit">Save</button>
+                        <button type="submit" class="btn save-btn" name="submit">Add Pet</button>
                     </form>
                 </div>
             </div>                    
-            <h4>Pet Information</h4>
+            <h4 id="petInfo">Pet Information</h4>
             <div id="pet-list"></div>
 
 
@@ -125,42 +124,60 @@ $(document).ready(function() {
     data: { owner_id: "<?php echo $_SESSION['id'] ?>" },
     dataType: "json",
     success: function(response) {
-      var petContainer = $("<div>").appendTo("#pet-list");
-
-      $.each(response, function(index, pet) {
-        var petHTML = `
-                    <div id="pets-container">
-                <div class="profile-section pet-entry">
-                    <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="petName" class="form-label">Pet's Name</label>
-                            <p>${pet.name}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="petType" class="form-label">Pet Type</label>
-                            <p>${pet.type}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="breed" class="form-label">Breed</label>
-                            <p>${pet.breed}</p>
+        var petsListContainer = $("<div>").appendTo("#pet-list");
+            if (response.length > 0) {
+                $.each(response, function(index, pet) {
+                    var petHTML = `
+                        <div id="pets-container">
+                            <div class="profile-section pet-entry">
+                                <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petName" class="form-label">Pet's Name</label>
+                                        <p id="petName">${pet.name}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petType" class="form-label">Pet Type</label>
+                                        <p>${pet.type}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="breed" class="form-label">Breed</label>
+                                        <p>${pet.breed}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="birthdate" class="form-label">Birthdate</label>
+                                        <p>${pet.birthdate}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <p>${pet.gender}</p>
+                                    </div>
+                                </div>
+                            <button type="button" data-id="${pet.id}" class="btn delete-pet-btn">Delete Pet</button>
                             </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="birthdate" class="form-label">Birthdate</label>
-                            <p>${pet.birthdate}</p>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="gender" class="form-label">Gender</label>
-                            <p>${pet.gender}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        petContainer.append(petHTML);
-      });
+                    `;
+                    petsListContainer.append(petHTML);
+                });
+            } else {
+                $("#petInfo").html('No Pet Added yet');
+            }
     }
   });
+
+  $(document).on("click", ".delete-pet-btn", function() {
+    var petId = $(this).data('id');
+    var petName = $("#petName").val();
+    $.ajax({
+        type: "POST",
+        url: "./inc/deletePet.php",
+        data: { petID : petId },
+        success: function() {
+            alert(`Pet ${petName} deleted successfully!`);
+            window.location.reload();
+        }
+    });
+});
 });
 
 </script>

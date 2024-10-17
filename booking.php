@@ -121,38 +121,44 @@ require('inc/header.php');
                 $("#services").html(html);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "./inc/getPets.php",
+            dataType: "json",
+            success: function(data) { 
+                $(document).on("click", "#book-btn", function() {
+                    var id = $(this).data('id');
+                    var bookDate = $('#book_date').val();
+                    var timeSlot = $('#time_slot').val();  
+                    var currentDate = new Date();
+                    var maxDate = new Date(currentDate.getTime() + 2 * 30 * 24 * 60 * 60 * 1000); 
+                    var selectedDate = new Date(bookDate);
 
-        $(document).on("click", "#book-btn", function() {
-            var id = $(this).data('id');
-            var bookDate = $('#book_date').val();
-            var timeSlot = $('#time_slot').val();  // Added time slot
-            var currentDate = new Date();
-            var maxDate = new Date(currentDate.getTime() + 2 * 30 * 24 * 60 * 60 * 1000); 
-            var selectedDate = new Date(bookDate);
-
-            if (bookDate === '' || timeSlot === '') {
-                alert('Please select both a date and a time slot');
-                return;
+                    if (bookDate === '' || timeSlot === '') {
+                        alert('Please select both a date and a time slot');
+                        return;
+                    }
+                    if (selectedDate < currentDate) {
+                        alert('Please select a date that is not in the past');
+                        return;
+                    }
+                    if (selectedDate > maxDate) {
+                        alert('Please select a date within the next 2 months');
+                        return;
+                    }
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "./inc/setAppointment.php",
+                        data: { book_date: bookDate, time_slot: timeSlot, bookingID: id }, 
+                        success: function(data) {
+                            console.log(data);
+                            alert('Booking was Successful');
+                            window.location.reload();
+                        }
+                    });
+                });
             }
-            if (selectedDate < currentDate) {
-                alert('Please select a date that is not in the past');
-                return;
-            }
-            if (selectedDate > maxDate) {
-                alert('Please select a date within the next 2 months');
-                return;
-            }
-            
-            $.ajax({
-                type: "POST",
-                url: "./inc/setAppointment.php",
-                data: { book_date: bookDate, time_slot: timeSlot, bookingID: id }, // Pass time slot to server
-                success: function(data) {
-                    console.log(data);
-                    alert('Booking was Successful');
-                    window.location.reload();
-                }
-            });
         });
     });
 </script>

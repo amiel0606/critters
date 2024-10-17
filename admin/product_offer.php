@@ -25,11 +25,10 @@
                 <div class="modal-dialog">
                     <form action="./inc/addProduct.php" method="post" enctype="multipart/form-data">
                         <div class="modal-content">
-                         
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="product_name_inp" class="form-label">Product Name</label>
-                                    <input type="text" name="offer_name" id="product_name_inp" class="form-control" required>
+                                    <input type="text" name="name" id="product_name_inp" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
@@ -74,7 +73,9 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            
+                            <tbody id="product-table">
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -88,6 +89,42 @@
 
 <?php require('inc/scripts.php'); ?>
 <script src="scripts/settings.js"></script>
-
+<script>
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "./inc/getProducts.php",
+        dataType: "json",
+        success: function(data) {
+            let html = '';
+            $.each(data, function(index, value) {
+                html += `<tr>
+                            <td>${value.product_id}</td>
+                            <td><img src="./inc/uploads/${value.image}" width="50" height="50"></td>
+                            <td>${value.name}</td>
+                            <td>${value.description}</td>
+                            <td>${value.price}</td>
+                            <td>
+                                <button data-id="${value.product_id}" class="btn-edit-product btn btn-primary">Edit</button>
+                                <button data-id="${value.product_id}" class="btn-delete-product btn btn-danger">Delete</button>
+                            </td>
+                          </tr>`;
+            });
+            $('#product-table').html(html);
+            $(document).on('click', '.btn-delete-product', function() {
+                var prod_ID = $(this).data('id');
+                $.ajax({
+                    type: "POST",
+                    url: "./inc/deleteProduct.php",
+                    data: { id: prod_ID  },
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+    });
+});
+</script>
 </body>
 </html>

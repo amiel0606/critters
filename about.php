@@ -35,11 +35,8 @@
       <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">ABOUT US</h2> 
         <div class="h-line bg-dark"></div>
+        <div id="about"></div>
         
-        <p class="text-center mt-3">
-        Critters Agrivet And Petcare Clinic our mission is to provide 
-        <br> compassionate, high-quality veterinary <br> to ensure the health and well-being of your pets.
-        </p>
       </div>
 
 
@@ -157,6 +154,34 @@
       },
     }
   });
+  $(document).ready(function() {
+    function fetchCmsData() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/critters/admin/inc/getCMS.php',
+            dataType: 'json',
+            success: function(response) {
+                var cms_title = response[0].title;
+                var cms_about = response[0].about;
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    var htmlContent = '';
+                    htmlContent += `
+                            <p class="text-center mt-3">
+                ${cms_about}
+                </p>
+                    `;
+                    $('#about').html(htmlContent);
+                } 
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching CMS data:', error);
+            }
+        });
+    }
+    fetchCmsData();
+});
 </script>
 
 

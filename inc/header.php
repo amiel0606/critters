@@ -9,31 +9,31 @@ try {
             <script>
                 alert('Please login to access this page');
             </script>
-        <?php } elseif ($_GET['login'] == 'WrongLogin') { ?>
+        <?php } elseif ($_GET['error'] == 'WrongLogin') { ?>
             <script>
                 alert('Wrong login credentials');
             </script>
-        <?php } elseif ($_GET['login'] == 'stmtFailed') { ?>
+        <?php } elseif ($_GET['error'] == 'stmtFailed') { ?>
             <script>
                 alert('Failed to execute statement');
             </script>
-        <?php } elseif ($_GET['login'] == 'none') { ?>
+        <?php } elseif ($_GET['error'] == 'none') { ?>
             <script>
                 alert('Success!');
             </script>
-        <?php } elseif ($_GET['login'] == 'EmptyInput') { ?>
+        <?php } elseif ($_GET['error'] == 'EmptyInput') { ?>
             <script>
                 alert('Please fill in all fields');
             </script>
-        <?php } elseif ($_GET['login'] == 'PassNotMatching') { ?>
+        <?php } elseif ($_GET['error'] == 'PassNotMatching') { ?>
             <script>
                 alert('Passwords do not match');
             </script>
-        <?php } elseif ($_GET['login'] == 'InvalidUsername') { ?>
+        <?php } elseif ($_GET['error'] == 'InvalidUsername') { ?>
             <script>
                 alert('Invalid username');
             </script>
-        <?php } elseif ($_GET['login'] == 'UsernameTaken') { ?>
+        <?php } elseif ($_GET['error'] == 'UsernameTaken') { ?>
             <script>
                 alert('Username already taken');
             </script>
@@ -45,7 +45,7 @@ try {
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Critters Agrivet</a>
+    <div id="title"></div>
     <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -214,7 +214,8 @@ try {
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     // Function to send a message
     function sendMessage(message) {
@@ -288,6 +289,31 @@ try {
             editBotMessage(button);
         };
     }
+    $(document).ready(function() {
+    function fetchCmsData() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/critters/admin/inc/getCMS.php',
+            dataType: 'json',
+            success: function(response) {
+                var cms_title = response[0].title;
+                var cms_about = response[0].about;
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    var htmlContent = '';
+                    htmlContent += `
+                        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">${response[0].title}</a>
+                    `;
+                    $('#title').html(htmlContent);
+                } 
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching CMS data:', error);
+            }
+        });
+    }
+    fetchCmsData();
+});
 </script>
 
-</script>

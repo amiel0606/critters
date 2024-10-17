@@ -114,8 +114,7 @@ function loginUser($conn, $uName, $pwd) {
         $_SESSION["username"] = $UserExists["username"];
         $_SESSION["firstName"] = $UserExists["firstName"];
         $_SESSION["lastName"] = $UserExists["lastName"];
-        $_SESSION["petName"] = $UserExists["petName"];
-        $_SESSION["petType"] = $UserExists["petType"];
+
         header("Location: ../landingpage.php?login=success"); 
 
     }
