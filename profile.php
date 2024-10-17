@@ -179,6 +179,7 @@ $(document).ready(function() {
     });
 });
 });
+<?php require('inc/footer.php');?>
 
 </script>
 </body>
