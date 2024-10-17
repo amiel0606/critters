@@ -23,13 +23,8 @@
   <div class="my-5 px-4">
     <h2 class="fw-bold h-font text-center">CONTACT US</h2> 
     <div class="h-line bg-dark"></div>
-    
-    <p class="text-center mt-3">
-    Our veterinary clinic provides compassionate care
-     for your pets, offering <br> comprehensive services 
-     including wellness exams, vaccinations, surgery,
-    and emergency care to ensure <br>their health and well-being.
-    </p>
+    <div id="contact"></div>
+
 
 
   </div>
@@ -68,14 +63,6 @@
 </div>
 
 </div>
-
-
-             
  <?php require('inc/footer.php');?>
-
-
-
-
-
 </body>
 </html>

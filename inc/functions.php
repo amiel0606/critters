@@ -1,82 +1,66 @@
 <?php
-function emptyInputSignup($Fname,$Lname,$petType,$UserName,$password) {
-    if (empty($Fname) || empty($Lname) || empty($petType) || empty($UserName) || empty($password)) {
+function emptyInputSignup($Fname, $Lname, $email, $password) {
+    if (empty($Fname) || empty($Lname) || empty($email) || empty($password)) {
         $result = true;
-    }
-    else {
+    } else {
         $result = false;
     }
     return $result;
 }
 
-function InvalidUser ($UserName) {
-    if (!filter_var($UserName, FILTER_VALIDATE_EMAIL)) {
+function InvalidUser ($email) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $result = true;
-    }
-    else {
+    } else {
         $result = false;
     }
     return $result;
 }
-
-function passMatch($password,$ConfPassword) {
+function passMatch($password, $ConfPassword) {
     if ($password != $ConfPassword) {
         $result = true;
-    }
-    else {
+    } else {
         $result = false;
     }
     return $result;
 }
-
-function userExist($conn,$UserName) {
+function userExist($conn, $email) {
     $sql = "SELECT * FROM tbl_users WHERE username = ?";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt,$sql)) {
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../landing.php?error=stmtFailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "s", $UserName);
+    mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
 
     if ($row = mysqli_fetch_assoc($resultData)) {
         return $row;
-    }
-    else {
+    } else {
         $result = false;
         return $result;
     }
     mysqli_stmt_close($stmt);
 }
 
-function createUser($conn, $UserName, $Lname, $Fname, $petType, $petName, $password) {
+function createUser($conn, $email, $Lname, $Fname, $password) {
     mysqli_begin_transaction($conn);
 
     try {
-        $sql = "INSERT INTO tbl_users(username, password, petType, petName, firstName, lastName) VALUES(?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_users(username, password, firstName, lastName) VALUES(?, ?, ?, ?)";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             throw new Exception("Failed to prepare statement");
         }
 
         $hashedPass = password_hash($password, PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt, "ssssss", $UserName, $hashedPass, $petType, $petName, $Fname, $Lname);
+        mysqli_stmt_bind_param($stmt, "ssss", $email, $hashedPass, $Fname, $Lname);
         mysqli_stmt_execute($stmt);
         $userId = mysqli_stmt_insert_id($stmt); 
         mysqli_stmt_close($stmt);
-
-        $sql2 = "INSERT INTO tbl_pets(owner_ID, petType, petName) VALUES(?, ?, ?)";
-        $stmt2 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt2, $sql2)) {
-            throw new Exception("Failed to prepare statement");
-        }
-
-        mysqli_stmt_bind_param($stmt2, "iss", $userId, $petType, $petName);
-        mysqli_stmt_execute($stmt2);
-        mysqli_stmt_close($stmt2);
 
         mysqli_commit($conn);
         header("location: ../landingpage.php?error=none");
@@ -86,6 +70,18 @@ function createUser($conn, $UserName, $Lname, $Fname, $petType, $petName, $passw
         header("location: ../landingpage.php?stmtFailed");
         exit();
     }
+}
+
+function createPet($conn, $owner_id, $petName, $petType, $breed, $birthdate, $gender) {
+    $sql = "INSERT INTO tbl_pets(owner_ID, petName, petType, breed, birth_date, gender) VALUES(?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        throw new Exception("Failed to prepare statement");
+    }
+
+    mysqli_stmt_bind_param($stmt, "isssss", $owner_id, $petName, $petType, $breed, $birthdate, $gender);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 }
 
 function emptyInputLogin($uName,$pwd) {
@@ -118,8 +114,7 @@ function loginUser($conn, $uName, $pwd) {
         $_SESSION["username"] = $UserExists["username"];
         $_SESSION["firstName"] = $UserExists["firstName"];
         $_SESSION["lastName"] = $UserExists["lastName"];
-        $_SESSION["petName"] = $UserExists["petName"];
-        $_SESSION["petType"] = $UserExists["petType"];
+
         header("Location: ../landingpage.php?login=success"); 
 
     }

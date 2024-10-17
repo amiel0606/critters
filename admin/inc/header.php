@@ -1,6 +1,9 @@
 
 <div class="container-fluid bg-danger text-light p-3 d-flex align-items-center justify-content-between sticky-top">
-        <h3 class="mb-0 h-font">CRITTERS AGRIVET</h3>
+    <div id="title">
+    
+    </div>
+        
         <a href="logout.php" class="btn btn-light btn-sm">LOG OUT</a>
     </div>
     <div class="col-lg-2 bg-danger border-top border-3 border-secondary" id="dashboard-menu">
@@ -204,4 +207,33 @@
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function() {
+    function fetchCmsData() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://critters.rf.gd/critters/admin/inc/getCMS.php',
+            dataType: 'json',
+            success: function(response) {
+                var cms_title = response[0].title;
+                var cms_about = response[0].about;
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    var htmlContent = '';
+                    htmlContent += `
+                            <h3 class="mb-0 h-font">${response[0].title}</h3>
+                    `;
+                    $('#title').html(htmlContent);
+                } 
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching CMS data:', error);
+            }
+        });
+    }
+    fetchCmsData();
+});
+</script>

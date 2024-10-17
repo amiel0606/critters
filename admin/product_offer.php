@@ -52,6 +52,35 @@
         </form>
     </div>
 </div>
+                <div class="modal-dialog">
+                    <form action="./inc/addProduct.php" method="post" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="product_name_inp" class="form-label">Product Name</label>
+                                    <input type="text" name="name" id="product_name_inp" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="text" name="description" id="description" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="number" name="price" id="price" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Upload Image</label>
+                                    <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="form-control">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
 <!-- Product List -->
 <div class="card border-0 shadow-sm mb-4">
@@ -75,7 +104,6 @@
                     </tr>
                 </thead>
                 <tbody id="productList">
-                    <!-- Products will be listed here -->
                 </tbody>
             </table>
         </div>
@@ -138,13 +166,11 @@
         const price = document.getElementById('price').value;
 
         if (id) {
-            // Edit product
             const product = products.find(p => p.id == id);
             product.name = name;
             product.description = description;
             product.price = price;
         } else {
-            // Add new product
             const newProduct = {
                 id: products.length + 1,
                 name,
@@ -166,6 +192,42 @@
 
 <?php require('inc/scripts.php'); ?>
 <script src="scripts/settings.js"></script>
-
+<script>
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "./inc/getProducts.php",
+        dataType: "json",
+        success: function(data) {
+            let html = '';
+            $.each(data, function(index, value) {
+                html += `<tr>
+                            <td>${value.product_id}</td>
+                            <td><img src="./inc/uploads/${value.image}" width="50" height="50"></td>
+                            <td>${value.name}</td>
+                            <td>${value.description}</td>
+                            <td>${value.price}</td>
+                            <td>
+                                <button data-id="${value.product_id}" class="btn-edit-product btn btn-primary">Edit</button>
+                                <button data-id="${value.product_id}" class="btn-delete-product btn btn-danger">Delete</button>
+                            </td>
+                          </tr>`;
+            });
+            $('#product-table').html(html);
+            $(document).on('click', '.btn-delete-product', function() {
+                var prod_ID = $(this).data('id');
+                $.ajax({
+                    type: "POST",
+                    url: "./inc/deleteProduct.php",
+                    data: { id: prod_ID  },
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+    });
+});
+</script>
 </body>
 </html>

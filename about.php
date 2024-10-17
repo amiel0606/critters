@@ -28,6 +28,23 @@
     <div class="my-5 px-4 text-center">
         <h2 class="fw-bold h-font">ABOUT US</h2>
         <div class="h-line bg-dark"></div>
+        <div id="about"></div>
+        
+      </div>
+
+
+      <div class="container">
+    <div class="row justify-content-between align-items-center">
+       <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-2">
+          <h3 class="mb-3">Lorem ipsum dolor sit</h3>
+        <p>
+         Our clinic is equipped with modern medical technology and diagnostic tools, allowing us to deliver accurate and timely diagnoses, while our comfortable, pet-friendly environment helps reduce stress for both pets and their owners. From puppies and kittens to senior pets, we are dedicated to supporting your furry friends at every stage of life.
+        </p>
+        </div>
+
+        <div class="col-lg-5 col-md-5 mb-4 order-lg-2 order-1">
+           <img src="images/about/doctor.jpg" class="w-100">
+        </div>
     </div>
 
     <div class="container mt-5">
@@ -93,34 +110,68 @@
         <div class="swiper-pagination"></div>
     </div>
 
-    <?php require('inc/footer.php'); ?>
+<?php require('inc/footer.php'); ?>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <!-- Swiper Initialization Script -->
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 4,
-            spaceBetween: 40,
-            pagination: {
-                el: ".swiper-pagination",
+<!-- Swiper Initialization Script -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 4,
+    spaceBetween: 40,
+    pagination: {
+      el: ".swiper-pagination",
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+      },
+      640: {
+        slidesPerView: 1,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    }
+  });
+  $(document).ready(function() {
+    function fetchCmsData() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/critters/admin/inc/getCMS.php',
+            dataType: 'json',
+            success: function(response) {
+                var cms_title = response[0].title;
+                var cms_about = response[0].about;
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    var htmlContent = '';
+                    htmlContent += `
+                            <p class="text-center mt-3">
+                ${cms_about}
+                </p>
+                    `;
+                    $('#about').html(htmlContent);
+                } 
             },
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                },
-                640: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 3,
-                },
-                1024: {
-                    slidesPerView: 3,
-                },
+            error: function(xhr, status, error) {
+                console.error('Error fetching CMS data:', error);
             }
         });
-    </script>
+    }
+    fetchCmsData();
+});
+</script>
+
+
+    
+    
+
+
 </body>
 </html>

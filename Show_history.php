@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile - Booking History</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <?php require('inc/links.php');?>
     <style>
         body {
             background-color: #f8f9fa;
@@ -101,31 +102,27 @@
     <div class="container">
         <div class="profile-container">
             <h2>Booking History</h2>
-
-            <!-- Booking History Section -->
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Pet's Name</th>
                             <th>Owner's Name</th>
-                            <th>Breed</th>
                             <th>Service</th>
+                            <th>Category</th>
                             <th>Date</th>
-                            <th>Status</th> <!-- New Status Column -->
+                            <th>Status</th> 
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="booking-data" >
                         <tr>
                             <td>1</td>
                             <td>Sample</td>
-                            <td>Sample</td>
-                            <td>Dog</td>
+                            <td>Category</td>
                             <td>Grooming</td>
                             <td>10-29-2024</td>
-                            <td class="completed">Completed</td> <!-- Completed Status -->
+                            <td class="completed">Completed</td>
                             <td>
                                 <button class="btn btn-danger delete-btn">Delete</button>
                                 <button class="btn btn-warning cancel-btn">Cancel Booking</button>
@@ -139,14 +136,12 @@
                             <td>Cat</td>
                             <td>Boarding</td>
                             <td>10-15-2024</td>
-                            <td class="pending">Pending</td> <!-- Pending Status -->
+                            <td class="pending">Pending</td>
                             <td>
                                 <button class="btn btn-danger delete-btn">Delete</button>
                                 <button class="btn btn-warning cancel-btn">Cancel Booking</button>
-                                <!-- Do not show Add Review button if status is Pending -->
                             </td>
                         </tr>
-                        <!-- You can add more rows as needed -->
                     </tbody>
                 </table>
             </div>
@@ -201,5 +196,56 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: './inc/getAppointments.php',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var tableBody = $("#booking-data");
+            tableBody.empty(); 
+
+            if (response.length > 0) {
+                $.each(response, function(index, appointment) {
+                    var rowHTML = `
+                        <tr>
+                            <td>${appointment.appointment_id}</td>
+                            <td>${appointment.ownerName}</td>
+                            <td>${appointment.service}</td>
+                            <td>${appointment.categories}</td>
+                            <td>${appointment.booking_date}</td>
+                            <td>
+                                <button class="btn btn-warning" data-id="${appointment.appointment_id}">Cancel Booking</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.append(rowHTML);
+                });
+            } else {
+                tableBody.append('<tr><td colspan="7">No appointments found.</td></tr>');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error fetching appointments: ", textStatus, errorThrown);
+        }
+    });
+    $(document).on('click', '.btn-warning', function() {
+    const appointmentId = $(this).data('id');
+        $.ajax({
+            type: 'POST',
+            url: './inc/cancelBooking.php',
+            data: { appointmentId: appointmentId },
+            success: function(response) {
+                alert('Booking cancelled successfully!');
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error cancelling booking:', error);
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

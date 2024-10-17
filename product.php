@@ -39,9 +39,10 @@
         require('inc/header.php');
     ?>
 
+    <!-- Header Section -->
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">Product Gallery</h2> 
-        <div class="h-line bg-dark"></div> 
+        <div class="h-line bg-dark"></div> <!-- Horizontal line below title -->
         <p class="text-center mt-3">
             Explore our range of high-quality products designed to solve various problems and meet your needs.
         </p>
@@ -50,56 +51,44 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="product-gallery">
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const products = [
-            {
-                name: 'Product 1',
-                price: '$100',
-                description: 'This is a great product that solves many problems.',
-                image: 'https://via.placeholder.com/300x200'
-            },
-            {
-                name: 'Product 2',
-                price: '$150',
-                description: 'This product has amazing features and excellent quality.',
-                image: 'https://via.placeholder.com/300x200'
-            },
-            {
-                name: 'Product 3',
-                price: '$200',
-                description: 'A high-quality product that provides value and performance.',
-                image: 'https://via.placeholder.com/300x200'
-            },
-            {
-                name: 'Product 4',
-                price: '$120',
-                description: 'This product is affordable yet highly functional.',
-                image: 'https://via.placeholder.com/300x200'
-            }
-        ];
+$(document).ready(function() {
+    $.ajax({
+        url: './admin/inc/getProducts.php', 
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            const gallery = $('#product-gallery');
+            data.forEach(product => {
+                const productCard = createProductCard(product);
+                gallery.append(productCard); 
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
 
-        function createProductCard(product) {
-            return `
-                <div class="col">
-                    <div class="card product-card h-100 shadow bg-white rounded p-4">
-                        <img src="${product.image}" class="card-img-top product-image" alt="${product.name}">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text text-danger">${product.price}</p>
-                            <p class="card-text">${product.description}</p>
-                        </div>
+    function createProductCard(product) {
+        return `
+            <div class="col">
+                <div class="card product-card h-100 shadow bg-white rounded p-4">
+                    <img src="./admin/inc/uploads/${product.image}" class="card-img-top product-image" alt="${product.name}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text text-danger">${product.price}</p>
+                        <p class="card-text">${product.description}</p>
                     </div>
                 </div>
-            `;
-        }
-
-        const gallery = document.getElementById('product-gallery');
-        products.forEach(product => {
-            gallery.innerHTML += createProductCard(product);
-        });
+            </div>
+        `;
+    }
+});
     </script>
+ <?php require('inc/footer.php');?>
 
 </body>
 </html>

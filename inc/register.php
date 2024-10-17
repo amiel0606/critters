@@ -2,26 +2,25 @@
 if (isset($_POST["submit"])) {
     $Fname = $_POST["Fname"];
     $Lname = $_POST["Lname"];
-    $petType = $_POST["petType"];
-    $UserName = $_POST["email"];
+    $email = $_POST["email"];
     $password = $_POST["password"];
-    $petName = $_POST["petName"];
+    $ConfPassword = $_POST["ConfPassword"];
 
     require_once 'functions.php';
     require_once '../admin/inc/dbCon.php';
 
     $errorMessage = "";
 
-    if (emptyInputSignup($Fname,$Lname,$petType,$UserName,$password) !== false) {
+    if (emptyInputSignup($Fname, $Lname, $email, $password) !== false) {
         $errorMessage = "EmptyInput";
-    } elseif (passMatch($password,$_POST["ConfPassword"]) !==false) {
+    } elseif (passMatch($password, $ConfPassword) !== false) {
         $errorMessage = "PassNotMatching";
-    } elseif (InvalidUser  ($UserName) !== false) {
+    } elseif (InvalidUser($email) !== false) {
         $errorMessage = "InvalidUsername";
-    } elseif (userExist($conn,$UserName) !== false) {
+    } elseif (userExist($conn, $email) !== false) {
         $errorMessage = "UsernameTaken";
     } else {
-        createUser($conn,$UserName,$Lname,$Fname,$petType,$petName,$password);
+        createUser($conn, $email, $Lname, $Fname, $password);
         $errorMessage = "none";
     }
 

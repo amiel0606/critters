@@ -52,7 +52,7 @@
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "./admin/inc/getService.php",
+        url: "./admin/inc/getServices.php",
         dataType: "json",
         success: function(data) {
             var html = "";

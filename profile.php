@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Profile</title>
+    <?php require('inc/links.php');?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <?php require('inc/links.php');?>
     <style>
@@ -73,42 +74,38 @@
     </style>
 </head>
 <body>
-<?php
-  session_start();
-  require('inc/header.php');
-  ?>
-    <div class="container main-container">
-        <div class="row">
+    <?php
+        session_start();
+        require('inc/header.php');
+    ?>
+
+    <div class="container">
+        <div class="profile-container">
+            <h2>Pet Profile Management</h2>
+
             <!-- Owner Information Section -->
-            <div class="col-md-6">
-                <!-- Owner and Pet Information Container -->
-                <div class="profile-section">
-                    <h4>Owner Information</h4>
-                    <form>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="ownerName" class="form-label">Owner's Name</label>
-                                <input type="text" class="form-control" id="ownerName" placeholder="Owner's Name">
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="ownerEmail" class="form-label">Owner's Email</label>
-                                <input type="email" class="form-control" id="ownerEmail" placeholder="Owner's Email">
-                            </div>
+            <div class="profile-section">
+                <h4>Owner Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="ownerName" class="form-label">Owner's Name</label>
+                            <p id="ownerName"><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></p>
                         </div>
-                    </form>
-                </div>  
+                        <div class="col-md-6 mb-3">
+                            <label for="ownerEmail" class="form-label">Owner's Email</label>
+                            <p id="ownerEmail"><?php echo $_SESSION['username'] ?></p>
+                        </div>
+                    </div>
+            </div>
 
                 <!-- Pet Information Section -->
                 <div id="pets-container">
                     <div class="profile-section pet-entry">
                         <h4>Pet Information</h4>
                         <div class="pet-info-container">
-                            <!-- Pet Image Section -->
                             <div class="pet-image" style="flex: 1; margin-right: 20px;">
                                 <img src="path_to_image/pet-image.jpg" alt="Pet Image" class="img-fluid" style="border-radius: 10px; max-width: 150px;">
                             </div>
-
-                            <!-- Pet Information Section -->
                             <div class="pet-info" style="flex: 2;">
                                 <p>Pet's Name: <span class="pet-info-value">Doggy</span></p>
                                 <p>Breed: <span class="pet-info-value">Askal</span></p>
@@ -168,18 +165,31 @@
                              <button id="add-pet-btn" class="btn btn-primary add-pet-btn">Add Pet</button>
                         </form>
                     </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" name="gender" required>
+                                    <option value="" selected disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn save-btn" name="submit">Add Pet</button>
+                    </form>
                 </div>
             </div>
+            </div>                    
+            <h4 id="petInfo">Pet Information</h4>
+            <div id="pet-list"></div>
+
+
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Function to dynamically add more pet forms
         document.getElementById('add-pet-btn').addEventListener('click', function() {
             var petsContainer = document.getElementById('pets-container');
-
-            // Create a new pet form section
             var newPetEntry = document.createElement('div');
             newPetEntry.classList.add('profile-section', 'pet-entry');
 
@@ -198,23 +208,15 @@
                 </div>
                 <button type="button" class="delete-pet-btn">Delete Pet</button>
             `;
-
-            // Append the new pet form to the pets container
             petsContainer.appendChild(newPetEntry);
-
-            // Add delete functionality to the newly added pet
             addDeleteFunctionality(newPetEntry);
         });
-
-        // Function to handle deleting a pet form
         function addDeleteFunctionality(petEntry) {
             var deleteBtn = petEntry.querySelector('.delete-pet-btn');
             deleteBtn.addEventListener('click', function() {
                 petEntry.remove();
             });
         }
-
-        // Initially add delete functionality to the first pet form
         document.querySelectorAll('.pet-entry').forEach(function(petEntry) {
             addDeleteFunctionality(petEntry);
         });

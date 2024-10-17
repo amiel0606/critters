@@ -31,18 +31,17 @@
 
             <!-- GENERAL SECTION -->
             <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
+                <div id="general" class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">General Settings</h5>
-
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#general-s">
                             <i class="bi bi-pencil-square"></i> Edit
                         </button>
                     </div>
                     <h6 class="card-subtitle mb-1 fw-bold">Site Title</h6>
-                    <p class="card-text" id="site_title">Example Site Title</p>
+                    <p class="card-text" id="site_title"></p>
                     <h6 class="card-subtitle mb-1 fw-bold">About us</h6>
-                    <p class="card-text" id="site_about">We are a fictional company dedicated to providing the best service to our customers. Our mission is to deliver quality and excellence.</p>
+                    <p class="card-text" id="site_about"></p>
                 </div>
             </div>
 
@@ -53,26 +52,28 @@
                         <div class="modal-header">
                             <h1 class="modal-title">General Settings</h1>
                         </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Site Title</label>
-                                <input type="text" name="site_title" id="site_title_inp" class="form-control shadow-none" value="Example Site Title" required>
+                        <form action="./inc/editGeneral.php" method="post">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Site Title</label>
+                                    <input type="text" name="site_title" id="site_title_inp" class="form-control shadow-none" value="Example Site Title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">About Us</label>
+                                    <textarea name="site_about" id="site_about_inp" class="form-control shadow-none" rows="6" required>We are a fictional company dedicated to providing the best service to our customers. Our mission is to deliver quality and excellence.</textarea>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">About Us</label>
-                                <textarea name="site_about" id="site_about_inp" class="form-control shadow-none" rows="6" required>We are a fictional company dedicated to providing the best service to our customers. Our mission is to deliver quality and excellence.</textarea>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                                <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                            <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
             <!-- SHUTDOWN SECTION -->
-            <div class="card border-0 shadow-sm mb-4">
+            <!-- <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Shutdown Website</h5>
@@ -84,11 +85,11 @@
                         No customers will be allowed to book when shutdown mode is turned on.
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- CONTACTS DETAIL SECTION -->
             <div class="card border shadow-sm mb-4">
-                <div class="card-body">
+                <div id="contact" class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Contacts Settings</h5>
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#contacts-s">
@@ -141,6 +142,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title">Contact Settings</h5>
                         </div>
+                        <form action="./inc/editContact.php" method="post">
                         <div class="modal-body">
                             <div class="container-fluid p-0">
                                 <div class="row">
@@ -151,10 +153,14 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Google Map Link</label>
+                                            <textarea name="gmap_link" id="gmap_outp" class="form-control shadow-none" rows="6" required>https://maps.google.com/?q=123+Example+Street,+Sample+City</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Google Map Embed HTML</label>
                                             <textarea name="gmap" id="gmap_inp" class="form-control shadow-none" rows="6" required>https://maps.google.com/?q=123+Example+Street,+Sample+City</textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label fw-bold">Phone Number (with country code)</label>
+                                            <label class="form-label fw-bold">Viber Number </label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text"><i class="bi bi-chat-left-text-fill"></i></span>
                                                 <input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" value="+123456789" required>
@@ -181,12 +187,13 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
                             <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
             <!-- TEAM MANAGEMENT SECTION -->
-            <div class="card border-0 shadow-sm mb-4">
+            <!-- <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Team Management</h5>
@@ -195,9 +202,9 @@
                         </button>
                     </div>
 
-                    <div class="row" id="team-data">
+                    <div class="row" id="team-data"> -->
     <!-- Team members will be dynamically populated here -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h6 class="card-title">Bench Joshua Timonio</h6>
@@ -241,7 +248,7 @@
     </div>
 </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- TEAM MANAGEMENT MODAL -->
             <div class="modal fade" id="teamModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
@@ -298,6 +305,94 @@
         const card = element.closest('.col-md-4');
         card.remove();
     }
+$(document).ready(function() {
+    function fetchCmsData() {
+        $.ajax({
+            type: 'GET',
+            url: './inc/getCMS.php',
+            dataType: 'json',
+            success: function(response) {
+                var cms_title = response[0].title;
+                var cms_about = response[0].about;
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    var htmlContent = '';
+                    htmlContent += `
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h5 class="card-title m-0">General Settings</h5>
+                                    <button data-id="${response[0].cms_id}" type="button" class="edit-btn-general btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#general-s">
+                                        <i  class="bi bi-pencil-square"></i> Edit
+                                    </button>
+                                </div>
+                                <h6 class="card-subtitle mb-1 fw-bold">Site Title</h6>
+                                <p class="card-text" id="site_title">${response[0].title}</p>
+                                <h6 class="card-subtitle mb-1 fw-bold">About us</h6>
+                                <p class="card-text" id="site_about">${response[0].about}</p>
+                    `;
+                    $('#general').html(htmlContent);
+                    var contactHTML = '';
+                    contactHTML += `
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <h5 class="card-title m-0">Contacts Settings</h5>
+                                        <button data-id="${response[0].cms_id}" type="button" class="btn-edit-contact btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#contacts-s">
+                                            <i class="bi bi-pencil-square"></i> Edit
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-4">
+                                                <h6 class="card-subtitle mb-1 fw-bold">Address</h6>
+                                                <p class="card-text" id="address">${response[0].address}</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h6 class="card-subtitle mb-1 fw-bold">Google Map</h6>
+                                                <a target="_blank" href="${response[0].link_address}" class="card-text" id="gmap">${response[0].address}</a>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h6 class="card-subtitle mb-1 fw-bold">Viber Contact Message</h6>
+                                                <p class="card-text">
+                                                    <i class="bi bi-chat-left-text-fill"></i> <span id="pn1">Hello! You can reach us at ${response[0].viber}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-4">
+                                                <h6 class="card-subtitle mb-1 fw-bold">Social Links</h6>
+                                                <p class="card-text mb-1">
+                                                    <i class="bi bi-facebook me-1"></i><span id="fb">${response[0].social}</span>
+                                                </p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h6 class="card-subtitle mb-1 fw-bold">iFrame</h6>
+                                                ${response[0].map}
+                                            </div>
+                                        </div>
+                                    </div>
+                    `;
+                    $('#contact').html(contactHTML);
+                } 
+                $(document).on('click', '.edit-btn-general', function() {
+                    $('#site_title_inp').val(cms_title);
+                    $('#site_about_inp').val(cms_about);
+                });
+                $(document).on('click', '.btn-edit-contact', function() {
+                    $('#address_inp').val(response[0].address);
+                    $('#pn1_inp').val(response[0].viber);
+                    $('#gmap_inp').val(response[0].map);
+                    $('#fb_inp').val(response[0].social);
+                    $('#gmap_outp').val(response[0].link_address);
+                });
+
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching CMS data:', error);
+            }
+        });
+    }
+    fetchCmsData();
+});
 </script>
+
 </body>
 </html>
