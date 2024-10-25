@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2024 at 03:09 AM
+-- Generation Time: Oct 25, 2024 at 09:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,20 +53,16 @@ INSERT INTO `tbl_bookings` (`id`, `name`, `slot`, `description`, `categories`, `
 
 CREATE TABLE `tbl_categories` (
   `category_id` int(255) NOT NULL,
-  `category_name` varchar(255) NOT NULL,
-  `category_parent` varchar(255) NOT NULL,
-  `category_price` int(255) NOT NULL
+  `category_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_categories`
 --
 
-INSERT INTO `tbl_categories` (`category_id`, `category_name`, `category_parent`, `category_price`) VALUES
-(21, 'ewahhahw', '10', 312),
-(26, 'sa sample itu', '10', 32),
-(27, 'sa 2nd itu', '13', 1123),
-(28, 'sa 2nd pa ulit', '13', 312);
+INSERT INTO `tbl_categories` (`category_id`, `category_name`) VALUES
+(30, 'hello'),
+(31, 'gwqeq');
 
 -- --------------------------------------------------------
 
@@ -135,7 +131,9 @@ CREATE TABLE `tbl_pets` (
 --
 
 INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`) VALUES
-(4, 'Dog', 'Stark', 'Mixed', '2020-05-18', 'Male', 1);
+(4, 'Dog', 'Stark', 'Mixed', '2020-05-18', 'Male', 1),
+(5, 'Dog', 'Stark', 'Mixed', '2022-02-22', 'Male', 39),
+(6, 'Dog', 'Calcifer', 'Beagle', '2003-12-02', 'Male', 1);
 
 -- --------------------------------------------------------
 
@@ -167,18 +165,20 @@ INSERT INTO `tbl_products` (`product_id`, `image`, `name`, `description`, `price
 CREATE TABLE `tbl_services` (
   `service_id` int(255) NOT NULL,
   `service_name` varchar(255) NOT NULL,
+  `category_id` varchar(255) NOT NULL,
+  `category_name` varchar(255) NOT NULL,
   `service_description` varchar(255) NOT NULL,
   `service_price` int(255) NOT NULL,
-  `service_image` varchar(255) NOT NULL
+  `service_image` varchar(255) NOT NULL,
+  `visibility` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_services`
 --
 
-INSERT INTO `tbl_services` (`service_id`, `service_name`, `service_description`, `service_price`, `service_image`) VALUES
-(10, 'Sample po haha', 'Sample po haha', 189, '67098d646eb1b2.81254004.png'),
-(13, '2nd service', '2nd service', 69, '670a588ecd9839.57503471.png');
+INSERT INTO `tbl_services` (`service_id`, `service_name`, `category_id`, `category_name`, `service_description`, `service_price`, `service_image`, `visibility`) VALUES
+(17, 'hehe', '30', 'hello', 'hello po', 321, '671be2946bff11.66986750-1729880724.png', 'true');
 
 -- --------------------------------------------------------
 
@@ -201,8 +201,37 @@ CREATE TABLE `tbl_setappointment` (
 --
 
 INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `booking_id`, `owner_id`, `time`, `status`) VALUES
-(6, '2024-10-18', 'Amiel Carhyl Lapid', '7', '1', '9:30 AM - 10:00 AM', 'Cancelled'),
-(7, '2024-10-19', 'Amiel Carhyl Lapid', '8', '1', '1:00 PM - 1:30 PM', 'Cancelled');
+(6, '2024-10-26', 'Amiel Carhyl Lapid', '7', '1', '9:30 AM - 10:00 AM', 'Active'),
+(7, '2024-10-26', 'Amiel Carhyl Lapid', '8', '1', '1:00 PM - 1:30 PM', 'Active'),
+(8, '2024-10-26', 'Amiel Carhyl Lapid', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
+(9, '2024-10-26', 'Amiel Carhyl Lapid', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
+(10, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '2:30 PM - 3:00 PM', 'Active'),
+(11, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:30 PM - 5:00 PM', 'Active'),
+(12, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:30 PM - 4:00 PM', 'Active'),
+(13, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:00 PM - 4:30 PM', 'Active'),
+(14, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:30 PM - 5:00 PM', 'Active'),
+(15, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:00 PM - 3:30 PM', 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_team`
+--
+
+CREATE TABLE `tbl_team` (
+  `team_id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `picture` varchar(255) NOT NULL,
+  `availability` varchar(255) NOT NULL DEFAULT 'true'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_team`
+--
+
+INSERT INTO `tbl_team` (`team_id`, `name`, `position`, `picture`, `availability`) VALUES
+(1, 'Benchz', 'Taga tae', '671bebde43db59.06385099-1729883102.PNG', '1');
 
 -- --------------------------------------------------------
 
@@ -279,6 +308,12 @@ ALTER TABLE `tbl_setappointment`
   ADD PRIMARY KEY (`appointment_id`);
 
 --
+-- Indexes for table `tbl_team`
+--
+ALTER TABLE `tbl_team`
+  ADD PRIMARY KEY (`team_id`);
+
+--
 -- Indexes for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
@@ -298,7 +333,7 @@ ALTER TABLE `tbl_bookings`
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_cms`
@@ -316,7 +351,7 @@ ALTER TABLE `tbl_images`
 -- AUTO_INCREMENT for table `tbl_pets`
 --
 ALTER TABLE `tbl_pets`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -328,13 +363,19 @@ ALTER TABLE `tbl_products`
 -- AUTO_INCREMENT for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_setappointment`
 --
 ALTER TABLE `tbl_setappointment`
-  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `tbl_team`
+--
+ALTER TABLE `tbl_team`
+  MODIFY `team_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`

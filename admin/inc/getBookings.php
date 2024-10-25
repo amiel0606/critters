@@ -1,7 +1,7 @@
 <?php
 include_once './dbCon.php';
 
-$sql = "SELECT * FROM tbl_bookings";
+$sql = "SELECT * FROM tbl_services";
 $result = mysqli_query($conn, $sql);
 
 $data = array();

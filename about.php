@@ -91,35 +91,9 @@
 
 <div class="container px-4">
   <div class="swiper mySwiper">
-    <div class="swiper-wrapper mb-5">
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-        <p>Position: Manager</p>
-        <p class="availability-status">Available</p> <!-- Availability status added -->
-      </div>
-
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-        <p>Position: Designer</p>
-        <p class="availability-status">Available</p> <!-- Availability status added -->
-      </div>
-
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-        <p>Position: Developer</p>
-        <p class="availability-status">Available</p> <!-- Availability status added -->
-      </div>
-
-      <div class="swiper-slide bg-white text-center overflow-hidden rounded">
-        <img src="images/about/emplo1.jpg" class="w-100">
-        <h5>RANDOM NAME</h5>
-        <p>Position: Marketing Lead</p>
-        <p class="availability-status">Available</p> <!-- Availability status added -->
-      </div>
-    </div>
+  <div class="swiper-wrapper mb-5" id="team-swiper">
+    <!-- Team slides will be inserted here dynamically -->
+</div>
   </div>
   
   <!-- Swiper Pagination -->
@@ -181,13 +155,44 @@
         });
     }
     fetchCmsData();
+    $.ajax({
+        url: './admin/inc/fetchTeam.php', 
+        type: 'GET',
+        success: function(response) {
+            const teamData = JSON.parse(response);
+            let slides = '';
+
+            teamData.forEach(member => {
+                slides += `
+                    <div class="swiper-slide bg-white text-center overflow-hidden rounded">
+                        <img src="./admin/inc/uploads/${member.picture}" class="w-100"> <!-- Change to dynamic image if needed -->
+                        <h5>${member.name}</h5> <!-- Adjust based on your database field name -->
+                        <p>Position: ${member.position}</p> <!-- Adjust based on your database field name -->
+                        <p class="availability-status">${member.availability == 1 ? 'Available' : 'Unavailable'}</p>
+                    </div>
+                `;
+            });
+
+            $('#team-swiper').html(slides);
+
+            const swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching team data:", error);
+        }
+    });
 });
 </script>
-
-
-    
-    
-
-
 </body>
 </html>

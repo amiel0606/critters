@@ -76,7 +76,7 @@
                 <div class="profile-section pet-entry">
                     <h4>Pet Information</h4>
                     <form action="./inc/addPet.php" method="post">
-                        <input type="text" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
+                        <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="petName" class="form-label">Pet's Name</label>

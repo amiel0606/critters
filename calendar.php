@@ -4,7 +4,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+< lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -62,27 +62,25 @@ $customerAppointments = [
         'title' => 'Grooming - Bella',
         'start' => '2024-10-15T09:00:00',
     ],
-
 ];
 
 require('inc/header.php'); ?>
-
 <div class="my-5 px-4">
-    <h2 class="fw-bold h-font text-center">Appointment Calendar</h2>
-    <div class="h-line bg-dark"></div>
-</div>
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-10 p-4 overflow-hidden">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <div id="calendar"></div>
+        <h2 class="fw-bold h-font text-center">Appointment Calendar</h2>
+        <div class="h-line bg-dark"></div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 p-4 overflow-hidden">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div id="event-popup" style="display:none; position:absolute; background-color:white; border:1px solid black; padding:5px; z-index:1000;"></div>
 
 <footer class="text-center py-3 bg-light text-dark">
     <div class="social-icons mb-2">
@@ -95,17 +93,58 @@ require('inc/header.php'); ?>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.0/index.global.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth', // Month view
-            events: <?php echo json_encode($customerAppointments); ?>
-        });
-
-        calendar.render();
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: function(fetchInfo, successCallback, failureCallback) {
+            $.ajax({
+                url: './inc/getSingleAppointment.php',
+                method: 'POST',
+                data: {
+                    owner_id: <?php echo json_encode($_SESSION['id']); ?>
+                },
+                success: function(data) {
+                    var events = JSON.parse(data);
+                    events = events.map(event => ({
+                        title: event.title, 
+                        start: event.start, 
+                        ownerName: event.ownerName, 
+                        description: event.description, 
+                        time: event.time, 
+                        price: event.price, 
+                        image: event.image, 
+                        category: event.category 
+                    }));
+                    successCallback(events);
+                },
+                error: function() {
+                    failureCallback([]);
+                }
+            });
+        },
+        eventMouseEnter: function(info) {
+            var popup = document.getElementById('event-popup');
+            popup.innerHTML = `
+                <strong>Title:</strong> ${info.event.title}<br>
+                <strong>Owner Name:</strong> ${info.event.extendedProps.ownerName}<br>
+                <strong>Description:</strong> ${info.event.extendedProps.description}<br>
+                <strong>Time:</strong> ${info.event.extendedProps.time}<br>
+                <strong>Price:</strong> ${info.event.extendedProps.price}<br>
+                <strong>Category:</strong> ${info.event.extendedProps.category}
+            `;
+            popup.style.display = 'block';
+            popup.style.left = info.jsEvent.pageX + 'px'; 
+            popup.style.top = info.jsEvent.pageY + 'px'; 
+        },
+        eventMouseLeave: function(info) {
+            var popup = document.getElementById('event-popup');
+            popup.style.display = 'none'; 
+        }
     });
+    calendar.render();
+});
 </script>
 </body>
 
-</html>
+</>

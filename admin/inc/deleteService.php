@@ -8,9 +8,4 @@ if (isset($_POST['id'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-
-    $sql = "DELETE FROM tbl_categories WHERE category_parent = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
 }

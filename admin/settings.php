@@ -183,62 +183,21 @@
             </div>
 
             <!-- TEAM MANAGEMENT SECTION -->
-            <!-- <div class="card border-0 shadow-sm mb-4">
+            <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title m-0">Team Management</h5>
                         <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#teamModal">
-                            <i class="bi bi-pencil-square"></i> Edit
+                            <i class="bi bi-pencil-square"></i> Add
                         </button>
                     </div>
 
-                    <div class="row" id="team-data"> -->
-    <!-- Team members will be dynamically populated here -->
-    <!-- <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h6 class="card-title">Bench Joshua Timonio</h6>
-                <p class="card-text">Ang pogi position</p>
-                <span class="availability-status">Available</span>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="toggleAvailability(this)">
-                    <label class="form-check-label">Available</label>
-                </div>
-                <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h6 class="card-title">Joshua Timonio</h6>
-                <p class="card-text">Pogi Position</p>
-                <span class="availability-status">Available</span>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="toggleAvailability(this)">
-                    <label class="form-check-label">Available</label>
-                </div>
-                <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h6 class="card-title">Bench Timonio</h6>
-                <p class="card-text">Most handsome</p>
-                <span class="availability-status">Available</span>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="toggleAvailability(this)">
-                    <label class="form-check-label">Available</label>
-                </div>
-                <span class="delete-btn" onclick="deleteMember(this)">Delete</span>
-            </div>
-        </div>
-    </div>
-</div>
-                </div>
-            </div> -->
+                    <div class="row" id="team-data"> 
+                        <!-- Team members will be dynamically populated here -->
+                        <div class="row" id="teamContainer">
+                            <!-- Team members will be dynamically injected here -->
+                        </div>
+                    </div>
 
             <!-- TEAM MANAGEMENT MODAL -->
             <div class="modal fade" id="teamModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
@@ -248,8 +207,8 @@
                             <h5 class="modal-title" id="teamModalLabel">Add Team Member</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <form action="./inc/addTeam.php" method="post" enctype="multipart/form-data" id="teamForm">
                         <div class="modal-body">
-                            <form id="teamForm">
                                 <div class="mb-3">
                                     <label for="member_name_inp" class="form-label fw-bold">Name</label>
                                     <input type="text" name="member_name" id="member_name_inp" class="form-control shadow-none" required>
@@ -262,12 +221,12 @@
                                     <label for="member_picture_inp" class="form-label fw-bold">Picture</label>
                                     <input type="file" name="member_picture" id="member_picture_inp" accept=".jpg, .png, .webp, .jpeg" class="form-control shadow-none" required>
                                 </div>
-                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary" form="teamForm">Submit</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -281,20 +240,45 @@
     </div>
 </div>
 <script>
-    function toggleAvailability(element) {
-        const cardBody = element.closest('.card-body');
-        const status = cardBody.querySelector('.availability-status');
-        if (element.checked) {
-            status.textContent = 'Available';
-        } else {
-            status.textContent = 'Not Available';
-        }
-    }
+function toggleAvailability(element, memberId) {
+    var isAvailable = $(element).is(':checked') ? 'true' : 'false'; 
+    console.log("Sending ID:", memberId, "Is Available:", isAvailable);
 
-    function deleteMember(element) {
-        const card = element.closest('.col-md-4');
-        card.remove();
+    $.ajax({
+        url: './inc/toggleAvailability.php',
+        type: 'POST',
+        data: { id: memberId, is_available: isAvailable },
+        success: function(response) {
+            console.log("Response:", response);  
+            const data = JSON.parse(response);
+            if (data.success) {
+                alert(data.message);
+            } else {
+                alert(data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error updating availability:", error);
+        }
+    });
+}
+
+function deleteMember(memberId) {
+    if (confirm("Are you sure you want to delete this member?")) {
+        $.ajax({
+            url: './inc/deleteMember.php',
+            type: 'POST',
+            data: { id: memberId },
+            success: function(response) {
+                alert('Member deleted');
+                location.reload(); 
+            },
+            error: function(xhr, status, error) {
+                console.error("Error deleting member:", error);
+            }
+        });
     }
+}
 $(document).ready(function() {
     function fetchCmsData() {
         $.ajax({
@@ -381,6 +365,39 @@ $(document).ready(function() {
         });
     }
     fetchCmsData();
+    $.ajax({
+        url: './inc/fetchTeam.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            var teamContainer = $('#teamContainer'); 
+            teamContainer.empty(); 
+            data.forEach(function(member) {
+                var availabilityStatus = member.is_available ? 'Available' : 'Not Available';
+                var availabilityChecked = member.is_available ? 'checked' : '';
+                var teamCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <img src="./inc/uploads/${member.picture}" class="card-img-top" alt="${member.name}">
+                            <div class="card-body">
+                                <h6 class="card-title">${member.name}</h6>
+                                <p class="card-text">${member.position}</p>
+                                <span class="availability-status">${availabilityStatus}</span>
+                                <div class="form-check form-switch"> 
+                                    <input class="form-check-input" type="checkbox" role="switch" ${member.availability == 1 ? 'checked' : ''} onchange="toggleAvailability(this, ${member.team_id})">
+                                    <label class="form-check-label">Available</label>
+                                </div>
+                                <span class="delete-btn" onclick="deleteMember(${member.team_id})">Delete</span>
+                            </div>
+                        </div>
+                    </div>`;
+                teamContainer.append(teamCard); 
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching team data:", error);
+        }
+    });
 });
 </script>
 

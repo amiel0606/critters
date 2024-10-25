@@ -80,43 +80,45 @@ require('inc/header.php');
             dataType: "json",
             success: function(data) {
                 var html = "";
-                $.each(data, function(index, service) {
-                    var categories = service.categories.split(",");
-                    var categoryHtml = "";
-                    $.each(categories, function(index, category) {
-                      categoryHtml += `
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="${category}" id="category_${index}">
-                        <label class="form-check-label" for="category_${index}">
-                            <span class="offer badge rounded-pill bg-light text-dark text-wrap">${category}</span>
-                        </label>
-                    </div>
-                `;
-
-                    });
-
-                    html += `<div class="card mb-4 border-0 shadow">
-                <div class="row g-0 p-3 align-items-center">
-                    <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
-                    <img height=100px width=200px src="./admin/inc/uploads/${service.img}" class="img-fluid rounded">
-                    </div>
-                    <div class="col-md-3 px-lg-3 px-md-3 px">
-                    <h5 class="mb-3">${service.service}</h5>
-                    <div class="service-types mb-4">
-                        <h6 class="mb-1">Services</h6>
-                        ${categoryHtml}
-                    </div>
-                        <div class="slot mb-4">
-                        <h6>Available Slot</h6>
-                        <span class="badge rounded-pill bg-light text-dark text-wrap">${service.slot}</span>
-                    </div>
-                    </div>
-                    <div class="col-md-2 text-align-center">
-                    <button id="book-btn" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2" data-id="${service.id}">Book Now</button>
-                    
-                    </div>
-                </div>
-                </div>`;
+                console.log(data);
+                var visibleServices = data.filter(service => service.visibility === "true");
+                $.each(visibleServices, function(index, service) {
+                    var category = service.category_name; 
+                    var serviceImage = service.service_image; 
+                    var serviceName = service.service_name; 
+                    var serviceDescription = service.service_description; 
+                    var servicePrice = service.service_price; 
+                    var visibility = service.visibility; 
+                    html += `
+                        <div class="card mb-4 border-0 shadow">
+                            <div class="row g-0 p-3 align-items-center">
+                                <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
+                                    <img height="100px" width="200px" src="./admin/inc/uploads/${serviceImage}" class="img-fluid rounded" alt="${serviceName}">
+                                </div>
+                                <div class="col-md-3 px-lg-3 px-md-3 px">
+                                    <h5 class="mb-3">${serviceName}</h5>
+                                    <div class="service-types mb-4">
+                                        <h6 class="mb-1">Category</h6>
+                                        <div class="form-check">
+                                            <p class="form-check-label" for="category_${index}">
+                                                <span class="offer badge rounded-pill bg-light text-dark text-wrap">${category}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="slot mb-4">
+                                        <h6>Price per Slot</h6>
+                                        <span class="badge rounded-pill bg-light text-dark text-wrap">${servicePrice}</span>
+                                    </div>
+                                    <div class="description mb-4">
+                                        <h6>Description</h6>
+                                        <p>${serviceDescription}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-align-center">
+                                    <button id="book-btn" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2" data-id="${service.service_id}">Book Now</button>
+                                </div>
+                            </div>
+                        </div>`;
                 });
                 $("#services").html(html);
             }
@@ -133,7 +135,6 @@ require('inc/header.php');
                     var currentDate = new Date();
                     var maxDate = new Date(currentDate.getTime() + 2 * 30 * 24 * 60 * 60 * 1000); 
                     var selectedDate = new Date(bookDate);
-
                     if (bookDate === '' || timeSlot === '') {
                         alert('Please select both a date and a time slot');
                         return;
@@ -146,15 +147,21 @@ require('inc/header.php');
                         alert('Please select a date within the next 2 months');
                         return;
                     }
-                    
                     $.ajax({
                         type: "POST",
                         url: "./inc/setAppointment.php",
-                        data: { book_date: bookDate, time_slot: timeSlot, bookingID: id }, 
-                        success: function(data) {
-                            console.log(data);
-                            alert('Booking was Successful');
-                            window.location.reload();
+                        data: { book_date: bookDate, time_slot: timeSlot, bookingID: id },
+                        success: function(response) {
+                            const data = JSON.parse(response);
+                            if (data.success) {
+                                alert('Booking was successful');
+                                window.location.reload();
+                            } else {
+                                alert(data.message); 
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("AJAX error: ", error); 
                         }
                     });
                 });

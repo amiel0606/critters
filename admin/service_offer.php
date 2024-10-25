@@ -38,7 +38,8 @@
             <!-- Add Service Modal -->
             <div class="modal fade" id="add-service-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form id="addServiceForm">
+                    <form id="addServiceForm" method="post" enctype="multipart/form-data" action="./inc/addService.php" >
+                        <input type="hidden" name="idCategory" id="idCategory">
                         <div class="modal-content">
                             <div class="modal-body">
                                 <div class="mb-3">
@@ -60,7 +61,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Add Service</button>
+                                <button name="submit" type="submit" class="btn btn-primary">Add Service</button>
                             </div>
                         </div>
                     </form>
@@ -85,116 +86,19 @@
                             <!-- Input and Button to Add Word -->
                             <div class="mt-3">
                                 <input type="text" id="newCategoryInput" class="form-control" placeholder="Add new category">
-                                <button type="button" class="btn btn-primary mt-2" onclick="addCategory()">Add Category</button>
+                                <button type="button" class="add-category-btn btn btn-primary mt-2" >Add Category</button>
                             </div>
                         </div>
 
                         <!-- Button to Add New Service -->
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add-service-modal">Add Service</button>
+                        <button class="modal-service-btn btn btn-success" data-bs-toggle="modal" data-bs-target="#add-service-modal">Add Service</button>
                     </div>
 
+                    <div id="container-hehe">
+
+                    </div>
                     <!-- Service Display Area -->
-                    <div id="service-container" class="row">
-                        <!-- Example Services for Vaccination -->
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="example_rabies_image.jpg" class="card-img-top" alt="Rabies Vaccination">
-                                <div class="card-body">
-                                    <h5 class="card-title">Rabies Vaccination</h5>
-                                    <p class="card-text">Provides protection against rabies with a single shot.</p>
-                                    <p class="position-text">Price: P50</p>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitchExample1" checked>
-                                        <label class="form-check-label" for="appointmentSwitchExample1">Appointment Required</label>
-                                    </div>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('vaccination', 0)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService('vaccination', 0)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="example_dhp_image.jpg" class="card-img-top" alt="DHP Vaccination">
-                                <div class="card-body">
-                                    <h5 class="card-title">DHP Vaccination</h5>
-                                    <p class="card-text">Prevents canine distemper, hepatitis, and parvovirus.</p>
-                                    <p class="position-text">Price: P80</p>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitchExample2" checked>
-                                        <label class="form-check-label" for="appointmentSwitchExample2">Appointment Required</label>
-                                    </div>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('vaccination', 1)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService('vaccination', 1)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="example_flu_image.jpg" class="card-img-top" alt="Flu Vaccination">
-                                <div class="card-body">
-                                    <h5 class="card-title">Flu Vaccination</h5>
-                                    <p class="card-text">Annual flu vaccination for dogs.</p>
-                                    <p class="position-text">Price: P60</p>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitchExample3" checked>
-                                        <label class="form-check-label" for="appointmentSwitchExample3">Appointment Required</label>
-                                    </div>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('vaccination', 2)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService('vaccination', 2)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Example Services for Grooming -->
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="example_bath_image.jpg" class="card-img-top" alt="Basic Bath">
-                                <div class="card-body">
-                                    <h5 class="card-title">Basic Bath</h5>
-                                    <p class="card-text">A simple, thorough bath with pet-friendly shampoo.</p>
-                                    <p class="position-text">Price: ₱ 30</p>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitchExample4">
-                                        <label class="form-check-label" for="appointmentSwitchExample4">Appointment Required</label>
-                                    </div>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('grooming', 0)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService('grooming', 0)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="example_trim_image.jpg" class="card-img-top" alt="Nail Trim">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nail Trim</h5>
-                                    <p class="card-text">Keep your pet's nails healthy and trimmed.</p>
-                                    <p class="position-text">Price: P15</p>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitchExample5">
-                                        <label class="form-check-label" for="appointmentSwitchExample5">Appointment Required</label>
-                                    </div>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('grooming', 1)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService('grooming', 1)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="example_style_image.jpg" class="card-img-top" alt="Styling">
-                                <div class="card-body">
-                                    <h5 class="card-title">Styling</h5>
-                                    <p class="card-text">Full grooming and styling for pets.</p>
-                                    <p class="position-text">Price: P100</p>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitchExample6" checked>
-                                        <label class="form-check-label" for="appointmentSwitchExample6">Appointment Required</label>
-                                    </div>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('grooming', 2)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService('grooming', 2)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -204,135 +108,152 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const services = {
-        vaccination: [
-            {
-                name: 'Rabies Vaccination',
-                description: 'Provides protection against rabies with a single shot.',
-                price: 50,
-                image: 'example_rabies_image.jpg',
-                appointment: true,
+ $(document).ready(function() {
+    function loadCategories() {
+    $.ajax({
+        url: './inc/getCategories.php', 
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $('#categoryDropdown').empty(); 
+            
+            $('#categoryDropdown').append($('<option>', {
+                value: '',
+                text: 'Please select a category',
+                disabled: true,
+                selected: true
+            }));
+            
+            if (data.length === 0) {
+                $('#categoryDropdown').append($('<option>', {
+                    value: '',
+                    text: 'No categories yet'
+                }));
+            } else {
+                $.each(data, function(index, category) {
+                    $('#categoryDropdown').append($('<option>', {
+                        value: category.category_id,
+                        text: category.category_name 
+                    }));
+                });
+            }
+            $('#categoryDropdown').change(function() {
+                var selectedCategoryID = $(this).val(); 
+                $('.btn-success').attr('data-categoryID', selectedCategoryID); 
+                $.ajax({
+                    url: 'inc/fetchServices.php', 
+                    type: 'POST', 
+                    data: { category_id: selectedCategoryID }, 
+                    success: function(response) {
+                        console.log(response);
+                        if (typeof response === 'string') {
+                            try {
+                                response = JSON.parse(response);
+                            } catch (e) {
+                                console.error('JSON parsing error:', e);
+                                console.error('Response received:', response);
+                                return;
+                            }
+                        }
+                        $('#container-hehe').empty();
+                        response.forEach(function(service) {
+                            var serviceCard = `
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <img src="./inc/uploads/${service.image}" class="card-img-top" alt="${service.name}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${service.name}</h5>
+                                            <p class="card-text">${service.description}</p>
+                                            <p class="position-text">Price: P${service.price}</p>
+                                                <div class="form-check form-switch">
+                                                    <input class="toggle-service form-check-input" data-id="${service.id}" type="checkbox" role="switch" id="appointmentSwitch${service.id}" ${service.visibility === 'true' ? 'checked' : ''}>
+                                                    <label class="form-check-label" for="appointmentSwitch${service.id}">Appointment Required</label>
+                                                </div>
+                                            <button class="btn btn-warning btn-sm" data-id="${service.id}">Edit</button>
+                                            <button class="hello-haha btn btn-danger btn-sm" data-id="${service.id}">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            $('#container-hehe').append(serviceCard);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX request failed:', error);
+                    }
+                });
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading categories:', error);
+        }
+    });
+}
+    loadCategories();
+    $('.add-category-btn').click(function() {
+        var newCategory = $('#newCategoryInput').val();
+        if (newCategory) {
+            $.ajax({
+                url: './inc/addCategory.php', 
+                type: 'POST',
+                data: { category_name: newCategory },
+                success: function(response) {
+                    $('#newCategoryInput').val('');
+                    loadCategories(); 
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error adding category:', error);
+                }
+            });
+        } else {
+            alert('Please enter a category name.');
+        }
+    });
+    $('.modal-service-btn').click(function () {
+        var categoryID = $(this).attr('data-categoryID');
+        $('#idCategory').val(categoryID);
+    });
+    $(document).on('change', '.toggle-service', function() {
+        var serviceId = $(this).data('id');
+        var isVisible = $(this).is(':checked') ? 'true' : 'false';
+        $.ajax({
+            url: './inc/updateService.php',
+            type: 'POST',
+            data: {
+                service_id: serviceId,
+                visible: isVisible
             },
-            {
-                name: 'DHP Vaccination',
-                description: 'Prevents canine distemper, hepatitis, and parvovirus.',
-                price: 80,
-                image: 'example_dhp_image.jpg',
-                appointment: true,
+            success: function(response) {
+                console.log("Success");
             },
-            {
-                name: 'Flu Vaccination',
-                description: 'Annual flu vaccination for dogs.',
-                price: 60,
-                image: 'example_flu_image.jpg',
-                appointment: true,
-            },
-        ],
-        grooming: [
-            {
-                name: 'Basic Bath',
-                description: 'A simple, thorough bath with pet-friendly shampoo.',
-                price: 30,
-                image: 'example_bath_image.jpg',
-                appointment: false,
-            },
-            {
-                name: 'Nail Trim',
-                description: 'Keep your pet\'s nails healthy and trimmed.',
-                price: 15,
-                image: 'example_trim_image.jpg',
-                appointment: false,
-            },
-            {
-                name: 'Styling',
-                description: 'Full grooming and styling for pets.',
-                price: 100,
-                image: 'example_style_image.jpg',
-                appointment: true,
-            },
-        ],
-        vet_services: [],
-    };
-
-    $(document).ready(function() {
-        // Initial display
-        displayServices('vaccination');
-
-        // Change category
-        $('#categoryDropdown').change(function() {
-            const category = $(this).val();
-            displayServices(category);
-        });
-
-        // Add service functionality
-        $('#addServiceForm').submit(function(e) {
-            e.preventDefault();
-            const category = $('#categoryDropdown').val();
-            const newService = {
-                name: $('#service_name').val(),
-                description: $('#service_description').val(),
-                price: $('#service_price').val(),
-                image: $('#service_image').val().split('\\').pop(), // Extract filename only
-                appointment: true, // Default appointment required
-            };
-
-            // Append the new service to the category's services array
-            services[category].push(newService);
-            displayServices(category); // Refresh service display
-            $('#add-service-modal').modal('hide'); // Hide modal
-            this.reset(); // Reset the form
+            error: function(xhr, status, error) {
+                alert('Update failed:', error); 
+                window.location.reload();
+            }
         });
     });
-
-    function displayServices(category) {
-        var serviceContainer = $('#service-container');
-        serviceContainer.empty(); // Clear previous services
-        $('#service-container').prev('h5').remove(); // Remove the previous title if exists
-        $('#service-container').before(`<h5 class="mb-4">Services for ${category.charAt(0).toUpperCase() + category.slice(1)}</h5>`);
-
-        services[category].forEach((service, index) => {
-            var serviceCard = `
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <img src="${service.image}" class="card-img-top" alt="${service.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${service.name}</h5>
-                            <p class="card-text">${service.description}</p>
-                            <p class="position-text">Price: ${service.price === "Varies" ? service.price : 'P' + service.price}</p>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="appointmentSwitch${index}" ${service.appointment ? 'checked' : ''}>
-                                <label class="form-check-label" for="appointmentSwitch${index}">Appointment Required</label>
-                            </div>
-                            <button class="btn btn-warning btn-sm" onclick="showEditServiceModal('${category}', ${index})">Edit</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteService('${category}', ${index})">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            serviceContainer.append(serviceCard);
-        });
-    }
-
-    function showEditServiceModal(category, index) {
-        // Edit functionality here
-        alert('Edit functionality is not implemented yet for ' + services[category][index].name);
-    }
-
-    function deleteService(category, index) {
-        services[category].splice(index, 1); // Remove service
-        displayServices(category); // Refresh display
-    }
-
-    function addCategory() {
-        var newCategory = $('#newCategoryInput').val().trim();
-        if (newCategory) {
-            services[newCategory] = []; // Initialize empty array for new category
-            $('#categoryDropdown').append(`<option value="${newCategory}">${newCategory.charAt(0).toUpperCase() + newCategory.slice(1)}</option>`);
-            $('#newCategoryInput').val(''); // Clear input field
-        } else {
-            alert('Please enter a valid category name.');
+    $(document).on('click', '.hello-haha', function() {
+        const serviceId = $(this).data('id'); 
+        if (confirm('Are you sure you want to delete this service and its associated categories?')) {
+            $.ajax({
+                url: './inc/deleteService.php',
+                type: 'POST',
+                data: { id: serviceId },
+                success: function(response) {
+                    const result = JSON.parse(response);
+                    alert(result.message); 
+                    if (result.success) {
+                        loadCategories();
+                        window.location.reload();
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while deleting the service.');
+                }
+            });
         }
-    }
+    });
+});
 </script>
 </body>
 </html>
