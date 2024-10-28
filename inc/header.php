@@ -130,43 +130,54 @@ try {
 <div class="modal fade <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form action="./inc/register.php" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title d-flex align-items-center ">
-            <i class="bi bi-person-lines-fill fs-3 me-2"></i> User Registration
-          </h5>
-          <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+    <form action="./inc/register.php" method="post" id="registration-form">
+  <div class="modal-header">
+    <h5 class="modal-title d-flex align-items-center ">
+      <i class="bi bi-person-lines-fill fs-3 me-2"></i> User Registration
+    </h5>
+    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 ps-0 mb-3">
+          <label class="form-label">First Name</label>
+          <input name="Fname" type="text" class="form-control shadow-none" required>
         </div>
-        <div class="modal-body">
-          <div class="container-fluid"> 
-            <div class="row">
-              <div class="col-md-6 ps-0 mb-3">
-                 <label class="form-label">First Name</label>
-                 <input name="Fname" type="text" class="form-control shadow-none">
-              </div>
-              <div class="col-md-6 ps-0 mb-3">
-                 <label class="form-label">Last Name</label>
-                 <input name="Lname" type="text" class="form-control shadow-none">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Email</label>
-                <input name="email" type="email" class="form-control shadow-none">
-            </div>
-             <div class="col-md-6 ps-0 mb-3">
-                  <label class="form-label">Password</label>
-                 <input name="password" type="password" class="form-control shadow-none">
-            </div>
-            <div class="col-md-6 p-0 mb-3">
-                <label class="form-label">Confirm Password</label>
-                  <input name="ConfPassword" type="password" class="form-control shadow-none"> 
-              </div>
-            </div>
-            <div class="text-center my-1">
-               <button name="submit" type="submit" class="btn btn-dark shadow-none">REGISTER</button>
-            </div>
+        <div class="col-md-6 ps-0 mb-3">
+          <label class="form-label">Last Name</label>
+          <input name="Lname" type="text" class="form-control shadow-none" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email</label>
+          <input name="email" type="email" class="email-input form-control shadow-none" required>
+        </div>
+        <div class="col-md-6 ps-0 mb-3">
+          <label class="form-label">Password</label>
+          <input name="password" type="password" class="form-control shadow-none" required>
+        </div>
+        <div class="col-md-6 p-0 mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input name="ConfPassword" type="password" class="form-control shadow-none" required>
+        </div>
+      </div>
+      <div class="text-center my-1">
+        <button name="request_otp" type="button" id="sendOtpButton" class="btn btn-dark shadow-none">Request OTP</button>
+      </div>
+      <div id="otp-section" style="display: none;">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Enter OTP</label>
+            <input name="otp" type="text" class="form-control shadow-none" required>
           </div>
         </div>
-      </form>
+        <div class="text-center my-1">
+          <button name="submit" type="submit" class="btn btn-dark shadow-none">Verify OTP & Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
     </div>
   </div>
 </div>
@@ -313,6 +324,31 @@ try {
             }
         });
     }
+    $(document).ready(function() {
+    $('#sendOtpButton').on('click', function() {
+        // Get the email from the input field
+        var email = $('.email-input').val();
+
+        // Make an AJAX request
+        $.ajax({
+            url: 'http://localhost/critters/inc/request_otp.php', // Change to your actual path
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ email: email }),
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.success) {
+                    alert('OTP sent successfully!');
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred while sending OTP.');
+            }
+        });
+    });
+});
     fetchCmsData();
 });
 </script>
