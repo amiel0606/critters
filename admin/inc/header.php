@@ -44,10 +44,6 @@
                             <a class="nav-link text-white" href="service_offer.php"><i class="bi bi-heart-pulse"></i> Service & Categories</a>
                         </li>
                         <li class="nav-item">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="service_booking.php"><i class="bi bi-newspaper"></i> Service Booking</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white" href="product_offer.php"><i class="bi bi-cart3"></i> Product</a>
                         </li>
                         <li class="nav-item">

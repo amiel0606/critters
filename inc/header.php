@@ -66,9 +66,7 @@ try {
         <li class="nav-item">
           <a class="nav-link me-2" href="calendar.php">Calendar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link me-2" href="reviews.php">Reviews</a>
-        </li>
+       
         <li class="nav-item">
           <a class="nav-link me-2" href="contact.php">Contact Us</a>
         </li>
@@ -204,7 +202,6 @@ try {
                             <img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle">
                             <strong>Bot:</strong>
                             <span class="ms-2 bot-text">Woof! How can I help you today?</span>
-                            <button class="btn btn-sm btn-outline-secondary ms-2" onclick="editBotMessage(this)">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -253,7 +250,7 @@ try {
         // Example bot response
         const botMessage = document.createElement('div');
         botMessage.className = 'message bot-message mb-2 d-flex align-items-center';
-        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2 bot-text">I'm here to help!</span><button class="btn btn-sm btn-outline-secondary ms-2" onclick="editBotMessage(this)">Edit</button>`;
+        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2 bot-text">I'm here to help!</span>`;
         chatMessages.appendChild(botMessage);
 
         // Scroll to the bottom of the chat messages
