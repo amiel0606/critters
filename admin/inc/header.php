@@ -27,10 +27,10 @@
                 <div class="collapse show px-3 small mb-1" id="bookingLinks">
                     <ul class="nav nav-pills flex-column rounded border border-secondary">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="new_bookings2.php">New Bookings</a>
+                            <a class="nav-link text-white" href="new_bookings2.php"><i class="bi bi-folder-plus"></i> New Bookings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="bookings_record2.php">Bookings Record</a>
+                            <a class="nav-link text-white" href="bookings_record2.php"><i class="bi bi-bookmark-fill"></i>Bookings Record</a>
                         </li>
                     </ul>
                     </div>
@@ -47,10 +47,13 @@
                             <a class="nav-link text-white" href="product_offer.php"><i class="bi bi-cart3"></i> Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="carousel.php"> Carousel</a>
+                            <a class="nav-link text-white" href="admin_chatbot.php"><i class="bi bi-chat-dots"></i> Chat</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="admin_reviews.php"><i class="bi bi-star"></i> Reviews</a>
+                            <a class="nav-link text-white" href="carousel.php"><i class="bi bi-images"></i> Carousel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="admin_reviews.php"><i class="bi bi-eye"></i> Reviews</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="admin_calendar.php"><i class="bi bi-calendar3"></i> Calendar</a>

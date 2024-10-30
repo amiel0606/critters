@@ -10,6 +10,7 @@
     <?php require('inc/links.php'); ?>
 </head>
 <body class="bg-light">
+
 <?php
 session_start();
 
@@ -24,6 +25,9 @@ require('inc/header.php');
 <div class="my-5 px-4">
     <h2 class="fw-bold h-font text-center">BOOKING</h2> 
     <div class="h-line bg-dark"></div>
+<p>
+    Treat your pet to the best care explore our specialized services and book an appointment today to keep them happy, healthy, and thriving.
+   <p></p>
 </div>
 
 <div class="container">
@@ -101,7 +105,7 @@ require('inc/header.php');
                         <div class="card mb-4 border-0 shadow">
                             <div class="row g-0 p-3 align-items-center">
                                 <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
-                                    <img height="100px" width="200px" src="./admin/inc/uploads/${serviceImage}" class="img-fluid rounded" alt="${serviceName}">
+                                    <img height="300px" width="400px" src="./admin/inc/uploads/${serviceImage}" class="img-fluid rounded" alt="${serviceName}">
                                 </div>
                                 <div class="col-md-3 px-lg-3 px-md-3 px">
                                     <h5 class="mb-3">${serviceName}</h5>

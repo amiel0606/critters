@@ -52,24 +52,6 @@
       background-color: #f9f9f9;
     }
 
-    .edit-btn, .delete-btn {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .edit-btn {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .delete-btn {
-      background-color: #f44336;
-      color: white;
-      margin-left: 10px;
-    }
-
     .send-message-container {
       margin-top: 20px;
     }
@@ -108,18 +90,22 @@
             <td class="question">Why is my dog itching so much, and what can I do about it?</td>
             <td class="answer">Look for signs of fleas or flea dirt on your dog's skin and fur. If fleas are present, consider using a flea prevention treatment like topical or oral medications.</td>
             <td>
-              <button class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-              <button class="delete-btn">Delete</button>
-              <button class="reply-btn" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</button>
+              <div class="btn-group" role="group" aria-label="Action buttons">
+                <button class="edit-btn btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                <button class="delete-btn btn btn-danger">Delete</button>
+                <button class="reply-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</button>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="question">What should I feed my dog?</td>
             <td class="answer">A balanced diet of high-quality dog food, appropriate for their age and size.</td>
             <td>
-              <button class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-              <button class="delete-btn">Delete</button>
-              <button class="reply-btn" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</button>
+              <div class="btn-group" role="group" aria-label="Action buttons">
+                <button class="edit-btn btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                <button class="delete-btn btn btn-danger">Delete</button>
+                <button class="reply-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -198,87 +184,6 @@
   <!-- Bootstrap JS and dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
-  <script>
-    let currentRow;
 
-    document.getElementById('sendMessageForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const newQuestion = document.getElementById('newQuestion').value;
-      const newAnswer = document.getElementById('newAnswer').value;
-
-
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-        <td class="question">${newQuestion}</td>
-        <td class="answer">${newAnswer}</td>
-        <td>
-          <button class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-          <button class="delete-btn">Delete</button>
-          <button class="reply-btn" data-bs-toggle="modal" data-bs-target="#replyModal">Reply</button>
-        </td>
-      `;
-
-      document.getElementById('chatbot-content').appendChild(newRow);
-      document.getElementById('newQuestion').value = '';
-      document.getElementById('newAnswer').value = '';
-      addEventListenersToRow(newRow);
-    });
-
-    document.querySelectorAll('.edit-btn').forEach(button => {
-      button.addEventListener('click', (event) => {
-        currentRow = event.target.closest('tr');
-        const question = currentRow.querySelector('.question').textContent;
-        const answer = currentRow.querySelector('.answer').textContent;
-        document.getElementById('editQuestion').value = question;
-        document.getElementById('editAnswer').value = answer;
-      });
-    });
-
-    document.getElementById('saveChangesBtn').addEventListener('click', () => {
-      const newQuestion = document.getElementById('editQuestion').value;
-      const newAnswer = document.getElementById('editAnswer').value;
-      currentRow.querySelector('.question').textContent = newQuestion;
-      currentRow.querySelector('.answer').textContent = newAnswer;
-      const editModal = new bootstrap.Modal(document.getElementById('editModal'));
-      editModal.hide();
-    });
-
-    function addEventListenersToRow(row) {
-      const deleteButton = row.querySelector('.delete-btn');
-      deleteButton.addEventListener('click', (event) => {
-        const rowToDelete = event.target.closest('tr');
-        rowToDelete.remove();
-      });
-
-      const replyButton = row.querySelector('.reply-btn');
-      replyButton.addEventListener('click', (event) => {
-        currentRow = event.target.closest('tr');
-      });
-    }
-
-
-    document.querySelectorAll('.delete-btn').forEach(button => {
-      addEventListenersToRow(button.closest('tr'));
-    });
-
-    document.getElementById('sendReplyBtn').addEventListener('click', () => {
-      const replyMessage = document.getElementById('replyMessage').value;
-      let replySection = currentRow.querySelector('.reply-section');
-      if (!replySection) {
-        replySection = document.createElement('div');
-        replySection.classList.add('reply-section');
-        currentRow.appendChild(replySection);
-      }
-
-      const replyDiv = document.createElement('div');
-      replyDiv.classList.add('reply');
-      replyDiv.textContent = replyMessage;
-      replySection.appendChild(replyDiv);
-      const replyModal = new bootstrap.Modal(document.getElementById('replyModal'));
-      replyModal.hide();
-      document.getElementById('replyMessage').value = '';
-    });
-  </script>
 </body>
 </html>

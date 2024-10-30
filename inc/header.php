@@ -234,7 +234,7 @@ try {
         if (message) {
             const userMessage = document.createElement('div');
             userMessage.className = 'message user-message mb-2 text-end';
-            userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+            userMessage.innerHTML = `<strong></strong> ${message}`;
             chatMessages.appendChild(userMessage);
         } else {
             const userMessageText = userMessageInput.value.trim();
