@@ -40,6 +40,7 @@
                         <tr>
                             <th>#</th>
                             <th>Pet's Name</th>
+                            <th>Pet's Type</th>
                             <th>Owner's Name</th>
                             <th>Breed</th>
                             <th>Service</th>

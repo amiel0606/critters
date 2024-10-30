@@ -8,7 +8,6 @@
     <?php require('inc/links.php');?>
     <style>
         body {
-            padding: 40px;
             background-color: #f7f7f7;
         }
         .product-card {

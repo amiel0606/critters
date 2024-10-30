@@ -43,15 +43,10 @@
       <div class="container">
     <div class="row justify-content-between align-items-center">
        <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-2">
-          <h3 class="mb-3">Lorem ipsum dolor sit</h3>
-        <p>
-         Our clinic is equipped with modern medical technology and diagnostic tools, allowing us to deliver accurate and timely diagnoses, while our comfortable, pet-friendly environment helps reduce stress for both pets and their owners. From puppies and kittens to senior pets, we are dedicated to supporting your furry friends at every stage of life.
-        </p>
+
         </div>
 
-        <div class="col-lg-5 col-md-5 mb-4 order-lg-2 order-1">
-           <img src="images/about/doctor.jpg" class="w-100">
-        </div>
+        
     </div>
 
     <div class="container mt-5">
@@ -142,7 +137,7 @@
                 } else {
                     var htmlContent = '';
                     htmlContent += `
-                            <p class="text-center mt-3">
+                            <h5 class="text-center mt-3">
                 ${cms_about}
                 </p>
                     `;

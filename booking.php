@@ -37,7 +37,14 @@ require('inc/header.php');
                     </button>
                     <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="filterDropdown">
                         <div class="border bg-light p-3 rounded mb-3">
+
                             <h5 class="mb-3" style="font-size: 18px;">SET APPOINTMENT</h5>
+                            <label class="form-label">Select Pet</label>
+                            <div>
+                            <select name="Pets" id="Pets">
+                                <option value="pet1">Doggy ko</option>
+                                <option value="pet1">Doggy mo</option>
+                            </select></div>
                             <label class="form-label">Select Date</label>
                             <input id="book_date" name="book_date" type="date" class="form-control shadow-none mb-3" required>
 
@@ -60,6 +67,7 @@ require('inc/header.php');
                                 <option value="4:00 PM - 4:30 PM">4:00 PM - 4:30 PM</option>
                                 <option value="4:30 PM - 5:00 PM">4:30 PM - 5:00 PM</option>
                             </select>
+                            
                         </div>
                     </div>
                 </div>
