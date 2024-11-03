@@ -3,160 +3,175 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Most Booked Services (Monthly)</title>
+  <title>Admin Dashboard - Analytics</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <?php require('inc/links.php'); ?>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
     }
-    .sidebar {
-      height: 100%;
-      background-color: #343a40;
-      padding-top: 20px;
-    }
-    .sidebar a {
-      padding: 10px 15px;
-      text-decoration: none;
-      font-size: 18px;
-      color: white;
-      display: block;
-    }
-    .sidebar a:hover {
-      background-color: #007bff;
-    }
-    .main-content {
-      margin-left: 250px;
+    .dashboard-container {
+      max-width: 900px;
+      margin: 0 auto;
       padding: 20px;
     }
     .chart-container {
       width: 100%;
       height: 400px;
+      margin-top: 20px;
+    }
+    .charts-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .chart-box {
+      flex: 1;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 <?php require('inc/header.php'); ?>
+<div class="dashboard-container">
+  <h1 class="mb-4">Admin Dashboard</h1>
 
-<div class="container-fluid">
-  <div class="row">
+  <!-- Month Selector -->
+  <div class="mb-4">
+    <label for="monthSelector" class="form-label">Select Month:</label>
+    <select id="monthSelector" class="form-select" onchange="updateAnalytics()">
+      <option value="0" selected>January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
+    </select>
+  </div>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Admin Dashboard</h1>
-      </div>
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <label for="monthSelector" class="form-label">Select Month:</label>
-          <select id="monthSelector" class="form-select" onchange="updateMonthlyData()">
-            <option value="0" selected>January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">June</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-            <option value="11">December</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h4>Most Booked Services (Selected Month)</h4>
-          <canvas id="serviceChart" class="chart-container"></canvas>
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-12">
-          <h4>Service Overview</h4>
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Service</th>
-                <th scope="col">Bookings</th>
-              </tr>
-            </thead>
-            <tbody id="bookingTableBody">
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </main>
+  <!-- Analytics Charts Row -->
+  <div class="charts-row">
+    <!-- Most Booked Services Chart -->
+    <div class="chart-box">
+      <h4>Most Booked Services</h4>
+      <canvas id="serviceChart" class="chart-container"></canvas>
+    </div>
+
+    <!-- Month with Most Patients Chart -->
+    <div class="chart-box">
+      <h4>Month with the Most Patients</h4>
+      <canvas id="mostPatientsChart" class="chart-container"></canvas>
+    </div>
+  </div>
+
+  <!-- Service Ranking Table -->
+  <div class="table-responsive mt-4">
+    <h4>Service Booking Overview</h4>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Service</th>
+          <th scope="col">Bookings</th>
+        </tr>
+      </thead>
+      <tbody id="bookingTableBody"></tbody>
+    </table>
   </div>
 </div>
-</script>
 
 <script>
+  // Sample data for monthly bookings
   const serviceData = {
     labels: ['Groom', 'Deworming', 'Checkup'],
-    months: [
-      [150, 120, 90, 70, 50], 
-      [160, 130, 100, 80, 60], 
-      [170, 140, 110, 90, 65], 
-      [180, 145, 115, 100, 70], 
-      [190, 150, 120, 110, 75], 
-      [200, 155, 125, 115, 80], 
-      [210, 160, 130, 120, 85], 
-      [220, 165, 135, 125, 90],
-      [230, 170, 140, 130, 95], 
-      [240, 175, 145, 135, 100], 
-      [250, 180, 150, 140, 105] 
+    monthlyBookings: [
+      [120, 150, 80],  // January
+      [130, 160, 90],  // February
+      [140, 170, 100], // March
+      [150, 180, 110], // April
+      [160, 190, 120], // May
+      [170, 200, 130], // June
+      [180, 210, 140], // July
+      [190, 220, 150], // August
+      [200, 230, 160], // September
+      [210, 240, 170], // October
+      [220, 250, 180], // November
+      [230, 260, 190]  // December
+    ],
+    monthNames: [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
     ]
   };
 
-  const ctx = document.getElementById('serviceChart').getContext('2d');
-  let serviceChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: serviceData.labels,
-          datasets: [{
-              label: 'Bookings',
-              data: serviceData.months[0],
-              backgroundColor: [
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
+  // Initialize Pie Chart for Most Booked Services
+  const serviceCtx = document.getElementById('serviceChart').getContext('2d');
+  let serviceChart = new Chart(serviceCtx, {
+    type: 'pie',
+    data: {
+      labels: serviceData.labels,
+      datasets: [{
+        label: 'Bookings',
+        data: serviceData.monthlyBookings[0],
+        backgroundColor: ['#007bff', '#28a745', '#ffc107'],
+        borderColor: '#fff',
+        borderWidth: 1
+      }]
+    }
   });
 
-  function updateMonthlyData() {
-      const selectedMonth = document.getElementById('monthSelector').value;
-      const newData = serviceData.months[selectedMonth];
-      serviceChart.data.datasets[0].data = newData;
-      serviceChart.update();
-      const tableBody = document.getElementById('bookingTableBody');
-      tableBody.innerHTML = '';
-      serviceData.labels.forEach((service, index) => {
-          const row = `<tr><td>${service}</td><td>${newData[index]}</td></tr>`;
-          tableBody.innerHTML += row;
-      });
+  // Initialize Pie Chart for Month with Most Patients
+  const patientsCtx = document.getElementById('mostPatientsChart').getContext('2d');
+  let mostPatientsChart = new Chart(patientsCtx, {
+    type: 'pie',
+    data: {
+      labels: serviceData.monthNames,
+      datasets: [{
+        label: 'Total Bookings per Month',
+        data: serviceData.monthlyBookings.map(month => month.reduce((a, b) => a + b, 0)),
+        backgroundColor: [
+          '#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8', '#6610f2',
+          '#e83e8c', '#6f42c1', '#20c997', '#fd7e14', '#6c757d', '#343a40'
+        ],
+        borderColor: '#fff',
+        borderWidth: 1
+      }]
+    }
+  });
+
+  // Update analytics data based on selected month
+  function updateAnalytics() {
+    const selectedMonth = document.getElementById('monthSelector').value;
+    const bookingsForMonth = serviceData.monthlyBookings[selectedMonth];
+    
+    // Update Most Booked Services chart data
+    serviceChart.data.datasets[0].data = bookingsForMonth;
+    serviceChart.update();
+    
+    // Update Service Ranking Table
+    const bookingTableBody = document.getElementById('bookingTableBody');
+    bookingTableBody.innerHTML = '';
+
+    const sortedBookings = serviceData.labels.map((service, index) => ({
+      service: service,
+      bookings: bookingsForMonth[index]
+    })).sort((a, b) => b.bookings - a.bookings);
+
+    sortedBookings.forEach(entry => {
+      const row = `<tr><td>${entry.service}</td><td>${entry.bookings}</td></tr>`;
+      bookingTableBody.innerHTML += row;
+    });
   }
 
-  updateMonthlyData();
+  // Initial data load
+  updateAnalytics();
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

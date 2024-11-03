@@ -36,18 +36,35 @@
 
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Pet's Name</th>
-                            <th>Pet's Type</th>
-                            <th>Owner's Name</th>
-                            <th>Breed</th>
-                            <th>Service</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Pet's Name</th>
+                        <th>Pet's Type</th>
+                        <th>Owner's Name</th>
+                        <th>Breed</th>
+                        <th>Service</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
                     </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Max</td>
+                        <td>Dog</td>
+                        <td>John Doe</td>
+                        <td>Golden Retriever</td>
+                        <td>Vaccination</td>
+                        <td>2024-11-01</td>
+                        <td>
+                            <button>Completed</button>
+                            <button>Reschedule</button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
                     <tbody id="appointments">
                         <!-- Data will be appended here -->
                     </tbody>
@@ -81,7 +98,6 @@ function fetchSortedAppointments() {
                 tableBody.append("<td>" + appointment.name + "</td>");
                 tableBody.append("<td>" + appointment.booking_date + "</td>");
                 tableBody.append("<td>");
-                tableBody.append("<button class='btn btn-danger btn-sm'>Cancel Booking</button>");
                 tableBody.append("<button class='btn btn-success btn-sm'>Completed</button>");
                 tableBody.append("<button class='btn btn-warning btn-sm'>Reschedule</button>"); // Reschedule button
                 tableBody.append("</td>");

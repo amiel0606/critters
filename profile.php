@@ -78,6 +78,10 @@
                     <form action="./inc/addPet.php" method="post">
                         <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
                         <div class="row">
+                        <div class="col-md-6 mb-3">
+                                <label for="img" class="form-label">Add image</label>
+                                <input type="file" class="form-control" name="img" required>
+                            </div>
                             <div class="col-md-6 mb-3">
                                 <label for="petName" class="form-label">Pet's Name</label>
                                 <input type="text" class="form-control" name="petName" placeholder="Pet's Name" required>
