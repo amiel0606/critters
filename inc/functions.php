@@ -72,18 +72,32 @@ function createUser($conn, $email, $Lname, $Fname, $password) {
     }
 }
 
-function createPet($conn, $owner_id, $petName, $petType, $breed, $birthdate, $gender) {
-    $sql = "INSERT INTO tbl_pets(owner_ID, petName, petType, breed, birth_date, gender) VALUES(?, ?, ?, ?, ?, ?)";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        throw new Exception("Failed to prepare statement");
+function createPet($conn, $owner_id, $petName, $petType, $breed, $birthdate, $gender, $file) {
+    // Handle image upload
+    $targetDir = "uploads/";
+    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $imgName = uniqid('', true) . '.' . $fileExtension;
+    $targetFilePath = $targetDir . $imgName;
+
+    // Check if the image is uploaded successfully
+    if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+        // Prepare SQL statement for inserting pet details
+        $sql = "INSERT INTO tbl_pets(owner_ID, petName, petType, breed, birth_date, gender, img) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+        
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            throw new Exception("Failed to prepare statement");
+        }
+
+        mysqli_stmt_bind_param($stmt, "issssss", $owner_id, $petName, $petType, $breed, $birthdate, $gender, $imgName);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        return true; // Indicate success
+    } else {
+        return false; // Indicate failure
     }
-
-    mysqli_stmt_bind_param($stmt, "isssss", $owner_id, $petName, $petType, $breed, $birthdate, $gender);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
 }
-
 function emptyInputLogin($uName,$pwd) {
     if (empty($uName) || empty($pwd)) {
         $result = true;

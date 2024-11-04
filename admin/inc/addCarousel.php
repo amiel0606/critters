@@ -1,17 +1,9 @@
 <?php
 include_once './dbCon.php';
-
-
-
 $targetDir = "uploads/";
 $fileExtension = pathinfo($_FILES['img1']['name'], PATHINFO_EXTENSION);
 $img1 = uniqid('', true) . '.' . $fileExtension;
-
-
-
-
 move_uploaded_file($_FILES['img1']['tmp_name'], $targetDir . $img1);
-
 $sql = "INSERT INTO tbl_images(img1) VALUES (?)";
 $stmt = mysqli_stmt_init($conn);
 

@@ -75,7 +75,7 @@
             <div id="pets-container">
                 <div class="profile-section pet-entry">
                     <h4>Pet Information</h4>
-                    <form action="./inc/addPet.php" method="post">
+                    <form action="./inc/addPet.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
                         <div class="row">
                         <div class="col-md-6 mb-3">
@@ -122,7 +122,7 @@
 
     <script>
 $(document).ready(function() {
-  $.ajax({
+    $.ajax({
     type: "POST",
     url: "./inc/getPets.php",
     data: { owner_id: "<?php echo $_SESSION['id'] ?>" },
@@ -133,33 +133,34 @@ $(document).ready(function() {
                 $.each(response, function(index, pet) {
                     var petHTML = `
                         <div id="pets-container">
-                            <div class="profile-section pet-entry">
-                                <input type="hidden" value="<?php echo $_SESSION['id'] ?>" name="owner_id">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="petName" class="form-label">Pet's Name</label>
-                                        <p id="petName">${pet.name}</p>
+                                <div class="profile-section pet-entry d-flex align-items-start mb-3">
+                                    <div class="pet-image me-3">
+                                        <img src="./inc/uploads/${pet.img}" alt="Pet Image" class="img-fluid rounded" style="max-width: 350px; max-height: 350px; object-fit: cover;">
+                                        <p class="mt-2 fw-bold text-center">${pet.name}</p>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="petType" class="form-label">Pet Type</label>
-                                        <p>${pet.type}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="breed" class="form-label">Breed</label>
-                                        <p>${pet.breed}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="birthdate" class="form-label">Birthdate</label>
-                                        <p>${pet.birthdate}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <p>${pet.gender}</p>
+                                    <div class="pet-details flex-grow-1">
+                                        <div class="row text-center">
+                                            <div class="col-md-6 mb-2">
+                                                <label for="petType" class="form-label">Pet Type</label>
+                                                <p class="h5">${pet.type}</p> <!-- Make the text larger -->
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="breed" class="form-label">Breed</label>
+                                                <p class="h5">${pet.breed}</p> <!-- Make the text larger -->
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="birthdate" class="form-label">Birthdate</label>
+                                                <p class="h5">${pet.birthdate}</p> <!-- Make the text larger -->
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="gender" class="form-label">Gender</label>
+                                                <p class="h5">${pet.gender}</p> <!-- Make the text larger -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            <button type="button" data-id="${pet.id}" class="btn delete-pet-btn">Delete Pet</button>
+                                <button type="button" data-id="${pet.id}" class="btn btn-danger delete-pet-btn">Delete Pet</button>
                             </div>
-                        </div>
                     `;
                     petsListContainer.append(petHTML);
                 });
@@ -167,21 +168,21 @@ $(document).ready(function() {
                 $("#petInfo").html('No Pet Added yet');
             }
     }
-  });
-
-  $(document).on("click", ".delete-pet-btn", function() {
-    var petId = $(this).data('id');
-    var petName = $("#petName").val();
-    $.ajax({
-        type: "POST",
-        url: "./inc/deletePet.php",
-        data: { petID : petId },
-        success: function() {
-            alert(`Pet ${petName} deleted successfully!`);
-            window.location.reload();
-        }
-    });
 });
+
+    $(document).on("click", ".delete-pet-btn", function() {
+        var petId = $(this).data('id');
+        var petName = $("#petName").val();
+        $.ajax({
+            type: "POST",
+            url: "./inc/deletePet.php",
+            data: { petID : petId },
+            success: function() {
+                alert(`Pet ${petName} deleted successfully!`);
+                window.location.reload();
+            }
+        });
+    });
 });
 
 </script>

@@ -39,10 +39,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Pet's Name</th>
-                        <th>Pet's Type</th>
                         <th>Owner's Name</th>
-                        <th>Breed</th>
                         <th>Service</th>
                         <th>Date</th>
                         <th>Action</th>
@@ -50,17 +47,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Max</td>
-                        <td>Dog</td>
-                        <td>John Doe</td>
-                        <td>Golden Retriever</td>
-                        <td>Vaccination</td>
-                        <td>2024-11-01</td>
-                        <td>
-                            <button>Completed</button>
-                            <button>Reschedule</button>
-                        </td>
+
                     </tr>
 
                     </tbody>
@@ -75,44 +62,61 @@
 </div>
 
 <script>
-// Function to fetch and display appointments based on selected sorting criteria
 function fetchSortedAppointments() {
-    const sortCriteria = $('#sortBookings').val(); // Get the selected sorting value (thisWeek, lastWeek, lastMonth)
-    
+    const sortCriteria = $('#sortBookings').val(); 
     $.ajax({
         type: "GET",
         url: "inc/getAppointments.php",
-        data: { sort: sortCriteria }, // Pass sorting criteria to the PHP script
+        data: { sort: sortCriteria }, 
         dataType: "json",
         success: function(data) {
             var tableBody = $("#appointments");
-            tableBody.empty(); // Clear existing rows
-
-            // Populate the table with new sorted data
+            tableBody.empty(); 
             $.each(data, function(index, appointment) {
                 tableBody.append("<tr>");
                 tableBody.append("<td>" + appointment.appointment_id + "</td>");
-                tableBody.append("<td>" + appointment.petName + "</td>");
                 tableBody.append("<td>" + appointment.ownerName + "</td>");
-                tableBody.append("<td>" + appointment.petType + "</td>");
-                tableBody.append("<td>" + appointment.name + "</td>");
+                tableBody.append("<td>" + appointment.service_name + "</td>");
                 tableBody.append("<td>" + appointment.booking_date + "</td>");
-                tableBody.append("<td>");
-                tableBody.append("<button class='btn btn-success btn-sm'>Completed</button>");
-                tableBody.append("<button class='btn btn-warning btn-sm'>Reschedule</button>"); // Reschedule button
-                tableBody.append("</td>");
+                if (appointment.status === "Completed") {
+                    tableBody.append("<td>Completed</td>"); 
+                } else {
+                    tableBody.append("<button class='btn btn-success btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Completed</button>");
+                }
                 tableBody.append("</tr>");
+            });
+            $('.complete-btn').on('click', function() {
+                const appointmentId = $(this).data('id'); 
+                updateAppointmentStatus(appointmentId);
             });
         }
     });
 }
 
-// Fetch the appointments initially sorted by 'thisWeek'
+function updateAppointmentStatus(appointmentId) {
+    $.ajax({
+        type: "POST",
+        url: "./inc/updateAppointmentStatus.php", 
+        data: { id: appointmentId, status: 'Completed' }, 
+        dataType: "json",
+        success: function(response) {
+            if (response.success) {
+                alert("Appointment marked as completed.");
+                fetchSortedAppointments();
+            } else {
+                alert("Failed to update appointment status: " + (response.error || "Unknown error"));
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert("Error occurred while updating appointment status: " + textStatus + " - " + errorThrown);
+        }
+    });
+}
+
 $(document).ready(function() {
     fetchSortedAppointments();
 });
 </script>
 
-<?php require('inc/scripts.php'); ?>
 </body>
 </html>

@@ -43,6 +43,49 @@ try {
     throw new Exception("An unexpected error occurred: " . $th->getMessage());
 }
 ?>
+<style>
+  .chat-messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.user-message {
+    justify-content: flex-end; 
+}
+
+.bot-message strong {
+    color: blue; 
+}
+
+.user-message strong {
+    color: green; 
+}
+
+.bot-message span,
+.user-message span {
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.bot-message span {
+    background-color: #e0e0e0; 
+}
+
+.user-message span {
+    background-color: #007bff; 
+    color: white; 
+}
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top">
   <div class="container-fluid">
     <div id="title"></div>
@@ -66,7 +109,6 @@ try {
         <li class="nav-item">
           <a class="nav-link me-2" href="calendar.php">Calendar</a>
         </li>
-       
         <li class="nav-item">
           <a class="nav-link me-2" href="contact.php">Contact Us</a>
         </li>
@@ -197,27 +239,22 @@ try {
                 <div class="chat-window">
                     <!-- Chat messages will be displayed here -->
                     <div class="chat-messages" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 10px;">
-                        <!-- Bot message with dog image -->
-                        <div class="message bot-message mb-2 d-flex align-items-center">
-                            <img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle">
+                        <!-- Bot message -->
+                        <div class="message bot-message mb-2">
                             <strong>Bot:</strong>
-                            <span class="ms-2 bot-text">Woof! How can I help you today?</span>
+                            <span class="ms-2">Woof! How can I help you today?</span>
                         </div>
+
                     </div>
                 </div>
                 <!-- Predefined Questions -->
-                <div class="my-3">
-                    <h6>Quick Questions:</h6>
-                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
-                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('How can I book an appointment?')">How can I book an appointment?</button>
-                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('What are your opening hours?')">What are your opening hours?</button>
-                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Do you have any promotions?')">Do you have any promotions?</button>
-                    <button class="btn btn-outline-primary btn-sm me-2" onclick="sendMessage('Can I return a product?')">Can I return a product?</button>
+                <div class="my-3" id="quick-questions">
+                  <h6>Quick Questions:</h6>
                 </div>
             </div>
             <div class="modal-footer">
                 <input type="text" class="form-control" placeholder="Type your message..." aria-label="User message" id="userMessage">
-                <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
+                <button type="button" class="btn btn-primary">Send</button>
             </div>
         </div>
     </div>
@@ -225,78 +262,7 @@ try {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-    // Function to send a message
-    function sendMessage(message) {
-        const chatMessages = document.querySelector('.chat-messages');
-        const userMessageInput = document.getElementById('userMessage');
 
-        // If a predefined question is clicked
-        if (message) {
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message user-message mb-2 text-end';
-            userMessage.innerHTML = `<strong></strong> ${message}`;
-            chatMessages.appendChild(userMessage);
-        } else {
-            const userMessageText = userMessageInput.value.trim();
-            if (userMessageText) {
-                const userMessage = document.createElement('div');
-                userMessage.className = 'message user-message mb-2 text-end';
-                userMessage.innerHTML = `<strong>You:</strong> ${userMessageText}`;
-                chatMessages.appendChild(userMessage);
-                userMessageInput.value = ''; // Clear input
-            }
-        }
-
-        // Example bot response
-        const botMessage = document.createElement('div');
-        botMessage.className = 'message bot-message mb-2 d-flex align-items-center';
-        botMessage.innerHTML = `<img src="https://via.placeholder.com/40?text=🐶" alt="Dog" class="me-2 rounded-circle"><strong>Bot:</strong><span class="ms-2 bot-text">I'm here to help!</span>`;
-        chatMessages.appendChild(botMessage);
-
-        // Scroll to the bottom of the chat messages
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Function to edit bot messages
-    function editBotMessage(button) {
-        const botText = button.previousElementSibling;
-        const currentText = botText.textContent;
-
-        // Replace bot message with an input field for editing
-        const inputField = document.createElement('input');
-        inputField.type = 'text';
-        inputField.value = currentText;
-        inputField.className = 'form-control me-2';
-        inputField.style.width = 'auto'; // Adjust input field size
-
-        // Replace message text with input field
-        botText.replaceWith(inputField);
-
-        // Change the button to "Save"
-        button.textContent = 'Save';
-        button.onclick = function () {
-            saveBotMessage(inputField, button);
-        };
-    }
-
-    // Function to save the edited bot message
-    function saveBotMessage(inputField, button) {
-        const newText = inputField.value.trim();
-
-        // Create a new span with the updated bot message
-        const newSpan = document.createElement('span');
-        newSpan.className = 'ms-2 bot-text';
-        newSpan.textContent = newText;
-
-        // Replace the input field with the updated message
-        inputField.replaceWith(newSpan);
-
-        // Change the button back to "Edit"
-        button.textContent = 'Edit';
-        button.onclick = function () {
-            editBotMessage(button);
-        };
-    }
     $(document).ready(function() {
     function fetchCmsData() {
         $.ajax({
@@ -321,31 +287,75 @@ try {
             }
         });
     }
-    $(document).ready(function() {
-    $('#sendOtpButton').on('click', function() {
-        // Get the email from the input field
-        var email = $('.email-input').val();
-
-        // Make an AJAX request
+        function fetchQuestions() {
         $.ajax({
-            url: 'http://localhost/critters/inc/request_otp.php', // Change to your actual path
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ email: email }),
-            success: function(response) {
-                var data = JSON.parse(response);
-                if (data.success) {
-                    alert('OTP sent successfully!');
+            url: 'http://localhost/critters/admin/inc/getChatbot.php', 
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#quick-questions').find('button').remove();
+                if (data.length === 0) {
+                    $('#quick-questions').append('<p>No quick questions available.</p>');
                 } else {
-                    alert(data.message);
+                    $.each(data, function(index, item) {
+                        const button = $('<button>')
+                            .addClass('btn btn-outline-primary btn-sm me-2 quick-question')
+                            .text(item.question)
+                            .data('answer', item.answer) 
+                            .click(function() {
+                                displayUserMessage($(this).text()); 
+                                displayBotTypingAnimation();
+                                setTimeout(() => {
+                                    displayBotMessage($(this).data('answer'));
+                                }, 2000);
+                            });
+                        $('#quick-questions').append(button);
+                    });
                 }
             },
-            error: function() {
-                alert('An error occurred while sending OTP.');
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
             }
         });
-    });
-});
+    }
+    function displayUserMessage(message) {
+        const userMessageHtml = `
+            <div class="message user-message mb-2">
+                <strong>You:</strong>
+                <span class="ms-2">${message}</span>
+            </div>
+        `;
+        $('.chat-messages').append(userMessageHtml);
+        scrollToBottom();
+    }
+    function displayBotTypingAnimation() {
+        const typingHtml = `
+            <div class="message bot-message mb-2 typing-indicator">
+                <strong>Bot:</strong>
+                <span class="ms-2">...</span>
+            </div>
+        `;
+        $('.chat-messages').append(typingHtml);
+        scrollToBottom();
+    }
+    function displayBotMessage(message) {
+        $('.typing-indicator').remove(); 
+        const botMessageHtml = `
+            <div class="message bot-message mb-2">
+                <strong>Bot:</strong>
+                <span class="ms-2">${message}</span>
+            </div>
+        `;
+        $('.chat-messages').append(botMessageHtml);
+        scrollToBottom();
+    }
+
+    function scrollToBottom() {
+        const chatWindow = $('.chat-messages');
+        chatWindow.scrollTop(chatWindow[0].scrollHeight);
+    }
+
+    fetchQuestions();
     fetchCmsData();
 });
 </script>

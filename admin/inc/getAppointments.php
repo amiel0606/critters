@@ -1,10 +1,10 @@
 <?php
 include_once './dbCon.php';
 
-$sql = "SELECT a.*, b.* 
+$sql = "SELECT a.*, s.* 
 FROM tbl_setappointment a 
-INNER JOIN tbl_bookings b 
-ON a.booking_id = b.id";
+INNER JOIN tbl_services s
+ON a.booking_id = s.service_id";
 
 $result = $conn->query($sql);
 
