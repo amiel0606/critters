@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2024 at 09:57 PM
+-- Generation Time: Nov 04, 2024 at 07:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -67,6 +67,25 @@ INSERT INTO `tbl_categories` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_chatbot`
+--
+
+CREATE TABLE `tbl_chatbot` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_chatbot`
+--
+
+INSERT INTO `tbl_chatbot` (`id`, `question`, `answer`) VALUES
+(2, 'pogi ba ako?', 'Oo naman sobrang pogi mo');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_cms`
 --
 
@@ -123,17 +142,17 @@ CREATE TABLE `tbl_pets` (
   `breed` varchar(255) NOT NULL,
   `birth_date` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
-  `owner_ID` int(255) NOT NULL
+  `owner_ID` int(255) NOT NULL,
+  `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_pets`
 --
 
-INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`) VALUES
-(4, 'Dog', 'Stark', 'Mixed', '2020-05-18', 'Male', 1),
-(5, 'Dog', 'Stark', 'Mixed', '2022-02-22', 'Male', 39),
-(6, 'Dog', 'Calcifer', 'Beagle', '2003-12-02', 'Male', 1);
+INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`, `img`) VALUES
+(7, 'Dog', 'Calcifer', 'Beagle', '2021-09-15', 'Male', 1, '67289a67841839.98243132.jpg'),
+(8, 'Dog', 'Sophie', 'Beagle', '2022-01-22', 'Female', 1, '67289c7596d061.12525279.jpg');
 
 -- --------------------------------------------------------
 
@@ -201,16 +220,17 @@ CREATE TABLE `tbl_setappointment` (
 --
 
 INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `booking_id`, `owner_id`, `time`, `status`) VALUES
-(6, '2024-10-26', 'Amiel Carhyl Lapid', '7', '1', '9:30 AM - 10:00 AM', 'Active'),
-(7, '2024-10-26', 'Amiel Carhyl Lapid', '8', '1', '1:00 PM - 1:30 PM', 'Active'),
+(6, '2024-10-26', 'Amiel Carhyl Lapid', '7', '1', '9:30 AM - 10:00 AM', 'Completed'),
+(7, '2024-10-26', 'Amiel Carhyl Lapid', '8', '1', '1:00 PM - 1:30 PM', 'Completed'),
 (8, '2024-10-26', 'Amiel Carhyl Lapid', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
 (9, '2024-10-26', 'Amiel Carhyl Lapid', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
-(10, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '2:30 PM - 3:00 PM', 'Active'),
+(10, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '2:30 PM - 3:00 PM', 'Completed'),
 (11, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:30 PM - 5:00 PM', 'Active'),
 (12, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:30 PM - 4:00 PM', 'Active'),
 (13, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:00 PM - 4:30 PM', 'Active'),
 (14, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:30 PM - 5:00 PM', 'Active'),
-(15, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:00 PM - 3:30 PM', 'Active');
+(15, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:00 PM - 3:30 PM', 'Active'),
+(16, '2024-11-07', 'Amiel Carhyl Lapid', '17', '1', '4:00 PM - 4:30 PM', 'Active');
 
 -- --------------------------------------------------------
 
@@ -270,6 +290,12 @@ ALTER TABLE `tbl_bookings`
 --
 ALTER TABLE `tbl_categories`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `tbl_chatbot`
+--
+ALTER TABLE `tbl_chatbot`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_cms`
@@ -336,6 +362,12 @@ ALTER TABLE `tbl_categories`
   MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
+-- AUTO_INCREMENT for table `tbl_chatbot`
+--
+ALTER TABLE `tbl_chatbot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `tbl_cms`
 --
 ALTER TABLE `tbl_cms`
@@ -351,7 +383,7 @@ ALTER TABLE `tbl_images`
 -- AUTO_INCREMENT for table `tbl_pets`
 --
 ALTER TABLE `tbl_pets`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -369,7 +401,7 @@ ALTER TABLE `tbl_services`
 -- AUTO_INCREMENT for table `tbl_setappointment`
 --
 ALTER TABLE `tbl_setappointment`
-  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_team`
