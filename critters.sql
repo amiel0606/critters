@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2024 at 07:26 PM
+-- Generation Time: Nov 06, 2024 at 04:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,7 +81,8 @@ CREATE TABLE `tbl_chatbot` (
 --
 
 INSERT INTO `tbl_chatbot` (`id`, `question`, `answer`) VALUES
-(2, 'pogi ba ako?', 'Oo naman sobrang pogi mo');
+(2, 'pogi ba ako?', 'Oo naman sobrang pogi mo'),
+(3, 'mukha ka bang burat', 'oo si bench mukhang burat');
 
 -- --------------------------------------------------------
 
@@ -273,7 +274,8 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`) VALUES
 (1, 'amiel@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Amiel Carhyl', 'Lapid'),
-(2, 'heart@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Nicole Heart', 'Mendoza');
+(2, 'heart@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Nicole Heart', 'Mendoza'),
+(3, 'benchjoshua@gmail.com', '$2y$10$NpxXm7aFAKQZ0VCfDoRtuO2NlJJBmrSZByR37knzABJMFL0v7HaSS', 'Bench Joshua', 'Timonio');
 
 --
 -- Indexes for dumped tables
@@ -365,7 +367,7 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_chatbot`
 --
 ALTER TABLE `tbl_chatbot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_cms`
@@ -413,7 +415,7 @@ ALTER TABLE `tbl_team`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
