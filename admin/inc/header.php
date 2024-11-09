@@ -35,6 +35,23 @@
                     </ul>
                     </div>
 
+                    <li class="nav-item">
+                        <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#chatLinks">
+                    <span><i class="bi bi-chat-dots"></i> Chats</span>
+                    <span><i class="bi bi-caret-down-fill"></i></span>
+                </button>
+
+                <div class="collapse show px-3 small mb-1" id="chatLinks">
+                    <ul class="nav nav-pills flex-column rounded border border-secondary">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="admin_chatbot.php"><i class="bi bi-chat-dots"></i> ChatBot</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="chat_live_message.php"><i class="bi bi-bookmark-fill"></i>Live Message</a>
+                        </li>
+                    </ul>
+                    </div>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="users.php"><i class="bi bi-person"></i> User</a>
@@ -45,9 +62,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="product_offer.php"><i class="bi bi-cart3"></i> Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="admin_chatbot.php"><i class="bi bi-chat-dots"></i> Chat</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="carousel.php"><i class="bi bi-images"></i> Carousel</a>

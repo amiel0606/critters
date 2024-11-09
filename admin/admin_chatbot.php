@@ -84,19 +84,6 @@
       border-radius: 5px;
     }
 
-    .live-chat-messages {
-      height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      background-color: #f9f9f9;
-      margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px; /* Add space between messages */
-    }
-
     .message {
       padding: 10px;
       border-radius: 20px;
@@ -137,16 +124,6 @@
 
   <div class="container">
     <!-- Live Chat Section -->
-    <div class="live-chat-container">
-      <h1>Live Chat</h1>
-      <div class="live-chat-messages" id="liveChatMessages">
-        <!-- Messages will appear here -->
-      </div>
-      <div class="send-live-message-container">
-        <input type="text" id="liveChatInput" class="form-control live-message-input" placeholder="Type your message...">
-        <button class="btn btn-primary" onclick="sendLiveMessage()">Send</button>
-      </div>
-    </div>
 
     <div class="chatbot-container">
       <h1>Chatbot</h1>
