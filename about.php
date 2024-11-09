@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Critters Agrivet - Service</title>
     <?php require('inc/links.php'); ?>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         .pop:hover {
@@ -58,122 +59,115 @@
         }
     </style>
 </head>
+
 <body class="bg-light">
-<?php
-  session_start();
-  require('inc/header.php');
-?>
+    <?php
+    session_start();
+    require('inc/header.php');
+    ?>
 
-<div class="my-5 px-4">
-    <h2 class="fw-bold h-font text-center">ABOUT US</h2> 
-    <div class="h-line bg-dark"></div>
-    <div id="about"></div>
-</div>
-
-<div class="container">
-    <div class="row justify-content-between align-items-center">
-        <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-2">
-            <!-- Add about content if needed -->
-        </div>
+    <div class="my-5 px-4">
+        <h2 class="fw-bold h-font text-center">ABOUT US</h2>
+        <div class="h-line bg-dark"></div>
+        <div id="about"></div>
     </div>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4 px-4">
-                <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                    <img src="images/about/service.png" width="70px">
-                    <h4 class="mt-3">4 TYPES SERVICE</h4>
-                </div>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-2">
+                <!-- Add about content if needed -->
             </div>
-            <div class="col-lg-3 col-md-6 mb-4 px-4">
-                <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                    <img src="images/about/customer.png" width="70px">
-                    <h4 class="mt-3">10 BOOKINGS PER DAY</h4>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 px-4">
+                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
+                        <img src="images/about/service.png" width="70px">
+                        <h4 class="mt-3">4 TYPES SERVICE</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4 px-4">
-                <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                    <img src="images/about/review.png" width="70px">
-                    <h4 class="mt-3">100+ REVIEWS</h4>
+                <div class="col-lg-3 col-md-6 mb-4 px-4">
+                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
+                        <img src="images/about/customer.png" width="70px">
+                        <h4 class="mt-3">10 BOOKINGS PER DAY</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4 px-4">
-                <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                    <img src="images/about/staff.png" width="70px">
-                    <h4 class="mt-3">8 STAFF MEMBERS</h4>
+                <div class="col-lg-3 col-md-6 mb-4 px-4">
+                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
+                        <img src="images/about/review.png" width="70px">
+                        <h4 class="mt-3">100+ REVIEWS</h4>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 px-4">
+                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
+                        <img src="images/about/staff.png" width="70px">
+                        <h4 class="mt-3">8 STAFF MEMBERS</h4>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <h3 class="my-5 fw-bold h-font text-center">MANAGEMENT TEAM</h3>
 
-    <div class="container management-team-container px-4">
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper mb-5" id="team-swiper">
-                <!-- Team slides will be inserted here dynamically -->
+        <div class="container management-team-container px-4">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper mb-5" id="team-swiper">
+                    <!-- Team slides will be inserted here dynamically -->
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-pagination"></div>
         </div>
-    </div>
-
-    <?php require('inc/footer.php'); ?>
-
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- Swiper Initialization Script -->
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 3,
-            spaceBetween: 40,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
+        <?php require('inc/footer.php'); ?>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 3,
+                spaceBetween: 40,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
                 },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 40,
-                },
-            },
-        });
-
-        $(document).ready(function() {
-            function fetchCmsData() {
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://localhost/critters/admin/inc/getCMS.php',
-                    dataType: 'json',
-                    success: function(response) {
-                        var cms_about = response[0].about;
-                        $('#about').html(`<h5 class="text-center mt-3">${cms_about}</h5>`);
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
                     },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching CMS data:', error);
-                    }
-                });
-            }
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                },
+            });
 
-            fetchCmsData();
-
-            $.ajax({
-                url: './admin/inc/fetchTeam.php', 
-                type: 'GET',
-                success: function(response) {
-                    const teamData = JSON.parse(response);
-                    let slides = '';
-
-                    teamData.forEach(member => {
-                        slides += `
+            $(document).ready(function () {
+                function fetchCmsData() {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost/critters/admin/inc/getCMS.php',
+                        dataType: 'json',
+                        success: function (response) {
+                            var cms_about = response[0].about;
+                            $('#about').html(`<h5 class="text-center mt-3">${cms_about}</h5>`);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error fetching CMS data:', error);
+                        }
+                    });
+                }
+                fetchCmsData();
+                $.ajax({
+                    url: './admin/inc/fetchTeam.php',
+                    type: 'GET',
+                    success: function (response) {
+                        const teamData = JSON.parse(response);
+                        let slides = '';
+                        teamData.forEach(member => {
+                            slides += `
                             <div class="swiper-slide bg-white text-center overflow-hidden rounded">
                                 <img src="./admin/inc/uploads/${member.picture}" class="team-image">
                                 <h5>${member.name}</h5>
@@ -183,15 +177,15 @@
                                 </p>
                             </div>
                         `;
-                    });
-
-                    $('#team-swiper').html(slides);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error fetching team data:", error);
-                }
+                        });
+                        $('#team-swiper').html(slides);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching team data:", error);
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 </body>
+
 </html>
