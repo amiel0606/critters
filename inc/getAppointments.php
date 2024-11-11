@@ -3,11 +3,11 @@ session_start();
 require_once '../admin/inc/dbCon.php';
 
 $query = "
-            SELECT s.*, b.*
-            FROM tbl_setappointment s
-            INNER JOIN tbl_bookings b
-            ON s.booking_id = b.id
-            WHERE s.owner_id = ? AND s.status = 'Active';
+            SELECT st.*, s.*
+            FROM tbl_setappointment st
+            INNER JOIN tbl_services s
+            ON st.booking_id = s.service_id
+            WHERE st.owner_id = ?;
 ";
 
 $stmt = mysqli_prepare($conn, $query);

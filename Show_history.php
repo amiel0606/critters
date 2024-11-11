@@ -150,41 +150,40 @@
 
     <!-- Review Modal -->
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reviewModalLabel">Customer Reviews</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Customer Reviews</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="userId" value="<?php echo $_SESSION['id']; ?>"> <!-- Hidden input for user ID -->
+                <div class="my-5 px-4">
+                    <div class="h-line bg-dark"></div>
                 </div>
-                <div class="modal-body">
-                    <div class="my-5 px-4">
-                        <div class="h-line bg-dark"></div>
-                    </div>
-
-                    <div class="review-form-container">
-                        <div class="review-form">
-                            <div class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">
-                                <div class="container-fluid flex-lg-column align-items-stretch">
-                                    <h4 class="mt-0">Review Options</h4>
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                    <div class="collapse navbar-collapse flex-column align-items-stretch mt-1" id="filterDropdown">
-                                        <div class="border bg-light p-3 rounded mb-3">
-                                            <h5 class="mb-3" style="font-size: 22px;">Submit a Review</h5> 
-                                            <textarea class="form-control mb-3" rows="5" placeholder="Write your review here..."></textarea> 
-                                            <div class="rating mb-3">
-                                                <label for="rating" class="form-label">Rating:</label>
-                                                <select id="rating" class="form-select w-auto">
-                                                    <option value="5">5 Stars</option>
-                                                    <option value="4">4 Stars</option>
-                                                    <option value="3">3 Stars</option>
-                                                    <option value="2">2 Stars</option>
-                                                    <option value="1">1 Star</option>
-                                                </select>
-                                            </div>
-                                            <button class="btn btn-primary mt-3">Submit Review</button> 
+                <div class="review-form-container">
+                    <div class="review-form">
+                        <div class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">
+                            <div class="container-fluid flex-lg-column align-items-stretch">
+                                <h4 class="mt-0">Review Options</h4>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse flex-column align-items-stretch mt-1" id="filterDropdown">
+                                    <div class="border bg-light p-3 rounded mb-3">
+                                        <h5 class="mb-3" style="font-size: 22px;">Submit a Review</h5> 
+                                        <textarea id="reviewText" class="form-control mb-3" rows="5" placeholder="Write your review here..."></textarea> 
+                                        <div class="rating mb-3">
+                                            <label for="rating" class="form-label">Rating:</label>
+                                            <select id="rating" class="form-select w-auto">
+                                                <option value="5">5 Stars</option>
+                                                <option value="4">4 Stars</option>
+                                                <option value="3">3 Stars</option>
+                                                <option value="2">2 Stars</option>
+                                                <option value="1">1 Star</option>
+                                            </select>
                                         </div>
+                                        <button id="submitReview" class="btn btn-primary mt-3">Submit Review</button> 
                                     </div>
                                 </div>
                             </div>
@@ -194,6 +193,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -204,16 +204,19 @@ $(document).ready(function() {
         dataType: 'json',
         success: function(response) {
             var tableBody = $("#booking-data");
+            console.log(response);
+            
             tableBody.empty(); 
-
             if (response.length > 0) {
                 $.each(response, function(index, appointment) {
-                    var rowHTML = `
+                    if (appointment.status === 'Active') {
+                        var rowHTML = `
                         <tr>
                             <td>${appointment.appointment_id}</td>
                             <td>${appointment.ownerName}</td>
-                            <td>${appointment.service}</td>
-                            <td>${appointment.categories}</td>
+                            <td>${appointment.service_name}</td>
+                            <td>${appointment.category_name}</td>
+                            <td>${appointment.status}</td>
                             <td>${appointment.booking_date}</td>
                             <td>
                                 <button class="btn btn-warning" data-id="${appointment.appointment_id}">Cancel Booking</button>
@@ -221,6 +224,22 @@ $(document).ready(function() {
                         </tr>
                     `;
                     tableBody.append(rowHTML);
+                    } else if (appointment.status === 'Completed') {
+                        var rowHTML = `
+                        <tr>
+                            <td>${appointment.appointment_id}</td>
+                            <td>${appointment.ownerName}</td>
+                            <td>${appointment.service_name}</td>
+                            <td>${appointment.category_name}</td>
+                            <td>${appointment.status}</td>
+                            <td>${appointment.booking_date}</td>
+                            <td>
+                                <button class="btn btn-primary review-btn" data-bs-toggle="modal" data-id="${appointment.appointment_id}" data-bs-target="#reviewModal">Add Review</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.append(rowHTML);
+                    }
                 });
             } else {
                 tableBody.append('<tr><td colspan="7">No appointments found.</td></tr>');
@@ -242,6 +261,33 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 alert('Error cancelling booking:', error);
+            }
+        });
+    });
+    $('#submitReview').on('click', function () {
+        const reviewText = $('#reviewText').val();
+        const rating = $('#rating').val();
+        const userId = $('#userId').val();
+        if (!reviewText || !rating) {
+            alert("Please fill in all fields.");
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "./inc/addReview.php", 
+            data: {
+                review: reviewText,
+                rate: rating,
+                user_id: userId
+            },
+            success: function (response) {
+                alert("Review submitted successfully!");
+                $('#reviewModal').modal('hide');
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.log("Error submitting review: ", error);
+                alert("There was an error submitting your review. Please try again.");
             }
         });
     });

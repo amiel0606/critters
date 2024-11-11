@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2024 at 04:49 PM
+-- Generation Time: Nov 11, 2024 at 07:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `critters`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_addreview`
+--
+
+CREATE TABLE `tbl_addreview` (
+  `review_id` int(11) NOT NULL,
+  `rate` int(255) NOT NULL,
+  `review` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_addreview`
+--
+
+INSERT INTO `tbl_addreview` (`review_id`, `rate`, `review`, `user_id`) VALUES
+(1, 5, 'maangas super hahaha galingg', '1'),
+(2, 5, 'super lupet dito hahwha', '1'),
+(3, 5, 'galing sobnra hahaha', '1'),
+(4, 5, 'hehehehe suled deto', '1'),
+(5, 4, 'mejo mabaho hininga nung assistant', '1'),
+(6, 5, 'cute naman ng doggy', '1'),
+(7, 5, 'mabango na ulit sha', '1');
 
 -- --------------------------------------------------------
 
@@ -198,7 +224,8 @@ CREATE TABLE `tbl_services` (
 --
 
 INSERT INTO `tbl_services` (`service_id`, `service_name`, `category_id`, `category_name`, `service_description`, `service_price`, `service_image`, `visibility`) VALUES
-(17, 'hehe', '30', 'hello', 'hello po', 321, '671be2946bff11.66986750-1729880724.png', 'true');
+(17, 'hehe', '30', 'hello', 'hello po', 321, '671be2946bff11.66986750-1729880724.png', 'true'),
+(18, 'Sample service', '31', 'gwqeq', 'ahahaha', 312, '673241e773b473.99815538-1731346919.png', 'true');
 
 -- --------------------------------------------------------
 
@@ -210,6 +237,7 @@ CREATE TABLE `tbl_setappointment` (
   `appointment_id` int(255) NOT NULL,
   `booking_date` varchar(255) NOT NULL,
   `ownerName` varchar(255) NOT NULL,
+  `pet_id` varchar(255) NOT NULL,
   `booking_id` varchar(255) NOT NULL,
   `owner_id` varchar(255) NOT NULL,
   `time` varchar(255) NOT NULL,
@@ -220,18 +248,24 @@ CREATE TABLE `tbl_setappointment` (
 -- Dumping data for table `tbl_setappointment`
 --
 
-INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `booking_id`, `owner_id`, `time`, `status`) VALUES
-(6, '2024-10-26', 'Amiel Carhyl Lapid', '7', '1', '9:30 AM - 10:00 AM', 'Completed'),
-(7, '2024-10-26', 'Amiel Carhyl Lapid', '8', '1', '1:00 PM - 1:30 PM', 'Completed'),
-(8, '2024-10-26', 'Amiel Carhyl Lapid', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
-(9, '2024-10-26', 'Amiel Carhyl Lapid', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
-(10, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '2:30 PM - 3:00 PM', 'Completed'),
-(11, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:30 PM - 5:00 PM', 'Active'),
-(12, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:30 PM - 4:00 PM', 'Active'),
-(13, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:00 PM - 4:30 PM', 'Active'),
-(14, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '4:30 PM - 5:00 PM', 'Active'),
-(15, '2024-10-26', 'Amiel Carhyl Lapid', '17', '1', '3:00 PM - 3:30 PM', 'Active'),
-(16, '2024-11-07', 'Amiel Carhyl Lapid', '17', '1', '4:00 PM - 4:30 PM', 'Active');
+INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `pet_id`, `booking_id`, `owner_id`, `time`, `status`) VALUES
+(6, '2024-10-26', 'Amiel Carhyl Lapid', '', '7', '1', '9:30 AM - 10:00 AM', 'Completed'),
+(7, '2024-10-26', 'Amiel Carhyl Lapid', '', '8', '1', '1:00 PM - 1:30 PM', 'Completed'),
+(8, '2024-10-26', 'Amiel Carhyl Lapid', '', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
+(9, '2024-10-26', 'Amiel Carhyl Lapid', '', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
+(10, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '2:30 PM - 3:00 PM', 'Completed'),
+(11, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:30 PM - 5:00 PM', 'Completed'),
+(12, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '3:30 PM - 4:00 PM', 'Completed'),
+(13, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:00 PM - 4:30 PM', 'Completed'),
+(14, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:30 PM - 5:00 PM', 'Completed'),
+(15, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '3:00 PM - 3:30 PM', 'Completed'),
+(16, '2024-11-07', 'Amiel Carhyl Lapid', '', '17', '1', '4:00 PM - 4:30 PM', 'Completed'),
+(17, '2024-11-13', 'Amiel Carhyl Lapid', '7', '17', '1', '10:00 AM - 10:30 AM', 'Completed'),
+(18, '2024-11-13', 'Amiel Carhyl Lapid', '8', '18', '1', '10:00 AM - 10:30 AM', 'Completed'),
+(19, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '3:00 PM - 3:30 PM', 'Completed'),
+(20, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '2:30 PM - 3:00 PM', 'Completed'),
+(21, '2024-11-12', 'Amiel Carhyl Lapid', '7', '17', '1', '11:30 AM - 12:00 PM', 'Cancelled'),
+(22, '2024-11-12', 'Amiel Carhyl Lapid', '7', '17', '1', '3:00 PM - 3:30 PM', 'Active');
 
 -- --------------------------------------------------------
 
@@ -280,6 +314,12 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`) 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_addreview`
+--
+ALTER TABLE `tbl_addreview`
+  ADD PRIMARY KEY (`review_id`);
 
 --
 -- Indexes for table `tbl_bookings`
@@ -352,6 +392,12 @@ ALTER TABLE `tbl_users`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_addreview`
+--
+ALTER TABLE `tbl_addreview`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tbl_bookings`
 --
 ALTER TABLE `tbl_bookings`
@@ -397,13 +443,13 @@ ALTER TABLE `tbl_products`
 -- AUTO_INCREMENT for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_setappointment`
 --
 ALTER TABLE `tbl_setappointment`
-  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_team`
