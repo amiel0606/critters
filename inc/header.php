@@ -9,7 +9,9 @@ try {
             <script>
                 alert('Please login to access this page');
             </script>
-        <?php } elseif ($_GET['error'] == 'WrongLogin') { ?>
+        <?php } 
+    } elseif ( isset($_GET['error'])) {
+        if ($_GET['error'] == 'WrongLogin') { ?>
             <script>
                 alert('Wrong login credentials');
             </script>
@@ -196,27 +198,41 @@ try {
                         <div class="row">
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">First Name</label>
-                                <input name="Fname" type="text" class="form-control shadow-none">
+                                <input name="Fname" type="text" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input name="Lname" type="text" class="form-control shadow-none">
+                                <input name="Lname" type="text" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Email</label>
-                                <input name="email" type="email" class="form-control shadow-none">
+                                <input id="email-input" name="email" type="email" class="form-control shadow-none"
+                                    required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none">
+                                <input name="password" type="password" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 p-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="ConfPassword" type="password" class="form-control shadow-none">
+                                <input name="ConfPassword" type="password" class="form-control shadow-none" required>
+                            </div>
+                            <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
+                                <label class="form-label">Enter OTP</label>
+                                <input type="text" id="otp" class="form-control shadow-none form-input"
+                                    placeholder="Enter the OTP" required>
                             </div>
                         </div>
                         <div class="text-center my-1">
-                            <button name="submit" type="submit" class="btn btn-dark shadow-none">REGISTER</button>
+                            <button name="send_otp" type="button" class="send-otp btn btn-dark shadow-none"
+                                id="send-otp">SEND
+                                OTP</button>
+                            <button name="send_otp" type="button" class="send-otp btn btn-dark shadow-none"
+                                id="resend-otp" style="display:none;">RESEND
+                                OTP</button>
+                            <input id="verify" type="button" class="btnVerify" value="Verify" style="display:none;">
+                            <button name="submit" type="submit" class="btn btn-dark shadow-none" id="register"
+                                style="display:none;">REGISTER</button>
                         </div>
                     </div>
                 </div>
@@ -366,8 +382,71 @@ try {
                     const chatWindow = $('.chat-messages');
                     chatWindow.scrollTop(chatWindow[0].scrollHeight);
                 }
+                function verifyOTP() {
+                    $(".error").html("").hide();
+                    var otp = $("#otp").val();
+                    var input = {
+                        "otp": otp
+                    };
+
+                    if (otp.length == 6) {
+                        $.ajax({
+                            url: './inc/verify_otp.php',
+                            type: 'POST',
+                            dataType: "json",
+                            data: input,
+                            success: function (response) {
+                                console.log(response); 
+                                if (response.status === "success") {
+                                    alert(response.message);
+                                    $("#register").show(); 
+                                    $('#verify').hide();
+                                    $('#resend-otp').hide();
+                                } else {
+                                    $(".error").html(response.message).show(); 
+                                }
+                            },
+                            error: function () {
+                                $(".error").html("An error occurred while verifying the OTP.").show();
+                            }
+                        });
+                    } else {
+                        $(".error").html('Please enter a valid OTP.').show();
+                    }
+                }
 
                 fetchQuestions();
                 fetchCmsData();
+                $('.send-otp').click(function () {
+                    var email = $('#email-input').val();
+                    if (email) {
+                        $.ajax({
+                            url: './inc/send_otp.php',
+                            type: 'POST',
+                            data: { email: email },
+                            success: function (response) {
+                                var data = JSON.parse(response);
+                                if (data.success) {
+                                    alert(data.message);
+                                    $('#verify').show();
+                                    $('#resend-otp').show();
+                                    $('#send-otp').hide();
+                                    $('#otp-section').show();
+                                } else {
+                                    alert(data.message);
+                                }
+
+                            },
+                            error: function () {
+                                alert('Error sending OTP. Please try again.');
+                            }
+                        });
+                    } else {
+                        alert('Please enter a valid email address.');
+                    }
+                });
+                $('#verify').click(function () {
+                    verifyOTP();
+                });
             });
         </script>
