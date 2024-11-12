@@ -85,7 +85,7 @@
     <!-- MISSION AND VISION -->
     <div class="my-5 px-4">
         <h3 class="my-5 fw-bold h-font text-center">MISSION AND VISION</h3>
-        <div id="mission.vision">To provide exceptional veterinary <br>
+        <div id="mission_vision">To provide exceptional veterinary <br>
         care through personalized treatment, advanced <br>
         medical practices, and a caring approach, ensuring <br>
         the well-being and quality of life for every pet and <br>
@@ -199,6 +199,7 @@
                     success: function (response) {
                         var cms_about = response[0].about;
                         $('#about').html(`<h5 class="text-center mt-3">${cms_about}</h5>`);
+                        $('#mission_vision').text(response[0].mission_vision);
                     },
                     error: function (xhr, status, error) {
                         console.error('Error fetching CMS data:', error);

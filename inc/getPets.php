@@ -16,7 +16,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     "birthdate" => $row["birth_date"],
     "gender" => $row["gender"],
     "id" => $row["id"],
-    "img" => $row["img"]
+    "img" => $row["img"],
+    "color" => $row["color"],
+    "uniqueness" => $row["uniqueness"]
   );
 }
 

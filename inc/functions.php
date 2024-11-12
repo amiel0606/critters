@@ -1,5 +1,6 @@
 <?php
-function emptyInputSignup($Fname, $Lname, $email, $password) {
+function emptyInputSignup($Fname, $Lname, $email, $password)
+{
     if (empty($Fname) || empty($Lname) || empty($email) || empty($password)) {
         $result = true;
     } else {
@@ -8,7 +9,8 @@ function emptyInputSignup($Fname, $Lname, $email, $password) {
     return $result;
 }
 
-function InvalidUser ($email) {
+function InvalidUser($email)
+{
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $result = true;
     } else {
@@ -16,7 +18,8 @@ function InvalidUser ($email) {
     }
     return $result;
 }
-function passMatch($password, $ConfPassword) {
+function passMatch($password, $ConfPassword)
+{
     if ($password != $ConfPassword) {
         $result = true;
     } else {
@@ -24,7 +27,8 @@ function passMatch($password, $ConfPassword) {
     }
     return $result;
 }
-function userExist($conn, $email) {
+function userExist($conn, $email)
+{
     $sql = "SELECT * FROM tbl_users WHERE username = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -46,7 +50,8 @@ function userExist($conn, $email) {
     mysqli_stmt_close($stmt);
 }
 
-function createUser($conn, $email, $Lname, $Fname, $password) {
+function createUser($conn, $email, $Lname, $Fname, $password)
+{
     mysqli_begin_transaction($conn);
 
     try {
@@ -59,7 +64,7 @@ function createUser($conn, $email, $Lname, $Fname, $password) {
         $hashedPass = password_hash($password, PASSWORD_DEFAULT);
         mysqli_stmt_bind_param($stmt, "ssss", $email, $hashedPass, $Fname, $Lname);
         mysqli_stmt_execute($stmt);
-        $userId = mysqli_stmt_insert_id($stmt); 
+        $userId = mysqli_stmt_insert_id($stmt);
         mysqli_stmt_close($stmt);
 
         mysqli_commit($conn);
@@ -72,44 +77,56 @@ function createUser($conn, $email, $Lname, $Fname, $password) {
     }
 }
 
-function createPet($conn, $owner_id, $petName, $petType, $breed, $birthdate, $gender, $file) {
-    // Handle image upload
-    $targetDir = "uploads/";
-    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $imgName = uniqid('', true) . '.' . $fileExtension;
-    $targetFilePath = $targetDir . $imgName;
-
-    // Check if the image is uploaded successfully
-    if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-        // Prepare SQL statement for inserting pet details
-        $sql = "INSERT INTO tbl_pets(owner_ID, petName, petType, breed, birth_date, gender, img) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_stmt_init($conn);
-        
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            throw new Exception("Failed to prepare statement");
+function createPet($conn, $owner_id, $petName, $petType, $breed, $birthdate, $gender, $color, $unique, $file)
+{
+    $defaultImage = '';
+    if (empty($file['name'])) {
+        if ($petType === 'Cat') {
+            $defaultImage = 'cat.png';
+        } elseif ($petType === 'Dog') {
+            $defaultImage = 'dog.png';
         }
-
-        mysqli_stmt_bind_param($stmt, "issssss", $owner_id, $petName, $petType, $breed, $birthdate, $gender, $imgName);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-
-        return true; // Indicate success
     } else {
-        return false; // Indicate failure
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($file['type'], $allowedTypes) || $file['size'] > 5000000) { // Limit size to 5MB
+            return false;
+        }
+        $targetDir = "uploads/";
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $imgName = uniqid('', true) . '.' . $fileExtension;
+        $targetFilePath = $targetDir . $imgName;
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            $defaultImage = $imgName;
+        } else {
+            return false;
+        }
     }
+
+    $sql = "INSERT INTO tbl_pets(owner_ID, petName, petType, breed, birth_date, gender, color, uniqueness, img) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        return false;
+    }
+
+    mysqli_stmt_bind_param($stmt, "issssssss", $owner_id, $petName, $petType, $breed, $birthdate, $gender, $color, $unique, $defaultImage);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return true;
 }
-function emptyInputLogin($uName,$pwd) {
+function emptyInputLogin($uName, $pwd)
+{
     if (empty($uName) || empty($pwd)) {
         $result = true;
-    }
-    else {
+    } else {
         $result = false;
     }
     return $result;
 }
 
-function loginUser($conn, $uName, $pwd) {
-    $UserExists = userExist($conn,$uName);
+function loginUser($conn, $uName, $pwd)
+{
+    $UserExists = userExist($conn, $uName);
 
     if ($UserExists == false) {
         header("location: ../landingpage.php?error=WrongLogin");
@@ -121,15 +138,14 @@ function loginUser($conn, $uName, $pwd) {
     if ($checkPass === false) {
         header("location: ../landingpage.php?error=WrongLogin");
         exit();
-    }
-    else if ($checkPass === true) {
+    } else if ($checkPass === true) {
         session_start();
-        $_SESSION["id"] = $UserExists["id"]; 
+        $_SESSION["id"] = $UserExists["id"];
         $_SESSION["username"] = $UserExists["username"];
         $_SESSION["firstName"] = $UserExists["firstName"];
         $_SESSION["lastName"] = $UserExists["lastName"];
 
-        header("Location: ../landingpage.php?login=success"); 
+        header("Location: ../landingpage.php?login=success");
 
     }
 }
