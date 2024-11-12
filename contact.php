@@ -55,11 +55,17 @@
                                   <h5>Viber Contact Message Us</h5>
                                   <a href="Phone: 09568432651" class="d-inline-block mb-2 text-decoration-none text-dark">
                                       <i class="bi bi-chat-left-text-fill"></i> ${response[0].viber}
+                                  </a> 
+                                  <br>
+                                  <a href="Phone:" class="d-inline-block mb-2 text-decoration-none text-dark">
+                                      <i class="bi bi-telephone-fill"></i> 09628328977
                                   </a>
                                   <h5 class="mt-4">Follow Us</h5>
                                   <a href="${response[0].social}" class="d-inline-block text-dark fs-5 me-2">
                                       <i class="bi bi-facebook me-1"></i> Critters
                                   </a>
+
+                                  
                               </div>
                           `);
                       } 

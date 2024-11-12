@@ -72,6 +72,48 @@
                 </div>
             </div>
 
+
+             <!-- MISSION AND VISION SECTION -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div id="general" class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="card-title m-0">Mission & Vision Settings</h5>
+                        <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#general-m">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </button>
+                    </div>
+                    <h6 class="card-subtitle mb-1 fw-bold">Mission & Vision</h6>
+                    <p class="card-text" id="mission.vision"> To provide exceptional veterinary</p>
+                </div>
+            </div>
+
+            <!-- MISSION & VISION MODAL -->
+
+            <div class="modal fade" id="general-m" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Mission & Vision</h1>
+                            </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Mission & Vision</label>
+                                        <textarea name="mission.vision" id="" class="form-control shadow-none" rows="6" required>To provide exceptional veterinary
+                                          care through personalized treatment, advanced
+                                          medical practices, and</textarea>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            
+
             <!-- SHUTDOWN SECTION -->
             <!-- <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
@@ -160,6 +202,13 @@
                                                 <input type="text" name="pn1" id="pn1_inp" class="form-control shadow-none" value="+123456789" required>
                                             </div>
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Contact Phone </label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text"><i class="bi bi-chat-left-text-fill"></i></span>
+                                                <input type="text" name="phnnum" id="phnnum_inp" class="form-control shadow-none" value="09628328977" required>
+                                            </div>
+                                        </div>  
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
@@ -327,6 +376,12 @@ $(document).ready(function() {
                                                 <h6 class="card-subtitle mb-1 fw-bold">Viber Contact Message</h6>
                                                 <p class="card-text">
                                                     <i class="bi bi-chat-left-text-fill"></i> <span id="pn1">Hello! You can reach us at ${response[0].viber}</span>
+                                                </p>
+                                            </div>
+                                                                                        <div class="mb-4">
+                                                <h6 class="card-subtitle mb-1 fw-bold">Contact Number</h6>
+                                                <p class="card-text">
+                                                    <i class="bi bi-telephone-fill"></i> <span id="phnum">09628328977</span>
                                                 </p>
                                             </div>
                                         </div>

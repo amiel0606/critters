@@ -88,8 +88,13 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="petType" class="form-label">Pet Type</label>
-                                <input type="text" class="form-control" name="petType" placeholder="Pet Type" required>
+                                <select class="form-control" name="petType" required>
+                                    <option value="" disabled selected>Select Pet Type</option>
+                                    <option value="Cat">Cat</option>
+                                    <option value="Dog">Dog</option>
+                                </select>
                             </div>
+
                             <div class="col-md-6 mb-3">
                                 <label for="breed" class="form-label">Breed</label>
                                 <input type="text" class="form-control" name="breed" placeholder="Breed" required>
@@ -106,6 +111,15 @@
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="color" class="form-label">Color</label>
+                                <input type="text" class="form-control" name="color" placeholder="Color" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="unique" class="form-label">Unique</label>
+                                <input type="text" class="form-control" name="unique" placeholder="Unique" required>
+                            </div>
+                            
                         </div>
                         <button type="submit" class="btn save-btn" name="submit">Add Pet</button>
                     </form>
@@ -156,6 +170,16 @@ $(document).ready(function() {
                                                 <label for="gender" class="form-label">Gender</label>
                                                 <p class="h5">${pet.gender}</p> <!-- Make the text larger -->
                                             </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="color" class="form-label">Color</label>
+                                                <p class="h5"></p>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="unique" class="form-label">Uniqueness</label>
+                                                <p class="h5"></p>
+                                            </div>
+                                            
+                                            
                                         </div>
                                     </div>
                                 </div>
