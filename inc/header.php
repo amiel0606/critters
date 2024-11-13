@@ -435,7 +435,6 @@ try {
                                 } else {
                                     alert(data.message);
                                 }
-
                             },
                             error: function () {
                                 alert('Error sending OTP. Please try again.');
