@@ -1,8 +1,8 @@
 <?php
 include_once './dbCon.php';
-$sql = "SELECT u.id, u.firstName, u.lastName, u.username, m.message, m.timestamp 
+$sql = "SELECT u.id, u.firstName, u.lastName, u.username, m.message, m.timestamp, m.sender, m.receiver 
         FROM tbl_users u 
-        INNER JOIN tbl_message m ON m.customer_id = u.id 
+        INNER JOIN tbl_message m ON m.receiver = u.id 
         WHERE m.status = 'Active'
         ORDER BY m.timestamp DESC";
 $result = $conn->query($sql);

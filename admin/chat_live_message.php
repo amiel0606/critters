@@ -13,7 +13,7 @@
       background-color: #f4f7f6;
       margin-top: 0px;
       font-family: Arial, sans-serif;
-      
+
     }
 
     .chat-app .people-list {
@@ -104,17 +104,14 @@
       display: table;
       clear: both;
     }
-<<<<<<< Updated upstream
-    .container .card{
-      max-width:85%;
-        margin-left: auto;
-      
-    }
-    
-=======
 
->>>>>>> Stashed changes
-    @media only screen and (max-width: 767px) {
+    <<<<<<< Updated upstream .container .card {
+      max-width: 85%;
+      margin-left: auto;
+
+    }
+
+    =======>>>>>>>Stashed changes @media only screen and (max-width: 767px) {
       .chat-app .people-list {
         width: 100%;
         display: none;
@@ -167,7 +164,7 @@
             <div class="chat-message clearfix">
               <div class="input-group mb-0">
                 <input type="text" id="message-input" class="form-control" placeholder="Enter text here...">
-                <button id="send-message" class="btn btn-primary" type="button">Send</button>
+                <button id="send-message" class="btn btn-primary" name="send-btn-customer" type="button">Send</button>
               </div>
             </div>
           </div>
@@ -176,81 +173,81 @@
     </div>
   </div>
   <script>
-$(document).ready(function() {
-    $.ajax({
+    $(document).ready(function () {
+      $.ajax({
         url: './inc/fetchUsers.php',
         type: 'GET',
         dataType: 'json',
-        success: function(users) {
-            $.each(users, function(index, user) {
-                $('#user-list').append(
-                    `<li class="clearfix user" data-user-id="${user.id}">
+        success: function (users) {
+          $.each(users, function (index, user) {
+            $('#user-list').append(
+              `<li class="clearfix user" data-user-id="${user.id}">
                         <div class="about">
                             <div class="name">${user.firstName} ${user.lastName}</div>
                         </div>
                     </li>`
-                );
-            });
+            );
+          });
         },
-        error: function(xhr, status, error) {
-            console.error("Error fetching users: " + error);
+        error: function (xhr, status, error) {
+          console.error("Error fetching users: " + error);
         }
-    });
+      });
 
-    $(document).on('click', '.user', function() {
+      $(document).on('click', '.user', function () {
         const userId = $(this).data('user-id');
         const userName = $(this).find('.name').text();
         $('#chat-user-name').text(userName);
         $('#idUser').val(userId);
         loadMessages(userId);
-    });
+      });
 
-    function loadMessages(userId) {
+      function loadMessages(userId) {
         $.ajax({
-            url: './inc/fetchMessages.php',
-            type: 'GET',
-            data: { user_id: userId },
-            dataType: 'json',
-            success: function(messages) {
-                $('#chat-messages').empty();
-                $.each(messages, function(index, message) {
-                    const messageClass = message.customer_id === userId ? 'other-message float-end' : 'my-message';
-                    $('#chat-messages').append(
-                        `<li class="clearfix">
-                            <div class="message ${messageClass}">${message.message}</div>
-                        </li>`
-                    );
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error("Error fetching messages: " + error);
-            }
-        });
-    }
-
-    $('#send-message').click(function() {
-        const messageText = $('#message-input').val();
-        const userId = $('#idUser').val(); 
-        if (messageText && userId) {
-            $.ajax({
-                url: './inc/sendMessage.php', 
-                type: 'POST',
-                data: {
-                    customer_id: userId,
-                    message: messageText
-                },
-                success: function(response) {
-                    $('#message-input').val('');
-                    loadMessages(userId); 
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error sending message: " + error);
-                }
+          url: './inc/fetchMessages.php',
+          type: 'GET',
+          data: { user_id: userId },
+          dataType: 'json',
+          success: function (messages) {
+            $('#chat-messages').empty();
+            $.each(messages, function (index, message) {
+              const messageClass = message.sender === 'admin' ? 'my-message' : 'other-message float-end';
+              $('#chat-messages').append(
+                `<li class="clearfix">
+                        <div class="message ${messageClass}">${message.message}</div>
+                    </li>`
+              );
             });
+          },
+          error: function (xhr, status, error) {
+            console.error("Error fetching messages: " + error);
+          }
+        });
+      }
+
+      $('#send-message').click(function () {
+        const messageText = $('#message-input').val();
+        const userId = $('#idUser').val();
+        if (messageText && userId) {
+          $.ajax({
+            url: './inc/sendMessage.php',
+            type: 'POST',
+            data: {
+              customer_id: userId,
+              message: messageText
+            },
+            success: function (response) {
+              $('#message-input').val('');
+              loadMessages(userId);
+            },
+            error: function (xhr, status, error) {
+              console.error("Error sending message: " + error);
+            }
+          });
         }
+      });
     });
-});
-</script>
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

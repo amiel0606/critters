@@ -9,8 +9,8 @@ try {
             <script>
                 alert('Please login to access this page');
             </script>
-        <?php } 
-    } elseif ( isset($_GET['error'])) {
+        <?php }
+    } elseif (isset($_GET['error'])) {
         if ($_GET['error'] == 'WrongLogin') { ?>
             <script>
                 alert('Wrong login credentials');
@@ -290,8 +290,41 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-
             $(document).ready(function () {
+                $('#send-message').click(function () {
+                    const userMessage = $('#userMessage').val().trim();
+                    const customerId = $('#customerId').val(); // Get the customer ID from a hidden input or other source
+                    // Check if the message is not empty
+                    if (userMessage) {
+                        // AJAX request to send the message
+                        $.ajax({
+                            url: 'http://localhost/critters/admin/inc/sendMessage.php', // Update this path to your actual PHP file location
+                            type: 'POST',
+                            data: {
+                            send_btn_customer: true, // Indicate that the button was clicked
+                            customer_id: customerId, // Pass the customer ID
+                            message: userMessage // Pass the user message
+                        },
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.status === 'success') {
+                                    // Handle success (e.g., display a success message)
+                                    console.log(response.message);
+                                    $('#userMessage').val(''); // Clear the input field
+                                } else {
+                                    // Handle error (e.g., display an error message)
+                                    console.error('Error: ' + response.message);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle AJAX error
+                                console.error('AJAX Error: ' + status + error);
+                            }
+            });
+            } else {
+                alert('Please enter a message before sending.'); // Alert if the message is empty
+            }
+    });
                 function fetchCmsData() {
                     $.ajax({
                         type: 'GET',
@@ -396,14 +429,14 @@ try {
                             dataType: "json",
                             data: input,
                             success: function (response) {
-                                console.log(response); 
+                                console.log(response);
                                 if (response.status === "success") {
                                     alert(response.message);
-                                    $("#register").show(); 
+                                    $("#register").show();
                                     $('#verify').hide();
                                     $('#resend-otp').hide();
                                 } else {
-                                    $(".error").html(response.message).show(); 
+                                    $(".error").html(response.message).show();
                                 }
                             },
                             error: function () {
@@ -414,6 +447,7 @@ try {
                         $(".error").html('Please enter a valid OTP.').show();
                     }
                 }
+
 
                 fetchQuestions();
                 fetchCmsData();

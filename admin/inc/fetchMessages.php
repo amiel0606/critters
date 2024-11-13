@@ -1,9 +1,9 @@
 <?php
 include_once './dbCon.php';
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
-$sql = "SELECT u.id AS customer_id, u.firstName, u.lastName, m.message, m.timestamp 
+$sql = "SELECT u.id AS receiver, u.firstName, u.lastName, m.message, m.timestamp, m.sender, m.receiver
         FROM tbl_users u 
-        INNER JOIN tbl_message m ON m.customer_id = u.id 
+        INNER JOIN tbl_message m ON m.receiver = u.id 
         WHERE u.id = $user_id 
         ORDER BY m.timestamp ASC";
 $result = $conn->query($sql);
