@@ -25,12 +25,6 @@
                     <input class="form-control me-2" type="search" placeholder="Search by pet or owner" aria-label="Search">
                     <button class="btn btn-outline-primary me-2" type="submit">Search</button>
 
-                    <!-- Sorting Dropdown -->
-                    <select class="form-select" id="sortBookings" onchange="fetchSortedAppointments()">
-                        <option value="thisWeek">This Week</option>
-                        <option value="lastWeek">Last Week</option>
-                        <option value="lastMonth">Last Month</option>
-                    </select>
                 </div>
             </div>
 

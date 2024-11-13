@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     <style>
+      .bg-white{
+        min-height:300px;
+      }
         .pop:hover {
             border-top-color: var(--teal) !important;
             transform: scale(1.03);

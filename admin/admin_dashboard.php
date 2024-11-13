@@ -95,6 +95,25 @@
       </table>
     </div>
   </div>
+  <div class="table-responsive mt-4">
+  <h4>Appointment Overview</h4>
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Service</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody id="appointmentTableBody">
+      <!-- Appointments data will be populated here -->
+    </tbody>
+  </table>
+</div>
+
 
   <script>
 $(document).ready(function () {
