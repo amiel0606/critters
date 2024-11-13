@@ -99,31 +99,80 @@
                 <!-- MISSION & VISION MODAL -->
 
                 <div class="modal fade" id="general-m" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
-                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title">Mission & Vision</h1>
-                            </div>
-                            <form action="./inc/editMission.php" method="post">
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Mission & Vision</label>
-                                        <textarea name="mission_vision" id="missionVision" class="form-control shadow-none" rows="6"
-                                            required>To provide exceptional veterinary
-                                          care through personalized treatment, advanced
-                                          medical practices, and</textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">CANCEL</button>
-                                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
-                                </div>
-                            </form>
-                        </div>
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Mission & Vision</h1>
+            </div>
+            <form action="./inc/editMission.php" method="post">
+                <div class="modal-body">
+                    <!-- Mission Section -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mission</label>
+                        <textarea name="mission" id="mission" class="form-control shadow-none" rows="6" required>
+                            To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.
+                        </textarea>
+                    </div>
+
+                    <!-- Vision Section -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Vision</label>
+                        <textarea name="vision" id="vision" class="form-control shadow-none" rows="6" required>
+                            Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.
+                        </textarea>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CLINIC SPECIFICATION SECTION -->
+<div class="card border-0 shadow-sm mb-4">
+    <div id="clinic-specify" class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="card-title m-0">Clinic Specification Settings</h5>
+            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
+                data-bs-target="#clinic-specify-modal">
+                <i class="bi bi-pencil-square"></i> Edit
+            </button>
+        </div>
+        <h6 class="card-subtitle mb-1 fw-bold">Clinic Specify</h6>
+        <p class="card-text" id="clinic_specify">The clinic only accepts Dogs and Cats services</p>
+    </div>
+</div>
+
+<!-- CLINIC SPECIFICATION MODAL -->
+<div class="modal fade" id="clinic-specify-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+    aria-labelledby="clinicSpecifyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Clinic Specification</h1>
+            </div>
+            <form action="./inc/editClinicSpecify.php" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Clinic Services Specification</label>
+                        <textarea name="clinic_specify" id="clinic-specify" class="form-control shadow-none" rows="6" required>
+                            The clinic only accepts Dogs and Cats services.
+                        </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -165,7 +214,7 @@
                                         https://maps.google.com/?q=123+Example+Street,+Sample+City</p>
                                 </div>
                                 <div class="mb-4">
-                                    <h6 class="card-subtitle mb-1 fw-bold">Viber Contact Message</h6>
+                                    <h6 class="card-subtitle mb-1 fw-bold"> Contact Number</h6>
                                     <p class="card-text">
                                         <i class="bi bi-chat-left-text-fill"></i> <span id="pn1">Hello! You can reach us
                                             at +123456789</span>
@@ -423,15 +472,15 @@
                                                 <a target="_blank" href="${response[0].link_address}" class="card-text" id="gmap">${response[0].address}</a>
                                             </div>
                                             <div class="mb-4">
-                                                <h6 class="card-subtitle mb-1 fw-bold">Viber Contact Message</h6>
+                                                <h6 class="card-subtitle mb-1 fw-bold">  Contact Number</h6>
                                                 <p class="card-text">
                                                     <i class="bi bi-chat-left-text-fill"></i> <span id="pn1">Hello! You can reach us at ${response[0].viber}</span>
                                                 </p>
                                             </div>
                                                                                         <div class="mb-4">
-                                                <h6 class="card-subtitle mb-1 fw-bold">Contact Number</h6>
+                                              
                                                 <p class="card-text">
-                                                    <i class="bi bi-telephone-fill"></i> <span id="phnum">09628328977</span>
+                                                   
                                                 </p>
                                             </div>
                                         </div>

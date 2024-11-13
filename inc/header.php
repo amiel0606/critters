@@ -243,7 +243,7 @@ try {
 <div class="container text-center my-4">
     <!-- Chatbot Button Positioned at the Bottom Right Corner -->
     <button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="chatbotButton"
-        data-bs-toggle="modal" data-bs-target="#chatbotModal">
+        data-bs-toggle="modal" data-bs-target="#chatbotModal" style="z-index: 2; background-color:white;">
         <i class="bi bi-chat-square-dots me-2"></i> Chat with Us
     </button>
     <div class="container text-center my-4">

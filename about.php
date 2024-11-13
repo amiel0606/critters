@@ -59,6 +59,23 @@
         .unavailable {
             color: red;
         }
+
+        /* Flexbox styling for the About Us, Mission and Vision, and Clinic Specify sections */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            flex: 1;
+            margin: 10px;
+            min-width: 280px;
+        }
+
+        .info-item h2, .info-item h3 {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -68,46 +85,33 @@
     require('inc/header.php');
     ?>
 
-    <!-- About Us Section -->
-    <div class="my-5 px-4">
-        <h2 class="fw-bold h-font text-center">ABOUT US</h2>
-        <div class="h-line bg-dark"></div>
-        <div id="about"></div>
+    <!-- About Us, Mission and Vision, and Clinic Specify Sections in a Row -->
+    <div class="my-5 px-4 info-row">
+        <!-- About Us Section -->
+        <div class="info-item">
+            <h2 class="fw-bold h-font">ABOUT US</h2>
+            <div class="h-line bg-dark"></div>
+            <div id="about"></div>
+        </div>
+
+        <!-- Mission and Vision Section -->
+        <div class="info-item">
+            <h3 class="fw-bold h-font">MISSION AND VISION</h3>
+            <div id="mission_vision">To provide exceptional veterinary <br>
+                care through personalized treatment, advanced <br>
+                medical practices, and a caring approach, ensuring <br>
+                the well-being and quality of life for every pet and <br>
+                peace of mind for every pet owner. </div>
+        </div>
+
+        <!-- Clinic Specify Section -->
+        <div class="info-item">
+            <h2 class="fw-bold h-font">CLINIC SPECIFY</h2>
+            <div id="specify">The clinic only accepting Dogs and Cats services</div>
+        </div>
     </div>
 
     <br>
-    
-
-
-
-    <br>
-
-    <!-- MISSION AND VISION -->
-    <div class="my-5 px-4">
-        <h3 class="my-5 fw-bold h-font text-center">MISSION AND VISION</h3>
-        <div id="mission_vision">To provide exceptional veterinary <br>
-        care through personalized treatment, advanced <br>
-        medical practices, and a caring approach, ensuring <br>
-        the well-being and quality of life for every pet and <br>
-         peace of mind for every pet owner. </div>
-    </div>
-
-
-
-    <br>
-
-
-
-    <br>
-    <!-- SPECIFY -->
-    <div class="my-5 px-4">
-        <h2 class="fw-bold h-font text-center">CLINIC SPECIFY</h2>
-        
-        <div id="specify">The clinic only accepting Dogs and Cats services</div>
-    </div>
-
-
-
 
     <!-- Service Statistics Section -->
     <div class="container">
@@ -117,34 +121,7 @@
             </div>
         </div>
 
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4 px-4">
-                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                        <img src="images/about/service.png" width="70px">
-                        <h4 class="mt-3">4 TYPES SERVICE</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 px-4">
-                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                        <img src="images/about/customer.png" width="70px">
-                        <h4 class="mt-3">10 BOOKINGS PER DAY</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 px-4">
-                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                        <img src="images/about/review.png" width="70px">
-                        <h4 class="mt-3">100+ REVIEWS</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 px-4">
-                    <div class="bg-white rounded shadow p-4 border-top border-4 text-center box">
-                        <img src="images/about/staff.png" width="70px">
-                        <h4 class="mt-3">8 STAFF MEMBERS</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
+ 
     </div>
 
     <!-- Management Team Section -->
@@ -157,10 +134,6 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
-    
-
-
-
 
     <?php require('inc/footer.php'); ?>
 

@@ -12,6 +12,7 @@
       background-color: #f4f7f6;
       margin-top: 0px;
       font-family: Arial, sans-serif;
+      
     }
 
     .chat-app .people-list {
@@ -101,6 +102,11 @@
       content: "";
       display: table;
       clear: both;
+    }
+    .container .card{
+      max-width:85%;
+        margin-left: auto;
+      
     }
     
     @media only screen and (max-width: 767px) {
