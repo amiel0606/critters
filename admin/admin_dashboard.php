@@ -98,20 +98,35 @@
   <div class="table-responsive mt-4">
   <h4>Appointment Overview</h4>
   <table class="table table-bordered table-hover">
-    <thead class="table-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Customer Name</th>
-        <th scope="col">Service</th>
-        <th scope="col">Date</th>
-        <th scope="col">Time</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody id="appointmentTableBody">
-      <!-- Appointments data will be populated here -->
-    </tbody>
-  </table>
+  <thead class="table-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Pet Name</th>
+      <th scope="col">Pet Type</th>
+      <th scope="col">Service</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody id="appointmentTableBody">
+  <tr>
+    <td>1</td>
+    <td>John Doe</td>
+    <td>Max</td>
+    <td>Dog</td>
+    <td>Grooming</td>
+    <td>2024-11-15</td>
+    <td>10:30 AM</td>
+    <td>
+      <button class="btn btn-success btn-sm">Complete</button>
+      <button class="btn btn-danger btn-sm">Delete</button>
+    </td>
+  </tr>
+</tbody>
+
 </div>
 
 

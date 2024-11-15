@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <style>
+        body{
+            height: auto;
+         width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #FFF0F5;
+        }
         .pop:hover {
             border-top-color: var(--teal) !important;
             transform: scale(1.03);
@@ -79,12 +87,12 @@
     </style>
 </head>
 
-<body class="bg-light">
+<body >
     <?php
     session_start();
     require('inc/header.php');
     ?>
-
+    <div class="bg"><img src="../vaccine.jpeg" alt=""></div>
     <!-- About Us, Mission and Vision, and Clinic Specify Sections in a Row -->
     <div class="my-5 px-4 info-row">
         <!-- About Us Section -->

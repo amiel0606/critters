@@ -10,7 +10,16 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <?php require('inc/links.php'); ?>
 </head>
-
+<style>
+body{
+            height: auto;
+         width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #FFF0F5;
+        }
+        </style>
 <body class="bg-light">
 
     <?php

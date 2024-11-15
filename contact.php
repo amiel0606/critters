@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <style>
         /* Make the container take full width */
+        
         .container-fluid {
             padding-left: 15px;
             padding-right: 15px;
             width: 100%;
-            max-width: 1200px; /* Max width for the entire layout */
             margin: 0 auto; /* Centering the container */
         }
         iframe{
@@ -84,7 +84,7 @@
 
     </style>
 </head>
-<body class="bg-light">
+<body class="bg-light" >
     <?php
       session_start();
       require('inc/header.php');

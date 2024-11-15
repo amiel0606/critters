@@ -132,6 +132,8 @@
     </div>
 </div>
 
+
+
 <!-- CLINIC SPECIFICATION SECTION -->
 <div class="card border-0 shadow-sm mb-4">
     <div id="clinic-specify" class="card-body">
@@ -146,6 +148,8 @@
         <p class="card-text" id="clinic_specify">The clinic only accepts Dogs and Cats services</p>
     </div>
 </div>
+
+
 
 <!-- CLINIC SPECIFICATION MODAL -->
 <div class="modal fade" id="clinic-specify-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
@@ -173,6 +177,71 @@
     </div>
 </div>
 
+<!-- CLINIC APPOINTMENT MODAL -->
+<div class="modal fade" id="clinic-appointment-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+    aria-labelledby="clinicAppointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Edit Appointments Per Day</h1>
+            </div>
+            <form action="./inc/editClinicAppointment.php" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Maximum Appointments Per Day</label>
+                        <input type="number" name="max_appointments" id="max-appointments" class="form-control shadow-none" min="1" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CLINIC APPOINTMENT SETTINGS SECTION -->
+<div class="card border-0 shadow-sm mb-4">
+    <div id="clinic-appointment" class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="card-title m-0">Appointment Settings</h5>
+            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
+                data-bs-target="#clinic-appointment-modal">
+                <i class="bi bi-pencil-square"></i> Edit
+            </button>
+        </div>
+        <h6 class="card-subtitle mb-1 fw-bold">Maximum Appointments Per Day</h6>
+        <p class="card-text" id="max_appointments">20</p>
+    </div>
+</div>
+
+<!-- CLINIC APPOINTMENT MODAL -->
+<div class="modal fade" id="clinic-appointment-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+    aria-labelledby="clinicAppointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Edit Maximum Appointments</h1>
+            </div>
+            <form action="./inc/editClinicAppointment.php" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Maximum Appointments Per Day</label>
+                        <input type="number" name="max_appointments" id="max-appointments-input" class="form-control shadow-none" 
+                               min="1" value="20" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        
 
 
 
@@ -271,7 +340,7 @@
                                                         required>https://maps.google.com/?q=123+Example+Street,+Sample+City</textarea>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label fw-bold">Viber Number </label>
+                                                    <label class="form-label fw-bold">Contact Number </label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text"><i
                                                                 class="bi bi-chat-left-text-fill"></i></span>
@@ -280,16 +349,7 @@
                                                             required>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label fw-bold">Contact Phone </label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text"><i
-                                                                class="bi bi-chat-left-text-fill"></i></span>
-                                                        <input type="text" name="phnnum" id="phnnum_inp"
-                                                            class="form-control shadow-none" value="09628328977"
-                                                            required>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">

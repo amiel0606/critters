@@ -87,8 +87,12 @@ try {
         background-color: #007bff;
         color: white;
     }
+    .bg-danger {
+    background-color:#FFB0C9 !important;
+    }
+  
 </style>
-<nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top ">
     <div class="container-fluid">
         <div id="title"></div>
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
@@ -204,7 +208,7 @@ try {
                                 <label class="form-label">Last Name</label>
                                 <input name="Lname" type="text" class="form-control shadow-none" required>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Email</label>
                                 <input id="email-input" name="email" type="email" class="form-control shadow-none"
                                     required>

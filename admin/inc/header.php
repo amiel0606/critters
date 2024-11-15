@@ -70,9 +70,6 @@
                             <a class="nav-link text-white" href="admin_reviews.php"><i class="bi bi-eye"></i> Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="admin_calendar.php"><i class="bi bi-calendar3"></i> Calendar</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white" href="settings.php"><i class="bi bi-gear"></i> Settings</a>
                         </li>
 
