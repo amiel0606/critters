@@ -9,22 +9,26 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     <style>
+      /* Set background color to #FFF0F5 */
+      body {
+        background-color: #FFF0F5;
+      }
+
       .bg-white{
         min-height:300px;
       }
-        .pop:hover {
-            border-top-color: var(--teal) !important;
-            transform: scale(1.03);
-            transition: all 0.3s;
-        }
-        .service-image {
-            width: 200px; 
-            height: auto;
-        }
-        
+      .pop:hover {
+        border-top-color: var(--teal) !important;
+        transform: scale(1.03);
+        transition: all 0.3s;
+      }
+      .service-image {
+        width: 200px; 
+        height: auto;
+      }
     </style>
 </head>
-<body class="bg-light">
+<body>
   <?php
   session_start();
   require('inc/header.php');

@@ -27,13 +27,13 @@
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
 
     /* Category List */
     .category-list {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
@@ -41,8 +41,8 @@
       background-color: #ffffff;
       border: 1px solid #ddd;
       border-radius: 20px;
-      padding: 0.5rem 1.5rem;
-      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
       color: #333;
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -69,7 +69,7 @@
       background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 15px;
+      padding: 10px;
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -81,22 +81,22 @@
 
     .service-item img {
       width: 100%;
-      max-width: 150px;
-      height: 120px;
+      max-width: 120px;
+      height: 90px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 10px;
     }
 
     .service-item p {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: bold;
       color: #333;
       margin: 0.5rem 0;
     }
 
     .form-check-label {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     /* Buttons */
@@ -147,13 +147,21 @@
         width: 100%;
       }
     }
+
+    /* Custom Layout for Left Side Buttons */
+    .left-align {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+    }
   </style>
 </head>
 <body>
   <?php require('inc/header.php'); ?>
 
   <!-- Main Container -->
-  <div class="container my-5">
+  <div class="container my-4">
 
     <!-- Background Banner -->
     <div class="bg-container mb-4">
@@ -163,27 +171,35 @@
     <!-- Categories Section -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div class="category-list" id="category-list">
-        <div class="category-item" id="category-grooming" onclick="filterServices('Grooming')">
+        <div class="category-item" id="category-grooming">
           Grooming
           <div class="btn-container">
-            <button class="btn btn-outline-secondary btn-sm" onclick="editCategory('Grooming')">Edit</button>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteCategory('Grooming')">Delete</button>
+            <button class="btn btn-outline-secondary btn-sm">Edit</button>
+            <button class="btn btn-outline-danger btn-sm">Delete</button>
           </div>
         </div>
-        <div class="category-item" id="category-spa" onclick="filterServices('Spa')">
+        <div class="category-item" id="category-spa">
           Spa
           <div class="btn-container">
-            <button class="btn btn-outline-secondary btn-sm" onclick="editCategory('Spa')">Edit</button>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteCategory('Spa')">Delete</button>
+            <button class="btn btn-outline-secondary btn-sm">Edit</button>
+            <button class="btn btn-outline-danger btn-sm">Delete</button>
           </div>
         </div>
-        <!-- Add other categories here -->
       </div>
-      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
+      <div>
+        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
+        <h6 class="mt-2">Total Categories: <span id="total-categories">0</span></h6>
+      </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="left-align mb-4">
+      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
+      <h6 class="mt-2">Total Services: <span id="total-services">0</span></h6>
     </div>
 
     <!-- Services Grid -->
-    <div class="row g-3" id="services-grid">
+    <div class="row g-3 mb-4" id="services-grid">
       <div class="col-md-4 service-grooming">
         <div class="service-item">
           <img src="dog-grooming.jpg" alt="Dog Grooming">
@@ -195,18 +211,13 @@
             <label class="form-check-label" for="appointment-required-dog-grooming">Appointment Required</label>
           </div>
           <div class="btn-container mt-2">
-            <button class="btn btn-outline-secondary btn-sm" onclick="editService('Dog Grooming')">Edit</button>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteService('Dog Grooming')">Delete</button>
+            <button class="btn btn-outline-secondary btn-sm">Edit</button>
+            <button class="btn btn-outline-danger btn-sm">Delete</button>
           </div>
         </div>
       </div>
-      <!-- Add other services here -->
     </div>
 
-    <!-- Add Service Button Inside Service Area -->
-    <div class="text-center mt-4">
-      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
-    </div>
   </div>
 
   <!-- Add Category Modal -->
@@ -227,7 +238,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" onclick="addCategory()">Add Category</button>
+          <button type="submit" class="btn btn-primary">Add Category</button>
         </div>
       </div>
     </div>
@@ -248,45 +259,28 @@
               <input type="text" class="form-control" id="service-name" required>
             </div>
             <div class="mb-3">
-              <label for="service-price" class="form-label">Service Price</label>
-              <input type="text" class="form-control" id="service-price" required>
+              <label for="service-description" class="form-label">Description</label>
+              <textarea class="form-control" id="service-description" rows="3" required></textarea>
             </div>
             <div class="mb-3">
-              <label for="service-price" class="form-label">Service Description</label>
-              <input type="text" class="form-control" id="service-price" required>
+              <label for="service-price" class="form-label">Price</label>
+              <input type="number" class="form-control" id="service-price" required>
             </div>
             <div class="mb-3">
-              <label for="service-price" class="form-label">Service Image</label>
+              <label for="service-price" class="form-label">Image</label>
               <input type="file" class="form-control" id="service-price" required>
             </div>
+            
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" onclick="addService()">Add Service</button>
+          <button type="submit" class="btn btn-primary">Add Service</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Functions for managing categories and services
-    function addCategory() {
-      let categoryName = document.getElementById('category-name').value;
-      // Add logic to save the category here
-      alert(`Category "${categoryName}" added!`);
-      $('#addCategoryModal').modal('hide');
-    }
-
-    function addService() {
-      let serviceName = document.getElementById('service-name').value;
-      let servicePrice = document.getElementById('service-price').value;
-      // Add logic to save the service here
-      alert(`Service "${serviceName}" added!`);
-      $('#addServiceModal').modal('hide');
-    }
-  </script>
+  <?php require('inc/scripts.php'); ?>
 </body>
 </html>
