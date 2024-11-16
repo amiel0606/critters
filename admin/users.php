@@ -1,4 +1,4 @@
-<?php 
+<?php
 // require('inc/essentials.php'); 
 // adminLogin();
 ?>
@@ -37,27 +37,15 @@
                                 <thead class="sticky-top">
                                     <tr class="bg-dark text-light">
                                         <th scope="col">#</th>
+                                        <th scope="col">Owner Name</th>
                                         <th scope="col">Pet Name</th>
                                         <th scope="col">Pet Type</th>
                                         <th scope="col">Breed</th>
                                         <th scope="col">Birth Date</th>
                                         <th scope="col">Gender</th>
-                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="pets_data">
-                                    <!-- Sample pet data row (dynamic data can replace this) -->
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Aso</td>
-                                        <td>Dog</td>
-                                        <td>Bulldog</td>
-                                        <td>12/25/2021</td>
-                                        <td>Male</td>
-                                        <td>
-                                            <button class="btn btn-danger btn-sm" onclick="deletePet(1)">Delete</button>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -68,7 +56,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3>User Account</h3>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search by owner" aria-label="Search">
+                        <input class="form-control me-2" type="search" placeholder="Search by owner"
+                            aria-label="Search">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
@@ -93,7 +82,7 @@
                 </div>
 
 
-                
+
             </div>
         </div>
     </div>
@@ -103,26 +92,61 @@
 
     <!-- Script to Fetch User Data -->
     <script>
-        $(document).ready(function() {
-            // Fetch user data for "Accounts" section
+        $(document).ready(function () {
             $.ajax({
-                url: './inc/getUsers.php', // Path to PHP script for fetching user data
+                url: './inc/getUsers.php',
                 method: 'GET',
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
-                    $('#users_data').empty(); // Clear any existing data
-                    data.forEach(function(user, index) {
+                    $('#users_data').empty();
+                    data.forEach(function (user, index) {
                         $('#users_data').append(`
                             <tr>
-                                <td>${index + 1}</td>
+                                <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.firstName} ${user.lastName}</td>
                             </tr>
                         `);
                     });
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
+                    console.error('Error fetching user data:', error);
+                }
+            });
+            $.ajax({
+                url: './inc/getAllPets.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $('#pets_data').empty();
+                    if (data.length === 0) {
+                        $('#pets_data').append(`
+                            <tr>
+                                <td>NO DATA YET</td>
+                            </tr>
+                        `);
+                    } else {
+                        data.forEach(function (pet, index) {
+                            $('#pets_data').append(`
+                            <tr>
+                                <td>${pet.id}</td>
+                                <td>${pet.firstName} ${pet.lastName}</td>
+                                <td>${pet.petName}</td>
+                                <td>${pet.petType}</td>
+                                <td>${pet.breed}</td>
+                                <td>${pet.birth_date}</td>
+                                <td>${pet.gender}</td>
+                            </tr>
+                        `);
+                        });
+                        $('.btn-delete').click(function(){
+
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
                     console.error('Error fetching user data:', error);
                 }
             });
@@ -130,4 +154,5 @@
     </script>
 
 </body>
+
 </html>
