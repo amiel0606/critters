@@ -3,266 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product and Category Page</title>
-     <?php require('inc/links.php'); ?>
+  <title>Admin Services & Offers</title>
+  <?php require('inc/links.php'); ?>
+
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
-    /* Global Styles */
+    /* General Styles */
     body {
-      background-color: #f4f7f6;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
     }
 
-    .container {
-      background-color: #fff;
-      padding: 3rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
+    .bg-container {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
     }
 
     h1 {
-      color: #333;
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
+      font-size: 2rem;
     }
 
-    /* Category Styles */
-    .category-list .category-item {
-      font-size: 1.2rem;
-      font-weight: bold;
-      padding: 0.8rem 2rem;
-      margin-right: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      color: #fff;
-      background-color: #007bff;
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-
-    .category-list .category-item:hover {
-      background-color: #0056b3;
-      transform: translateY(-6px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .category-item.active {
-      background-color: #0056b3;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
+    /* Category List */
     .category-list {
-      gap: 1.5rem;
       display: flex;
-      justify-content: flex-start;
-      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    /* Service Styles */
-    .service-item {
-  background-color: #f9f9f9;
-  height: auto; /* Adjust for dynamic content */
-  max-width: 100%;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-    .service-item:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .service-item img {
-  width: 100%;
-  max-width: 200px; /* Adjust size as needed */
-  height: 160px; /* Ensure consistent height */
-  object-fit: cover; /* Crop and fit image */
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-    .service-item p {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #333;
-    }
-
-    /* Modal Styles */
-    .modal-header {
-      background-color: #007bff;
-      color: #fff;
-    }
-
-    .modal-body {
-      background-color: #f8f9fa;
-    }
-
-    .modal-footer {
-      background-color: #f8f9fa;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-      background-color: #0056b3;
-      border-color: #0056b3;
-    }
-
-    /* Category Edit/Delete Layout */
-    .category-item-actions {
+    .category-item {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 0.5rem 1.5rem;
       font-size: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      color: #fff;
+      color: #333;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .category-item-actions .btn {
-      font-size: 0.9rem;
+    .category-item:hover {
+      background-color: #ff7e5f;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .btn-container {
+    .category-item .btn-container {
       display: none;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
+      margin-top: 0.5rem;
     }
 
     .category-item:hover .btn-container {
       display: flex;
+      gap: 0.5rem;
     }
 
-    /* Buttons beside each other */
-    .btn-container .btn-outline-light, .btn-container .btn-outline-danger {
-      width: 48%; /* Make buttons take up equal width */
+    /* Service Grid */
+    .service-item {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .service-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-item img {
+      width: 100%;
+      max-width: 150px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .service-item p {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+      margin: 0.5rem 0;
+    }
+
+    .form-check-label {
+      font-size: 0.9rem;
+    }
+
+    /* Buttons */
+    .btn-container .btn {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: #ff7e5f;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #feb47b;
+    }
+
+    .btn-outline-secondary {
+      border-color: #ff7e5f;
+      color: #ff7e5f;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: #ff7e5f;
+      color: white;
+    }
+
+    /* Modals */
+    .modal-header {
+      background-color: #ff7e5f;
+      color: white;
+    }
+
+    .modal-footer .btn-primary {
+      background-color: #ff7e5f;
+    }
+
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
-  .service-item img {
-    max-width: 150px; /* Adjust for smaller screens */
-    height: 120px;
-  }
-}
+      .category-list {
+        flex-direction: column;
+      }
+
+      .category-item {
+        text-align: center;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-<?php require('inc/header.php'); ?>
+  <?php require('inc/header.php'); ?>
+
+  <!-- Main Container -->
   <div class="container my-5">
-    <!-- Header -->
-     <div class="bg-container" style="margin-bottom:30px;">
-    <h1 class="text-muted mb-4">Admin Services & Offers</h1>
+
+    <!-- Background Banner -->
+    <div class="bg-container mb-4">
+      <h1>Admin Services & Offers</h1>
+    </div>
 
     <!-- Categories Section -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <div class="d-flex category-list" id="category-list">
-        <div class="category-item" id="category-grooming">
+      <div class="category-list" id="category-list">
+        <div class="category-item" id="category-grooming" onclick="filterServices('Grooming')">
           Grooming
-          <button class="btn btn-link btn-sm" style="font-size: 1.5rem;" onclick="toggleOptions('grooming')">:</button>
-          <div class="btn-container" id="grooming-options">
-            <button class="btn btn-outline-light btn-sm" onclick="editCategory('Grooming')">Edit</button>
-            <span>:</span>
+          <div class="btn-container">
+            <button class="btn btn-outline-secondary btn-sm" onclick="editCategory('Grooming')">Edit</button>
             <button class="btn btn-outline-danger btn-sm" onclick="deleteCategory('Grooming')">Delete</button>
           </div>
         </div>
-        <div class="category-item" id="category-spa">
+        <div class="category-item" id="category-spa" onclick="filterServices('Spa')">
           Spa
-          <button class="btn btn-link btn-sm" style="font-size: 1.5rem;" onclick="toggleOptions('spa')"></button>
-          <div class="btn-container" id="spa-options">
-            <button class="btn btn-outline-light btn-sm" class="btn btn-warning"onclick="editCategory('Spa')">Edit</button>
+          <div class="btn-container">
+            <button class="btn btn-outline-secondary btn-sm" onclick="editCategory('Spa')">Edit</button>
             <button class="btn btn-outline-danger btn-sm" onclick="deleteCategory('Spa')">Delete</button>
           </div>
         </div>
-        <div class="category-item" id="category-massage">
-          Massage
-          <button class="btn btn-link btn-sm" style="font-size: 1.5rem;" onclick="toggleOptions('massage')">:</button>
-          <div class="btn-container" id="massage-options">
-            <button class="btn btn-outline-light btn-sm" onclick="editCategory('Massage')">Edit</button>
-            <span>:</span>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteCategory('Massage')">Delete</button>
-          </div>
-        </div>
-        <div class="category-item" id="category-fitness">
-          Fitness
-          <button class="btn btn-link btn-sm" style="font-size: 1.5rem;" onclick="toggleOptions('fitness')">:</button>
-          <div class="btn-container" id="fitness-options">
-            <button class="btn btn-outline-light btn-sm" onclick="editCategory('Fitness')">Edit</button>
-            <span>:</span>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteCategory('Fitness')">Delete</button>
-          </div>
-        </div>
+        <!-- Add other categories here -->
       </div>
       <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
-      <br>
-      <div class="total-services">
-        Total Category: <span id="total-services-count">0</span>
-      </div>
-    </div>
-
-    <!-- Total Services -->
-    <div id="addServiceBtnContainer" class="d-flex justify-content-between mb-4">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
-      <div class="total-services">
-        Total Services: <span id="total-services-count">0</span>
-      </div>
     </div>
 
     <!-- Services Grid -->
     <div class="row g-3" id="services-grid">
-      <!-- Sample Service Items -->
-      <div class="col-md-4 service-item" data-category="Grooming">
+      <div class="col-md-4 service-grooming">
         <div class="service-item">
           <img src="dog-grooming.jpg" alt="Dog Grooming">
           <p>Dog Grooming</p>
           <p>Full grooming for dogs</p>
           <p>$30</p>
-          <!-- Appointment Required Switch -->
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="appointment-required-dog-grooming">
             <label class="form-check-label" for="appointment-required-dog-grooming">Appointment Required</label>
-            <div class="btns-container">
-            <button class="btn btn-outline-light btn-sm" class="btn btn-warning" onclick="editService('Dog Grooming')">Edit</button>
+          </div>
+          <div class="btn-container mt-2">
+            <button class="btn btn-outline-secondary btn-sm" onclick="editService('Dog Grooming')">Edit</button>
             <button class="btn btn-outline-danger btn-sm" onclick="deleteService('Dog Grooming')">Delete</button>
           </div>
-          </div>
-          
         </div>
       </div>
-      <div class="col-md-4 service-item" data-category="Spa">
-        <div class="service-item">
-          <img src="spa.jpg" alt="Spa Service">
-          <p>Spa Treatment</p>
-          <p>Relaxing spa for pets</p>
-          <p>$40</p>
-          <!-- Appointment Required Switch -->
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="appointment-required-spa">
-            <label class="form-check-label" for="appointment-required-spa">Appointment Required</label>
-            <div class="btns-container">
-            <button class="btn btn-outline-light btn-sm" class="btn btn-warning" onclick="editService('Spa Treatment')">Edit</button>
-            <span>:</span>
-            <button class="btn btn-outline-danger btn-sm" onclick="deleteService('Spa Treatment')">Delete</button>
-          </div>
-          </div>
-          
-        </div>
-      </div>
+      <!-- Add other services here -->
     </div>
 
+    <!-- Add Service Button Inside Service Area -->
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
+    </div>
   </div>
 
-  <!-- Modal for adding a new category -->
+  <!-- Add Category Modal -->
   <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -271,7 +218,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="add-category-form">
             <div class="mb-3">
               <label for="category-name" class="form-label">Category Name</label>
               <input type="text" class="form-control" id="category-name" required>
@@ -280,13 +227,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="addCategory()">Save Category</button>
+          <button type="submit" class="btn btn-primary" onclick="addCategory()">Add Category</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal for adding a new service -->
+  <!-- Add Service Modal -->
   <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -295,61 +242,43 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="service-name" class="form-label">Service Name</label>
-                <input type="text" class="form-control" id="service-name" required>
-              </div>
-              <div class="mb-3">
-                <label for="service-description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="service-description" required>
-              </div>
-              <div class="mb-3">
-                <label for="service-price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="service-price" required>
-              </div>
-              <div class="mb-3">
-                <label for="service-image" class="form-label">Image</label>
-                <input type="file" class="form-control" id="service-image" accept="image/*">
-              </div>
-            </form>
-          </div>
-          
+          <form id="add-service-form">
+            <div class="mb-3">
+              <label for="service-name" class="form-label">Service Name</label>
+              <input type="text" class="form-control" id="service-name" required>
+            </div>
+            <div class="mb-3">
+              <label for="service-price" class="form-label">Service Price</label>
+              <input type="text" class="form-control" id="service-price" required>
+            </div>
+          </form>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="addService()">Save Service</button>
+          <button type="submit" class="btn btn-primary" onclick="addService()">Add Service</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap 5 JS -->
+  <!-- Bootstrap JS and dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Example Functions
-    function editCategory(category) {
-      alert(`Edit category: ${category}`);
+    // Functions for managing categories and services
+    function addCategory() {
+      let categoryName = document.getElementById('category-name').value;
+      // Add logic to save the category here
+      alert(`Category "${categoryName}" added!`);
+      $('#addCategoryModal').modal('hide');
     }
 
-    function deleteCategory(category) {
-      alert(`Delete category: ${category}`);
-    }
-
-    function editService(service) {
-      alert(`Edit service: ${service}`);
-    }
-
-    function deleteService(service) {
-      alert(`Delete service: ${service}`);
-    }
-
-    // Toggle the visibility of edit/delete buttons
-    function toggleOptions(category) {
-      const options = document.getElementById(category + '-options');
-      options.style.display = options.style.display === 'none' ? 'flex' : 'none';
+    function addService() {
+      let serviceName = document.getElementById('service-name').value;
+      let servicePrice = document.getElementById('service-price').value;
+      // Add logic to save the service here
+      alert(`Service "${serviceName}" added!`);
+      $('#addServiceModal').modal('hide');
     }
   </script>
-      
-  </div>
 </body>
 </html>
