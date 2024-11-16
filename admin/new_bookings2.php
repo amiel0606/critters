@@ -61,7 +61,6 @@ function fetchSortedAppointments() {
     $.ajax({
         type: "GET",
         url: "inc/getAppointments.php",
-        data: { sort: sortCriteria }, 
         dataType: "json",
         success: function(data) {
             var tableBody = $("#appointments");

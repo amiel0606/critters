@@ -91,157 +91,143 @@
                                 <i class="bi bi-pencil-square"></i> Edit
                             </button>
                         </div>
-                        <h6 class="card-subtitle mb-1 fw-bold">Mission & Vision</h6>
-                        <p class="card-text" id="mission_vision"> To provide exceptional veterinary</p>
+                        <h6 class="card-subtitle mb-1 fw-bold">Mission</h6>
+                        <p class="card-text" id="vision"> To provide exceptional veterinary</p>
+                        <h6 class="card-subtitle mb-1 fw-bold">Vision</h6>
+                        <p class="card-text" id="mission"> To provide exceptional veterinary</p>
                     </div>
                 </div>
 
                 <!-- MISSION & VISION MODAL -->
 
                 <div class="modal fade" id="general-m" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Mission & Vision</h1>
-            </div>
-            <form action="./inc/editMission.php" method="post">
-                <div class="modal-body">
-                    <!-- Mission Section -->
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Mission</label>
-                        <textarea name="mission" id="mission" class="form-control shadow-none" rows="6" required>
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">     
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Mission & Vision</h1>
+                            </div>
+                            <form action="./inc/editMission.php" method="post">
+                                <div class="modal-body">
+                                    <!-- Mission Section -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Mission</label>
+                                        <textarea name="mission" id="mission-inp" class="form-control shadow-none" rows="6"
+                                            required>
                             To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.
                         </textarea>
-                    </div>
+                                    </div>
 
-                    <!-- Vision Section -->
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Vision</label>
-                        <textarea name="vision" id="vision" class="form-control shadow-none" rows="6" required>
+                                    <!-- Vision Section -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Vision</label>
+                                        <textarea name="vision" id="vision-inp" class="form-control shadow-none" rows="6"
+                                            required>
                             Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.
                         </textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">CANCEL</button>
+                                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+
+
+
+                <!-- CLINIC SPECIFICATION SECTION -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div id="clinic-specify" class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title m-0">Clinic Specification Settings</h5>
+                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#clinic-specify-modal">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                        </div>
+                        <h6 class="card-subtitle mb-1 fw-bold">Clinic Specify</h6>
+                        <p class="card-text" id="clinic_specify">The clinic only accepts Dogs and Cats services</p>
+                    </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 
 
-<!-- CLINIC SPECIFICATION SECTION -->
-<div class="card border-0 shadow-sm mb-4">
-    <div id="clinic-specify" class="card-body">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="card-title m-0">Clinic Specification Settings</h5>
-            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
-                data-bs-target="#clinic-specify-modal">
-                <i class="bi bi-pencil-square"></i> Edit
-            </button>
-        </div>
-        <h6 class="card-subtitle mb-1 fw-bold">Clinic Specify</h6>
-        <p class="card-text" id="clinic_specify">The clinic only accepts Dogs and Cats services</p>
-    </div>
-</div>
-
-
-
-<!-- CLINIC SPECIFICATION MODAL -->
-<div class="modal fade" id="clinic-specify-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
-    aria-labelledby="clinicSpecifyModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Clinic Specification</h1>
-            </div>
-            <form action="./inc/editClinicSpecify.php" method="post">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Clinic Services Specification</label>
-                        <textarea name="clinic_specify" id="clinic-specify" class="form-control shadow-none" rows="6" required>
+                <!-- CLINIC SPECIFICATION MODAL -->
+                <div class="modal fade" id="clinic-specify-modal" data-bs-backdrop="static" data-bs-keyboard="true"
+                    tabindex="-1" aria-labelledby="clinicSpecifyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Clinic Specification</h1>
+                            </div>
+                            <form action="./inc/editClinicSpecify.php" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Clinic Services Specification</label>
+                                        <textarea name="clinic_specify" id="clinic-specify"
+                                            class="form-control shadow-none" rows="6" required>
                             The clinic only accepts Dogs and Cats services.
                         </textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">CANCEL</button>
+                                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
-<!-- CLINIC APPOINTMENT MODAL -->
-<div class="modal fade" id="clinic-appointment-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
-    aria-labelledby="clinicAppointmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Edit Appointments Per Day</h1>
-            </div>
-            <form action="./inc/editClinicAppointment.php" method="post">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Maximum Appointments Per Day</label>
-                        <input type="number" name="max_appointments" id="max-appointments" class="form-control shadow-none" min="1" required>
+                <!-- CLINIC APPOINTMENT MODAL -->
+                <div class="modal fade" id="clinic-appointment-modal" data-bs-backdrop="static" data-bs-keyboard="true"
+                    tabindex="-1" aria-labelledby="clinicAppointmentModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Edit Appointments Per Day</h1>
+                            </div>
+                            <form action="./inc/editClinicAppointment.php" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Maximum haha Per Day</label>
+                                        <input type="number" name="max_appointments" id="hello"
+                                            class="form-control shadow-none" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">CANCEL</button>
+                                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
-<!-- CLINIC APPOINTMENT SETTINGS SECTION -->
-<div class="card border-0 shadow-sm mb-4">
-    <div id="clinic-appointment" class="card-body">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="card-title m-0">Appointment Settings</h5>
-            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
-                data-bs-target="#clinic-appointment-modal">
-                <i class="bi bi-pencil-square"></i> Edit
-            </button>
-        </div>
-        <h6 class="card-subtitle mb-1 fw-bold">Maximum Appointments Per Day</h6>
-        <p class="card-text" id="max_appointments">20</p>
-    </div>
-</div>
-
-<!-- CLINIC APPOINTMENT MODAL -->
-<div class="modal fade" id="clinic-appointment-modal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
-    aria-labelledby="clinicAppointmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Edit Maximum Appointments</h1>
-            </div>
-            <form action="./inc/editClinicAppointment.php" method="post">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Maximum Appointments Per Day</label>
-                        <input type="number" name="max_appointments" id="max-appointments-input" class="form-control shadow-none" 
-                               min="1" value="20" required>
+                <!-- CLINIC APPOINTMENT SETTINGS SECTION -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div id="clinic-appointment" class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title m-0">Appointment Settings</h5>
+                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#clinic-appointment-modal">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                        </div>
+                        <h6 class="card-subtitle mb-1 fw-bold">Maximum Appointments Per Day</h6>
+                        <p class="card-text" id="max_appointments">20</p>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
-        
+
+
+
 
 
 
@@ -349,7 +335,7 @@
                                                             required>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
@@ -495,7 +481,9 @@
                             success: function (response) {
                                 var cms_title = response[0].title;
                                 var cms_about = response[0].about;
-                                var cms_vision = response[0].mission_vision;
+                                var cms_mission = response[0].mission;
+                                var cms_vision = response[0].vision;
+                                var cms_max = response[0].max_appointment;
                                 if (response.error) {
                                     console.error(response.error);
                                 } else {
@@ -559,12 +547,17 @@
                                     </div>
                     `;
                                     $('#contact').html(contactHTML);
-                                    $('#mission_vision').text(cms_vision);
+                                    $('#vision').text(cms_vision);
+                                    $('#mission').text(cms_mission);
+                                    $('#max_appointments').text(cms_max);
+                                    var intMax = parseInt(cms_max);
+                                    $('#hello').val(cms_max);
                                 }
                                 $(document).on('click', '.edit-btn-general', function () {
                                     $('#site_title_inp').val(cms_title);
                                     $('#site_about_inp').val(cms_about);
-                                    $('#missionVision').val(cms_vision);
+                                    $('#vision-inp').val(cms_vision);
+                                    $('#mission-inp').val(cms_mission);
                                 });
                                 $(document).on('click', '.btn-edit-contact', function () {
                                     $('#address_inp').val(response[0].address);
