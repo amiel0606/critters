@@ -251,6 +251,14 @@
               <label for="service-price" class="form-label">Service Price</label>
               <input type="text" class="form-control" id="service-price" required>
             </div>
+            <div class="mb-3">
+              <label for="service-price" class="form-label">Service Description</label>
+              <input type="text" class="form-control" id="service-price" required>
+            </div>
+            <div class="mb-3">
+              <label for="service-price" class="form-label">Service Image</label>
+              <input type="file" class="form-control" id="service-price" required>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
