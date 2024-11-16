@@ -174,15 +174,17 @@
         <div class="category-item" id="category-grooming">
           Grooming
           <div class="btn-container">
-            <button class="btn btn-outline-secondary btn-sm">Edit</button>
-            <button class="btn btn-outline-danger btn-sm">Delete</button>
+          <button class="btn btn-outline-secondary btn-sm" style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
+          <button class="btn btn-outline-danger btn-sm" style="background-color: #ff4d4d; color: white; border: 2px solid #ff1a1a;">Delete</button>
+
           </div>
         </div>
         <div class="category-item" id="category-spa">
           Spa
           <div class="btn-container">
-            <button class="btn btn-outline-secondary btn-sm">Edit</button>
-            <button class="btn btn-outline-danger btn-sm">Delete</button>
+          <button class="btn btn-outline-secondary btn-sm" style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
+          <button class="btn btn-outline-danger btn-sm" style="background-color: #ff4d4d; color: white; border: 2px solid #ff1a1a;">Delete</button>
+
           </div>
         </div>
       </div>
@@ -198,25 +200,27 @@
       <h6 class="mt-2">Total Services: <span id="total-services">0</span></h6>
     </div>
 
+    <!-- Services Container -->
+    <div class="row g-3" id="services-container">
+
     <!-- Services Grid -->
-    <div class="row g-3 mb-4" id="services-grid">
-      <div class="col-md-4 service-grooming">
-        <div class="service-item">
-          <img src="dog-grooming.jpg" alt="Dog Grooming">
-          <p>Dog Grooming</p>
-          <p>Full grooming for dogs</p>
-          <p>$30</p>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="appointment-required-dog-grooming">
-            <label class="form-check-label" for="appointment-required-dog-grooming">Appointment Required</label>
-          </div>
-          <div class="btn-container mt-2">
-            <button class="btn btn-outline-secondary btn-sm">Edit</button>
-            <button class="btn btn-outline-danger btn-sm">Delete</button>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-4 service-grooming">
+  <div class="service-item">
+    <img src="dog-grooming.jpg" onerror="this.onerror=null; this.src='placeholder-image.png';" alt="Service Image">
+    <p>Dog Grooming</p>
+    <p>Full grooming for dogs</p>
+    <p>$30</p>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="appointment-required-dog-grooming">
+      <label class="form-check-label" for="appointment-required-dog-grooming">Appointment Required</label>
     </div>
+    <div class="btn-container mt-2">
+      <button class="btn btn-outline-secondary btn-sm">Edit</button>
+      <button class="btn btn-outline-danger btn-sm">Delete</button>
+    </div>
+  </div>
+</div>
+
 
   </div>
 
@@ -280,6 +284,132 @@
       </div>
     </div>
   </div>
+
+
+    <!-- Edit Category Modal -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-category-form">
+          <div class="mb-3">
+            <label for="edit-category-name" class="form-label">Category Name</label>
+            <input type="text" class="form-control" id="edit-category-name" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Service Modal -->
+<div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-service-form">
+          <div class="mb-3">
+            <label for="edit-service-name" class="form-label">Service Name</label>
+            <input type="text" class="form-control" id="edit-service-name" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit-service-description" class="form-label">Description</label>
+            <textarea class="form-control" id="edit-service-description" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="edit-service-price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="edit-service-price" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit-service-image" class="form-label">Image</label>
+            <input type="file" class="form-control" id="edit-service-image">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  // Handle Edit for Categories
+  document.addEventListener('click', function (e) {
+  // Open Edit Category Modal
+  if (e.target && e.target.matches('.category-item .btn-outline-secondary')) {
+    const categoryItem = e.target.closest('.category-item');
+    const categoryName = categoryItem.firstChild.textContent.trim();
+
+    const editCategoryNameInput = document.getElementById('edit-category-name');
+    editCategoryNameInput.value = categoryName;
+
+    const saveCategoryButton = document.querySelector('#editCategoryModal .btn-primary');
+    saveCategoryButton.onclick = function () {
+      const updatedName = editCategoryNameInput.value.trim();
+      if (updatedName) {
+        categoryItem.firstChild.textContent = updatedName + " ";
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editCategoryModal'));
+        modal.hide();
+      }
+    };
+
+    const editCategoryModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+    editCategoryModal.show();
+  }
+});
+
+  // Handle Edit for Services
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.matches('.service-item .btn-outline-secondary')) {
+      const serviceItem = e.target.closest('.service-item');
+      const serviceName = serviceItem.querySelector('p:nth-child(2)').textContent;
+      const serviceDescription = serviceItem.querySelector('p:nth-child(3)').textContent;
+      const servicePrice = serviceItem.querySelector('p:nth-child(4)').textContent.replace('$', '');
+
+      // Set current service details in the modal
+      document.getElementById('edit-service-name').value = serviceName;
+      document.getElementById('edit-service-description').value = serviceDescription;
+      document.getElementById('edit-service-price').value = servicePrice;
+
+      // Save changes when "Save Changes" is clicked
+      const saveServiceButton = document.querySelector('#editServiceModal .btn-primary');
+      saveServiceButton.onclick = function () {
+        const updatedName = document.getElementById('edit-service-name').value.trim();
+        const updatedDescription = document.getElementById('edit-service-description').value.trim();
+        const updatedPrice = document.getElementById('edit-service-price').value.trim();
+
+        if (updatedName && updatedDescription && updatedPrice) {
+          // Update the service item visually
+          serviceItem.querySelector('p:nth-child(2)').textContent = updatedName;
+          serviceItem.querySelector('p:nth-child(3)').textContent = updatedDescription;
+          serviceItem.querySelector('p:nth-child(4)').textContent = `$${updatedPrice}`;
+
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editServiceModal'));
+          modal.hide();
+        }
+      };
+
+      // Show the Edit Service Modal
+      const editServiceModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+      editServiceModal.show();
+    }
+  });
+</script>
 
   <?php require('inc/scripts.php'); ?>
 </body>
