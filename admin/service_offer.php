@@ -202,14 +202,14 @@
     </div>
 
     <!-- Services Section -->
-    <div class="left-align mb-4">
+    <div id="service-hide" class="left-align mb-4">
       <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add
         Service</button>
       <h6 class="mt-2">Total Services: <span id="total-services">0</span></h6>
     </div>
 
     <!-- Services Container -->
-    <div id="item-list" class="row g-3" id="services-container">
+    <div style="display: none;" id="item-list" class="row g-3" id="services-container">
 
       <!-- Services Grid -->
       <div class="col-md-4 service-grooming">
@@ -334,7 +334,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="edit-service-form">
+            <form id="edit-service-form" method="POST" action="./inc/editService.php" enctype="multipart/form-data">
+              <input type="hidden" name="service_id" id="service_id">
               <div class="mb-3">
                 <label for="edit-service-name" class="form-label">Service Name</label>
                 <input type="text" class="form-control" id="edit-service-name" required>
@@ -351,20 +352,23 @@
                 <label for="edit-service-image" class="form-label">Image</label>
                 <input type="file" class="form-control" id="edit-service-image">
               </div>
-            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <div id="alert" class="alert alert-success" role="alert">
+    <div style="display: none;" id="alert" class="alert alert-success" role="alert">
       A simple success alert—check it out!
     </div>
     <script>
       $(document).ready(function () {
+        $('#service-hide').hide();
+        $('#item-list').hide();
+        $('#item-list').empty();
         const url = window.location.href;
         const urlParams = new URLSearchParams(window.location.search);
         let error = urlParams.get("error");
@@ -372,25 +376,53 @@
         switch (error) {
           case 'UnknownError':
             alertText = 'An unknown error has occurred.';
+            $('#alert').removeClass('alert-info');
+            $('#alert').addClass('alert-danger');
+            $('#alert').text(alertText);
+            $('#alert').show();
+            setTimeout(function () {
+              $('#alert').fadeOut('slow');
+            }, 3000);
             break;
           case 'InputMissing':
             alertText = 'Please fill in all required fields.';
+            $('#alert').removeClass('alert-info');
+            $('#alert').addClass('alert-warning');
+            $('#alert').text(alertText);
+            $('#alert').show();
+            setTimeout(function () {
+              $('#alert').fadeOut('slow');
+            }, 3000);
             break;
           case 'none':
             alertText = 'Success';
+            $('#alert').removeClass('alert-info');
+            $('#alert').addClass('alert-success');
+            $('#alert').text(alertText);
+            $('#alert').show();
+            setTimeout(function () {
+              $('#alert').fadeOut('slow');
+            }, 3000);
             break;
           case 'FailedToExecute':
             alertText = 'The operation failed to execute.';
+            $('#alert').removeClass('alert-info');
+            $('#alert').addClass('alert-danger');
+            $('#alert').text(alertText);
+            $('#alert').show();
+            setTimeout(function () {
+              $('#alert').fadeOut('slow');
+            }, 3000);
             break;
           default:
-            $('#alert').hide();
+            alertText = 'Please Select A Category';
+            $('#alert').removeClass('alert-success');
+            $('#alert').addClass('alert-info');
+            $('#alert').text(alertText);
+            $('#alert').show();
         }
 
-        $('#alert').text(alertText);
 
-        setTimeout(function () {
-          $('#alert').fadeOut('slow');
-        }, 1000);
         function loadCategories() {
           $.ajax({
             url: './inc/getCategories.php',
@@ -431,7 +463,7 @@
                       $('#alert').show();
                       setTimeout(function () {
                         $('#alert').fadeOut('slow');
-                      }, 1000);
+                      }, 3000);
                     }
                   }
                 });
@@ -457,34 +489,53 @@
                 }
               }
               $('#item-list').empty();
+              $('#total-services').text(data.length);
+              $('#service-hide').show();
+              $('#item-list').show();
+              $('#alert').hide();
               data.forEach(function (service) {
-                console.log(service);
                 var serviceHTML = `
                         <div class="col-md-4 service-grooming">
                           <div id="item-service" class="service-item">
-                            <img src="dog-grooming.jpg" onerror="this.onerror=null; this.src='placeholder-image.png';"
+                            <img src="./inc/uploads/${service.image}"
                               alt="Service Image">
                             <p>${service.name}</p>
                             <p>${service.description}</p>
                             <p>₱${service.price}</p>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="appointment-required-${service.id}" ${service.visibility ? 'checked' : ''}>
+                                <input data-id="${service.id}" class="toggle-service form-check-input" type="checkbox" id="appointment-required-${service.id}" ${service.visibility === 'true' ? 'checked' : ''}>
                                 <label class="form-check-label toggle-service" for="appointment-required-${service.id}">Appointment Required</label>
                             </div>
                             <div class="btn-container mt-2">
-                              <button data-id="${service.id}" class="btn btn-outline-secondary btn-sm">Edit</button>
-                              <button data-id="${service.id}" class="btn btn-outline-danger btn-sm">Delete</button>
+                              <button data-id="${service.id}" class="btn-edit-service btn btn-outline-secondary btn-sm">Edit</button>
+                              <button data-id="${service.id}" class="btn-delete-service btn btn-outline-danger btn-sm">Delete</button>
                             </div>
                           </div>
                         </div>
                 `;
                 $('#item-list').append(serviceHTML);
-                if (!service.visibility) {
-                  $(`#appointment-required-${service.id}`).prop('checked', false);
-                }
-                $('#toggle-visibility-button').on('click', function () {
-                  service.visibility = !service.visibility; // Toggle visibility
-                  $(`#appointment-required-${service.id}`).prop('checked', service.visibility);
+                $(document).on('change', '.toggle-service', function () {
+                  var serviceId = $(this).data('id');
+                  var isVisible = $(this).is(':checked') ? 'true' : 'false';
+                  $.ajax({
+                    url: './inc/updateService.php',
+                    type: 'POST',
+                    data: {
+                      service_id: serviceId,
+                      visible: isVisible
+                    },
+                    success: function (response) {
+                      $('#alert').text("Service visibility is updated.");
+                      $('#alert').show();
+                      setTimeout(function () {
+                        $('#alert').fadeOut('slow');
+                      }, 3000);
+                    },
+                    error: function (xhr, status, error) {
+                      alert('Update failed:', error);
+                      window.location.reload();
+                    }
+                  });
                 });
               });
             },
@@ -492,89 +543,52 @@
               console.error('AJAX Error:', status, error);
             }
           });
+          $(document).on('click', '.btn-delete-service', function () {
+            var serviceId = $(this).data('id');
+            $.ajax({
+              url: './inc/deleteService.php',
+              type: 'POST',
+              data: { id: serviceId },
+              success: function (response) {
+                $('#alert').text("Service Deleted Successfully");
+                $('#alert').show();
+                setTimeout(function () {
+                  $('#alert').fadeOut('slow');
+                  location.reload();
+                }, 3000);
+              },
+              error: function (xhr, status, error) {
+                alert('Delete failed:', error);
+              }
+            });
+          });
         });
-        $(document).on('change', '.toggle-service', function () {
-          var serviceId = $(this).data('id');
-          var isVisible = $(this).is(':checked') ? 'true' : 'false';
-          $.ajax({
-            url: './inc/updateService.php',
-            type: 'POST',
-            data: {
-              service_id: serviceId,
-              visible: isVisible
-            },
-            success: function(response) {
-            console.log("Success");
-          },
-            error: function (xhr, status, error) {
-              alert('Update failed:', error);
-              window.location.reload();
-            }
-        });
-      });
-      loadCategories();
-      });
-
-      // Handle Edit for Categories
-      document.addEventListener('click', function (e) {
-        // Open Edit Category Modal
-        if (e.target && e.target.matches('.category-item .btn-outline-secondary')) {
-          const categoryItem = e.target.closest('.category-item');
-          const categoryName = categoryItem.firstChild.textContent.trim();
-
-          const editCategoryNameInput = document.getElementById('edit-category-name');
-          editCategoryNameInput.value = categoryName;
-
-          const saveCategoryButton = document.querySelector('#editCategoryModal .btn-primary');
-          saveCategoryButton.onclick = function () {
-            const updatedName = editCategoryNameInput.value.trim();
-            if (updatedName) {
-              categoryItem.firstChild.textContent = updatedName + " ";
-              const modal = bootstrap.Modal.getInstance(document.getElementById('editCategoryModal'));
-              modal.hide();
-            }
-          };
+        $(document).on('click', '.category-item .btn-outline-secondary', function () {
+          const categoryItem = $(this).closest('.category-item');
+          const categoryName = categoryItem.find('.category-name').text().trim(); // Assuming category name has a specific class
+          $('#edit-category-name').val(categoryName);
 
           const editCategoryModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
           editCategoryModal.show();
-        }
-      });
+        });
 
-      // Handle Edit for Services
-      document.addEventListener('click', function (e) {
-        if (e.target && e.target.matches('.service-item .btn-outline-secondary')) {
-          const serviceItem = e.target.closest('.service-item');
-          const serviceName = serviceItem.querySelector('p:nth-child(2)').textContent;
-          const serviceDescription = serviceItem.querySelector('p:nth-child(3)').textContent;
-          const servicePrice = serviceItem.querySelector('p:nth-child(4)').textContent.replace('$', '');
+        $(document).on('click', '.btn-edit-service', function () {
+          const serviceItem = $(this).closest('.service-item');
+          const serviceId = $(this).data('id');
+          $('#service_id').val(serviceId); 
 
-          // Set current service details in the modal
-          document.getElementById('edit-service-name').value = serviceName;
-          document.getElementById('edit-service-description').value = serviceDescription;
-          document.getElementById('edit-service-price').value = servicePrice;
+          const serviceName = serviceItem.find('p:nth-child(2)').text();
+          const serviceDescription = serviceItem.find('p:nth-child(3)').text();
+          const servicePrice = serviceItem.find('p:nth-child(4)').text().replace('₱', '');
 
-          // Save changes when "Save Changes" is clicked
-          const saveServiceButton = document.querySelector('#editServiceModal .btn-primary');
-          saveServiceButton.onclick = function () {
-            const updatedName = document.getElementById('edit-service-name').value.trim();
-            const updatedDescription = document.getElementById('edit-service-description').value.trim();
-            const updatedPrice = document.getElementById('edit-service-price').value.trim();
+          $('#edit-service-name').val(serviceName);
+          $('#edit-service-description').val(serviceDescription);
+          $('#edit-service-price').val(servicePrice);
 
-            if (updatedName && updatedDescription && updatedPrice) {
-              // Update the service item visually
-              serviceItem.querySelector('p:nth-child(2)').textContent = updatedName;
-              serviceItem.querySelector('p:nth-child(3)').textContent = updatedDescription;
-              serviceItem.querySelector('p:nth-child(4)').textContent = `$${updatedPrice}`;
-
-              const modal = bootstrap.Modal.getInstance(document.getElementById('editServiceModal'));
-              modal.hide();
-            }
-          };
-
-          // Show the Edit Service Modal
           const editServiceModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
           editServiceModal.show();
-        }
+        });
+        loadCategories();
       });
     </script>
 
