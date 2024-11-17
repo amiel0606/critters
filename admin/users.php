@@ -43,6 +43,7 @@
                                         <th scope="col">Breed</th>
                                         <th scope="col">Birth Date</th>
                                         <th scope="col">Gender</th>
+                                        <th scope="col">Unique</th>
                                     </tr>
                                 </thead>
                                 <tbody id="pets_data">
