@@ -26,7 +26,7 @@
             </div>
 
             <div class="table-responsive-md" style="height: 450px; overflow-y: auto;">
-              <table class="table table-hover border">
+              <table id="reviewsTable" class="table table-hover border">
                 <thead class="sticky-top bg-dark text-light">
                   <tr>
                     <th scope="col">#</th>
@@ -37,7 +37,7 @@
                     <th scope="col">Visibility</th>
                   </tr>
                 </thead>
-                <tbody id="reviewsTable">
+                <tbody>
                   <tr>
 
                 </tbody>
@@ -57,22 +57,31 @@
 
   <script>
     $(document).ready(function () {
+      function getStars(rating) {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+          if (i <= rating) {
+            stars += '★'; 
+          } else {
+            stars += '☆'; 
+          }
+        }
+        return stars;
+      }
       $.ajax({
-        url: './inc/getReviews.php', // URL to the PHP script
+        url: './inc/getReviews.php', 
         type: 'GET',
         dataType: 'json',
         success: function (data) {
           let rows = '';
-          console.log(data);
-          $('#reviewsTable').empty();
           $.each(data, function (index, review) {
-            let isVisible = review.visible ? 'checked' : '';
-            console.log(review);
+            let isVisible = review.visible == 'true' ? 'checked' : '';
+            let stars = getStars(review.rate);
             rows += `<tr>
-                    <td>${index + 1}</td>
+                    <td>${review.review_id}</td>
                     <td>${review.firstName} ${review.lastName}</td>
                     <td>${review.review}</td>
-                    <td>${review.rate}</td>
+                    <td>${stars}</td>
                     <td>${review.date}</td>
                     <td>
                         <div class='form-check form-switch'>
@@ -82,7 +91,7 @@
                     </td>
                 </tr>`;
           });
-          $('#reviewsTable').html(rows);
+          $('#reviewsTable tbody').html(rows);
         },
         error: function (xhr, status, error) {
           console.error("Error fetching reviews:", error);
