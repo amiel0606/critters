@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2024 at 04:11 AM
+-- Generation Time: Nov 18, 2024 at 05:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,8 +31,17 @@ CREATE TABLE `tbl_addreview` (
   `review_id` int(11) NOT NULL,
   `rate` int(255) NOT NULL,
   `review` varchar(255) NOT NULL,
-  `user_id` varchar(255) NOT NULL
+  `visible` varchar(255) NOT NULL DEFAULT 'true',
+  `user_id` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_addreview`
+--
+
+INSERT INTO `tbl_addreview` (`review_id`, `rate`, `review`, `visible`, `user_id`, `date`) VALUES
+(9, 5, 'super awesome fast service', 'true', '1', '2024-11-18 12:41:21');
 
 -- --------------------------------------------------------
 
@@ -50,7 +59,8 @@ CREATE TABLE `tbl_categories` (
 --
 
 INSERT INTO `tbl_categories` (`category_id`, `category_name`) VALUES
-(38, 'bwahah');
+(38, 'Tests'),
+(39, 'hello po');
 
 -- --------------------------------------------------------
 
@@ -89,7 +99,7 @@ CREATE TABLE `tbl_cms` (
 --
 
 INSERT INTO `tbl_cms` (`cms_id`, `title`, `about`, `address`, `link_address`, `social`, `viber`, `vision`, `mission`, `map`, `max_appointment`) VALUES
-(1, 'Critters', 'Agrivet', 'hiiiii', 'https://maps.app.goo.gl/t2tHJgzFfj4T1CyP8', 'https://www.facebook.com/groups/139347112936126', '09696978899', '                            Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.\r\n                        ', '                            To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.\r\n                        ', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.620855686803!2d120.98435447576225!3d14.33344228356032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1729118822196!5m2!1sen!2sph\" width=\"450\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 2);
+(1, 'Critters', 'Agrivet', 'hiiiii', 'https://maps.app.goo.gl/t2tHJgzFfj4T1CyP8', 'https://www.facebook.com/groups/139347112936126', '09696978899', '                            Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.\n                        ', '                            To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.\r\n                        ', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.620855686803!2d120.98435447576225!3d14.33344228356032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1729118822196!5m2!1sen!2sph\" width=\"450\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 2);
 
 -- --------------------------------------------------------
 
@@ -132,6 +142,13 @@ CREATE TABLE `tbl_pets` (
   `color` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_pets`
+--
+
+INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`, `img`, `uniqueness`, `color`) VALUES
+(18, 'Dog', 'Doggo', 'Mixed', '2024-01-11', 'Male', 1, 'dog.png', 'may balbas', 'Black and White');
+
 -- --------------------------------------------------------
 
 --
@@ -170,6 +187,14 @@ CREATE TABLE `tbl_services` (
   `visibility` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_services`
+--
+
+INSERT INTO `tbl_services` (`service_id`, `service_name`, `category_id`, `category_name`, `service_description`, `service_price`, `service_image`, `visibility`) VALUES
+(28, 'CBC (Complete Blood Test)', '38', 'Tests', 'A routine test that measures red blood cells, white blood cells, platelets, and hemoglobin. A CBC can help identify anemia, infection, inflammation, and other conditions.', 730, '673ab2b7a27ec6.01630777-1731900087.png', 'true'),
+(29, 'Heartworm Test', '38', 'Tests', 'Determines if a pet has heartworm disease or other tick-borne illnesses.', 550, '673ab2f6ed25e6.50905759-1731900150.png', 'true');
+
 -- --------------------------------------------------------
 
 --
@@ -186,6 +211,13 @@ CREATE TABLE `tbl_setappointment` (
   `time` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_setappointment`
+--
+
+INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `pet_id`, `booking_id`, `owner_id`, `time`, `status`) VALUES
+(24, '2024-11-18', 'Earl John Makavinta', '18', '28', '1', '9:00 AM - 9:30 AM', 'Completed');
 
 -- --------------------------------------------------------
 
@@ -304,13 +336,13 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_addreview`
 --
 ALTER TABLE `tbl_addreview`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_chatbot`
@@ -334,7 +366,7 @@ ALTER TABLE `tbl_images`
 -- AUTO_INCREMENT for table `tbl_pets`
 --
 ALTER TABLE `tbl_pets`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -346,13 +378,13 @@ ALTER TABLE `tbl_products`
 -- AUTO_INCREMENT for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_setappointment`
 --
 ALTER TABLE `tbl_setappointment`
-  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_team`

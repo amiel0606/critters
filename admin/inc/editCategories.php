@@ -14,9 +14,9 @@ $stmt = $conn->prepare("UPDATE tbl_categories SET category_name = ? WHERE catego
 $stmt->bind_param("si", $categoryName, $categoryId);
 
 if ($stmt->execute()) {
-    header("location: ./service_offer.php?error=none");
+    header("location: ../service_offer.php?error=none");
 } else {
-    header("location: ./service_offer.php?error=FailedToExecute");
+    header("location: ../service_offer.php?error=FailedToExecute");
 }
 
 $stmt->close();

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <?php require('inc/links.php'); ?>
 </head>
+
 <body class="bg-light">
   <?php require('inc/header.php'); ?>
   <div class="container-fluid" id="main-content">
@@ -35,47 +37,13 @@
                     <th scope="col">Visibility</th>
                   </tr>
                 </thead>
-                <tbody>
-
+                <tbody id="reviewsTable">
                   <tr>
-                    <td>1</td>
-                    <td>Juan Dela Cruz</td>
-                    <td>This is a fantastic product!</td>
-                    <td>★★★★★</td>
-                    <td>2024-10-01</td>
-                    <td>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input visibility-toggle" type="checkbox" data-review-id="1" checked>
-                        <label class="form-check-label" for="flexSwitchCheckDefault1">Visible</label>
-                        <button class="btn btn-danger ms-3">Delete</button> 
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>Not as good as expected.</td>
-                    <td>★★★☆☆</td>
-                    <td>2024-09-28</td>
-                    <td>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input visibility-toggle" type="checkbox" data-review-id="2">
-                        <label class="form-check-label" for="flexSwitchCheckDefault2">Hidden</label>
-                        <button class="btn btn-danger ms-3">Delete
-                        
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
 
                 </tbody>
               </table>
             </div>
-
             <div class="text-end mt-3">
-              <button class="btn btn-dark rounded-pill shadow-none btn-sm" id="save-button">
-                <i class="bi bi-save"></i> Save Changes
-              </button>
             </div>
 
           </div>
@@ -88,35 +56,56 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    $(document).ready(function () {
+      $.ajax({
+        url: './inc/getReviews.php', // URL to the PHP script
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          let rows = '';
+          console.log(data);
+          $('#reviewsTable').empty();
+          $.each(data, function (index, review) {
+            let isVisible = review.visible ? 'checked' : '';
+            console.log(review);
+            rows += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${review.firstName} ${review.lastName}</td>
+                    <td>${review.review}</td>
+                    <td>${review.rate}</td>
+                    <td>${review.date}</td>
+                    <td>
+                        <div class='form-check form-switch'>
+                            <input class='form-check-input visibility-toggle' type='checkbox' id='visibility-${review.review_id}' data-review-id='${review.id}' ${isVisible}>
+                            <label class='form-check-label' for='visibility-${review.review_id}'>${review.visible ? 'Visible' : 'Hidden'}</label>
+                        </div>
+                    </td>
+                </tr>`;
+          });
+          $('#reviewsTable').html(rows);
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching reviews:", error);
+        }
+      });
+    });
 
     document.querySelectorAll('.visibility-toggle').forEach(toggle => {
 
-      const label = toggle.nextElementSibling; 
+      const label = toggle.nextElementSibling;
       toggle.addEventListener('change', () => {
         const reviewId = toggle.getAttribute('data-review-id');
         const visibility = toggle.checked ? 'visible' : 'hidden';
-        
+
 
         label.textContent = toggle.checked ? 'Visible' : 'Hidden';
-        
+
         console.log(`Review ID: ${reviewId}, New Visibility: ${visibility}`);
       });
     });
 
-
-    document.getElementById('save-button').addEventListener('click', () => {
-      const visibilityChanges = [];
-      document.querySelectorAll('.visibility-toggle').forEach(toggle => {
-        const reviewId = toggle.getAttribute('data-review-id');
-        const visibility = toggle.checked ? 'visible' : 'hidden';
-        visibilityChanges.push({ reviewId, visibility });
-      });
-
-
-      console.log('Saving changes:', visibilityChanges);
-      alert('Changes saved successfully!');
-    });
   </script>
 
 </body>
+
 </html>

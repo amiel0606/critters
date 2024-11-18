@@ -249,11 +249,11 @@
                 <label for="category-name" class="form-label">Category Name</label>
                 <input name="category_name" type="text" class="form-control" id="category-name" required>
               </div>
-            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
           </div>
         </div>
       </div>

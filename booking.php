@@ -11,15 +11,16 @@
     <?php require('inc/links.php'); ?>
 </head>
 <style>
-body{
-            height: auto;
-         width: 100%;
+    body {
+        height: auto;
+        width: 100%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         background-color: #FFF0F5;
-        }
-        </style>
+    }
+</style>
+
 <body class="bg-light">
 
     <?php
@@ -98,6 +99,44 @@ body{
 
     <script>
         $(document).ready(function () {
+            function fetchBookedTimeSlots() {
+                $.ajax({
+                    type: "GET",
+                    url: "./inc/getBookedTimeslot.php",
+                    success: function (response) {
+                        const bookedSlots = JSON.parse(response);
+                        populateTimeSlots(bookedSlots);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching booked time slots:", error);
+                    }
+                });
+            }
+            function populateTimeSlots(bookedSlots) {
+                const allTimeSlots = [
+                    "9:00 AM - 9:30 AM",
+                    "9:30 AM - 10:00 AM",
+                    "10:00 AM - 10:30 AM",
+                    "10:30 AM - 11:00 AM",
+                    "11:00 AM - 11:30 AM",
+                    "11:30 AM - 12:00 PM",
+                    "1:00 PM - 1:30 PM",
+                    "1:30 PM - 2:00 PM",
+                    "2:00 PM - 2:30 PM",
+                    "2:30 PM - 3:00 PM",
+                    "3:00 PM - 3:30 PM",
+                    "3:30 PM - 4:00 PM",
+                    "4:00 PM - 4:30 PM",
+                    "4:30 PM - 5:00 PM"
+                ];
+                $('#time_slot').empty().append('<option value="">Select a Time Slot</option>');
+                allTimeSlots.forEach(function (slot) {
+                    if (!bookedSlots.includes(slot)) {
+                        $('#time_slot').append(`<option value="${slot}">${slot}</option>`);
+                    }
+                });
+            }
+            fetchBookedTimeSlots();
             $.ajax({
                 type: "GET",
                 url: "./admin/inc/getBookings.php",
@@ -164,25 +203,48 @@ body{
                         $("#Pets").append('<option value="">No Pet Added yet</option>');
                     }
                     $(document).on("click", "#book-btn", function () {
-                        var bookingID = $(this).data('id'); 
-                        var petID = $("#Pets").val(); 
+                        var bookingID = $(this).data('id');
+                        var petID = $("#Pets").val();
                         var bookDate = $('#book_date').val();
                         var timeSlot = $('#time_slot').val();
                         var currentDate = new Date();
                         var maxDate = new Date(currentDate.getTime() + 2 * 30 * 24 * 60 * 60 * 1000);
                         var selectedDate = new Date(bookDate);
+
+                        // Check if any field is empty
                         if (bookDate === '' || timeSlot === '' || petID === '') {
                             alert('Please select a pet, date, and time slot');
                             return;
                         }
+
+                        // Check if the selected date is in the past
                         if (selectedDate < currentDate) {
                             alert('Please select a date that is not in the past');
                             return;
                         }
+
+                        // Check if the selected date is today
+                        var isToday = selectedDate.toDateString() === currentDate.toDateString();
+
+                        // If the date is today, check if the selected time is in the past
+                        if (isToday) {
+                            var selectedTime = new Date(selectedDate);
+                            var timeParts = timeSlot.split(':');
+                            selectedTime.setHours(parseInt(timeParts[0]), parseInt(timeParts[1]), 0);
+
+                            if (selectedTime < currentDate) {
+                                alert('Please select a time that is not in the past');
+                                return;
+                            }
+                        }
+
+                        // Check if the selected date is beyond the maximum allowed date
                         if (selectedDate > maxDate) {
                             alert('Please select a date within the next 2 months');
                             return;
                         }
+
+                        // Proceed with the AJAX request
                         $.ajax({
                             type: "POST",
                             url: "./inc/setAppointment.php",

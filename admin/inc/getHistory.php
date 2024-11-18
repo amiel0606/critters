@@ -2,7 +2,7 @@
 include_once './dbCon.php';
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'thisWeek'; // Default sort option
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'thisWeek'; 
 
 $sql = "SELECT a.*, s.*, p.* 
         FROM tbl_setappointment a 

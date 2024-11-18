@@ -5,20 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Critters Agrivet - Service</title>
-    
+
     <?php require('inc/links.php'); ?>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
+
     <style>
-        body{
+        body {
             height: auto;
-         width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-color: #FFF0F5;
+            width: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #FFF0F5;
         }
+
         .pop:hover {
             border-top-color: var(--teal) !important;
             transform: scale(1.03);
@@ -81,13 +82,14 @@
             min-width: 280px;
         }
 
-        .info-item h2, .info-item h3 {
+        .info-item h2,
+        .info-item h3 {
             text-align: center;
         }
     </style>
 </head>
 
-<body >
+<body>
     <?php
     session_start();
     require('inc/header.php');
@@ -104,18 +106,27 @@
 
         <!-- Mission and Vision Section -->
         <div class="info-item">
-            <h3 class="fw-bold h-font">MISSION AND VISION</h3>
-            <div id="mission_vision">To provide exceptional veterinary <br>
+            <h3 class="fw-bold h-font">MISSION</h3>
+            <div id="mission_vision_container"> <p id="mission">To provide exceptional veterinary <br>
                 care through personalized treatment, advanced <br>
                 medical practices, and a caring approach, ensuring <br>
                 the well-being and quality of life for every pet and <br>
-                peace of mind for every pet owner. </div>
+                peace of mind for every pet owner. </p>
+                <h3 class="fw-bold h-font">VISION</h3>
+                <p id="vision">
+                To provide exceptional veterinary <br>
+                care through personalized treatment, advanced <br>
+                medical practices, and a caring approach, ensuring <br>
+                the well-being and quality of life for every pet and <br>
+                peace of mind for every pet owner. 
+                </p>
+            </div>
         </div>
 
         <!-- Clinic Specify Section -->
         <div class="info-item">
             <h2 class="fw-bold h-font">CLINIC SPECIFY</h2>
-            <div id="specify">The clinic only accepting Dogs and Cats services</div>
+            <div id="specify">The  only accepting Dogs and Cats services</div>
         </div>
     </div>
 
@@ -129,7 +140,7 @@
             </div>
         </div>
 
- 
+
     </div>
 
     <!-- Management Team Section -->
@@ -180,7 +191,8 @@
                     success: function (response) {
                         var cms_about = response[0].about;
                         $('#about').html(`<h5 class="text-center mt-3">${cms_about}</h5>`);
-                        $('#mission_vision').text(response[0].mission_vision);
+                        $('#mission').text(response[0].mission);
+                        $('#vision').text(response[0].vision);
                     },
                     error: function (xhr, status, error) {
                         console.error('Error fetching CMS data:', error);
