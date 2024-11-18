@@ -65,7 +65,8 @@
 
     .chart-container {
       width: 100%;
-      height: 300px; /* Smaller size */
+      height: 300px;
+      /* Smaller size */
       margin-top: 20px;
     }
 
@@ -106,7 +107,8 @@
       font-size: 0.9rem;
     }
 
-    .btn-success:hover, .btn-danger:hover {
+    .btn-success:hover,
+    .btn-danger:hover {
       transform: scale(1.05);
     }
 
@@ -198,7 +200,7 @@
       <div class="chart-box">
         <h4>Most Booked Services</h4>
         <div id="messageContainer"></div>
-        <canvas id="serviceChart" class="chart-container"></canvas>
+        <canvas id="serviceChart" width="400" height="400"></canvas>
       </div>
 
       <!-- Service Booking Overview -->
@@ -232,38 +234,36 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody id="appointmentTableBody"></tbody>
+        <tbody style="text-align: center;" id="appointmentTableBody"></tbody>
       </table>
     </div>
   </div>
 
   <script>
     $(document).ready(function () {
-      let serviceChart;
-      const messageContainer = $('#messageContainer');
-      const bookingTableBody = $('#bookingTableBody');
-      const totalClients = $('#totalClients');
-      const totalEmployees = $('#totalEmployees');
-      const totalAppointments = $('#totalAppointments');
-
-      // Fetch the total clients, employees, and appointments
-      function fetchTotalStats() {
+      function updateAppointmentStatus(appointmentId) {
         $.ajax({
-          type: "GET",
-          url: "./inc/getTotalStats.php",
+          type: "POST",
+          url: "./inc/updateAppointmentStatus.php",
+          data: { id: appointmentId, status: 'Completed' },
           dataType: "json",
-          success: function (data) {
-            totalClients.text(data.totalClients);
-            totalEmployees.text(data.totalEmployees);
-            totalAppointments.text(data.totalAppointments);
+          success: function (response) {
+            if (response.success) {
+              alert("Appointment marked as completed.");
+              fetchSortedAppointments();
+            } else {
+              alert("Failed to update appointment status: " + (response.error || "Unknown error"));
+            }
           },
-          error: function (xhr, status, error) {
-            console.log("Error fetching stats: ", error);
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error occurred while updating appointment status: " + textStatus + " - " + errorThrown);
           }
         });
       }
+      let serviceChart;
+      const messageContainer = $('#messageContainer');
+      const bookingTableBody = $('#bookingTableBody');
 
-      // Fetch top services based on selected month
       function fetchTopServices(month) {
         $.ajax({
           type: "GET",
@@ -271,25 +271,33 @@
           data: { month: month },
           dataType: "json",
           success: function (response) {
+            console.log(response);
             messageContainer.text('');
             bookingTableBody.empty();
 
             if (response.length === 0) {
-              messageContainer.text('No services available for the selected month.');
+              messageContainer.text("No bookings this month").css("color", "red");
+              bookingTableBody.append(`
+                          <tr>
+                              <td>No Bookings This month</td>
+                              <td>0</td>
+                          </tr>
+                      `);
               if (serviceChart) {
                 serviceChart.destroy();
               }
               return;
+            } else {
+              response.forEach(service => {
+                bookingTableBody.append(`
+                          <tr>
+                              <td>${service.service_name}</td>
+                              <td>${service.total_bookings}</td>
+                          </tr>
+                      `);
+              });
             }
 
-            response.forEach(service => {
-              bookingTableBody.append(`
-                <tr>
-                    <td>${service.service_name}</td>
-                    <td>${service.total_bookings}</td>
-                </tr>
-              `);
-            });
 
             const labels = response.map(service => service.service_name);
             const data = response.map(service => service.total_bookings);
@@ -306,7 +314,11 @@
                 datasets: [{
                   label: 'Top 3 Most Booked Services',
                   data: data,
-                  backgroundColor: ['#28a745', '#007bff', '#ffc107'],
+                  backgroundColor: [
+                    '#007bff',
+                    '#28a745',
+                    '#ffc107'
+                  ],
                   borderColor: '#fff',
                   borderWidth: 1
                 }]
@@ -334,16 +346,55 @@
         });
       }
 
-      // Fetch stats and services when the page loads
-      fetchTotalStats();
-      fetchTopServices($('#monthSelector').val());
-
       $('#monthSelector').change(function () {
         const selectedMonth = $(this).val();
         if (selectedMonth) {
           fetchTopServices(selectedMonth);
         }
       });
+      function fetchSortedAppointments() {
+        $.ajax({
+          url: './inc/getAllAppointments.php',
+          method: 'GET',
+          dataType: 'json',
+          success: function (data) {
+            console.log(data);
+            
+            if (data.length > 0) {
+              $.each(data, function (index, appointment) {
+                var appointmentElement = `
+            <td>${appointment.id}</td>
+            <td>${appointment.ownerName}</td>
+            <td>${appointment.petName}</td>
+            <td>${appointment.petType}</td>
+            <td>${appointment.title}</td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>
+              <button class='btn btn-success btn-sm complete-btn' data-id="${appointment.id}">Complete</button>
+            </td>
+        `;
+                $('#appointmentTableBody').append(appointmentElement);
+                $('.complete-btn').on('click', function () {
+                  const appointmentId = $(this).data('id');
+                  updateAppointmentStatus(appointmentId);
+                });
+              });
+            } else {
+              var appointmentElement = `
+                <td colspan="8">No pending appointment for today.</td> 
+              `;
+              $('#appointmentTableBody').append(appointmentElement);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Error fetching appointments:", error);
+            $('#appointmentTableBody').append('<p>An error occurred while fetching appointments.</p>');
+          }
+        });
+      }
+      fetchTopServices($('#monthSelector').val());
+      fetchSortedAppointments();
     });
   </script>
 

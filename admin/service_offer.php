@@ -174,7 +174,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div class="category-list" id="category-list">
         <div class="category-item" id="category-grooming">
-          Grooming
+          <span class="category-name"></span> Grooming
           <div class="btn-container">
             <button class="btn btn-outline-secondary btn-sm"
               style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
@@ -309,16 +309,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="edit-category-form">
+            <form action="./inc/editCategories.php" method="POST" id="edit-category-form">
+              <input type="hidden" name="edit-category-id" id="edit-category-id">
               <div class="mb-3">
                 <label for="edit-category-name" class="form-label">Category Name</label>
-                <input type="text" class="form-control" id="edit-category-name" required>
+                <input type="text" class="form-control" name="edit-category-name" id="edit-category-name" required>
               </div>
-            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
           </div>
         </div>
       </div>
@@ -338,19 +339,19 @@
               <input type="hidden" name="service_id" id="service_id">
               <div class="mb-3">
                 <label for="edit-service-name" class="form-label">Service Name</label>
-                <input type="text" class="form-control" id="edit-service-name" required>
+                <input type="text" class="form-control" name="edit-service-name" id="edit-service-name" required>
               </div>
               <div class="mb-3">
                 <label for="edit-service-description" class="form-label">Description</label>
-                <textarea class="form-control" id="edit-service-description" rows="3" required></textarea>
+                <textarea class="form-control" name="edit-service-description" id="edit-service-description" rows="3" required></textarea>
               </div>
               <div class="mb-3">
                 <label for="edit-service-price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="edit-service-price" required>
+                <input type="number" class="form-control" name="edit-service-price" id="edit-service-price" required>
               </div>
               <div class="mb-3">
                 <label for="edit-service-image" class="form-label">Image</label>
-                <input type="file" class="form-control" id="edit-service-image">
+                <input type="file" class="form-control" name="edit-service-image" id="edit-service-image">
               </div>
           </div>
           <div class="modal-footer">
@@ -440,7 +441,7 @@
                   categoryHTML =
                     `
             <div class="category-item" data-id="${category.category_id}">
-              ${category.category_name}
+              <span class="category-name">${category.category_name}</span>
               <div class="btn-container">
                 <button data-id="${category.category_id}" class="btn-edit btn btn-outline-secondary btn-sm" style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
                 <button data-id="${category.category_id}" class="btn-delete btn btn-outline-danger btn-sm" style="background-color: #ff4d4d; color: white; border: 2px solid #ff1a1a;">Delete</button>
@@ -564,9 +565,11 @@
           });
         });
         $(document).on('click', '.category-item .btn-outline-secondary', function () {
+          var category_id = $(this).data('id');
           const categoryItem = $(this).closest('.category-item');
           const categoryName = categoryItem.find('.category-name').text().trim(); // Assuming category name has a specific class
           $('#edit-category-name').val(categoryName);
+          $('#edit-category-id').val(category_id);
 
           const editCategoryModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
           editCategoryModal.show();

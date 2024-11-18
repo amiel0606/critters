@@ -4,7 +4,8 @@ include_once './dbCon.php';
 $sql = "SELECT a.*, s.*, p.* 
 FROM tbl_setappointment a 
 INNER JOIN tbl_services s ON a.booking_id = s.service_id 
-INNER JOIN tbl_pets p ON a.pet_id = p.id";
+INNER JOIN tbl_pets p ON a.pet_id = p.id
+WHERE a.status != 'Completed'";
 
 $result = $conn->query($sql);
 
