@@ -342,7 +342,7 @@ try {
                             } else {
                                 var htmlContent = '';
                                 htmlContent += `
-                        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">${response[0].title}</a>
+                        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="landingpage.php">${response[0].title}</a>
                     `;
                                 $('#title').html(htmlContent);
                             }

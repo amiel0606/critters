@@ -8,19 +8,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <style>
-        /* Make the container take full width */
         
         .container-fluid {
             padding-left: 15px;
             padding-right: 15px;
             width: 100%;
-            margin: 0 auto; /* Centering the container */
+            margin: 0 auto; 
         }
         iframe{
             margin-top:20px;
         }
 
-        /* Full-width layout using flexbox */
         .contact-layout {
             display: flex;
             justify-content: space-between;
@@ -32,13 +30,13 @@
 
 
         .contact-layout .map-container {
-            flex: 2; /* Make the map section take more space */
-            min-width: 600px; /* Increased width for the map */
-            height: 500px; /* Set a fixed height for the map */
+            flex: 2;
+            min-width: 600px; 
+            height: 500px; 
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            background-color: white;
+            background-color: #FFE5EC;
         }
 
         .contact-layout .details-container {
@@ -52,9 +50,9 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #FFE5EC;
         }
 
-        /* Adjusting layout on smaller screens */
         @media (max-width: 768px) {
             .contact-layout {
                 flex-direction: column;
@@ -63,7 +61,7 @@
 
             .contact-layout .map-container {
                 width: 100%;
-                height: 400px; /* Adjust map height for mobile */
+                height: 400px; 
             }
 
             .contact-layout .details-container {
@@ -81,10 +79,13 @@
             font-weight: bold;
             text-align: center;
         }
-
+        body{
+            background-color: #FFF0F5;
+        }
+       
     </style>
 </head>
-<body class="bg-light" >
+<body >
     <?php
       session_start();
       require('inc/header.php');

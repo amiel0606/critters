@@ -19,9 +19,23 @@
         background-size: cover;
         background-color: #FFF0F5;
     }
+    .booking-row{
+        display: flex;
+        flex-direction: row;
+
+    }
+    .card{
+        background-color: #FFE5EC;
+    }
+    .navbar{
+        background-color: #FFE5EC;
+    }
+    #app{
+        background-color: #FFE5EC;
+    }
 </style>
 
-<body class="bg-light">
+<body >
 
     <?php
     session_start();
@@ -44,9 +58,9 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="booking-row">
             <div class="col-lg-3 col-md-12 mb-lg-0 mb-4 px-lg-0">
-                <nav class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">
+                <nav class="navbar navbar-expand-lg navbar-light rounded shadow">
                     <div class="container-fluid flex-lg-column align-items-stretch">
                         <h4 class="mt-2">Fill Up</h4>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -55,7 +69,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="filterDropdown">
-                            <div class="border bg-light p-3 rounded mb-3">
+                            <div class="border p-3 rounded mb-3" id="app">
                                 <h5 class="mb-3" style="font-size: 18px;">SET APPOINTMENT</h5>
                                 <label class="form-label">Select Pet</label>
                                 <div>

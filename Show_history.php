@@ -8,10 +8,10 @@
     <?php require('inc/links.php');?>
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #FFF0F5;
         }
         .profile-container {
-            background-color: #e9ecef;
+            background-color: #FDD9E5;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
@@ -158,9 +158,7 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="userId" value="<?php echo $_SESSION['id']; ?>"> <!-- Hidden input for user ID -->
-                <div class="my-5 px-4">
-                    <div class="h-line bg-dark"></div>
-                </div>
+                
                 <div class="review-form-container">
                     <div class="review-form">
                         <div class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">

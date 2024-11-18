@@ -10,11 +10,18 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <link rel="stylesheet" href="css/landingpage.css" />
   <?php require('inc/links.php'); ?>
-
+  <style>
+    body{
+      background-color: #FFF0F5;
+    }
+    .swiper-slide{
+      background-color:#FFE5EC ;
+    }
+  </style>
 
 </head>
 
-<body class="bg-light">
+<body>
   <?php
   session_start();
   require('inc/header.php');
@@ -73,9 +80,8 @@ $(document).ready(function () {
             reviews.forEach(function (review) {
                 const stars = '<div class="rating">' + '⭐'.repeat(review.rate) + '</div>';
                 const testimonialHTML = `
-                    <div class="swiper-slide bg-white p-4">
+                    <div class="swiper-slide p-4">
                         <div class="profile d-flex align-item-center mb-3">
-                            <img src="images/features/userprofile.jpg" width="30px">
                             <h6 class="m-0 ms-2">${review.firstName || 'Anonymous'}</h6>
                         </div>
                         <p>${review.review}</p>

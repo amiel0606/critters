@@ -35,6 +35,7 @@
         }
 
         .swiper-slide {
+            background-color: #FFE5EC !important;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -86,6 +87,18 @@
         .info-item h3 {
             text-align: center;
         }
+        #mission_vision_container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    #mission, #vision {
+        line-height: 1.6; /* Makes text spacing more readable */
+        text-align: justify; /* Justifies the text */
+        margin-bottom: 20px; /* Adds spacing between paragraphs */
+}
+    
+
     </style>
 </head>
 
@@ -96,10 +109,10 @@
     ?>
     <div class="bg"><img src="../vaccine.jpeg" alt=""></div>
     <!-- About Us, Mission and Vision, and Clinic Specify Sections in a Row -->
-    <div class="my-5 px-4 info-row">
+    <div class="my-8 px-4 info-row">
         <!-- About Us Section -->
         <div class="info-item">
-            <h2 class="fw-bold h-font">ABOUT US</h2>
+            <h2 class="fw-normal h-font">ABOUT US</h2>
             <div class="h-line bg-dark"></div>
             <div id="about"></div>
         </div>
@@ -190,7 +203,7 @@
                     dataType: 'json',
                     success: function (response) {
                         var cms_about = response[0].about;
-                        $('#about').html(`<h5 class="text-center mt-3">${cms_about}</h5>`);
+                        $('#about').html(`<p class="text-center mt-3">${cms_about}</p>`);
                         $('#mission').text(response[0].mission);
                         $('#vision').text(response[0].vision);
                     },

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/profile.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color:    #FFE5EC;
         }
 
         .profile-container {
@@ -52,6 +52,13 @@
             background-color: #dc3545;
             color: white;
         }
+        .profile-container{
+            background-color: #FFD0DF;
+        }
+        .profile-section{
+            background-color: #FFE5EC;
+        }
+      
     </style>
 </head>
 
@@ -164,10 +171,12 @@
                         <label for="petName" class="form-label">Pet Name</label>
                         <input type="text" class="form-control" id="petName" name="pet_name" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="petType" class="form-label">Pet Type</label>
-                        <input type="text" class="form-control" id="petType" name="pet_type" required>
-                    </div>
+                    <label for="petType" class="form-label">Pet Type</label>
+                                <select class="form-control" name="petType" required>
+                                    <option value="" disabled selected>Select Pet Type</option>
+                                    <option value="Cat">Cat</option>
+                                    <option value="Dog">Dog</option>
+                                </select>
                     <div class="mb-3">
                         <label for="breed" class="form-label">Breed</label>
                         <input type="text" class="form-control" id="breed" name="breed" required>

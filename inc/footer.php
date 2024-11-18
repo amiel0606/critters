@@ -1,4 +1,4 @@
-<div class="container-fluid bg-white mt-5">
+<div class="container-fluid  mt-5" id="footer-wrapper">
                 <div class="f-row">
                   <div class="col-lg-4 p-4">
                     <div id="general"></div>
@@ -21,11 +21,13 @@
                 </div>
               </div>
               <style>
-                .f-row {
+                 .f-row {
                   display: flex;
-                  justify-content: center; 
-                  flex-direction: column;
-                  align-items: center;
+                  flex-wrap: wrap; /* Ensures responsiveness */
+                  }
+                  #footer-wrapper{
+                    background-color: #FFD0DF;
+                    box-shadow: 5px 5px 10px 2px rgb(0 0 0 / 0.3);
                   }
               </style>
 

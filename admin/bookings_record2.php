@@ -91,7 +91,7 @@
                             <td>${appointment.service_name}</td>
                             <td>${appointment.booking_date}</td>
                             <td>
-                                <button data-id="${appointment.appointment_id}" class="btn btn-danger btn-sm">Delete Booking</button>
+                                <button data-id="${appointment.appointment_id}" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
                     `;

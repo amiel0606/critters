@@ -3,8 +3,6 @@
 // adminLogin();
 ?>
 
-<!DOCTYPE html>
-< lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -44,11 +42,14 @@
 
         button.fc-button:hover {
             background-color: #0056b3;
+        }body{
+            background-color: #FFF0F5;
         }
+        
     </style>
 </head>
 
-<body class="bg-light">
+<body >
 <?php
 session_start();
 
@@ -82,12 +83,6 @@ require('inc/header.php'); ?>
     </div>
     <div id="event-popup" style="display:none; position:absolute; background-color:white; border:1px solid black; padding:5px; z-index:1000;"></div>
 
-<footer class="text-center py-3 bg-light text-dark">
-    <div class="social-icons mb-2">
-        <a href="#" class="text-dark"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
-    </div>
-</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.0/index.global.min.js"></script>
@@ -144,7 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     calendar.render();
 });
+
 </script>
 </body>
+<?php require('inc/footer.php'); ?>
 
-</>

@@ -31,6 +31,9 @@
             height: 3px;
             margin: 0 auto;
         }
+        .card{
+            background-color: #FFE5EC;
+        }
     </style>
 </head>
 <body>
@@ -75,11 +78,11 @@ $(document).ready(function() {
     function createProductCard(product) {
         return `
             <div class="col">
-                <div class="card product-card h-100 shadow bg-white rounded p-4">
+                <div class="card product-card h-100 shadow  rounded p-4">
                     <img src="./admin/inc/uploads/${product.image}" class="card-img-top product-image" alt="${product.name}">
                     <div class="card-body text-center">
                         <h5 class="card-title">${product.name}</h5>
-                        <p class="card-text text-danger">${product.price}</p>
+                        <p class="card-text text-success">${product.price}</p>
                         <p class="card-text">${product.description}</p>
                     </div>
                 </div>
