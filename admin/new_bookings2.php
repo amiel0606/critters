@@ -75,6 +75,8 @@ function fetchSortedAppointments() {
                     tableBody.append("<td>Completed</td>"); 
                 } else {
                     tableBody.append("<button class='btn btn-success btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Completed</button>");
+                    tableBody.append("<button class='btn btn-warning btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Resched</button>");
+                    tableBody.append("<button class='btn btn-danger btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Cancel</button>");
                 }
                 tableBody.append("</tr>");
             });

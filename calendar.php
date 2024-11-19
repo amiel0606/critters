@@ -43,7 +43,7 @@
         button.fc-button:hover {
             background-color: #0056b3;
         }body{
-            background-color: #FFF0F5;
+            background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
         }
         
     </style>

@@ -12,7 +12,7 @@
   <?php require('inc/links.php'); ?>
   <style>
     body {
-      background-color: #FFF0F5;
+      background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;

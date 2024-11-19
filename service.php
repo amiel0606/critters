@@ -11,7 +11,7 @@
     <style>
       /* Set background color */
       body {
-        background-color: #FFF0F5;
+        background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
       }
 
       #bg-wrapper {
@@ -89,6 +89,22 @@
         background-color: #FF8FA6;
         color: white;
       }
+
+      .dropdown-menu {
+        background-color: #FFE5EC;
+      }
+
+      .dropdown-item {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+        background-color: #FF8FA6;
+        color: white;
+      }
     </style>
 </head>
 <body>
@@ -113,7 +129,16 @@
       <span class="category" onclick="filterCategory('consultation')">Consultation</span>
       <span class="category" onclick="filterCategory('vaccination')">Vaccination</span>
       <span class="category" onclick="filterCategory('grooming')">Grooming</span>
-      <span class="category" onclick="filterCategory('others')">Others</span>
+      <div class="dropdown d-inline-block">
+        <button class="btn btn-outline-secondary dropdown-toggle category" type="button" id="dropdownOthers" data-bs-toggle="dropdown" aria-expanded="false">
+          Others
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownOthers">
+          <li><a class="dropdown-item" href="#" onclick="filterCategory('other1')">Other 1</a></li>
+          <li><a class="dropdown-item" href="#" onclick="filterCategory('other2')">Other 2</a></li>
+          <li><a class="dropdown-item" href="#" onclick="filterCategory('other3')">Other 3</a></li>
+        </ul>
+      </div>
     </div>
 
     <!-- Services Section -->

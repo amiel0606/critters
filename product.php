@@ -9,7 +9,7 @@
     <style>
         /* Set background color to #FFF0F5 */
         body {
-            background-color: #FFF0F5;
+            background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
         }
         .product-card {
             transition:  0.3s ease;

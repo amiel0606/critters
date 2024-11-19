@@ -88,12 +88,15 @@ try {
         color: white;
     }
     .bg-danger {
-    background-color:#FFB0C9 !important;
+        background-image: linear-gradient(to right, #D09192, #C82471);
     }
   
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top ">
     <div class="container-fluid">
+    <a class="navbar-brand" href="landingpage.php">
+            <img src="path_to_logo.png" alt="Logo" width="100" height="auto">
+        </a>
         <div id="title"></div>
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

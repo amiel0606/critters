@@ -23,7 +23,7 @@
 
                 <!-- Pets Section -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Pets</h3>
+                    <h3>User & Pets Account</h3>
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search pet" aria-label="Search">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
@@ -37,6 +37,7 @@
                                 <thead class="sticky-top">
                                     <tr class="bg-dark text-light">
                                         <th scope="col">#</th>
+                                        <th scope="col">Username</th>
                                         <th scope="col">Owner Name</th>
                                         <th scope="col">Pet Name</th>
                                         <th scope="col">Pet Type</th>
@@ -54,34 +55,57 @@
                 </div>
 
                 <!-- Accounts Section -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>User Account</h3>
+                
+                 <!-- Admin Section -->
+                 <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Admin Account</h3>
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search by owner"
                             aria-label="Search">
-                        <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
 
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover border" style="min-width: 1300px;">
-                                <thead class="sticky-top">
-                                    <tr class="bg-dark text-light">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="users_data">
-                                    <!-- User data will be populated here dynamically -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover border" style="min-width: 1300px;">
+                <thead class="sticky-top">
+                    <tr class="bg-dark text-light">
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example Row -->
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>john_doe</td>
+                        <td>John Doe</td>
+                        <td>12345</td>
+                        <td>
+                            <button class="btn btn-success" onclick="acceptUser(1)">Accept</button>
+                            <button class="btn btn-danger" onclick="acceptUser(1)">Decline</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>jane_smith</td>
+                        <td>Jane Smith</td>
+                        <td>123345</td>
+                        <td>
+                            <button class="btn btn-success" onclick="acceptUser(2)">Accept</button>
+                            <button class="btn btn-danger" onclick="acceptUser(1)">Decline</button>
+                        </td>
+                    </tr>
+                    <!-- More rows can be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
             </div>
@@ -93,6 +117,11 @@
 
     <!-- Script to Fetch User Data -->
     <script>
+         function acceptUser(id) {
+        // Example function to handle the "Accept" button click.
+        // This can be replaced with your actual logic, e.g., sending data to a server.
+        alert('User with ID ' + id + ' accepted!');
+         }
         $(document).ready(function () {
             $.ajax({
                 url: './inc/getUsers.php',
@@ -107,6 +136,8 @@
                                 <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.firstName} ${user.lastName}</td>
+                                
+                                
                             </tr>
                         `);
                     });
@@ -139,6 +170,7 @@
                                 <td>${pet.breed}</td>
                                 <td>${pet.birth_date}</td>
                                 <td>${pet.gender}</td>
+                                
                             </tr>
                         `);
                         });

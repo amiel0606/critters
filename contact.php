@@ -80,7 +80,7 @@
             text-align: center;
         }
         body{
-            background-color: #FFF0F5;
+            background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
         }
        
     </style>

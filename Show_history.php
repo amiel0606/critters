@@ -8,7 +8,7 @@
     <?php require('inc/links.php');?>
     <style>
         body {
-            background-color: #FFF0F5;
+            background-image: linear-gradient(to right, #ff9f9f, #ff66b2);
         }
         .profile-container {
             background-color: #FDD9E5;

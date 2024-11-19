@@ -120,11 +120,13 @@
       border-color: #ff7e5f;
       color: #ff7e5f;
       transition: all 0.3s ease;
+      max-width: 200px;
     }
 
     .btn-outline-secondary:hover {
       background-color: #ff7e5f;
       color: white;
+      max-width: 200px;
     }
 
     /* Modals */
@@ -171,36 +173,21 @@
     </div>
 
     <!-- Categories Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div class="category-list" id="category-list">
-        <div class="category-item" id="category-grooming">
-          <span class="category-name"></span> Grooming
-          <div class="btn-container">
-            <button class="btn btn-outline-secondary btn-sm"
-              style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
-            <button class="btn btn-outline-danger btn-sm"
-              style="background-color: #ff4d4d; color: white; border: 2px solid #ff1a1a;">Delete</button>
-
-          </div>
-        </div>
-        <div class="category-item" id="category-spa">
-          Spa
-          <div class="btn-container">
-            <button class="btn btn-outline-secondary btn-sm"
-              style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
-            <button class="btn btn-outline-danger btn-sm"
-              style="background-color: #ff4d4d; color: white; border: 2px solid #ff1a1a;">Delete</button>
-
-          </div>
-        </div>
-      </div>
-      <div>
-        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add
-          Category</button>
-        <h6 class="mt-2">Total Categories: <span id="total-categories">0</span></h6>
-      </div>
-    </div>
-
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="dropdown">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      Select Category
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="categoryDropdown" id="category-list">
+      <li><a class="dropdown-item" href="#" id="category-grooming">Grooming</a></li>
+      <li><a class="dropdown-item" href="#" id="category-spa">Spa</a></li>
+    </ul>
+  </div>
+  <div>
+    <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
+    <h6 class="mt-2">Total Categories: <span id="total-categories">0</span></h6>
+  </div>
+</div>
     <!-- Services Section -->
     <div id="service-hide" class="left-align mb-4">
       <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add
@@ -268,6 +255,7 @@
             <h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          
           <div class="modal-body">
             <form id="add-service-form" method="post" action="./inc/addService.php" enctype="multipart/form-data">
               <input type="hidden" name="idCategory" id="category_id">
@@ -277,17 +265,28 @@
               </div>
               <div class="mb-3">
                 <label for="service-description" class="form-label">Description</label>
-                <textarea class="form-control" name="service_description" id="service-description" rows="3"
-                  required></textarea>
+                <textarea class="form-control" name="service_description" id="service-description" rows="3" required></textarea>
               </div>
               <div class="mb-3">
                 <label for="service-price" class="form-label">Price</label>
                 <input type="number" class="form-control" name="service_price" id="service-price" required>
               </div>
               <div class="mb-3">
-                <label for="service-price" class="form-label">Image</label>
+                <label for="service-image" class="form-label">Image</label>
                 <input type="file" class="form-control" name="service_image" id="service-image" required>
               </div>
+              <div class="mb-3">
+                <label for="service-category" class="form-label">Select Category</label>
+                <select class="form-control" name="service_category" id="service-category" required>
+                  <option value="" disabled selected>Select a category</option>
+                  <option value="grooming">Grooming</option>
+                  <option value="spa">Spa</option>
+                  <option value="training">Training</option>
+                  <option value="health">Health</option>
+                  <option value="boarding">Boarding</option>
+                </select>
+</div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

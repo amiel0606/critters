@@ -8,8 +8,8 @@
     <?php require('inc/links.php'); ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <?php require('inc/links.php'); ?>
 </head>
+
 <style>
     body {
         height: auto;
@@ -17,25 +17,49 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-color: #FFF0F5;
+        background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
     }
-    .booking-row{
+
+    .booking-row {
         display: flex;
         flex-direction: row;
+    }
 
-    }
-    .card{
+    .card {
         background-color: #FFE5EC;
     }
-    .navbar{
+
+    .navbar {
         background-color: #FFE5EC;
     }
-    #app{
+
+    #app {
         background-color: #FFE5EC;
     }
+
+    .category-dropdown {
+        width: 200px;
+        margin: 0 auto;
+        background-color: #FFE5EC;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .category-dropdown select {
+        width: 100%;
+        padding: 8px;
+        font-size: 1rem;
+        background-color: #FFE5EC;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
 </style>
 
-<body >
+<body>
 
     <?php
     session_start();
@@ -54,11 +78,26 @@
         <p>
             Treat your pet to the best care explore our specialized services and book an appointment today to keep them
             happy, healthy, and thriving.
-        <p></p>
+        </p>
+    </div>
+
+    <!-- Category Dropdown Section -->
+    <div class="container text-center mb-4">
+        <div class="category-dropdown">
+            <label for="category">Select Service Category</label>
+            <select id="category" onchange="filterCategory(this.value)">
+                <option value="all">All</option>
+                <option value="consultation">Consultation</option>
+                <option value="vaccination">Vaccination</option>
+                <option value="grooming">Grooming</option>
+                <option value="others">Others</option>
+            </select>
+        </div>
     </div>
 
     <div class="container">
         <div class="booking-row">
+            <!-- Left Sidebar with Appointment Form -->
             <div class="col-lg-3 col-md-12 mb-lg-0 mb-4 px-lg-0">
                 <nav class="navbar navbar-expand-lg navbar-light rounded shadow">
                     <div class="container-fluid flex-lg-column align-items-stretch">
@@ -86,7 +125,7 @@
                                     <option value="">Select a Time Slot</option>
                                     <option value="9:00 AM - 9:30 AM">9:00 AM - 9:30 AM</option>
                                     <option value="9:30 AM - 10:00 AM">9:30 AM - 10:00 AM</option>
-                                    <option value="10:00 AM - 10:30 AM">10:30 AM - 10:30 AM</option>
+                                    <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
                                     <option value="10:30 AM - 11:00 AM">10:30 AM - 11:00 AM</option>
                                     <option value="11:00 AM - 11:30 AM">11:00 AM - 11:30 PM</option>
                                     <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM</option>
@@ -105,6 +144,7 @@
                 </nav>
             </div>
 
+            <!-- Right Column for Service List -->
             <div class="col-lg-9 col-md-12 px-4">
                 <div id="services"></div>
             </div>

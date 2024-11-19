@@ -17,7 +17,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            background-color: #FFF0F5;
+            background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
         }
 
         .pop:hover {
