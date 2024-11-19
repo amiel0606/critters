@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     <style>
-      /* Set background color to #FFF0F5 */
+      /* Set background color */
       body {
         background-color: #FFF0F5;
       }
 
       #bg-wrapper {
-        min-height: 250px; /* Reduced height of the card */
-        padding: 15px; /* Reduced padding for a smaller card */
+        min-height: 250px;
+        padding: 15px;
         max-width: 400px;
         background-color: #FFE5EC;
       }
@@ -28,39 +28,66 @@
       }
 
       .service-image {
-        width: 150px; /* Reduced image size */
+        width: 150px;
         height: auto;
       }
 
-      /* Prevent horizontal scrolling */
       .container {
         overflow-x: hidden;
       }
 
-      /* Ensures proper alignment of items in the row */
       .services-row {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: 20px; /* Space between items */
+        gap: 20px;
       }
 
       .service-item {
-        flex: 1 0 30%; /* Each item takes 30% of the container width, adjust as needed */
+        flex: 1 0 30%;
         margin-bottom: 20px;
       }
 
       /* Responsive design adjustments */
       @media (max-width: 992px) {
         .service-item {
-          flex: 1 0 45%; /* On medium screens, items take up 45% of the width */
+          flex: 1 0 45%;
         }
       }
 
       @media (max-width: 576px) {
         .service-item {
-          flex: 1 0 100%; /* On small screens, items take up full width */
+          flex: 1 0 100%;
         }
+      }
+
+      /* Category buttons style */
+      .categories {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .category {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 8px 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+        background-color: #FFE5EC;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .category:hover {
+        background-color: #FF8FA6;
+        color: white;
+      }
+
+      .category.active {
+        background-color: #FF8FA6;
+        color: white;
       }
     </style>
 </head>
@@ -79,7 +106,17 @@
     </p>
   </div>
 
+  <!-- Categories Section -->
   <div class="container">
+    <div class="categories">
+      <span class="category active" onclick="filterCategory('all')">All</span>
+      <span class="category" onclick="filterCategory('consultation')">Consultation</span>
+      <span class="category" onclick="filterCategory('vaccination')">Vaccination</span>
+      <span class="category" onclick="filterCategory('grooming')">Grooming</span>
+      <span class="category" onclick="filterCategory('others')">Others</span>
+    </div>
+
+    <!-- Services Section -->
     <div class="services-row" id="services-container">
       <!-- Services will be loaded here dynamically -->
     </div>
@@ -87,29 +124,48 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+      // Fetch and display services from server
       $.ajax({
         type: "GET",
         url: "./admin/inc/getServices.php",
         dataType: "json",
-        success: function(data) {
-          var html = "";
-          console.log(data);
-          $.each(data, function(index, service) {
-            html += "<div class='service-item'>";
-            html += "<div class=' rounded shadow p-4 border-top border-4 border-dark pop' id='bg-wrapper'>";
-            html += "<div class='d-flex align-items-center mb-2'>";
-            html += "<img src='./admin/inc/uploads/" + service.service_image + "' class='service-image'>";
-            html += "<h5 class='m-0 ms-3'>" + service.service_name + "</h5>" ;
-            html += "</div>";
-            html += "<p>" + service.service_description + "</p>";
-            html += "</div>";
-            html += "</div>";
-          });
-          $("#services-container").html(html);
+        success: function (data) {
+          renderServices(data);
+        },
+      });
+
+      // Function to render services
+      function renderServices(data) {
+        var html = "";
+        $.each(data, function (index, service) {
+          html += "<div class='service-item' data-category='" + service.service_category + "'>";
+          html += "<div class='rounded shadow p-4 border-top border-4 border-dark pop' id='bg-wrapper'>";
+          html += "<div class='d-flex align-items-center mb-2'>";
+          html += "<img src='./admin/inc/uploads/" + service.service_image + "' class='service-image'>";
+          html += "<h5 class='m-0 ms-3'>" + service.service_name + "</h5>";
+          html += "</div>";
+          html += "<p>" + service.service_description + "</p>";
+          html += "</div>";
+          html += "</div>";
+        });
+        $("#services-container").html(html);
+      }
+    });
+
+    // Function to filter services by category
+    function filterCategory(category) {
+      $(".category").removeClass("active");
+      $(".category:contains('" + category.charAt(0).toUpperCase() + category.slice(1) + "')").addClass("active");
+
+      $(".service-item").each(function () {
+        if (category === "all" || $(this).data("category") === category) {
+          $(this).show();
+        } else {
+          $(this).hide();
         }
       });
-    });
+    }
   </script>
 
   <?php require('inc/footer.php'); ?>

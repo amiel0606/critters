@@ -24,10 +24,31 @@ function sendOTP($email, $otp) {
 
         $mail->setFrom('agrivetcritters@gmail.com', 'Critters Aggrivet');
         $mail->addAddress($email);                                 
-
-        $mail->isHTML(true);                                      
+        $mail->isHTML(true);
         $mail->Subject = 'Your OTP Code';
-        $mail->Body    = "Your OTP code is <b>$otp</b>";
+        $mail->Body = "
+          <div style='font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;'>
+            <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);'>
+              <div style='background-color: #4CAF50; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; border-radius: 8px 8px 0 0;'>
+                Your OTP Code
+              </div>
+              <div style='text-align: center; padding: 20px; color: #333333;'>
+                <p style='font-size: 18px;'>Hello,</p>
+                <p style='font-size: 16px;'>Your OTP code is:</p>
+                <div style='font-size: 28px; font-weight: bold; color: #4CAF50; padding: 10px 20px; margin: 20px 0; display: inline-block; border-radius: 5px; border: 2px solid #4CAF50;'>
+                  <b>$otp</b>
+                </div>
+                <p style='font-size: 16px;'>Please enter this code to complete your verification.</p>
+                <p style='font-size: 14px; color: #777777;'>If you did not request this code, please ignore this email.</p>
+              </div>
+              <div style='text-align: center; padding: 10px; background-color: #f1f1f1; font-size: 12px; color: #777777;'>
+                <p>Thank you for using our service!</p>
+                <p>For assistance, contact us at support@example.com</p>
+              </div>
+            </div>
+          </div>
+        ";
+        
 
         $mail->send();
         return true;
