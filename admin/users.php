@@ -145,7 +145,9 @@
                 error: function (xhr, status, error) {
                     console.error('Error fetching user data:', error);
                 }
-            });
+            });  
+
+            
             $.ajax({
                 url: './inc/getAllPets.php',
                 method: 'GET',
