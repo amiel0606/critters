@@ -56,16 +56,16 @@
 
                 <!-- Accounts Section -->
                 
-                 <!-- Admin Section -->
-                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Admin Account</h3>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search by owner"
-                            aria-label="Search">
-                    </form>
-                </div>
+               <!-- Admin Section -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Admin Account</h3>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search by owner" aria-label="Search">
+    </form>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">Add Admin</button>
+</div>
 
-                <div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover border" style="min-width: 1300px;">
@@ -86,8 +86,8 @@
                         <td>John Doe</td>
                         <td>12345</td>
                         <td>
-                            <button class="btn btn-success" onclick="acceptUser(1)">Accept</button>
-                            <button class="btn btn-danger" onclick="acceptUser(1)">Decline</button>
+                            <button class="btn btn-warning" onclick="editUser(1)">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteUser(1)">Delete</button>
                         </td>
                     </tr>
                     <tr>
@@ -96,8 +96,8 @@
                         <td>Jane Smith</td>
                         <td>123345</td>
                         <td>
-                            <button class="btn btn-success" onclick="acceptUser(2)">Accept</button>
-                            <button class="btn btn-danger" onclick="acceptUser(1)">Decline</button>
+                            <button class="btn btn-warning" onclick="editUser(2)">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteUser(2)">Delete</button>
                         </td>
                     </tr>
                     <!-- More rows can be added here -->
@@ -105,6 +105,46 @@
             </table>
         </div>
     </div>
+</div>
+
+<!-- Add Admin Modal -->
+<div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAdminModalLabel">Add Admin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addAdminForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="accountType" class="form-label">Account Type</label>
+                        <select class="form-select" id="accountType">
+                            <option value="admin">Admin</option>
+                            <option value="moderator">Moderator</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="pass" placeholder="Enter Password">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="addAdmin()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 
