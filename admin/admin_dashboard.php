@@ -219,25 +219,67 @@
     </div>
 
     <!-- Appointment Overview -->
-    <div class="table-responsive mt-4">
-      <h4>Appointment Overview</h4>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Customer Name</th>
-            <th scope="col">Pet Name</th>
-            <th scope="col">Pet Type</th>
-            <th scope="col">Service</th>
-            <th scope="col">Date</th>
-            <th scope="col">Time</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody style="text-align: center;" id="appointmentTableBody"></tbody>
-      </table>
+<div class="table-responsive mt-4">
+  <h4>Appointment Overview</h4>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Pet Name</th>
+        <th scope="col">Pet Type</th>
+        <th scope="col">Service</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center;" id="appointmentTableBody">
+      <!-- Example Row -->
+      <tr>
+        <td>1</td>
+        <td>John Doe</td>
+        <td>Fluffy</td>
+        <td>Dog</td>
+        <td>Grooming</td>
+        <td>2024-11-25</td>
+        <td>10:00 AM</td>
+        <td>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailReminderModal">
+            Email Reminder
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for Email Reminder -->
+<div class="modal fade" id="emailReminderModal" tabindex="-1" aria-labelledby="emailReminderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailReminderModalLabel">Send Email Reminder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to send an email reminder for this appointment?</p>
+        <div class="text-start">
+          <p><strong>Customer Name:</strong> <span id="modalCustomerName">John Doe</span></p>
+          <p><strong>Pet Name:</strong> <span id="modalPetName">Fluffy</span></p>
+          <p><strong>Service:</strong> <span id="modalService">Grooming</span></p>
+          <p><strong>Date:</strong> <span id="modalDate">2024-11-25</span></p>
+          <p><strong>Time:</strong> <span id="modalTime">10:00 AM</span></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="sendEmailReminderButton">Send Reminder</button>
+      </div>
     </div>
   </div>
+</div>
+
 
   <script>
     $(document).ready(function () {

@@ -24,33 +24,67 @@
                 <div class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search by pet or owner" aria-label="Search">
                     <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                    <select class="form-select" id="sortBookings">
+                        <option value="thisWeek">Tommorow</option>
+                        <option value="lastWeek">Next Week</option>
+                        <option value="lastMonth">Next Month</option>
+                    </select>
 
                 </div>
             </div>
-
             <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Owner's Name</th>
-                        <th>Service</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Owner's Name</th>
+        <th>Service</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="appointments">
+      <!-- Example Data Row -->
+      <tr>
+        <td>1</td>
+        <td>John Doe</td>
+        <td>Vaccination</td>
+        <td>2024-11-25</td>
+        <td>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailReminderModal">
+            Email Reminder
+          </button>
+        </td>
+      </tr>
+      <!-- Additional rows will be appended dynamically here -->
+    </tbody>
+  </table>
+</div>
 
-                    </tr>
+<!-- Modal for Email Reminder -->
+<div class="modal fade" id="emailReminderModal" tabindex="-1" aria-labelledby="emailReminderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailReminderModalLabel">Send Email Reminder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to send an email reminder for this appointment?</p>
+        <div class="text-start">
+          <p><strong>Owner's Name:</strong> <span id="modalOwnerName"></span></p>
+          <p><strong>Service:</strong> <span id="modalService"></span></p>
+          <p><strong>Date:</strong> <span id="modalDate"></span></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="sendEmailReminderButton">Send Reminder</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-                    </tbody>
-
-                    <tbody id="appointments">
-                        <!-- Data will be appended here -->
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
@@ -74,6 +108,7 @@ function fetchSortedAppointments() {
                 if (appointment.status === "Completed") {
                     tableBody.append("<td>Completed</td>"); 
                 } else {
+                    tableBody.append("<button class='btn btn-primary btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Email Reminder</button>");
                     tableBody.append("<button class='btn btn-success btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Completed</button>");
                     tableBody.append("<button class='btn btn-warning btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Resched</button>");
                     tableBody.append("<button class='btn btn-danger btn-sm complete-btn' data-id='" + appointment.appointment_id + "'>Cancel</button>");
