@@ -146,7 +146,8 @@
                                             <option value="Dog">Dog</option>
                                         </select>
                                     </div>
-
+   
+                                    
                                     <div class="col-md-6 mb-3">
                                         <label for="breed" class="form-label">Breed</label>
                                         <input type="text" class="form-control" name="breed" placeholder="Breed" required>
