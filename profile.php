@@ -106,6 +106,12 @@
             <div id="pets-container">
                 <h4 id="petInfo">Pet Information</h4>
                 <div id="pet-list">
+                <select id="petDropdown" class="form-select mb-3" onchange="showPetCard()">
+        <option value="" disabled selected>Select a Pet</option>
+        <!-- Options for pets will be dynamically populated -->
+        <option value="pet1">Fluffy</option>
+        <option value="pet2">Buddy</option>
+    </select>
                     <!-- Pet list will be populated here -->
                 </div>
             </div>
