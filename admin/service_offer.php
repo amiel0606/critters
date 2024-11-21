@@ -173,21 +173,23 @@
     </div>
 
     <!-- Categories Section -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div class="dropdown">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      Select Category
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="categoryDropdown" id="category-list">
-      <li><a class="dropdown-item" href="#" id="category-grooming">Grooming</a></li>
-      <li><a class="dropdown-item" href="#" id="category-spa">Spa</a></li>
-    </ul>
-  </div>
-  <div>
-    <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
-    <h6 class="mt-2">Total Categories: <span id="total-categories">0</span></h6>
-  </div>
-</div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          Select Category
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown" id="category-list">
+          <li><a class="dropdown-item"  id="category-grooming">Grooming</a></li>
+          <li><a class="dropdown-item"  id="category-spa">Spa</a></li>
+        </ul>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add
+          Category</button>
+        <h6 class="mt-2">Total Categories: <span id="total-categories">0</span></h6>
+      </div>
+    </div>
     <!-- Services Section -->
     <div id="service-hide" class="left-align mb-4">
       <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add
@@ -255,7 +257,7 @@
             <h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          
+
           <div class="modal-body">
             <form id="add-service-form" method="post" action="./inc/addService.php" enctype="multipart/form-data">
               <input type="hidden" name="idCategory" id="category_id">
@@ -265,7 +267,8 @@
               </div>
               <div class="mb-3">
                 <label for="service-description" class="form-label">Description</label>
-                <textarea class="form-control" name="service_description" id="service-description" rows="3" required></textarea>
+                <textarea class="form-control" name="service_description" id="service-description" rows="3"
+                  required></textarea>
               </div>
               <div class="mb-3">
                 <label for="service-price" class="form-label">Price</label>
@@ -285,7 +288,7 @@
                   <option value="health">Health</option>
                   <option value="boarding">Boarding</option>
                 </select>
-</div>
+              </div>
 
           </div>
           <div class="modal-footer">
@@ -342,7 +345,8 @@
               </div>
               <div class="mb-3">
                 <label for="edit-service-description" class="form-label">Description</label>
-                <textarea class="form-control" name="edit-service-description" id="edit-service-description" rows="3" required></textarea>
+                <textarea class="form-control" name="edit-service-description" id="edit-service-description" rows="3"
+                  required></textarea>
               </div>
               <div class="mb-3">
                 <label for="edit-service-price" class="form-label">Price</label>
@@ -365,136 +369,121 @@
       A simple success alert—check it out!
     </div>
     <script>
-      $(document).ready(function () {
-        $('#service-hide').hide();
-        $('#item-list').hide();
-        $('#item-list').empty();
-        const url = window.location.href;
-        const urlParams = new URLSearchParams(window.location.search);
-        let error = urlParams.get("error");
-        let alertText;
-        switch (error) {
-          case 'UnknownError':
-            alertText = 'An unknown error has occurred.';
-            $('#alert').removeClass('alert-info');
-            $('#alert').addClass('alert-danger');
-            $('#alert').text(alertText);
-            $('#alert').show();
-            setTimeout(function () {
-              $('#alert').fadeOut('slow');
-            }, 3000);
-            break;
-          case 'InputMissing':
-            alertText = 'Please fill in all required fields.';
-            $('#alert').removeClass('alert-info');
-            $('#alert').addClass('alert-warning');
-            $('#alert').text(alertText);
-            $('#alert').show();
-            setTimeout(function () {
-              $('#alert').fadeOut('slow');
-            }, 3000);
-            break;
-          case 'none':
-            alertText = 'Success';
-            $('#alert').removeClass('alert-info');
-            $('#alert').addClass('alert-success');
-            $('#alert').text(alertText);
-            $('#alert').show();
-            setTimeout(function () {
-              $('#alert').fadeOut('slow');
-            }, 3000);
-            break;
-          case 'FailedToExecute':
-            alertText = 'The operation failed to execute.';
-            $('#alert').removeClass('alert-info');
-            $('#alert').addClass('alert-danger');
-            $('#alert').text(alertText);
-            $('#alert').show();
-            setTimeout(function () {
-              $('#alert').fadeOut('slow');
-            }, 3000);
-            break;
-          default:
-            alertText = 'Please Select A Category';
-            $('#alert').removeClass('alert-success');
-            $('#alert').addClass('alert-info');
-            $('#alert').text(alertText);
-            $('#alert').show();
+  $(document).ready(function() {
+      loadCategories(); 
+      $(document).on('click', function (event) {
+        if (!$(event.target).closest('.dropdown').length) {
+          $('.dropdown-menu').removeClass('show');
         }
+      });
+      $('#service-hide').hide();
+      $('#item-list').hide();
+      $('#item-list').empty();
+      const url = window.location.href;
+      const urlParams = new URLSearchParams(window.location.search);
+      let error = urlParams.get("error");
+      let alertText;
+      switch (error) {
+        case 'UnknownError':
+          alertText = 'An unknown error has occurred.';
+          $('#alert').removeClass('alert-info');
+          $('#alert').addClass('alert-danger');
+          $('#alert').text(alertText);
+          $('#alert').show();
+          setTimeout(function () {
+            $('#alert').fadeOut('slow');
+          }, 3000);
+          break;
+        case 'InputMissing':
+          alertText = 'Please fill in all required fields.';
+          $('#alert').removeClass('alert-info');
+          $('#alert').addClass('alert-warning');
+          $('#alert').text(alertText);
+          $('#alert').show();
+          setTimeout(function () {
+            $('#alert').fadeOut('slow');
+          }, 3000);
+          break;
+        case 'none':
+          alertText = 'Success';
+          $('#alert').removeClass('alert-info');
+          $('#alert').addClass('alert-success');
+          $('#alert').text(alertText);
+          $('#alert').show();
+          setTimeout(function () {
+            $('#alert').fadeOut('slow');
+          }, 3000);
+          break;
+        case 'FailedToExecute':
+          alertText = 'The operation failed to execute.';
+          $('#alert').removeClass('alert-info');
+          $('#alert').addClass('alert-danger');
+          $('#alert').text(alertText);
+          $('#alert').show();
+          setTimeout(function () {
+            $('#alert').fadeOut('slow');
+          }, 3000);
+          break;
+        default:
+          alertText = 'Please Select A Category';
+          $('#alert').removeClass('alert-success');
+          $('#alert').addClass('alert-info');
+          $('#alert').text(alertText);
+          $('#alert').show();
+      }
+      function loadCategories() {
+        $.ajax({
+          url: './inc/getCategories.php',
+          type: 'GET',
+          dataType: 'json',
+          success: function (data) {
+            $('#category-list').empty(); 
+            console.log(data);
+            $('#total-categories').text("Total categories: " + data.length);
 
-
-        function loadCategories() {
-          $.ajax({
-            url: './inc/getCategories.php',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-              $('#category-list').empty();
-              console.log(data);
-              $('#total-categories').text(data.length)
-              var categoryHTML = '';
-              if (data.length === 0) {
-                console.log("ahaha");
-              } else {
-                $.each(data, function (index, category) {
-                  categoryHTML =
-                    `
-            <div class="category-item" data-id="${category.category_id}">
-              <span class="category-name">${category.category_name}</span>
-              <div class="btn-container">
-                <button data-id="${category.category_id}" class="btn-edit btn btn-outline-secondary btn-sm" style="background-color: #f0f0f0; color: #333; border: 2px solid #ddd;">Edit</button>
-                <button data-id="${category.category_id}" class="btn-delete btn btn-outline-danger btn-sm" style="background-color: #ff4d4d; color: white; border: 2px solid #ff1a1a;">Delete</button>
-              </div>
-            </div>
-          `;
-                  $('#category-list').append(categoryHTML);
-                });
-              }
-              $('.btn-delete').click(function () {
-                var id = $(this).data('id');
-                $.ajax({
-                  url: './inc/deleteCategory.php',
-                  type: 'POST',
-                  data: { id: id },
-                  success: function (response) {
-                    if (response.length === 0) {
-                      loadCategories();
-                      $('#alert').text("Successfully Deleted")
-                      $('#alert').show();
-                      setTimeout(function () {
-                        $('#alert').fadeOut('slow');
-                      }, 3000);
-                    }
-                  }
-                });
+            if (data.length === 0) {
+              console.log("No categories found");
+              $('#category-list').append('<li><a class="dropdown-item" >No categories available</a></li>');
+            } else {
+              $.each(data, function (index, category) {
+                var categoryHTML = `
+                <li>
+                  <a class="dropdown-item category-ito" data-id="${category.category_id}">${category.category_name}</a>
+                </li>
+              `;
+                $('#category-list').append(categoryHTML); 
               });
             }
-          });
-        }
-        $(document).on('click', '.category-item', function () {
-          var id = $(this).data('id');
-          $('#category_id').val(id);
-          $.ajax({
-            url: './inc/fetchServices.php',
-            type: 'POST',
-            data: { category_id: id },
-            success: function (data) {
-              if (typeof data === 'string') {
-                try {
-                  data = JSON.parse(data);
-                } catch (e) {
-                  console.error('JSON parsing error:', e);
-                  console.error('Response received:', data);
-                  return;
-                }
+          },
+          error: function (xhr, status, error) {
+            console.error("Error loading categories: ", error);
+          }
+        });
+      }
+      $(document).on('click', '.category-ito', function () {
+        var id = $(this).data('id');
+        $('#category_id').val(id);
+        $.ajax({
+          url: './inc/fetchServices.php',
+          type: 'POST',
+          data: { category_id: id },
+          success: function (data) {
+            if (typeof data === 'string') {
+              try {
+                data = JSON.parse(data);
+              } catch (e) {
+                console.error('JSON parsing error:', e);
+                console.error('Response received:', data);
+                return;
               }
-              $('#item-list').empty();
-              $('#total-services').text(data.length);
-              $('#service-hide').show();
-              $('#item-list').show();
-              $('#alert').hide();
-              data.forEach(function (service) {
-                var serviceHTML = `
+            }
+            $('#item-list').empty();
+            $('#total-services').text(data.length);
+            $('#service-hide').show();
+            $('#item-list').show();
+            $('#alert').hide();
+            data.forEach(function (service) {
+              var serviceHTML = `
                         <div class="col-md-4 service-grooming">
                           <div id="item-service" class="service-item">
                             <img src="./inc/uploads/${service.image}"
@@ -513,85 +502,84 @@
                           </div>
                         </div>
                 `;
-                $('#item-list').append(serviceHTML);
-                $(document).on('change', '.toggle-service', function () {
-                  var serviceId = $(this).data('id');
-                  var isVisible = $(this).is(':checked') ? 'true' : 'false';
-                  $.ajax({
-                    url: './inc/updateService.php',
-                    type: 'POST',
-                    data: {
-                      service_id: serviceId,
-                      visible: isVisible
-                    },
-                    success: function (response) {
-                      $('#alert').text("Service visibility is updated.");
-                      $('#alert').show();
-                      setTimeout(function () {
-                        $('#alert').fadeOut('slow');
-                      }, 3000);
-                    },
-                    error: function (xhr, status, error) {
-                      alert('Update failed:', error);
-                      window.location.reload();
-                    }
-                  });
+              $('#item-list').append(serviceHTML);
+              $(document).on('change', '.toggle-service', function () {
+                var serviceId = $(this).data('id');
+                var isVisible = $(this).is(':checked') ? 'true' : 'false';
+                $.ajax({
+                  url: './inc/updateService.php',
+                  type: 'POST',
+                  data: {
+                    service_id: serviceId,
+                    visible: isVisible
+                  },
+                  success: function (response) {
+                    $('#alert').text("Service visibility is updated.");
+                    $('#alert').show();
+                    setTimeout(function () {
+                      $('#alert').fadeOut('slow');
+                    }, 3000);
+                  },
+                  error: function (xhr, status, error) {
+                    alert('Update failed:', error);
+                    window.location.reload();
+                  }
                 });
               });
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+          }
+        });
+        $(document).on('click', '.btn-delete-service', function () {
+          var serviceId = $(this).data('id');
+          $.ajax({
+            url: './inc/deleteService.php',
+            type: 'POST',
+            data: { id: serviceId },
+            success: function (response) {
+              $('#alert').text("Service Deleted Successfully");
+              $('#alert').show();
+              setTimeout(function () {
+                $('#alert').fadeOut('slow');
+                location.reload();
+              }, 3000);
             },
             error: function (xhr, status, error) {
-              console.error('AJAX Error:', status, error);
+              alert('Delete failed:', error);
             }
           });
-          $(document).on('click', '.btn-delete-service', function () {
-            var serviceId = $(this).data('id');
-            $.ajax({
-              url: './inc/deleteService.php',
-              type: 'POST',
-              data: { id: serviceId },
-              success: function (response) {
-                $('#alert').text("Service Deleted Successfully");
-                $('#alert').show();
-                setTimeout(function () {
-                  $('#alert').fadeOut('slow');
-                  location.reload();
-                }, 3000);
-              },
-              error: function (xhr, status, error) {
-                alert('Delete failed:', error);
-              }
-            });
-          });
         });
-        $(document).on('click', '.category-item .btn-outline-secondary', function () {
-          var category_id = $(this).data('id');
-          const categoryItem = $(this).closest('.category-item');
-          const categoryName = categoryItem.find('.category-name').text().trim(); // Assuming category name has a specific class
-          $('#edit-category-name').val(categoryName);
-          $('#edit-category-id').val(category_id);
-
-          const editCategoryModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
-          editCategoryModal.show();
-        });
-
-        $(document).on('click', '.btn-edit-service', function () {
-          const serviceItem = $(this).closest('.service-item');
-          const serviceId = $(this).data('id');
-          $('#service_id').val(serviceId); 
-
-          const serviceName = serviceItem.find('p:nth-child(2)').text();
-          const serviceDescription = serviceItem.find('p:nth-child(3)').text();
-          const servicePrice = serviceItem.find('p:nth-child(4)').text().replace('₱', '');
-
-          $('#edit-service-name').val(serviceName);
-          $('#edit-service-description').val(serviceDescription);
-          $('#edit-service-price').val(servicePrice);
-
-          const editServiceModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
-          editServiceModal.show();
-        });
-        loadCategories();
       });
+      $(document).on('click', '.category-item .btn-outline-secondary', function () {
+        var category_id = $(this).data('id');
+        const categoryItem = $(this).closest('.category-item');
+        const categoryName = categoryItem.find('.category-name').text().trim(); // Assuming category name has a specific class
+        $('#edit-category-name').val(categoryName);
+        $('#edit-category-id').val(category_id);
+
+        const editCategoryModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+        editCategoryModal.show();
+      });
+
+      $(document).on('click', '.btn-edit-service', function () {
+        const serviceItem = $(this).closest('.service-item');
+        const serviceId = $(this).data('id');
+        $('#service_id').val(serviceId);
+
+        const serviceName = serviceItem.find('p:nth-child(2)').text();
+        const serviceDescription = serviceItem.find('p:nth-child(3)').text();
+        const servicePrice = serviceItem.find('p:nth-child(4)').text().replace('₱', '');
+
+        $('#edit-service-name').val(serviceName);
+        $('#edit-service-description').val(serviceDescription);
+        $('#edit-service-price').val(servicePrice);
+
+        const editServiceModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+        editServiceModal.show();
+      });
+    });
     </script>
 
     <?php require('inc/scripts.php'); ?>

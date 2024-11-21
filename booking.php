@@ -56,7 +56,6 @@
         border-radius: 5px;
         cursor: pointer;
     }
-
 </style>
 
 <body>
@@ -85,12 +84,8 @@
     <div class="container text-center mb-4">
         <div class="category-dropdown">
             <label for="category">Select Service Category</label>
-            <select id="category" onchange="filterCategory(this.value)">
+            <select id="category">
                 <option value="all">All</option>
-                <option value="consultation">Consultation</option>
-                <option value="vaccination">Vaccination</option>
-                <option value="grooming">Grooming</option>
-                <option value="others">Others</option>
             </select>
         </div>
     </div>
@@ -197,47 +192,76 @@
                 dataType: "json",
                 success: function (data) {
                     var html = "";
-                    console.log(data);
+                    var categories = new Set(); 
+
+                    // console.log(data); 
                     var visibleServices = data.filter(service => service.visibility === "true");
+
                     $.each(visibleServices, function (index, service) {
                         var category = service.category_name;
                         var serviceImage = service.service_image;
                         var serviceName = service.service_name;
                         var serviceDescription = service.service_description;
                         var servicePrice = service.service_price;
-                        var visibility = service.visibility;
+
+                        categories.add(category);
+
                         html += `
-                        <div class="card mb-4 border-0 shadow">
-                            <div class="row g-0 p-3 align-items-center">
-                                <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
-                                    <img height="300px" width="400px" src="./admin/inc/uploads/${serviceImage}" class="img-fluid rounded" alt="${serviceName}">
-                                </div>
-                                <div class="col-md-3 px-lg-3 px-md-3 px">
-                                    <h5 class="mb-3">${serviceName}</h5>
-                                    <div class="service-types mb-4">
-                                        <h6 class="mb-1">Category</h6>
-                                        <div class="form-check">
-                                            <p class="form-check-label" for="category_${index}">
-                                                <span class="offer badge rounded-pill bg-light text-dark text-wrap">${category}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="slot mb-4">
-                                        <h6>Price per Slot</h6>
-                                        <span class="badge rounded-pill bg-light text-dark text-wrap">${servicePrice}</span>
-                                    </div>
-                                    <div class="description mb-4">
-                                        <h6>Description</h6>
-                                        <p>${serviceDescription}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 text-align-center">
-                                    <button id="book-btn" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2" data-id="${service.service_id}">Book Now</button>
-                                </div>
+            <div class="card mb-4 border-0 shadow service-card" data-category="${category}">
+                <div class="row g-0 p-3 align-items-center">
+                    <div class="col-md-5 mb-lg-0 mb-mb-0 mb-3">
+                        <img height="300px" width="400px" src="./admin/inc/uploads/${serviceImage}" class="img-fluid rounded" alt="${serviceName}">
+                    </div>
+                    <div class="col-md-3 px-lg-3 px-md-3 px">
+                        <h5 class="mb-3">${serviceName}</h5>
+                        <div class="service-types mb-4">
+                            <h6 class="mb-1">Category</h6>
+                            <div class="form-check">
+                                <p class="form-check-label" for="category_${index}">
+                                    <span class="offer badge rounded-pill bg-light text-dark text-wrap">${category}</span>
+                                </p>
                             </div>
-                        </div>`;
+                        </div>
+                        <div class="slot mb-4">
+                            <h6>Price per Slot</h6>
+                            <span class="badge rounded-pill bg-light text-dark text-wrap">${servicePrice}</span>
+                        </div>
+                        <div class="description mb-4">
+                            <h6>Description</h6>
+                            <p>${serviceDescription}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-align-center">
+                        <button id="book-btn" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2" data-id="${service.service_id}">Book Now</button>
+                    </div>
+                </div>
+            </div>`;
                     });
+
                     $("#services").html(html);
+
+                    var categoryDropdown = $("#category");
+                    categoryDropdown.empty(); 
+                    categoryDropdown.append('<option value="all">All</option>'); 
+
+                    categories.forEach(function (category) {
+                        console.log("Adding category: " + category);
+                        categoryDropdown.append(`<option value="${category.toLowerCase()}">${category}</option>`);
+                    });
+
+                    categoryDropdown.on("change", function () {
+                        var selectedCategory = $(this).val();
+
+                        if (selectedCategory === "all") {
+                            $(".service-card").show();
+                        } else {
+                            $(".service-card").hide();
+                            $(".service-card[data-category='" + selectedCategory + "']").show();
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error: ", status, error); 
                 }
             });
             $.ajax({
@@ -265,22 +289,18 @@
                         var maxDate = new Date(currentDate.getTime() + 2 * 30 * 24 * 60 * 60 * 1000);
                         var selectedDate = new Date(bookDate);
 
-                        // Check if any field is empty
                         if (bookDate === '' || timeSlot === '' || petID === '') {
                             alert('Please select a pet, date, and time slot');
                             return;
                         }
 
-                        // Check if the selected date is in the past
                         if (selectedDate < currentDate) {
                             alert('Please select a date that is not in the past');
                             return;
                         }
 
-                        // Check if the selected date is today
                         var isToday = selectedDate.toDateString() === currentDate.toDateString();
 
-                        // If the date is today, check if the selected time is in the past
                         if (isToday) {
                             var selectedTime = new Date(selectedDate);
                             var timeParts = timeSlot.split(':');
@@ -292,13 +312,11 @@
                             }
                         }
 
-                        // Check if the selected date is beyond the maximum allowed date
                         if (selectedDate > maxDate) {
                             alert('Please select a date within the next 2 months');
                             return;
                         }
 
-                        // Proceed with the AJAX request
                         $.ajax({
                             type: "POST",
                             url: "./inc/setAppointment.php",
