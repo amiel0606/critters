@@ -27,14 +27,14 @@
 
             <div class="table-responsive-md" style="height: 450px; overflow-y: auto;">
               <table id="reviewsTable" class="table table-hover border">
-                <thead class="sticky-top bg-dark text-light">
+                <thead class="sticky-top bg-dark">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Reviewer Name</th>
-                    <th scope="col">Review</th>
-                    <th scope="col">Rating</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Visibility</th>
+                    <th class="text-white" scope="col">#</th>
+                    <th class="text-white" scope="col">Reviewer Name</th>
+                    <th class="text-white" scope="col">Review</th>
+                    <th class="text-white" scope="col">Rating</th>
+                    <th class="text-white" scope="col">Date</th>
+                    <th class="text-white" scope="col">Visibility</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,15 +61,15 @@
         let stars = '';
         for (let i = 1; i <= 5; i++) {
           if (i <= rating) {
-            stars += '★'; 
+            stars += '★';
           } else {
-            stars += '☆'; 
+            stars += '☆';
           }
         }
         return stars;
       }
       $.ajax({
-        url: './inc/getReviews.php', 
+        url: './inc/getReviews.php',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -85,7 +85,7 @@
                     <td>${review.date}</td>
                     <td>
                         <div class='form-check form-switch'>
-                            <input class='form-check-input visibility-toggle' type='checkbox' id='visibility-${review.review_id}' data-review-id='${review.id}' ${isVisible}>
+                            <input class='form-check-input visibility-toggle' type='checkbox' id='visibility-${review.review_id}' data-review-id='${review.review_id}' ${isVisible}>
                             <label class='form-check-label' for='visibility-${review.review_id}'>${review.visible ? 'Visible' : 'Hidden'}</label>
                         </div>
                     </td>
@@ -97,22 +97,26 @@
           console.error("Error fetching reviews:", error);
         }
       });
-    });
-
-    document.querySelectorAll('.visibility-toggle').forEach(toggle => {
-
-      const label = toggle.nextElementSibling;
-      toggle.addEventListener('change', () => {
-        const reviewId = toggle.getAttribute('data-review-id');
-        const visibility = toggle.checked ? 'visible' : 'hidden';
-
-
-        label.textContent = toggle.checked ? 'Visible' : 'Hidden';
-
-        console.log(`Review ID: ${reviewId}, New Visibility: ${visibility}`);
+      $(document).on('change', '.visibility-toggle', function () {
+        const reviewId = $(this).data('review-id'); 
+        const visible_ba = $(this).is(':checked'); 
+        const data = {
+          id: reviewId,
+          visible: visible_ba ? 'true' : 'false' 
+        };
+        $.ajax({
+          url: './inc/updateReview.php',
+          type: 'POST',
+          data: data,
+          success: function (response) {
+            alert('Update successful:', response);
+          },
+          error: function (xhr, status, error) {
+            console.error('Update failed:', error);
+          }
+        });
       });
     });
-
   </script>
 
 </body>

@@ -1,9 +1,9 @@
 <?php
 include_once '../admin/inc/dbCon.php'; 
 
-$today = date('Y-m-d');
+$today = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 
-$sql = "SELECT * FROM tbl_setappointment WHERE booking_date = ?";
+$sql = "SELECT time FROM tbl_setappointment WHERE booking_date = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $today);
 $stmt->execute();

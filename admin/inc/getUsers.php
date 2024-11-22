@@ -2,8 +2,9 @@
 header('Content-Type: application/json');
 include_once './dbCon.php';
 
-
-$sql = "SELECT id, username, firstName, lastName FROM tbl_users"; 
+$sql = "SELECT p.*, u.id, u.username, u.firstName, u.lastName
+        FROM tbl_pets p 
+        INNER JOIN tbl_users u ON p.owner_ID = u.id"; 
 $result = $conn->query($sql);
 
 $users = [];

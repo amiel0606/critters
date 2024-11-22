@@ -47,7 +47,7 @@
                                         <th scope="col">Unique</th>
                                     </tr>
                                 </thead>
-                                <tbody id="pets_data">
+                                <tbody  id="users_data" >
                                 </tbody>
                             </table>
                         </div>
@@ -55,101 +55,86 @@
                 </div>
 
                 <!-- Accounts Section -->
-                
-               <!-- Admin Section -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Admin Account</h3>
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search by owner" aria-label="Search">
-    </form>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">Add Admin</button>
-</div>
 
-<div class="card border-0 shadow-sm mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover border" style="min-width: 1300px;">
-                <thead class="sticky-top">
-                    <tr class="bg-dark text-light">
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example Row -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>john_doe</td>
-                        <td>John Doe</td>
-                        <td>12345</td>
-                        <td>
-                            <button class="btn btn-warning" onclick="editUser(1)">Edit</button>
-                            <button class="btn btn-danger" onclick="deleteUser(1)">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>jane_smith</td>
-                        <td>Jane Smith</td>
-                        <td>123345</td>
-                        <td>
-                            <button class="btn btn-warning" onclick="editUser(2)">Edit</button>
-                            <button class="btn btn-danger" onclick="deleteUser(2)">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- More rows can be added here -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                <!-- Admin Section -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Admin Account</h3>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search by owner"
+                            aria-label="Search">
+                    </form>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">Add
+                        Admin</button>
+                </div>
 
-<!-- Add Admin Modal -->
-<div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addAdminModalLabel">Add Admin</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addAdminForm">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter username">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover border" style="min-width: 1300px;">
+                                <thead class="sticky-top">
+                                    <tr class="bg-dark text-light">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-data" >
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter name">
+                </div>
+
+                <!-- Add Admin Modal -->
+                <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addAdminModalLabel">Add Admin</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="./inc/addAdmin.php" method="POST" id="addAdminForm">
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username" id="username"
+                                            placeholder="Enter username">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">First name</label>
+                                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter first name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Last name</label>
+                                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter last name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="accountType" class="form-label">Account Type</label>
+                                        <select class="form-select" name="accountType" id="accountType">
+                                            <option value="Admin">Admin</option>
+                                            <option value="Secretary">Secretary</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="pass" class="form-label">Password</label>
+                                        <input type="password" name="pass" class="form-control" id="pass" placeholder="Enter Password">
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="accountType" class="form-label">Account Type</label>
-                        <select class="form-select" id="accountType">
-                            <option value="admin">Admin</option>
-                            <option value="moderator">Moderator</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="pass" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="pass" placeholder="Enter Password">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="addAdmin()">Add</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-
-
-            </div>
-        </div>
     </div>
 
     <?php require('inc/scripts.php'); ?>
@@ -157,11 +142,9 @@
 
     <!-- Script to Fetch User Data -->
     <script>
-         function acceptUser(id) {
-        // Example function to handle the "Accept" button click.
-        // This can be replaced with your actual logic, e.g., sending data to a server.
-        alert('User with ID ' + id + ' accepted!');
-         }
+        function acceptUser(id) {
+            alert('User with ID ' + id + ' accepted!');
+        }
         $(document).ready(function () {
             $.ajax({
                 url: './inc/getUsers.php',
@@ -176,8 +159,12 @@
                                 <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.firstName} ${user.lastName}</td>
-                                
-                                
+                                <td>${user.petName}</td>
+                                <td>${user.petType}</td>
+                                <td>${user.breed}</td>
+                                <td>${user.birth_date}</td>
+                                <td>${user.gender}</td>
+                                <td>${user.uniqueness}</td>
                             </tr>
                         `);
                     });
@@ -185,41 +172,26 @@
                 error: function (xhr, status, error) {
                     console.error('Error fetching user data:', error);
                 }
-            });  
-
-            
+            });
             $.ajax({
-                url: './inc/getAllPets.php',
+                url: './inc/getAdmin.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
-                    $('#pets_data').empty();
-                    if (data.length === 0) {
-                        $('#pets_data').append(`
+                    $('#admin-data').empty();
+                    data.forEach(function (admin, index) {
+                        $('#admin-data').append(`
                             <tr>
-                                <td>NO DATA YET</td>
+                                <td>${admin.id}</td>
+                                <td>${admin.username}</td>
+                                <td>${admin.firstName} ${admin.lastName}</td>
+                                <td>
+                                    <button class="btn btn-warning">Edit</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
                             </tr>
                         `);
-                    } else {
-                        data.forEach(function (pet, index) {
-                            $('#pets_data').append(`
-                            <tr>
-                                <td>${pet.id}</td>
-                                <td>${pet.firstName} ${pet.lastName}</td>
-                                <td>${pet.petName}</td>
-                                <td>${pet.petType}</td>
-                                <td>${pet.breed}</td>
-                                <td>${pet.birth_date}</td>
-                                <td>${pet.gender}</td>
-                                
-                            </tr>
-                        `);
-                        });
-                        $('.btn-delete').click(function(){
-
-                        });
-                    }
+                    });
                 },
                 error: function (xhr, status, error) {
                     console.error('Error fetching user data:', error);

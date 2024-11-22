@@ -31,45 +31,47 @@
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <h4 class="mb-4">SETTINGS</h4>
                 <!-- LOGO SECTION -->
-<div class="card border-0 shadow-sm mb-4">
-    <div id="logo" class="card-body">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="card-title m-0">Logo Settings</h5>
-            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
-                data-bs-target="#logo-edit-modal">
-                <i class="bi bi-pencil-square"></i> Edit
-            </button>
-        </div>
-
-        <!-- Logo Display -->
-        <div class="logo-container mb-3">
-            <img src="path/to/logo.png" alt="Logo" id="logo-image" class="img-fluid" style="max-width: 200px;">
-        </div>
-
-        <p class="card-text">Current logo of the company.</p>
-    </div>
-</div>
-
-<!-- Modal for Logo Edit -->
-<div class="modal fade" id="logo-edit-modal" tabindex="-1" aria-labelledby="logo-edit-modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="logo-edit-modalLabel">Edit Logo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="your-server-endpoint" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="logo-file" class="form-label">Upload New Logo</label>
-                        <input type="file" class="form-control" id="logo-file" name="logo" accept="image/*">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div id="logo" class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title m-0">Logo Settings</h5>
+                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#logo-edit-modal">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                        </div>
+                        <!-- Logo Display -->
+                        <div class="logo-container mb-3">
+                            <img src="./inc/uploads/logo.png" alt="Logo" id="cms-logo" class="img-fluid"
+                                style="max-width: 200px;">
+                        </div>
+                        <p class="card-text">Current logo of the company.</p>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+
+                <!-- Modal for Logo Edit -->
+                <div class="modal fade" id="logo-edit-modal" tabindex="-1" aria-labelledby="logo-edit-modalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="logo-edit-modalLabel">Edit Logo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="./inc/editLogo.php" method="POST" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label for="logo-file" class="form-label">Upload New Logo</label>
+                                        <input type="file" class="form-control" id="logo-file" name="logo"
+                                            accept="image/*">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- GENERAL SECTION -->
@@ -143,7 +145,7 @@
 
                 <div class="modal fade" id="general-m" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">     
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title">Mission & Vision</h1>
@@ -153,8 +155,8 @@
                                     <!-- Mission Section -->
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Mission</label>
-                                        <textarea name="mission" id="mission-inp" class="form-control shadow-none" rows="6"
-                                            required>
+                                        <textarea name="mission" id="mission-inp" class="form-control shadow-none"
+                                            rows="6" required>
                             To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.
                         </textarea>
                                     </div>
@@ -162,8 +164,8 @@
                                     <!-- Vision Section -->
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Vision</label>
-                                        <textarea name="vision" id="vision-inp" class="form-control shadow-none" rows="6"
-                                            required>
+                                        <textarea name="vision" id="vision-inp" class="form-control shadow-none"
+                                            rows="6" required>
                             Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.
                         </textarea>
                                     </div>
@@ -476,8 +478,6 @@
             <script>
                 function toggleAvailability(element, memberId) {
                     var isAvailable = $(element).is(':checked') ? 'true' : 'false';
-                    console.log("Sending ID:", memberId, "Is Available:", isAvailable);
-
                     $.ajax({
                         url: './inc/toggleAvailability.php',
                         type: 'POST',
@@ -525,6 +525,8 @@
                                 var cms_mission = response[0].mission;
                                 var cms_vision = response[0].vision;
                                 var cms_max = response[0].max_appointment;
+                                var cms_logo = response[0].logo;
+                                $('#cms-logo').attr('src', `./inc/uploads/${cms_logo}`);
                                 if (response.error) {
                                     console.error(response.error);
                                 } else {

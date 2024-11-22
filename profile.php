@@ -101,23 +101,79 @@
             <button type="button" class="btn add-pet-btn" data-bs-toggle="modal" data-bs-target="#addPetModal">
                 Add Pet
             </button>
-
+            <!-- Edit Pet Modal -->
+            <div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editPetModalLabel">Edit Pet Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editPetForm">
+                                <input type="hidden" id="petID-edit" name="pet_id"> <!-- Add this line to store the pet ID -->
+                                <div class="mb-3">
+                                    <label for="pet-name-edit" class="form-label">Pet Name</label>
+                                    <input type="text" class="form-control" id="pet-name-edit" name="pet_name" value="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pet-type-edit" class="form-label">Pet Type</label>
+                                    <input type="text" class="form-control" id="pet-type-edit" name="pet_type" value="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pet-breed-edit" class="form-label">Breed</label>
+                                    <input type="text" class="form-control" id="pet-breed-edit" name="breed" value="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pet-birthdate-edit" class="form-label">Birthdate</label>
+                                    <input type="date" class="form-control" id="pet-birthdate-edit" name="birthdate"
+                                        value="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pet-gender-edit" class="form-label">Gender</label>
+                                    <select class="form-select" id="pet-gender-edit" name="gender">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pet-color-edit" class="form-label">Color</label>
+                                    <input type="text" class="form-control" id="pet-color-edit" name="color" value="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pet-uniqueness-edit" class="form-label">Uniqueness</label>
+                                    <textarea class="form-control" id="pet-uniqueness-edit" name="uniqueness"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Pet Section (Multiple Pets) -->
             <div id="pets-container">
                 <h4 id="petInfo">Pet Information</h4>
                 <div id="pet-list">
-                <select id="petDropdown" class="form-select mb-3" onchange="showPetCard()">
-        <option value="" disabled selected>Select a Pet</option>
-        <!-- Options for pets will be dynamically populated -->
-        <option value="pet1">Fluffy</option>
-        <option value="pet2">Buddy</option>
-    </select>
-                    <!-- Pet list will be populated here -->
+                    <select id="petDropdown" class="form-select mb-3">
+                        <option value="" disabled selected>Select a Pet</option>
+                        <!-- Options for pets will be dynamically populated here -->
+                    </select>
+                </div>
+                <!-- New container for displaying pet details -->
+                <div id="petDetails" class="mt-3">
+                    <!-- Selected pet details will be displayed here -->
                 </div>
             </div>
 
             <!-- Add Pet Modal -->
-            <div class="modal fade" id="addPetModal" tabindex="-1" aria-labelledby="addPetModalLabel" aria-hidden="true">
+            <div class="modal fade" id="addPetModal" tabindex="-1" aria-labelledby="addPetModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -135,7 +191,8 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label for="petName" class="form-label">Pet's Name</label>
-                                        <input type="text" class="form-control" name="petName" placeholder="Pet's Name" required>
+                                        <input type="text" class="form-control" name="petName" placeholder="Pet's Name"
+                                            required>
                                     </div>
 
                                     <div class="col-md-6 mb-3">
@@ -146,11 +203,12 @@
                                             <option value="Dog">Dog</option>
                                         </select>
                                     </div>
-   
-                                    
+
+
                                     <div class="col-md-6 mb-3">
                                         <label for="breed" class="form-label">Breed</label>
-                                        <input type="text" class="form-control" name="breed" placeholder="Breed" required>
+                                        <input type="text" class="form-control" name="breed" placeholder="Breed"
+                                            required>
                                     </div>
 
                                     <div class="col-md-6 mb-3">
@@ -169,12 +227,14 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label for="color" class="form-label">Color</label>
-                                        <input type="text" class="form-control" name="color" placeholder="Color" required>
+                                        <input type="text" class="form-control" name="color" placeholder="Color"
+                                            required>
                                     </div>
 
                                     <div class="col-md-6 mb-3">
                                         <label for="unique" class="form-label">Unique</label>
-                                        <input type="text" class="form-control" name="unique" placeholder="Unique" required>
+                                        <input type="text" class="form-control" name="unique" placeholder="Unique"
+                                            required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn save-btn" name="submit">Add Pet</button>
@@ -189,122 +249,128 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-       $(document).ready(function () {
-    $.ajax({
-        type: "POST",
-        url: "./inc/getPets.php",
-        data: { owner_id: "<?php echo $_SESSION['id'] ?>" },
-        dataType: "json",
-        success: function (response) {
-            var petsListContainer = $("<div>").appendTo("#pet-list");
-            if (response.length > 0) {
-                $.each(response, function (index, pet) {
-                    var petHTML = `
-                    <div id="pets-container">
-                        <div class="profile-section pet-entry d-flex align-items-start mb-3">
-                            <div class="pet-image me-3">
-                                <img src="./inc/uploads/${pet.img}" alt="Pet Image" class="img-fluid rounded" style="max-width: 350px; max-height: 350px; object-fit: cover;">
-                                <p class="mt-2 fw-bold text-center">${pet.name}</p>
-                            </div>
-                            <div class="pet-details flex-grow-1">
-                                <div class="row text-center">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="petType" class="form-label">Pet Type</label>
-                                        <p class="h5">${pet.type}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="breed" class="form-label">Breed</label>
-                                        <p class="h5">${pet.breed}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="birthdate" class="form-label">Birthdate</label>
-                                        <p class="h5">${pet.birthdate}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <p class="h5">${pet.gender}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="color" class="form-label">Color</label>
-                                        <p class="h5">${pet.color}</p>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="unique" class="form-label">Uniqueness</label>
-                                        <p class="h5">${pet.uniqueness}</p>
-                                    </div>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "./inc/getPets.php",
+                data: { owner_id: "<?php echo $_SESSION['id'] ?>" },
+                dataType: "json",
+                success: function (response) {
+                    var petDropdown = $("#petDropdown");
+                    petDropdown.empty().append('<option value="" disabled selected>Select a Pet</option>');
+                    $('#totalPets').text(response.length);
+                    if (response.length > 0) {
+                        $.each(response, function (index, pet) {
+                            petDropdown.append(`<option value="${pet.id}">${pet.name}</option>`);
+                        });
+                    } else {
+                        $("#petInfo").html('No Pet Added yet');
+                    }
+
+                    petDropdown.on('change', function () {
+                        var selectedPetId = $(this).val();
+                        var selectedPet = response.find(pet => pet.id === selectedPetId);
+
+                        if (selectedPet) {
+                            var petHTML = `
+                    <div class="profile-section pet-entry d-flex align-items-start mb-3">
+                        <div class="pet-image me-3">
+                            <img src="./inc/uploads/${selectedPet.img}" alt="Pet Image" class="img-fluid rounded" style="max-width: 350px; max-height: 350px; object-fit: cover;">
+                            <p class="mt-2 fw-bold text-center">${selectedPet.name}</p>
+                        </div>
+                        <div class="pet-details flex-grow-1">
+                            <div class="row text-center">
+                                <div class="col-md-6 mb-2">
+                                    <label for="petType" class="form-label">Pet Type</label>
+                                    <p class="h5">${selectedPet.type}</p>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="breed" class="form-label">Breed</label>
+                                    <p class="h5">${selectedPet.breed}</p>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="birthdate" class="form-label">Birthdate</label>
+                                    <p class="h5">${selectedPet.birthdate}</p>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <p class="h5">${selectedPet.gender}</p>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="color" class="form-label">Color</label>
+                                    <p class="h5">${selectedPet.color}</p>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="unique" class="form-label">Uniqueness</label>
+                                    <p class="h5">${selectedPet.uniqueness}</p>
                                 </div>
                             </div>
-                            <button type="button" data-id="${pet.id}" class="btn btn-danger delete-pet-btn">Delete Pet</button>
-                            <div class="edit-btnss" style="margin-top: 50px;">
-                                <button type="button" data-id="${pet.id}" class="btn btn-primary edit-pet-btn" data-bs-toggle="modal" data-bs-target="#editPetModal">Edit Pet</button>
-                            </div>
+                        </div>
+                        <button type="button" data-id="${selectedPet.id}" class="btn btn-danger delete-pet-btn">Delete Pet</button>
+                        <div class="edit-btnss" style="margin-top: 50px;">
+                            <button type="button" data-id="${selectedPet.id}" class="btn btn-primary edit-pet-btn"  data-bs-toggle="modal" data-bs-target="#editPetModal">Edit Pet</button>
                         </div>
                     </div>
-                    `;
-                    petsListContainer.append(petHTML);
+                `;
+
+                            $("#petDetails").html(petHTML);
+                        } else {
+                            $("#petDetails").html('');
+                            $("#petInfo").html('No Pet Selected');
+                        }
+                    });
+                }
+            });
+
+            $(document).on("click", ".edit-pet-btn", function () {
+                var petId = $(this).data('id');
+                $.ajax({
+                    type: "POST",
+                    url: "./inc/getPetDetails.php",
+                    data: { pet_id: petId },
+                    dataType: "json",
+                    success: function (pet) {
+                        $("#petID-edit").val(pet.id);
+                        $("#pet-name-edit").val(pet.petName);
+                        $("#pet-type-edit").val(pet.petType);
+                        $("#pet-breed-edit").val(pet.breed);
+                        $("#pet-birthdate-edit").val(pet.birth_date);
+                        $("#pet-gender-edit").val(pet.gender);
+                        $("#pet-color-edit").val(pet.color);
+                        $("#pet-uniqueness-edit").val(pet.uniqueness);
+                    }
                 });
-            } else {
-                $("#petInfo").html('No Pet Added yet');
-            }
-        }
-    });
+            });
 
-    // Open the modal with the pet's current data
-    $(document).on("click", ".edit-pet-btn", function () {
-        var petId = $(this).data('id');
+            $("#editPetForm").on("submit", function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: "POST",
+                    url: "./inc/editPet.php",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        alert("Pet details updated successfully!");
+                        window.location.reload();
+                    }
+                });
+            });
 
-        // Fetch the pet data (you could modify this to get data from an API)
-        $.ajax({
-            type: "POST",
-            url: "./inc/getPetDetails.php",
-            data: { pet_id: petId },
-            dataType: "json",
-            success: function (pet) {
-                // Populate the modal fields with the pet data
-                $("#pet_id").val(pet.id);
-                $("#petName").val(pet.name);
-                $("#petType").val(pet.type);
-                $("#breed").val(pet.breed);
-                $("#birthdate").val(pet.birthdate);
-                $("#gender").val(pet.gender);
-                $("#color").val(pet.color);
-                $("#uniqueness").val(pet.uniqueness);
-            }
+            $(document).on("click", ".delete-pet-btn", function () {
+                var petId = $(this).data('id');
+                $.ajax({
+                    type: "POST",
+                    url: "./inc/deletePet.php",
+                    data: { petID: petId },
+                    success: function () {
+                        alert("Pet deleted successfully!");
+                        window.location.reload();
+                    }
+                });
+            });
         });
-    });
-
-    // Handle form submission to save changes
-    $("#editPetForm").on("submit", function (e) {
-        e.preventDefault();
-
-        var formData = new FormData(this);
-        $.ajax({
-            type: "POST",
-            url: "./inc/editPet.php",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function () {
-                alert("Pet details updated successfully!");
-                window.location.reload();
-            }
-        });
-    });
-
-    // Delete pet functionality
-    $(document).on("click", ".delete-pet-btn", function () {
-        var petId = $(this).data('id');
-        $.ajax({
-            type: "POST",
-            url: "./inc/deletePet.php",
-            data: { petID: petId },
-            success: function () {
-                alert("Pet deleted successfully!");
-                window.location.reload();
-            }
-        });
-    });
-});
     </script>
 </body>
 

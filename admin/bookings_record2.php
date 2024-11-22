@@ -25,41 +25,41 @@
         <div class="row">
             <!-- Main Content -->
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h4 class="mb-0">Previous Bookings</h4>
-                    <!-- Search Bar -->
-                    <input class="form-control me-2" id="search-history" type="search" placeholder="Search by pet or owner"
-                        aria-label="Search">
-                    <select class="form-select" id="sortBookings">
-                        <option value="thisWeek">This Week</option>
-                        <option value="lastWeek">Last Week</option>
-                        <option value="lastMonth">Last Month</option>
-                    </select>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="text" id="search-history" class="form-control"
+                            placeholder="Search by Pet or Owner Name">
+                    </div>
+                    <div class="col-md-6">
+                        <select id="sortHistory" class="form-select">
+                            <option value="all" selected>All Records</option>
+                            <option value="thisWeek">This Week</option>
+                            <option value="lastWeek">Last Week</option>
+                            <option value="lastMonth">Last Month</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Pet's Name</th>
-                                <th>Owner's Name</th>
-                                <th>Breed</th>
-                                <th>Service</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="appointmentTable">
-                            <tr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Pet Name</th>
+                            <th>Owner Name</th>
+                            <th>Breed</th>
+                            <th>Service</th>
+                            <th>Booking Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentTable">
+                        <!-- Fetched data will be appended here -->
+                    </tbody>
+                </table>
 
-                            </tr>
-                            <!-- You can add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Include Bootstrap JS and other necessary scripts -->
@@ -68,8 +68,8 @@
     <script>
         $(document).ready(function () {
             function fetchHistory() {
-                const searchTerm = $('#search-history').val();
-                const sortOption = $('#sortHistory').val();
+                const searchTerm = $('#search-history').val(); // Input for search
+                const sortOption = $('#sortHistory').val(); // Dropdown for sort filter
 
                 $.ajax({
                     url: './inc/getHistory.php',
@@ -80,21 +80,27 @@
                         sort: sortOption
                     },
                     success: function (data) {
-                        $('#appointmentTable').empty(); 
+                        $('#appointmentTable').empty(); // Clear the table content
+
+                        if (data.length === 0) {
+                            $('#appointmentTable').append('<tr><td colspan="7" class="text-center">No results found</td></tr>');
+                            return;
+                        }
+
                         $.each(data, function (index, appointment) {
-                            var dataHTML = `
-                        <tr>
-                            <td>${appointment.appointment_id}</td>
-                            <td>${appointment.petName}</td>
-                            <td>${appointment.ownerName}</td>
-                            <td>${appointment.breed}</td>
-                            <td>${appointment.service_name}</td>
-                            <td>${appointment.booking_date}</td>
-                            <td>
-                                <button data-id="${appointment.appointment_id}" class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                    `;
+                            const dataHTML = `
+                    <tr>
+                        <td>${appointment.appointment_id}</td>
+                        <td>${appointment.petName}</td>
+                        <td>${appointment.ownerName}</td>
+                        <td>${appointment.breed}</td>
+                        <td>${appointment.service_name}</td>
+                        <td>${appointment.booking_date}</td>
+                        <td>
+                            <button data-id="${appointment.appointment_id}" class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                `;
                             $('#appointmentTable').append(dataHTML);
                         });
                     },
@@ -103,9 +109,14 @@
                     }
                 });
             }
-            $('#search-history').on('input', fetchHistory);
-            $('#sortBookings').on('change', fetchHistory);
+
+            // Event Listeners
+            $('#search-history').on('input', fetchHistory); // Trigger on search input
+            $('#sortHistory').on('change', fetchHistory);  // Trigger on sort change
+
+            // Initial Load
             fetchHistory();
+
         });
     </script>
 

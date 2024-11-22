@@ -147,21 +147,31 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); 
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+            document.getElementById('book_date').setAttribute('min', formattedDate);
+        });
         $(document).ready(function () {
-            function fetchBookedTimeSlots() {
+            function fetchBookedTimeSlots(selectedDate) {
                 $.ajax({
                     type: "GET",
                     url: "./inc/getBookedTimeslot.php",
+                    data: { date: selectedDate },
                     success: function (response) {
                         const bookedSlots = JSON.parse(response);
-                        populateTimeSlots(bookedSlots);
+                        populateTimeSlots(bookedSlots, selectedDate);
+                        console.log("Booked Slots for " + selectedDate + ":", bookedSlots);
                     },
                     error: function (xhr, status, error) {
                         console.error("Error fetching booked time slots:", error);
                     }
                 });
             }
-            function populateTimeSlots(bookedSlots) {
+            function populateTimeSlots(bookedSlots, selectedDate) {
                 const allTimeSlots = [
                     "9:00 AM - 9:30 AM",
                     "9:30 AM - 10:00 AM",
@@ -178,34 +188,56 @@
                     "4:00 PM - 4:30 PM",
                     "4:30 PM - 5:00 PM"
                 ];
+
+                const currentDateTime = new Date();
+                const currentHour = currentDateTime.getHours();
+                const currentMinutes = currentDateTime.getMinutes();
+                const currentTimeInMinutes = currentHour * 60 + currentMinutes;
+
+                const selectedDateObj = new Date(selectedDate);
+                const isToday = selectedDateObj.toDateString() === currentDateTime.toDateString();
+
                 $('#time_slot').empty().append('<option value="">Select a Time Slot</option>');
+
                 allTimeSlots.forEach(function (slot) {
-                    if (!bookedSlots.includes(slot)) {
-                        $('#time_slot').append(`<option value="${slot}">${slot}</option>`);
+                    const [startTime, endTime] = slot.split(' - ');
+                    const [startHour, startMinute] = startTime.split(' ')[0].split(':');
+                    const startPeriod = startTime.split(' ')[1];
+                    let startTimeInMinutes = (parseInt(startHour) % 12) * 60 + parseInt(startMinute);
+                    if (startPeriod === 'PM') {
+                        startTimeInMinutes += 12 * 60;
+                    }
+                    if (isToday) {
+                        if (!bookedSlots.includes(slot) && startTimeInMinutes > currentTimeInMinutes) {
+                            $('#time_slot').append(`<option value="${slot}">${slot}</option>`);
+                        }
+                    } else {
+                        if (!bookedSlots.includes(slot)) {
+                            $('#time_slot').append(`<option value="${slot}">${slot}</option>`);
+                        }
                     }
                 });
             }
-            fetchBookedTimeSlots();
+            document.getElementById('book_date').addEventListener('change', function () {
+                const selectedDate = this.value;
+                fetchBookedTimeSlots(selectedDate);
+            });
             $.ajax({
                 type: "GET",
                 url: "./admin/inc/getBookings.php",
                 dataType: "json",
                 success: function (data) {
                     var html = "";
-                    var categories = new Set(); 
-
-                    // console.log(data); 
+                    var categories = new Set();
+                    console.log(data);
                     var visibleServices = data.filter(service => service.visibility === "true");
-
                     $.each(visibleServices, function (index, service) {
                         var category = service.category_name;
                         var serviceImage = service.service_image;
                         var serviceName = service.service_name;
                         var serviceDescription = service.service_description;
                         var servicePrice = service.service_price;
-
                         categories.add(category);
-
                         html += `
             <div class="card mb-4 border-0 shadow service-card" data-category="${category}">
                 <div class="row g-0 p-3 align-items-center">
@@ -239,19 +271,15 @@
                     });
 
                     $("#services").html(html);
-
                     var categoryDropdown = $("#category");
-                    categoryDropdown.empty(); 
-                    categoryDropdown.append('<option value="all">All</option>'); 
-
+                    categoryDropdown.empty();
+                    categoryDropdown.append('<option value="all">All</option>');
                     categories.forEach(function (category) {
                         console.log("Adding category: " + category);
                         categoryDropdown.append(`<option value="${category.toLowerCase()}">${category}</option>`);
                     });
-
                     categoryDropdown.on("change", function () {
                         var selectedCategory = $(this).val();
-
                         if (selectedCategory === "all") {
                             $(".service-card").show();
                         } else {
@@ -261,7 +289,7 @@
                     });
                 },
                 error: function (xhr, status, error) {
-                    console.error("AJAX Error: ", status, error); 
+                    console.error("AJAX Error: ", status, error);
                 }
             });
             $.ajax({

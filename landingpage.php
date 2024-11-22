@@ -39,7 +39,7 @@
     .text-container p {
       font-size: 1.1rem;
       line-height: 1.8;
-      color: #2B2B2B ;
+      color: #2B2B2B;
       margin-bottom: 20px;
     }
 
@@ -127,7 +127,7 @@
   </div>
 
   <!-- Testimonials Section -->
-  <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font"> TESTIMONIALS</h2>
+  <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font" id="review-head" > TESTIMONIALS</h2>
   <div class="container">
     <div class="swiper swiper-testimonials">
       <div class="swiper-wrapper" id="testimonial-container">
@@ -139,16 +139,19 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
     $(document).ready(function () {
+      let testimonialContainer = $('#testimonial-container');
       $.ajax({
         url: './inc/getReviews.php',
         method: 'GET',
         dataType: 'json',
         success: function (reviews) {
-          const testimonialContainer = $('#testimonial-container');
-          testimonialContainer.empty();
-          reviews.forEach(function (review) {
-            const stars = '<div class="rating">' + '⭐'.repeat(review.rate) + '</div>';
-            const testimonialHTML = `
+          if (reviews.length === 0) {
+            $('#review-head').text('No reviews just yet');
+          } else {
+            testimonialContainer.empty();
+            reviews.forEach(function (review) {
+              const stars = '<div class="rating">' + '⭐'.repeat(review.rate) + '</div>';
+              const testimonialHTML = `
               <div class="swiper-slide p-4">
                 <div class="profile d-flex align-item-center mb-3">
                   <h6 class="m-0 ms-2">${review.firstName || 'Anonymous'}</h6>
@@ -157,8 +160,9 @@
                 ${stars}
               </div>
             `;
-            testimonialContainer.append(testimonialHTML);
-          });
+              testimonialContainer.append(testimonialHTML);
+            });
+          }
 
           const slidesCount = testimonialContainer.children('.swiper-slide').length;
           const swiperTestimonials = new Swiper('.swiper-testimonials', {

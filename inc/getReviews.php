@@ -2,7 +2,7 @@
 session_start();
 require_once '../admin/inc/dbCon.php';
 
-$sql = "SELECT r.review, r.rate, u.firstName, u.lastName FROM tbl_addreview r JOIN tbl_users u ON r.user_id = u.id";
+$sql = "SELECT r.review, r.rate, u.firstName, u.lastName FROM tbl_addreview r JOIN tbl_users u ON r.user_id = u.id WHERE r.visible = 'true'";
 $result = $conn->query($sql);
 
 $reviews = [];

@@ -95,7 +95,7 @@ try {
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top ">
     <div class="container-fluid">
     <a class="navbar-brand" href="landingpage.php">
-            <img src="path_to_logo.png" alt="Logo" width="100" height="auto">
+            <img src="path_to_logo.png" alt="Logo" id="cms-logo" width="100" height="auto">
         </a>
         <div id="title"></div>
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
@@ -300,36 +300,31 @@ try {
             $(document).ready(function () {
                 $('#send-message').click(function () {
                     const userMessage = $('#userMessage').val().trim();
-                    const customerId = $('#customerId').val(); // Get the customer ID from a hidden input or other source
-                    // Check if the message is not empty
+                    const customerId = $('#customerId').val(); 
                     if (userMessage) {
-                        // AJAX request to send the message
                         $.ajax({
-                            url: 'http://localhost/critters/admin/inc/sendMessage.php', // Update this path to your actual PHP file location
+                            url: 'http://localhost/critters/admin/inc/sendMessage.php', 
                             type: 'POST',
                             data: {
-                            send_btn_customer: true, // Indicate that the button was clicked
-                            customer_id: customerId, // Pass the customer ID
-                            message: userMessage // Pass the user message
+                            send_btn_customer: true, 
+                            customer_id: customerId, 
+                            message: userMessage
                         },
                             dataType: 'json',
                             success: function (response) {
                                 if (response.status === 'success') {
-                                    // Handle success (e.g., display a success message)
                                     console.log(response.message);
-                                    $('#userMessage').val(''); // Clear the input field
+                                    $('#userMessage').val(''); 
                                 } else {
-                                    // Handle error (e.g., display an error message)
                                     console.error('Error: ' + response.message);
                                 }
                             },
                             error: function (xhr, status, error) {
-                                // Handle AJAX error
                                 console.error('AJAX Error: ' + status + error);
                             }
             });
             } else {
-                alert('Please enter a message before sending.'); // Alert if the message is empty
+                alert('Please enter a message before sending.');
             }
     });
                 function fetchCmsData() {
@@ -340,6 +335,8 @@ try {
                         success: function (response) {
                             var cms_title = response[0].title;
                             var cms_about = response[0].about;
+                            var cms_logo = response[0].logo;
+                            $('#cms-logo').attr('src', `http://localhost/critters/admin/inc/uploads/${cms_logo}`);
                             if (response.error) {
                                 console.error(response.error);
                             } else {

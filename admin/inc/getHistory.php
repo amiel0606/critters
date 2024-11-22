@@ -25,6 +25,8 @@ switch ($sort) {
     case 'lastMonth':
         $sql .= " AND MONTH(a.booking_date) = MONTH(CURDATE()) - 1 AND YEAR(a.booking_date) = YEAR(CURDATE())";
         break;
+    case 'all':
+        break;
 }
 
 $result = $conn->query($sql);
