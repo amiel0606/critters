@@ -172,11 +172,12 @@ try {
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="form-label">Email address</label>
-                        <input name="email" type="email" class="form-control shadow--none">
+                        <input name="email" type="email" class="form-control shadow--none" placeholder="Enter Email">
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Password</label>
-                        <input name="password" type="password" class="form-control shadow--none">
+                        <input name="password" type="password" class="form-control shadow-none"  id="myInput"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"   placeholder="Enter Corrrect Password"  required >
+                                <input type="checkbox" onclick="myPassword()">Show Password
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <button name="submit" type="submit" class="btn btn-dark shadow-none">LOGIN</button>
@@ -205,24 +206,25 @@ try {
                         <div class="row">
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">First Name</label>
-                                <input name="Fname" type="text" class="form-control shadow-none" required>
+                                <input name="Fname" type="text" class="form-control shadow-none"    placeholder="Name" required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input name="Lname" type="text" class="form-control shadow-none" required>
+                                <input name="Lname" type="text" class="form-control shadow-none" placeholder="Last Name"required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Email</label>
                                 <input id="email-input" name="email" type="email" class="form-control shadow-none"
-                                    required>
+                                placeholder="Enter Valid Email"  required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none" required>
+                                <input name="password" type="password" class="form-control shadow-none"  id="myInput"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"   placeholder="Choose a strong password"  required >
+                                <input type="checkbox" onclick="myFunction()">Show Password
                             </div>
                             <div class="col-md-6 p-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="ConfPassword" type="password" class="form-control shadow-none" required>
+                                <input name="ConfPassword" type="password" class="form-control shadow-none"   placeholder="Copy current Password"  required>
                             </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
@@ -297,6 +299,23 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
+            function myFunction() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+function myPassword() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
             $(document).ready(function () {
                 $('#send-message').click(function () {
                     const userMessage = $('#userMessage').val().trim();

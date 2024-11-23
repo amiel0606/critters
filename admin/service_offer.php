@@ -26,6 +26,62 @@
       text-align: center;
       color: white;
     }
+    /* General Styling for Dropdown Item */
+.dropdown-item {
+  padding: 10px 15px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Light gray on hover */
+}
+
+/* Category Name Styling */
+.category-ito {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  flex-grow: 1;
+}
+
+/* Action Buttons Group */
+.action-buttons {
+  display: flex;
+  gap: 8px; /* Space between buttons */
+  justify-content: flex-end;
+}
+
+/* Button Styling */
+.btn-sm {
+  font-size: 12px;
+  padding: 5px 8px;
+}
+
+/* Edit Button */
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Delete Button */
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
 
     h1 {
       font-size: 1.5rem;
@@ -187,7 +243,7 @@
       <div>
         <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add
           Category</button>
-        <h6 class="mt-2">Total Categories: <span id="total-categories">0</span></h6>
+        <h6 class="mt-2"><span id="total-categories">0</span></h6>
       </div>
     </div>
     <!-- Services Section -->
@@ -447,9 +503,15 @@
             } else {
               $.each(data, function (index, category) {
                 var categoryHTML = `
-                <li>
-                  <a class="dropdown-item category-ito" data-id="${category.category_id}">${category.category_name}</a>
-                </li>
+          
+                    <li class="dropdown-item d-flex justify-content-between align-items-center">
+  <a class="category-ito" data-id="${category.category_id}">${category.category_name}</a>
+  <div class="action-buttons">
+    <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${category.category_id}">Edit</button>
+    <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${category.category_id}">Delete</button>
+  </div>
+</li>
+
               `;
                 $('#category-list').append(categoryHTML); 
               });

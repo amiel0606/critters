@@ -236,20 +236,6 @@
     </thead>
     <tbody style="text-align: center;" id="appointmentTableBody">
       <!-- Example Row -->
-      <tr>
-        <td>1</td>
-        <td>John Doe</td>
-        <td>Fluffy</td>
-        <td>Dog</td>
-        <td>Grooming</td>
-        <td>2024-11-25</td>
-        <td>10:00 AM</td>
-        <td>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailReminderModal">
-            Email Reminder
-          </button>
-        </td>
-      </tr>
     </tbody>
   </table>
 </div>

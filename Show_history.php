@@ -104,17 +104,7 @@
     require('inc/header.php');
     ?>
     <div class="container main-container">
-        <div class="row">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false" style="color: white;">
-                Client's Name
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                <li><a class="dropdown-item" href="Show_history.php">Show Booking</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-        </div>
+        
         </nav>
 
         <div class="container">
