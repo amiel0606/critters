@@ -68,8 +68,8 @@
     <script>
         $(document).ready(function () {
             function fetchHistory() {
-                const searchTerm = $('#search-history').val(); // Input for search
-                const sortOption = $('#sortHistory').val(); // Dropdown for sort filter
+                const searchTerm = $('#search-history').val();
+                const sortOption = $('#sortHistory').val();
 
                 $.ajax({
                     url: './inc/getHistory.php',
@@ -80,8 +80,7 @@
                         sort: sortOption
                     },
                     success: function (data) {
-                        $('#appointmentTable').empty(); // Clear the table content
-
+                        $('#appointmentTable').empty(); 
                         if (data.length === 0) {
                             $('#appointmentTable').append('<tr><td colspan="7" class="text-center">No results found</td></tr>');
                             return;
@@ -109,14 +108,9 @@
                     }
                 });
             }
-
-            // Event Listeners
-            $('#search-history').on('input', fetchHistory); // Trigger on search input
-            $('#sortHistory').on('change', fetchHistory);  // Trigger on sort change
-
-            // Initial Load
+            $('#search-history').on('input', fetchHistory);
+            $('#sortHistory').on('change', fetchHistory);
             fetchHistory();
-
         });
     </script>
 

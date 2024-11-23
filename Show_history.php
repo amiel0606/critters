@@ -284,7 +284,7 @@
                     $.ajax({
                         type: 'POST',
                         url: './inc/cancelBooking.php',
-                        data: { appointmentId: appointmentId },
+                        data: { appointmentId: appointmentId, type: 'user' },
                         success: function (response) {
                             alert('Booking cancelled successfully!');
                             window.location.reload();

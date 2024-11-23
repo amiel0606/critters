@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2024 at 05:56 AM
+-- Generation Time: Nov 24, 2024 at 12:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,17 +31,51 @@ CREATE TABLE `tbl_addreview` (
   `review_id` int(11) NOT NULL,
   `rate` int(255) NOT NULL,
   `review` varchar(255) NOT NULL,
-  `visible` varchar(255) NOT NULL DEFAULT 'true',
   `user_id` varchar(255) NOT NULL,
-  `date` varchar(255) NOT NULL DEFAULT current_timestamp()
+  `date` date NOT NULL DEFAULT current_timestamp(),
+  `visible` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_addreview`
 --
 
-INSERT INTO `tbl_addreview` (`review_id`, `rate`, `review`, `visible`, `user_id`, `date`) VALUES
-(9, 5, 'super awesome fast service', 'true', '1', '2024-11-18 12:41:21');
+INSERT INTO `tbl_addreview` (`review_id`, `rate`, `review`, `user_id`, `date`, `visible`) VALUES
+(1, 5, 'maangas super hahaha galingg', '1', '2024-11-22', 'true'),
+(2, 5, 'super lupet dito hahwha', '1', '2024-11-22', 'true'),
+(3, 5, 'galing sobnra hahaha', '1', '2024-11-22', 'false'),
+(4, 5, 'hehehehe suled deto', '1', '2024-11-22', 'false'),
+(5, 4, 'mejo mabaho hininga nung assistant', '1', '2024-11-22', 'false'),
+(6, 5, 'cute naman ng doggy', '1', '2024-11-22', 'false'),
+(7, 5, 'mabango na ulit sha', '1', '2024-11-22', 'false'),
+(8, 2, 'salamat shopee', '4', '2024-11-22', 'true'),
+(9, 5, 'ANGAS TALAGA', '1', '2024-11-22', 'false'),
+(10, 5, 'hehehehehehe', '1', '2024-11-22', 'false'),
+(11, 5, 'wqeqeqeqeq', '1', '2024-11-22', 'false');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_bookings`
+--
+
+CREATE TABLE `tbl_bookings` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slot` int(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `categories` varchar(255) NOT NULL,
+  `service` varchar(255) NOT NULL,
+  `img` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_bookings`
+--
+
+INSERT INTO `tbl_bookings` (`id`, `name`, `slot`, `description`, `categories`, `service`, `img`) VALUES
+(7, 'Sample lang', 3, 'Maangas', 'ewahhahw,sa sample itu', 'Sample po haha', '67102004931c70.37588640-1729110020.png'),
+(8, 'isapa po', 3, 'hehehe', 'sa 2nd itu,sa 2nd pa ulit', '2nd service', '67102d8dd15fb2.04406547-1729113485.png');
 
 -- --------------------------------------------------------
 
@@ -59,8 +93,9 @@ CREATE TABLE `tbl_categories` (
 --
 
 INSERT INTO `tbl_categories` (`category_id`, `category_name`) VALUES
-(38, 'Tests'),
-(39, 'hello po');
+(30, 'hello'),
+(31, 'gwqeq'),
+(32, 'omsim');
 
 -- --------------------------------------------------------
 
@@ -73,6 +108,14 @@ CREATE TABLE `tbl_chatbot` (
   `question` varchar(255) NOT NULL,
   `answer` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_chatbot`
+--
+
+INSERT INTO `tbl_chatbot` (`id`, `question`, `answer`) VALUES
+(2, 'pogi ba ako?', 'Oo naman sobrang pogi mo'),
+(3, 'mukha ka bang burat', 'oo si bench mukhang burat');
 
 -- --------------------------------------------------------
 
@@ -88,18 +131,17 @@ CREATE TABLE `tbl_cms` (
   `link_address` longtext NOT NULL,
   `social` varchar(255) NOT NULL,
   `viber` varchar(255) NOT NULL,
-  `vision` varchar(255) NOT NULL,
-  `mission` varchar(255) NOT NULL,
-  `map` longtext NOT NULL,
-  `max_appointment` int(255) NOT NULL
+  `logo` varchar(255) NOT NULL,
+  `mission_vision` varchar(255) NOT NULL,
+  `map` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_cms`
 --
 
-INSERT INTO `tbl_cms` (`cms_id`, `title`, `about`, `address`, `link_address`, `social`, `viber`, `vision`, `mission`, `map`, `max_appointment`) VALUES
-(1, 'Critters', 'Agrivet', 'hiiiii', 'https://maps.app.goo.gl/t2tHJgzFfj4T1CyP8', 'https://www.facebook.com/groups/139347112936126', '09696978899', '                            Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.\n                        ', '                            To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.\r\n                        ', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.620855686803!2d120.98435447576225!3d14.33344228356032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1729118822196!5m2!1sen!2sph\" width=\"450\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 2);
+INSERT INTO `tbl_cms` (`cms_id`, `title`, `about`, `address`, `link_address`, `social`, `viber`, `logo`, `mission_vision`, `map`) VALUES
+(1, 'hello title', 'heheh', 'sa bahay namin wahb', 'https://maps.app.goo.gl/t2tHJgzFfj4T1CyP8', 'https://www.facebook.com/groups/139347112936126', '096969', '674023085a2df1.94531229.png', 'To provide exceptional veterinary\r\n                                          care through personalized treatment, advanced\r\n                                          medical practices, andzzzz', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.620855686803!2d120.98435447576225!3d14.33344228356032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1729118822196!5m2!1sen!2sph\" width=\"450\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>');
 
 -- --------------------------------------------------------
 
@@ -126,6 +168,44 @@ INSERT INTO `tbl_images` (`id`, `img1`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_message`
+--
+
+CREATE TABLE `tbl_message` (
+  `message_id` int(255) NOT NULL,
+  `receiver` varchar(255) NOT NULL,
+  `sender` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'Active',
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_message`
+--
+
+INSERT INTO `tbl_message` (`message_id`, `receiver`, `sender`, `message`, `status`, `timestamp`) VALUES
+(1, '10', 'admin', 'hello sample only', 'Active', '2024-11-13 13:57:41'),
+(3, '10', 'admin', 'hehezxzzxcwww', 'Active', '2024-11-23 21:23:10'),
+(4, 'admin', '10', 'wweqqeq', 'Active', '2024-11-23 21:23:21'),
+(5, '10', 'admin', 'hello po', 'Active', '2024-11-23 21:30:13'),
+(6, '10', 'admin', 'bwahaha', 'Active', '2024-11-23 22:11:33'),
+(7, '10', 'admin', 'bnwyhahaha', 'Active', '2024-11-23 22:23:10'),
+(8, '10', 'admin', 'henlo?', 'Active', '2024-11-23 22:24:00'),
+(9, '10', 'admin', 'popopo', 'Active', '2024-11-23 22:34:36'),
+(10, '10', 'admin', 'hahahaha', 'Active', '2024-11-23 22:37:05'),
+(12, 'admin', '10', 'ahahawa', 'Active', '2024-11-23 22:41:46'),
+(13, 'admin', '10', 'hehehe', 'Active', '2024-11-23 22:46:29'),
+(14, 'admin', '10', 'hello po nigga', 'Active', '2024-11-23 22:47:55'),
+(15, '10', 'admin', 'eqwewqe', 'Active', '2024-11-23 22:59:38'),
+(16, 'admin', '10', 'qweqwewq', 'Active', '2024-11-23 23:00:35'),
+(17, 'admin', '10', 'wqqeqeq', 'Active', '2024-11-23 23:02:57'),
+(18, 'admin', '10', 'jhehe', 'Active', '2024-11-23 23:02:59'),
+(19, 'admin', '10', 'bbababa', 'Active', '2024-11-23 23:03:04');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_pets`
 --
 
@@ -147,7 +227,9 @@ CREATE TABLE `tbl_pets` (
 --
 
 INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`, `img`, `uniqueness`, `color`) VALUES
-(18, 'Dog', 'Doggo', 'Mixed', '2024-01-11', 'Male', 1, 'dog.png', 'may balbas', 'Black and White');
+(9, 'Dog', 'Knee Ga', 'Askal', '2021-05-22', 'Male', 4, '67325aede5b433.33269204.png', '', ''),
+(12, 'Dog', 'Calcifer', 'Beagle', '2024-11-13', 'Male', 1, 'dog.png', 'Mataba parang baboy', 'Black/Brown/White'),
+(13, 'Cat', 'ming', 'British Shorthair', '2024-11-13', 'Female', 1, 'cat.png', 'Inheat', 'Black/Gray');
 
 -- --------------------------------------------------------
 
@@ -192,8 +274,9 @@ CREATE TABLE `tbl_services` (
 --
 
 INSERT INTO `tbl_services` (`service_id`, `service_name`, `category_id`, `category_name`, `service_description`, `service_price`, `service_image`, `visibility`) VALUES
-(28, 'CBC (Complete Blood Test)', '38', 'Tests', 'A routine test that measures red blood cells, white blood cells, platelets, and hemoglobin. A CBC can help identify anemia, infection, inflammation, and other conditions.', 730, '673ab2b7a27ec6.01630777-1731900087.png', 'true'),
-(29, 'Heartworm Test', '38', 'Tests', 'Determines if a pet has heartworm disease or other tick-borne illnesses.', 550, '673ab2f6ed25e6.50905759-1731900150.png', 'true');
+(17, 'hehe', '30', 'hello', 'hello po', 321, '671be2946bff11.66986750-1729880724.png', 'true'),
+(18, 'Sample service', '31', 'gwqeq', 'ahahaha', 312, '673241e773b473.99815538-1731346919.png', 'true'),
+(19, 'maangas ito super', '32', 'omsim', 'hahahaha', 333, '67325bb183c4d6.21637879-1731353521.jpg', 'true');
 
 -- --------------------------------------------------------
 
@@ -217,7 +300,25 @@ CREATE TABLE `tbl_setappointment` (
 --
 
 INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `pet_id`, `booking_id`, `owner_id`, `time`, `status`) VALUES
-(24, '2024-11-18', 'Earl John Makavinta', '18', '28', '1', '9:00 AM - 9:30 AM', 'Completed');
+(6, '2024-10-26', 'Amiel Carhyl Lapid', '', '7', '1', '9:30 AM - 10:00 AM', 'Completed'),
+(7, '2024-10-26', 'Amiel Carhyl Lapid', '', '8', '1', '1:00 PM - 1:30 PM', 'Completed'),
+(8, '2024-10-26', 'Amiel Carhyl Lapid', '', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
+(9, '2024-11-22', 'Amiel Carhyl Lapid', '7', '17', '1', '4:00 PM - 4:30 PM', 'Active'),
+(10, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '2:30 PM - 3:00 PM', 'Completed'),
+(11, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:30 PM - 5:00 PM', 'Completed'),
+(12, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '3:30 PM - 4:00 PM', 'Completed'),
+(13, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:00 PM - 4:30 PM', 'Completed'),
+(14, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:30 PM - 5:00 PM', 'Completed'),
+(15, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '3:00 PM - 3:30 PM', 'Completed'),
+(16, '2024-11-07', 'Amiel Carhyl Lapid', '', '17', '1', '4:00 PM - 4:30 PM', 'Completed'),
+(17, '2024-11-13', 'Amiel Carhyl Lapid', '7', '17', '1', '10:00 AM - 10:30 AM', 'Completed'),
+(18, '2024-11-13', 'Amiel Carhyl Lapid', '8', '18', '1', '10:00 AM - 10:30 AM', 'Completed'),
+(19, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '3:00 PM - 3:30 PM', 'Completed'),
+(20, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '2:30 PM - 3:00 PM', 'Reviewed'),
+(21, '2024-11-12', 'Amiel Carhyl Lapid', '9', '17', '1', '11:30 AM - 12:00 PM', 'Completed'),
+(22, '2024-11-12', 'hehehe', '9', '17', '1', '3:00 PM - 3:30 PM', 'Completed'),
+(23, '2024-12-12', 'Bench Joshu Timonio', '9', '18', '4', '3:00 PM - 3:30 PM', 'Active'),
+(24, '2024-11-23', 'Earl John Makavinta', '12', '17', '1', '9:00 AM - 9:30 AM', 'Cancelled');
 
 -- --------------------------------------------------------
 
@@ -233,6 +334,13 @@ CREATE TABLE `tbl_team` (
   `availability` varchar(255) NOT NULL DEFAULT 'true'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_team`
+--
+
+INSERT INTO `tbl_team` (`team_id`, `name`, `position`, `picture`, `availability`) VALUES
+(1, 'Benchz', 'Taga tae', '671bebde43db59.06385099-1729883102.PNG', '1');
+
 -- --------------------------------------------------------
 
 --
@@ -244,19 +352,22 @@ CREATE TABLE `tbl_users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL
+  `lastName` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'Customer'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`) VALUES
-(1, 'earl@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Earl John', 'Makavinta'),
-(2, 'hans@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Hans Patrick', 'Gregorio'),
-(3, 'pepito@gmail.com', '$2y$10$NpxXm7aFAKQZ0VCfDoRtuO2NlJJBmrSZByR37knzABJMFL0v7HaSS', 'Tom Vincent', 'Pepito'),
-(4, 'joshua@gmail.com', '$2y$10$z4lkMhD05AlPfn.g5ik3vu1ZOv8/jPxFhAdk9G6MZ3.o1GEL5Oy/y', 'Bench Joshua', 'Timonio'),
-(5, 'joshtimonio@gmail.com', '$2y$10$ju6h/PwoInlDNhpbe5llp.AnuXs1szCP7LHOasJwiI3koCdaJ63L.', 'Bench', 'Timonio');
+INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, `role`) VALUES
+(1, 'amiellapid22@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Earl John', 'Makavinta', 'Customer'),
+(2, 'hans@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Hans Patrick', 'Gregorio', 'Customer'),
+(3, 'pepito@gmail.com', '$2y$10$NpxXm7aFAKQZ0VCfDoRtuO2NlJJBmrSZByR37knzABJMFL0v7HaSS', 'Tom Vincent', 'Pepito', 'Customer'),
+(4, 'joshua@gmail.com', '$2y$10$z4lkMhD05AlPfn.g5ik3vu1ZOv8/jPxFhAdk9G6MZ3.o1GEL5Oy/y', 'Bench Joshua', 'Timonio', 'Customer'),
+(8, 'amiellapid06@gmail.com', '$2y$10$on7FFlw1wMp1YaROp/V7oOCA8ph0757FwLYlFeoRzf1ENzB7qkf5u', 'Amiel Carhyl', 'Lapid', 'Customer'),
+(9, 'amiel', '$2y$10$h1RN55eMpki9xkIz/HPUqOqgegzneP2IIoyMZwXvGHleUA7iTgHPS', 'Amiel Carhyl', 'Lapid', 'Admin'),
+(10, 'amiellapid22@gmail.com', '$2y$10$fAvgPD/Rgq.AF/BV8.jOeeuRW81noYTPW5yG6iqm1cY11CaEexgXS', 'Amiel Carhyl', 'Lapid', 'Customer');
 
 --
 -- Indexes for dumped tables
@@ -267,6 +378,12 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`) 
 --
 ALTER TABLE `tbl_addreview`
   ADD PRIMARY KEY (`review_id`);
+
+--
+-- Indexes for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_categories`
@@ -291,6 +408,12 @@ ALTER TABLE `tbl_cms`
 --
 ALTER TABLE `tbl_images`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_message`
+--
+ALTER TABLE `tbl_message`
+  ADD PRIMARY KEY (`message_id`);
 
 --
 -- Indexes for table `tbl_pets`
@@ -336,19 +459,25 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_addreview`
 --
 ALTER TABLE `tbl_addreview`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `tbl_bookings`
+--
+ALTER TABLE `tbl_bookings`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `tbl_chatbot`
 --
 ALTER TABLE `tbl_chatbot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_cms`
@@ -363,10 +492,16 @@ ALTER TABLE `tbl_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `tbl_message`
+--
+ALTER TABLE `tbl_message`
+  MODIFY `message_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `tbl_pets`
 --
 ALTER TABLE `tbl_pets`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -378,7 +513,7 @@ ALTER TABLE `tbl_products`
 -- AUTO_INCREMENT for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
-  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `service_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_setappointment`
@@ -390,13 +525,13 @@ ALTER TABLE `tbl_setappointment`
 -- AUTO_INCREMENT for table `tbl_team`
 --
 ALTER TABLE `tbl_team`
-  MODIFY `team_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `team_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

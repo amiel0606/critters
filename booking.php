@@ -188,17 +188,13 @@
                     "4:00 PM - 4:30 PM",
                     "4:30 PM - 5:00 PM"
                 ];
-
                 const currentDateTime = new Date();
                 const currentHour = currentDateTime.getHours();
                 const currentMinutes = currentDateTime.getMinutes();
                 const currentTimeInMinutes = currentHour * 60 + currentMinutes;
-
                 const selectedDateObj = new Date(selectedDate);
                 const isToday = selectedDateObj.toDateString() === currentDateTime.toDateString();
-
                 $('#time_slot').empty().append('<option value="">Select a Time Slot</option>');
-
                 allTimeSlots.forEach(function (slot) {
                     const [startTime, endTime] = slot.split(' - ');
                     const [startHour, startMinute] = startTime.split(' ')[0].split(':');

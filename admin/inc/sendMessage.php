@@ -6,7 +6,7 @@ if (isset($_POST['send_btn_customer'])) {
     $message = isset($_POST['message']) ? trim($_POST['message']) : '';
     $sender = $_SESSION['id'];
     $stmt = $conn->prepare("INSERT INTO tbl_message (receiver, message, sender) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $receiver, $message, $sender);
+    $stmt->bind_param("sss", $receiver, $message, $sender);
     if ($stmt->execute()) {
         echo json_encode(['status' => 'success', 'message' => 'Message sent successfully.']);
     } else {

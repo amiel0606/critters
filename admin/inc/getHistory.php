@@ -11,8 +11,7 @@ $sql = "SELECT a.*, s.*, p.*
         WHERE a.status = 'Completed'";
 
 if (!empty($search)) {
-    $searchTerm = $conn->real_escape_string($search);
-    $sql .= " AND (p.petName LIKE '%$searchTerm%' OR a.ownerName LIKE '%$searchTerm%')";
+    $sql .= " AND (p.petName LIKE '%$search%' OR a.ownerName LIKE '%$search%')";
 }
 
 switch ($sort) {

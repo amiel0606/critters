@@ -1,4 +1,5 @@
 <?php
+$userID = $_SESSION['id'];
 try {
     if (isset($_GET['login'])) {
         if ($_GET['login'] == 'success') { ?>
@@ -87,14 +88,14 @@ try {
         background-color: #007bff;
         color: white;
     }
+
     .bg-danger {
         background-image: linear-gradient(to right, #D09192, #C82471);
     }
-  
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top ">
     <div class="container-fluid">
-    <a class="navbar-brand" href="landingpage.php">
+        <a class="navbar-brand" href="landingpage.php">
             <img src="path_to_logo.png" alt="Logo" id="cms-logo" width="100" height="auto">
         </a>
         <div id="title"></div>
@@ -176,8 +177,12 @@ try {
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Password</label>
-                        <input name="password" type="password" class="form-control shadow-none"  id="myInput"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"   placeholder="Enter Corrrect Password"  required >
-                                <input type="checkbox" onclick="myPassword()">Show Password
+                        <input name="password" type="password" class="form-control shadow-none" id="myInput"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            placeholder="Enter Corrrect Password" required>
+                        <input id="showPass" type="checkbox" onclick="myPassword()">
+                        <label for="showPass">Show Password</label>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <button name="submit" type="submit" class="btn btn-dark shadow-none">LOGIN</button>
@@ -206,25 +211,31 @@ try {
                         <div class="row">
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">First Name</label>
-                                <input name="Fname" type="text" class="form-control shadow-none"    placeholder="Name" required>
+                                <input name="Fname" type="text" class="form-control shadow-none" placeholder="Name"
+                                    required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input name="Lname" type="text" class="form-control shadow-none" placeholder="Last Name"required>
+                                <input name="Lname" type="text" class="form-control shadow-none" placeholder="Last Name"
+                                    required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Email</label>
                                 <input id="email-input" name="email" type="email" class="form-control shadow-none"
-                                placeholder="Enter Valid Email"  required>
+                                    placeholder="Enter Valid Email" required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none"  id="myInput"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"   placeholder="Choose a strong password"  required >
+                                <input name="password" type="password" class="form-control shadow-none" id=""
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                    placeholder="Choose a strong password" required>
                                 <input type="checkbox" onclick="myFunction()">Show Password
                             </div>
                             <div class="col-md-6 p-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="ConfPassword" type="password" class="form-control shadow-none"   placeholder="Copy current Password"  required>
+                                <input name="ConfPassword" type="password" class="form-control shadow-none"
+                                    placeholder="Copy current Password" required>
                             </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
@@ -289,9 +300,13 @@ try {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="text" class="form-control" placeholder="Type your message..."
-                            aria-label="User message" id="userMessage">
-                        <button type="button" class="btn btn-primary">Send</button>
+                        <button type="button" class="btn btn-primary" id="chatWithAdminBtn">Chat with Admin</button>
+                        <div id="chatInputSection" style="display: none;">
+                            <input type="text" name="message" class="form-control" placeholder="Type your message..."
+                                aria-label="User message" id="userMessage">
+                            <button type="submit" class="btn btn-primary" name="send_btn_customer"
+                                id="sendMessageBtn">Send</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -300,52 +315,93 @@ try {
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             function myFunction() {
-  var x = document.getElementById("myInput");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
-function myPassword() {
-  var x = document.getElementById("myInput");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+            function myPassword() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
 
             $(document).ready(function () {
-                $('#send-message').click(function () {
-                    const userMessage = $('#userMessage').val().trim();
-                    const customerId = $('#customerId').val(); 
-                    if (userMessage) {
+                let uID = <?php echo $userID; ?>;
+                let isHidden = false;
+                $('#chatWithAdminBtn').click(function () {
+                    $(this).hide();
+                    $('#quick-questions').hide();
+                    $('#chatInputSection').show();
+                    let uID = <?php echo $userID; ?>;
+                    loadMessages(uID);
+                    isHidden = true;
+                });
+                setInterval(function () {
+                    if (isHidden) {
+                        loadMessages(uID);
+                    }
+                }, 1000);
+                function sendMessage() {
+                    const messageText = $('#userMessage').val();
+                    if (messageText) {
                         $.ajax({
-                            url: 'http://localhost/critters/admin/inc/sendMessage.php', 
+                            url: './admin/inc/sendMessage.php',  
                             type: 'POST',
                             data: {
-                            send_btn_customer: true, 
-                            customer_id: customerId, 
-                            message: userMessage
-                        },
-                            dataType: 'json',
+                                send_btn_customer: true,  
+                                message: messageText     
+                            },
                             success: function (response) {
-                                if (response.status === 'success') {
-                                    console.log(response.message);
-                                    $('#userMessage').val(''); 
-                                } else {
-                                    console.error('Error: ' + response.message);
-                                }
+                                $('#userMessage').val('');  
+                                let uID = <?php echo $userID; ?>; 
+                                loadMessages(uID); 
+                                scrollToBottom();  
                             },
                             error: function (xhr, status, error) {
-                                console.error('AJAX Error: ' + status + error);
+                                console.error("Error sending message: " + error); 
                             }
-            });
-            } else {
-                alert('Please enter a message before sending.');
-            }
-    });
+                        });
+                    }
+                }
+                $('#sendMessageBtn').click(function () {
+                    sendMessage();  
+                });
+                $('#userMessage').keypress(function (e) {
+                    if (e.which === 13) {  
+                        sendMessage();  
+                    }
+                });
+                function loadMessages(userId) {
+                    $.ajax({
+                        url: 'http://localhost/critters/admin/inc/fetchMessages.php',
+                        type: 'GET',
+                        data: { user_id: userId },
+                        dataType: 'json',
+                        success: function (messages) {
+                            $('.chat-messages').empty();
+                            $.each(messages, function (index, message) {
+                                const messageClass = message.receiver === "admin" ? 'user-message float-end' : 'bot-message';
+                                $('.chat-messages').append(
+                                    `<div class="message ${messageClass} mb-2">
+                            <strong>${message.sender === 'admin' ? 'Admin' : 'User'}:</strong>
+                            <span class="ms-2">${message.message}</span>
+                        </div>`
+                                );
+                            });
+                            scrollToBottom();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching messages: " + error);
+                        }
+                    });
+                }
+
                 function fetchCmsData() {
                     $.ajax({
                         type: 'GET',
@@ -404,32 +460,32 @@ function myPassword() {
                 }
                 function displayUserMessage(message) {
                     const userMessageHtml = `
-            <div class="message user-message mb-2">
-                <strong>You:</strong>
-                <span class="ms-2">${message}</span>
-            </div>
-        `;
+                                <div class="message user-message mb-2">
+                                    <strong>You:</strong>
+                                    <span class="ms-2">${message}</span>
+                                </div>
+                            `;
                     $('.chat-messages').append(userMessageHtml);
                     scrollToBottom();
                 }
                 function displayBotTypingAnimation() {
                     const typingHtml = `
-            <div class="message bot-message mb-2 typing-indicator">
-                <strong>Bot:</strong>
-                <span class="ms-2">...</span>
-            </div>
-        `;
+                                <div class="message bot-message mb-2 typing-indicator">
+                                    <strong>Bot:</strong>
+                                    <span class="ms-2">...</span>
+                                </div>
+                            `;
                     $('.chat-messages').append(typingHtml);
                     scrollToBottom();
                 }
                 function displayBotMessage(message) {
                     $('.typing-indicator').remove();
                     const botMessageHtml = `
-            <div class="message bot-message mb-2">
-                <strong>Bot:</strong>
-                <span class="ms-2">${message}</span>
-            </div>
-        `;
+                                <div class="message bot-message mb-2">
+                                    <strong>Bot:</strong>
+                                    <span class="ms-2">${message}</span>
+                                </div>
+                            `;
                     $('.chat-messages').append(botMessageHtml);
                     scrollToBottom();
                 }

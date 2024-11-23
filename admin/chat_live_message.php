@@ -149,7 +149,7 @@
                 <div class="col-6">
                   <div class="chat-about">
                     <h6 class="mb-0" id="chat-user-name">Select a user to chat</h6>
-                    <input type="text" name="idUser" id="idUser">
+                    <input type="hidden" name="idUser" id="idUser">
                   </div>
                 </div>
               </div>
@@ -174,6 +174,14 @@
   </div>
   <script>
     $(document).ready(function () {
+      let isHidden = false;
+
+      setInterval(function () {
+        const uID = $('#idUser').val();
+        if (isHidden) {
+          loadMessages(uID);
+        }
+      }, 1000);
       $.ajax({
         url: './inc/fetchUsers.php',
         type: 'GET',
@@ -181,7 +189,7 @@
         success: function (users) {
           $.each(users, function (index, user) {
             $('#user-list').append(
-              `<li class="clearfix user" data-user-id="${user.id}">
+              `<li class="clearfix user" data-user-id="${user.receiver_id}">
                         <div class="about">
                             <div class="name">${user.firstName} ${user.lastName}</div>
                         </div>
@@ -199,7 +207,7 @@
         const userName = $(this).find('.name').text();
         $('#chat-user-name').text(userName);
         $('#idUser').val(userId);
-        loadMessages(userId);
+        isHidden = true;
       });
 
       function loadMessages(userId) {
@@ -211,7 +219,7 @@
           success: function (messages) {
             $('#chat-messages').empty();
             $.each(messages, function (index, message) {
-              const messageClass = message.sender === 'admin' ? 'my-message' : 'other-message float-end';
+              const messageClass = message.sender === "admin" ? 'my-message float-end' : 'other-message';
               $('#chat-messages').append(
                 `<li class="clearfix">
                         <div class="message ${messageClass}">${message.message}</div>
