@@ -76,11 +76,25 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Username</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Password</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="admin-data" >
-                                    
+                                <tr>
+                                    <td>1</td>
+                                    <td>admin123</td>
+                                    <td>John Doe</td>
+                                    <td>Password</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                            Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

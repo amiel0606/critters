@@ -63,6 +63,13 @@
                     </form>
                 </div>
             </div>
+            <!-- Container for viewing added images -->
+        <div id="image-preview-container" class="mt-3">
+            <h6>Added Images</h6>
+            <div class="row" id="image-preview-row">
+                <!-- Images will be displayed dynamically here -->
+            </div>
+        </div>
 
         </div>
     </div>

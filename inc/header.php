@@ -177,12 +177,11 @@ try {
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Password</label>
-                        <input name="password" type="password" class="form-control shadow-none" id="myInput"
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                            placeholder="Enter Corrrect Password" required>
-                        <input id="showPass" type="checkbox" onclick="myPassword()">
-                        <label for="showPass">Show Password</label>
+                        <input name="password" type="password" class="form-control shadow-none" id="loginPassword" 
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                            placeholder="Enter Correct Password" required>
+                        <input type="checkbox" onclick="togglePasswordVisibility('loginPassword')"> Show Password
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <button name="submit" type="submit" class="btn btn-dark shadow-none">LOGIN</button>
@@ -226,16 +225,17 @@ try {
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none" id=""
-                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                <input name="password" type="password" class="form-control shadow-none" id="registerPassword" 
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                                     placeholder="Choose a strong password" required>
-                                <input type="checkbox" onclick="myFunction()">Show Password
+                                <input type="checkbox" onclick="togglePasswordVisibility('registerPassword')"> Show Password
                             </div>
-                            <div class="col-md-6 p-0 mb-3">
+                            <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="ConfPassword" type="password" class="form-control shadow-none"
+                                <input name="ConfPassword" type="password" class="form-control shadow-none" id="confirmPassword" 
                                     placeholder="Copy current Password" required>
+                                <input type="checkbox" onclick="togglePasswordVisibility('confirmPassword')"> Show Password
                             </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
@@ -314,22 +314,15 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-            function myFunction() {
-                var x = document.getElementById("myInput");
-                if (x.type === "password") {
-                    x.type = "text";
-                } else {
-                    x.type = "password";
-                }
+             function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
             }
-            function myPassword() {
-                var x = document.getElementById("myInput");
-                if (x.type === "password") {
-                    x.type = "text";
-                } else {
-                    x.type = "password";
-                }
-            }
+        }
+
 
             $(document).ready(function () {
                 let uID = <?php echo $userID; ?>;
