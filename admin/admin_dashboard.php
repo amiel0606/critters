@@ -219,178 +219,197 @@
     </div>
 
     <!-- Appointment Overview -->
-<div class="table-responsive mt-4">
-  <h4>Appointment Overview</h4>
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Customer Name</th>
-        <th scope="col">Pet Name</th>
-        <th scope="col">Pet Type</th>
-        <th scope="col">Service</th>
-        <th scope="col">Date</th>
-        <th scope="col">Time</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody style="text-align: center;" id="appointmentTableBody">
-      <!-- Example Row -->
-    </tbody>
-  </table>
-</div>
+    <div class="table-responsive mt-4">
+      <h4>Appointment Overview</h4>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Pet Name</th>
+            <th scope="col">Pet Type</th>
+            <th scope="col">Service</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody style="text-align: center;" id="appointmentTableBody">
+          <!-- Example Row -->
+        </tbody>
+      </table>
+    </div>
 
-<!-- Modal for Email Reminder -->
-<div class="modal fade" id="emailReminderModal" tabindex="-1" aria-labelledby="emailReminderModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="emailReminderModalLabel">Send Email Reminder</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to send an email reminder for this appointment?</p>
-        <div class="text-start">
-          <p><strong>Customer Name:</strong> <span id="modalCustomerName">John Doe</span></p>
-          <p><strong>Pet Name:</strong> <span id="modalPetName">Fluffy</span></p>
-          <p><strong>Service:</strong> <span id="modalService">Grooming</span></p>
-          <p><strong>Date:</strong> <span id="modalDate">2024-11-25</span></p>
-          <p><strong>Time:</strong> <span id="modalTime">10:00 AM</span></p>
+    <!-- Modal for Email Reminder -->
+    <div class="modal fade" id="emailReminderModal" tabindex="-1" aria-labelledby="emailReminderModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="emailReminderModalLabel">Send Email Reminder</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to send an email reminder for this appointment?</p>
+            <div class="text-start">
+              <p><strong>Customer Name:</strong> <span id="modalCustomerName">John Doe</span></p>
+              <p><strong>Pet Name:</strong> <span id="modalPetName">Fluffy</span></p>
+              <p><strong>Service:</strong> <span id="modalService">Grooming</span></p>
+              <p><strong>Date:</strong> <span id="modalDate">2024-11-25</span></p>
+              <p><strong>Time:</strong> <span id="modalTime">10:00 AM</span></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success" id="sendEmailReminderButton">Send Reminder</button>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" id="sendEmailReminderButton">Send Reminder</button>
-      </div>
     </div>
-  </div>
-</div>
 
 
-  <script>
-    $(document).ready(function () {
-      function updateAppointmentStatus(appointmentId) {
+    <script>
+      $(document).ready(function () {
         $.ajax({
-          type: "POST",
-          url: "./inc/updateAppointmentStatus.php",
-          data: { id: appointmentId, status: 'Completed' },
-          dataType: "json",
+          url: './inc/getDashboard.php', 
+          type: 'GET',
+          dataType: 'json',
           success: function (response) {
-            if (response.success) {
-              alert("Appointment marked as completed.");
-              fetchSortedAppointments();
+            if (response.status === 'success') {
+              const data = response.data;
+              console.log("Customer Count: ", data.customer_count);
+              console.log("Non-Customer Count: ", data.non_customer_count);
+              console.log("Appointment Count: ", data.appointment_count);
+              $('#totalClients').text(data.customer_count);
+              $('#totalEmployees').text(data.non_customer_count);
+              $('#totalAppointments').text(data.appointment_count);
             } else {
-              alert("Failed to update appointment status: " + (response.error || "Unknown error"));
+              console.error(response.message);
             }
           },
-          error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error occurred while updating appointment status: " + textStatus + " - " + errorThrown);
+          error: function (xhr, status, error) {
+            console.error("AJAX Error: " + error);
           }
         });
-      }
-      let serviceChart;
-      const messageContainer = $('#messageContainer');
-      const bookingTableBody = $('#bookingTableBody');
 
-      function fetchTopServices(month) {
-        $.ajax({
-          type: "GET",
-          url: "./inc/getTopServices.php",
-          data: { month: month },
-          dataType: "json",
-          success: function (response) {
-            console.log(response);
-            messageContainer.text('');
-            bookingTableBody.empty();
+        function updateAppointmentStatus(appointmentId) {
+          $.ajax({
+            type: "POST",
+            url: "./inc/updateAppointmentStatus.php",
+            data: { id: appointmentId, status: 'Completed' },
+            dataType: "json",
+            success: function (response) {
+              if (response.success) {
+                alert("Appointment marked as completed.");
+                fetchSortedAppointments();
+              } else {
+                alert("Failed to update appointment status: " + (response.error || "Unknown error"));
+              }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert("Error occurred while updating appointment status: " + textStatus + " - " + errorThrown);
+            }
+          });
+        }
+        let serviceChart;
+        const messageContainer = $('#messageContainer');
+        const bookingTableBody = $('#bookingTableBody');
 
-            if (response.length === 0) {
-              messageContainer.text("No bookings this month").css("color", "red");
-              bookingTableBody.append(`
+        function fetchTopServices(month) {
+          $.ajax({
+            type: "GET",
+            url: "./inc/getTopServices.php",
+            data: { month: month },
+            dataType: "json",
+            success: function (response) {
+              console.log(response);
+              messageContainer.text('');
+              bookingTableBody.empty();
+
+              if (response.length === 0) {
+                messageContainer.text("No bookings this month").css("color", "red");
+                bookingTableBody.append(`
                           <tr>
                               <td>No Bookings This month</td>
                               <td>0</td>
                           </tr>
                       `);
-              if (serviceChart) {
-                serviceChart.destroy();
-              }
-              return;
-            } else {
-              response.forEach(service => {
-                bookingTableBody.append(`
+                if (serviceChart) {
+                  serviceChart.destroy();
+                }
+                return;
+              } else {
+                response.forEach(service => {
+                  bookingTableBody.append(`
                           <tr>
                               <td>${service.service_name}</td>
                               <td>${service.total_bookings}</td>
                           </tr>
                       `);
-              });
-            }
-
-
-            const labels = response.map(service => service.service_name);
-            const data = response.map(service => service.total_bookings);
-            const ctx = document.getElementById('serviceChart').getContext('2d');
-
-            if (serviceChart) {
-              serviceChart.destroy();
-            }
-
-            serviceChart = new Chart(ctx, {
-              type: 'pie',
-              data: {
-                labels: labels,
-                datasets: [{
-                  label: 'Top 3 Most Booked Services',
-                  data: data,
-                  backgroundColor: [
-                    '#007bff',
-                    '#28a745',
-                    '#ffc107'
-                  ],
-                  borderColor: '#fff',
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top',
-                  },
-                  tooltip: {
-                    callbacks: {
-                      label: function (tooltipItem) {
-                        return tooltipItem.label + ': ' + tooltipItem.raw + ' bookings';
+                });
+              }
+              const labels = response.map(service => service.service_name);
+              const data = response.map(service => service.total_bookings);
+              const ctx = document.getElementById('serviceChart').getContext('2d');
+              if (serviceChart) {
+                serviceChart.destroy();
+              }
+              serviceChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: 'Top 3 Most Booked Services',
+                    data: data,
+                    backgroundColor: [
+                      '#007bff',
+                      '#28a745',
+                      '#ffc107'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: function (tooltipItem) {
+                          return tooltipItem.label + ': ' + tooltipItem.raw + ' bookings';
+                        }
                       }
                     }
                   }
                 }
-              }
-            });
-          },
-          error: function (xhr, status, error) {
-            console.log("Error fetching top services: ", error);
+              });
+            },
+            error: function (xhr, status, error) {
+              console.log("Error fetching top services: ", error);
+            }
+          });
+        }
+
+        $('#monthSelector').change(function () {
+          const selectedMonth = $(this).val();
+          if (selectedMonth) {
+            fetchTopServices(selectedMonth);
           }
         });
-      }
+        function fetchSortedAppointments() {
+          $.ajax({
+            url: './inc/getAllAppointments.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+              console.log(data);
 
-      $('#monthSelector').change(function () {
-        const selectedMonth = $(this).val();
-        if (selectedMonth) {
-          fetchTopServices(selectedMonth);
-        }
-      });
-      function fetchSortedAppointments() {
-        $.ajax({
-          url: './inc/getAllAppointments.php',
-          method: 'GET',
-          dataType: 'json',
-          success: function (data) {
-            console.log(data);
-            
-            if (data.length > 0) {
-              $.each(data, function (index, appointment) {
-                var appointmentElement = `
+              if (data.length > 0) {
+                $.each(data, function (index, appointment) {
+                  var appointmentElement = `
             <td>${appointment.id}</td>
             <td>${appointment.ownerName}</td>
             <td>${appointment.petName}</td>
@@ -402,31 +421,31 @@
               <button class='btn btn-success btn-sm complete-btn' data-id="${appointment.id}">Complete</button>
             </td>
         `;
-                $('#appointmentTableBody').append(appointmentElement);
-                $('.complete-btn').on('click', function () {
-                  const appointmentId = $(this).data('id');
-                  updateAppointmentStatus(appointmentId);
+                  $('#appointmentTableBody').append(appointmentElement);
+                  $('.complete-btn').on('click', function () {
+                    const appointmentId = $(this).data('id');
+                    updateAppointmentStatus(appointmentId);
+                  });
                 });
-              });
-            } else {
-              var appointmentElement = `
+              } else {
+                var appointmentElement = `
                 <td colspan="8">No pending appointment for today.</td> 
               `;
-              $('#appointmentTableBody').append(appointmentElement);
+                $('#appointmentTableBody').append(appointmentElement);
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error("Error fetching appointments:", error);
+              $('#appointmentTableBody').append('<p>An error occurred while fetching appointments.</p>');
             }
-          },
-          error: function (xhr, status, error) {
-            console.error("Error fetching appointments:", error);
-            $('#appointmentTableBody').append('<p>An error occurred while fetching appointments.</p>');
-          }
-        });
-      }
-      fetchTopServices($('#monthSelector').val());
-      fetchSortedAppointments();
-    });
-  </script>
+          });
+        }
+        fetchTopServices($('#monthSelector').val());
+        fetchSortedAppointments();
+      });
+    </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

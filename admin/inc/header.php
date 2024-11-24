@@ -4,7 +4,7 @@
     
     </div>
         
-        <a href="logout.php" class="btn btn-light btn-sm">LOG OUT</a>
+        <a href="./inc/logout.php" class="btn btn-light btn-sm">LOG OUT</a>
     </div>
     <div class="col-lg-2 bg-danger border-top border-3 border-secondary" id="dashboard-menu">
         <nav class="navbar navbar-expand-lg navbar-danger">
