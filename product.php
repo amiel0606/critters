@@ -85,28 +85,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    
-$(document).ready(function() {
+$(document).ready(function () {
+    const itemsPerPage = 6; // Number of items to display per page
+    let currentPage = 1; // Track the current page
+    let productData = []; // To store all the fetched products
+
+    // Fetch products from the server
     $.ajax({
-        url: './admin/inc/getProducts.php', 
+        url: './admin/inc/getProducts.php',
         type: 'GET',
         dataType: 'json',
-        success: function(data) {
-            const gallery = $('#product-gallery');
-            data.forEach(product => {
-                const productCard = createProductCard(product);
-                gallery.append(productCard); 
-            });
+        success: function (data) {
+            productData = data; // Store the fetched data
+            renderPage(currentPage); // Render the first page
+            setupPaginationControls(); // Initialize pagination controls
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('Error:', error);
         }
     });
 
+    // Function to create a product card
     function createProductCard(product) {
         return `
             <div class="col">
-                <div class="card product-card h-100 shadow  rounded p-4">
+                <div class="card product-card h-100 shadow rounded p-4">
                     <img src="./admin/inc/uploads/${product.image}" class="card-img-top product-image" alt="${product.name}">
                     <div class="card-body text-center">
                         <h5 class="card-title">${product.name}</h5>
@@ -117,8 +120,47 @@ $(document).ready(function() {
             </div>
         `;
     }
+
+    // Function to render a specific page
+    function renderPage(page) {
+        const gallery = $('#product-gallery');
+        gallery.empty(); // Clear the current gallery
+
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        const itemsToDisplay = productData.slice(startIndex, endIndex);
+        itemsToDisplay.forEach(product => {
+            const productCard = createProductCard(product);
+            gallery.append(productCard);
+        });
+    }
+
+    // Setup pagination controls
+    function setupPaginationControls() {
+        const totalPages = Math.ceil(productData.length / itemsPerPage);
+
+        // Previous page button
+        $('#prev-page').off('click').on('click', function (e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage);
+            }
+        });
+
+        // Next page button
+        $('#next-page').off('click').on('click', function (e) {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        });
+    }
 });
 </script>
+
 <?php require('inc/footer.php');?>
 
 </body>

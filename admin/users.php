@@ -188,22 +188,26 @@
                                 <thead>
                                     <tr>
                                         <th>Pet Name</th>
+                                        <th>Pet Type</th>
                                         <th>Breed</th>
-                                        <th>Age</th>
+                                        <th>Birth Date</th>
+                                        <th>Gender</th>
+                                        <th>Color</th>
+                                        <th>Unique</th>
                                     </tr>
                                 </thead>
                                 <tbody id="pet-list">
                                     <!-- Example Pet Data -->
                                     <tr>
                                         <td>Fluffy</td>
+                                        <td>Dog</td>
                                         <td>Golden Retriever</td>
-                                        <td>4 Years</td>
+                                        <td>12/25/2002</td>
+                                        <td>Male</td>
+                                        <td>Brown</td>
+                                        <td>Pwet na pula</td>
                                     </tr>
-                                    <tr>
-                                        <td>Whiskers</td>
-                                        <td>Siamese</td>
-                                        <td>2 Years</td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>

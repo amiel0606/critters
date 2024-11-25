@@ -41,18 +41,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->addAddress($email, $username);
 
                 $mail->isHTML(true);
-                $mail->Subject = 'Appointment Reminder';
-                $mail->Body = "
-                    <p>Dear $username,</p>
-                    <p>This is a friendly reminder for your appointment:</p>
-                    <ul>
-                        <li><strong>Service:</strong> $serviceName</li>
-                        <li><strong>Date:</strong> $bookingDate</li>
-                        <li><strong>Time:</strong> $bookingTime</li>
-                    </ul>
-                    <p>We look forward to serving you!</p>
-                    <p>Best regards,<br>Critters Agrivet Dasmariñas</p>
-                ";
+$mail->Subject = 'Appointment Reminder';
+$mail->Body = "
+    <div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
+        <div style='max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+            <div style='background-color: #ff6f61; color: white; padding: 16px; text-align: center;'>
+                <h2 style='margin: 0; font-size: 24px;'>Appointment Reminder</h2>
+            </div>
+            <div style='padding: 24px; background-color: #f9f9f9;'>
+                <p style='margin: 0 0 16px;'>Dear <strong>$username</strong>,</p>
+                <p style='margin: 0 0 16px;'>This is a friendly reminder for your upcoming appointment:</p>
+                <ul style='list-style-type: none; padding: 0; margin: 0;'>
+                    <li style='margin-bottom: 8px;'>
+                        <strong>Service:</strong> $serviceName
+                    </li>
+                    <li style='margin-bottom: 8px;'>
+                        <strong>Date:</strong> $bookingDate
+                    </li>
+                    <li style='margin-bottom: 8px;'>
+                        <strong>Time:</strong> $bookingTime
+                    </li>
+                </ul>
+                <p style='margin: 16px 0;'>We look forward to serving you!</p>
+                <p style='margin: 0;'>Best regards,</p>
+                <p style='margin: 0;'><strong>Critters Agrivet Dasmariñas</strong></p>
+            </div>
+            <div style='background-color: #ff6f61; color: white; padding: 12px; text-align: center; font-size: 12px;'>
+                &copy; 2024 Critters Agrivet Dasmariñas. All rights reserved.
+            </div>
+        </div>
+    </div>
+";
+
 
                 $mail->send();
 

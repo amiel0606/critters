@@ -40,7 +40,7 @@ try {
             <script>
                 alert('Username already taken');
             </script>
-        <?php }
+<?php }
     }
 } catch (\Throwable $th) {
     throw new Exception("An unexpected error occurred: " . $th->getMessage());
@@ -173,15 +173,11 @@ try {
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="form-label">Email address</label>
-                        <input name="email" type="email" class="form-control shadow-none" placeholder="Enter Email">
+                        <input name="email" type="email" class="form-control shadow--none" placeholder="Enter Email">
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Password</label>
-                        <input name="password" type="password" class="form-control shadow-none" id="loginPassword" 
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
-                            placeholder="Enter Correct Password" required>
-                        <input type="checkbox" id="showLoginPassword" onclick="togglePasswordVisibility('loginPassword')"> Show Password
+                        <input name="password" type="password" class="form-control shadow-none" id="myInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Enter Corrrect Password" required>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <button name="submit" type="submit" class="btn btn-dark shadow-none">LOGIN</button>
@@ -191,7 +187,6 @@ try {
         </div>
     </div>
 </div>
-
 
 <div class="modal fade <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" id="registerModal"
     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -226,26 +221,30 @@ try {
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Contact No.</label>
-                                <input id="contact-input" name="number" type="text" class="form-control shadow-none"
-                                    placeholder="Enter Contact Number" required
-                                    pattern="^\d{11}$" 
-                                    title="Contact number must be exactly 11 digits"
-                                    maxlength="11">
+                                <input
+                                    id="phone-input"
+                                    name="phone"
+                                    type="tel"
+                                    class="form-control shadow-none"
+                                    placeholder="Enter Valid Phone Number"
+                                    pattern="^\+?[0-9]{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$"
+                                    maxlength="11"
+                                    required>
+                              
                             </div>
-
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none" id="registerPassword" 
-                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                                <input name="password" type="password" class="form-control shadow-none" id="registerPassword"
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                     placeholder="Choose a strong password" required>
-                                <input type="checkbox" id="showRegisterPassword" onclick="togglePasswordVisibility('registerPassword')"> Show Password
+
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="ConfPassword" type="password" class="form-control shadow-none" id="confirmPassword" 
+                                <input name="ConfPassword" type="password" class="form-control shadow-none" id="confirmPassword"
                                     placeholder="Copy current Password" required>
-                                <input type="checkbox" id="showConfirmPassword" onclick="togglePasswordVisibility('confirmPassword')"> Show Password
+
                             </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
@@ -324,22 +323,20 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-             function togglePasswordVisibility(passwordId) {
-                var passwordField = document.getElementById(passwordId);
-                var checkbox = document.getElementById("show" + passwordId.charAt(0).toUpperCase() + passwordId.slice(1));
-                
-                if (checkbox.checked) {
-                    passwordField.type = "text"; // Show password
+            function togglePasswordVisibility(inputId) {
+                const input = document.getElementById(inputId);
+                if (input.type === "password") {
+                    input.type = "text";
                 } else {
-                    passwordField.type = "password"; // Hide password
+                    input.type = "password";
                 }
             }
 
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 let uID = <?php echo $userID; ?>;
                 let isHidden = false;
-                $('#chatWithAdminBtn').click(function () {
+                $('#chatWithAdminBtn').click(function() {
                     $(this).hide();
                     $('#quick-questions').hide();
                     $('#chatInputSection').show();
@@ -347,50 +344,54 @@ try {
                     loadMessages(uID);
                     isHidden = true;
                 });
-                setInterval(function () {
+                setInterval(function() {
                     if (isHidden) {
                         loadMessages(uID);
                     }
                 }, 1000);
+
                 function sendMessage() {
                     const messageText = $('#userMessage').val();
                     if (messageText) {
                         $.ajax({
-                            url: './admin/inc/sendMessage.php',  
+                            url: './admin/inc/sendMessage.php',
                             type: 'POST',
                             data: {
-                                send_btn_customer: true,  
-                                message: messageText     
+                                send_btn_customer: true,
+                                message: messageText
                             },
-                            success: function (response) {
-                                $('#userMessage').val('');  
-                                let uID = <?php echo $userID; ?>; 
-                                loadMessages(uID); 
-                                scrollToBottom();  
+                            success: function(response) {
+                                $('#userMessage').val('');
+                                let uID = <?php echo $userID; ?>;
+                                loadMessages(uID);
+                                scrollToBottom();
                             },
-                            error: function (xhr, status, error) {
-                                console.error("Error sending message: " + error); 
+                            error: function(xhr, status, error) {
+                                console.error("Error sending message: " + error);
                             }
                         });
                     }
                 }
-                $('#sendMessageBtn').click(function () {
-                    sendMessage();  
+                $('#sendMessageBtn').click(function() {
+                    sendMessage();
                 });
-                $('#userMessage').keypress(function (e) {
-                    if (e.which === 13) {  
-                        sendMessage();  
+                $('#userMessage').keypress(function(e) {
+                    if (e.which === 13) {
+                        sendMessage();
                     }
                 });
+
                 function loadMessages(userId) {
                     $.ajax({
                         url: 'http://localhost/critters/admin/inc/fetchMessages.php',
                         type: 'GET',
-                        data: { user_id: userId },
+                        data: {
+                            user_id: userId
+                        },
                         dataType: 'json',
-                        success: function (messages) {
+                        success: function(messages) {
                             $('.chat-messages').empty();
-                            $.each(messages, function (index, message) {
+                            $.each(messages, function(index, message) {
                                 const messageClass = message.receiver === "admin" ? 'user-message float-end' : 'bot-message';
                                 $('.chat-messages').append(
                                     `<div class="message ${messageClass} mb-2">
@@ -401,7 +402,7 @@ try {
                             });
                             scrollToBottom();
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.error("Error fetching messages: " + error);
                         }
                     });
@@ -412,7 +413,7 @@ try {
                         type: 'GET',
                         url: 'http://localhost/critters/admin/inc/getCMS.php',
                         dataType: 'json',
-                        success: function (response) {
+                        success: function(response) {
                             var cms_title = response[0].title;
                             var cms_about = response[0].about;
                             var cms_logo = response[0].logo;
@@ -427,27 +428,28 @@ try {
                                 $('#title').html(htmlContent);
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.error('Error fetching CMS data:', error);
                         }
                     });
                 }
+
                 function fetchQuestions() {
                     $.ajax({
                         url: 'http://localhost/critters/admin/inc/getChatbot.php',
                         method: 'GET',
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             $('#quick-questions').find('button').remove();
                             if (data.length === 0) {
                                 $('#quick-questions').append('<p>No quick questions available.</p>');
                             } else {
-                                $.each(data, function (index, item) {
+                                $.each(data, function(index, item) {
                                     const button = $('<button>')
                                         .addClass('btn btn-outline-primary btn-sm me-2 quick-question')
                                         .text(item.question)
                                         .data('answer', item.answer)
-                                        .click(function () {
+                                        .click(function() {
                                             displayUserMessage($(this).text());
                                             displayBotTypingAnimation();
                                             setTimeout(() => {
@@ -458,11 +460,12 @@ try {
                                 });
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.error('AJAX Error: ' + status + error);
                         }
                     });
                 }
+
                 function displayUserMessage(message) {
                     const userMessageHtml = `
                                 <div class="message user-message mb-2">
@@ -473,6 +476,7 @@ try {
                     $('.chat-messages').append(userMessageHtml);
                     scrollToBottom();
                 }
+
                 function displayBotTypingAnimation() {
                     const typingHtml = `
                                 <div class="message bot-message mb-2 typing-indicator">
@@ -483,6 +487,7 @@ try {
                     $('.chat-messages').append(typingHtml);
                     scrollToBottom();
                 }
+
                 function displayBotMessage(message) {
                     $('.typing-indicator').remove();
                     const botMessageHtml = `
@@ -499,6 +504,7 @@ try {
                     const chatWindow = $('.chat-messages');
                     chatWindow.scrollTop(chatWindow[0].scrollHeight);
                 }
+
                 function verifyOTP() {
                     $(".error").html("").hide();
                     var otp = $("#otp").val();
@@ -512,7 +518,7 @@ try {
                             type: 'POST',
                             dataType: "json",
                             data: input,
-                            success: function (response) {
+                            success: function(response) {
                                 console.log(response);
                                 if (response.status === "success") {
                                     alert(response.message);
@@ -523,7 +529,7 @@ try {
                                     $(".error").html(response.message).show();
                                 }
                             },
-                            error: function () {
+                            error: function() {
                                 $(".error").html("An error occurred while verifying the OTP.").show();
                             }
                         });
@@ -535,14 +541,16 @@ try {
 
                 fetchQuestions();
                 fetchCmsData();
-                $('.send-otp').click(function () {
+                $('.send-otp').click(function() {
                     var email = $('#email-input').val();
                     if (email) {
                         $.ajax({
                             url: './inc/send_otp.php',
                             type: 'POST',
-                            data: { email: email },
-                            success: function (response) {
+                            data: {
+                                email: email
+                            },
+                            success: function(response) {
                                 var data = JSON.parse(response);
                                 if (data.success) {
                                     alert(data.message);
@@ -554,7 +562,7 @@ try {
                                     alert(data.message);
                                 }
                             },
-                            error: function () {
+                            error: function() {
                                 alert('Error sending OTP. Please try again.');
                             }
                         });
@@ -562,7 +570,7 @@ try {
                         alert('Please enter a valid email address.');
                     }
                 });
-                $('#verify').click(function () {
+                $('#verify').click(function() {
                     verifyOTP();
                 });
             });

@@ -47,6 +47,9 @@
     .service-item {
       flex: 1 0 30%;
       margin-bottom: 20px;
+      max-width: 400px;
+      min-width: 400px;;
+
     }
 
     /* Responsive design adjustments */
@@ -170,9 +173,8 @@
                             <h6>Price per Slot:</h6>
                             <span class="badge rounded-pill bg-light text-dark text-wrap">${service.service_price}</span>
                         </div>
-                        <button id="book-btn" class="btn btn-sm w-100 text-white custom-bg shadow-none" data-id="${service.service_id}">Book Now</button>
                     </div>
-                </div>`;
+                </div>`;  
         });
         $("#services-container").html(html);
       }
