@@ -173,7 +173,7 @@ try {
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="form-label">Email address</label>
-                        <input name="email" type="email" class="form-control shadow--none" placeholder="Enter Email">
+                        <input name="email" type="email" class="form-control shadow-none" placeholder="Enter Email">
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Password</label>
@@ -181,7 +181,7 @@ try {
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                             placeholder="Enter Correct Password" required>
-                        <input type="checkbox" onclick="togglePasswordVisibility('loginPassword')"> Show Password
+                        <input type="checkbox" id="showLoginPassword" onclick="togglePasswordVisibility('loginPassword')"> Show Password
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <button name="submit" type="submit" class="btn btn-dark shadow-none">LOGIN</button>
@@ -191,6 +191,7 @@ try {
         </div>
     </div>
 </div>
+
 
 <div class="modal fade <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" id="registerModal"
     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -224,18 +225,27 @@ try {
                                     placeholder="Enter Valid Email" required>
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
+                                <label class="form-label">Contact No.</label>
+                                <input id="contact-input" name="number" type="text" class="form-control shadow-none"
+                                    placeholder="Enter Contact Number" required
+                                    pattern="^\d{11}$" 
+                                    title="Contact number must be exactly 11 digits"
+                                    maxlength="11">
+                            </div>
+
+                            <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
                                 <input name="password" type="password" class="form-control shadow-none" id="registerPassword" 
                                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                                     placeholder="Choose a strong password" required>
-                                <input type="checkbox" onclick="togglePasswordVisibility('registerPassword')"> Show Password
+                                <input type="checkbox" id="showRegisterPassword" onclick="togglePasswordVisibility('registerPassword')"> Show Password
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
                                 <input name="ConfPassword" type="password" class="form-control shadow-none" id="confirmPassword" 
                                     placeholder="Copy current Password" required>
-                                <input type="checkbox" onclick="togglePasswordVisibility('confirmPassword')"> Show Password
+                                <input type="checkbox" id="showConfirmPassword" onclick="togglePasswordVisibility('confirmPassword')"> Show Password
                             </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
@@ -314,14 +324,16 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-             function togglePasswordVisibility(inputId) {
-            const input = document.getElementById(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-            } else {
-                input.type = "password";
+             function togglePasswordVisibility(passwordId) {
+                var passwordField = document.getElementById(passwordId);
+                var checkbox = document.getElementById("show" + passwordId.charAt(0).toUpperCase() + passwordId.slice(1));
+                
+                if (checkbox.checked) {
+                    passwordField.type = "text"; // Show password
+                } else {
+                    passwordField.type = "password"; // Hide password
+                }
             }
-        }
 
 
             $(document).ready(function () {

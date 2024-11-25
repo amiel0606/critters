@@ -113,7 +113,8 @@
                   ? "Completed"
                   : `
                                     <button class="btn btn-primary btn-sm btn-remind" data-id="${appointment.appointment_id}">Email Reminder</button>
-                                    <button class="btn btn-success btn-sm complete-btn" data-id="${appointment.appointment_id}">Completed</button>
+                                    <button class="btn btn-warning btn-sm complete-btn" data-id="${appointment.appointment_id}">SMS Reminder</button>
+                                    <button class="btn btn-success btn-sm complete-btn" data-id="${appointment.appointment_id}">Complete</button>
                                     <button class="btn btn-danger btn-sm btn-cancel" data-id="${appointment.appointment_id}">Cancel</button>
                                 `}
                             </td>

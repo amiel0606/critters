@@ -88,6 +88,11 @@
                         <label for="ownerEmail" class="form-label" style="font-weight: bold;">Owner's Email</label>
                         <p id="ownerEmail"><?php echo $_SESSION['username'] ?></p>
                     </div>
+                    <!-- Owner's Contact -->
+                    <div class="col-md-4 mb-3">
+                        <label for="contactNumber" class="form-label" style="font-weight: bold;">Contact No.</label>
+                        <p id="contactNumber">5</p>
+                    </div>
 
                     <!-- Total Pets -->
                     <div class="col-md-4 mb-3">

@@ -51,13 +51,41 @@
     </p>
 </div>
 <div class="container">
+    <!-- Product Gallery -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="product-gallery">
+        <!-- Product Items will be dynamically inserted here -->
     </div>
+
+    <!-- Pagination Controls -->
+    <div class="container">
+    <!-- Product Gallery -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="product-gallery">
+        <!-- Product Items will be dynamically inserted here -->
+    </div>
+
+    <!-- Pagination Controls (Icon Only) -->
+    <nav aria-label="Page navigation" id="pagination-controls">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" id="prev-page">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span> <!-- Left Arrow Icon -->
+                </a>
+            </li>
+            <li class="page-item" id="next-page">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span> <!-- Right Arrow Icon -->
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    
 $(document).ready(function() {
     $.ajax({
         url: './admin/inc/getProducts.php', 

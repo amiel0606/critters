@@ -27,17 +27,15 @@
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <div class="row mb-3">
                     <div class="col-md-6">
+                        <label for="Search">Search</label>
                         <input type="text" id="search-history" class="form-control"
                             placeholder="Search by Pet or Owner Name">
                     </div>
                     <div class="col-md-6">
-                        <select id="sortHistory" class="form-select">
-                            <option value="all" selected>All Records</option>
-                            <option value="thisWeek">This Week</option>
-                            <option value="lastWeek">Last Week</option>
-                            <option value="lastMonth">Last Month</option>
-                        </select>
+                        <label for="dateFilter" class="form-label">Select Date</label>
+                        <input type="date" id="dateFilter" class="form-control" />
                     </div>
+
                 </div>
 
                 <table class="table table-bordered">
