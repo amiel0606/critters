@@ -47,9 +47,6 @@
     .service-item {
       flex: 1 0 30%;
       margin-bottom: 20px;
-      max-width: 400px;
-      min-width: 400px;;
-
     }
 
     /* Responsive design adjustments */
@@ -163,7 +160,7 @@
         $.each(visibleServices, function (index, service) {
           html += `
                 <div class='service-item' data-category='${service.category_name}'>
-                    <div class='rounded shadow p-4 border-top border-4 border-dark pop' id='bg-wrapper'>
+                    <div class='rounded shadow p-4 border-top border-4 border-dark pop' id='bg-wrapper' style="height:330px;">
                         <div class='d-flex align-items-center mb-2'>
                             <img src='./admin/inc/uploads/${service.service_image}' class='service-image' alt='${service.service_name}'>
                             <h5 class='m-0 ms-3'>${service.service_name}</h5>
@@ -173,8 +170,9 @@
                             <h6>Price per Slot:</h6>
                             <span class="badge rounded-pill bg-light text-dark text-wrap">${service.service_price}</span>
                         </div>
+                
                     </div>
-                </div>`;  
+                </div>`;
         });
         $("#services-container").html(html);
       }

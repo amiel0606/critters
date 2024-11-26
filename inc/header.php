@@ -1,5 +1,5 @@
 <?php
-$userID = $_SESSION['id'];
+//$userID = $_SESSION['id'];
 try {
     if (isset($_GET['login'])) {
         if ($_GET['login'] == 'success') { ?>

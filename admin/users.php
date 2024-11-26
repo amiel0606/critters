@@ -246,7 +246,7 @@
                                         <td>#1003</td>
                                         <td>2024-11-20</td>
                                         <td>Grooming</td>
-                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                                        <td><span class="badge bg-danger     text-dark">Cancelled</span></td>
                                     </tr>
                                 </tbody>
                             </table>
