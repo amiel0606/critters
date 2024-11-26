@@ -5,13 +5,14 @@ if (isset($_POST["submit"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $ConfPassword = $_POST["ConfPassword"];
+    $contact = $_POST["contact"];
 
     require_once 'functions.php';
     require_once '../admin/inc/dbCon.php';
 
     $errorMessage = "";
 
-    if (emptyInputSignup($Fname, $Lname, $email, $password) !== false) {
+    if (emptyInputSignup($Fname, $Lname, $email, $password, $contact) !== false) {
         $errorMessage = "EmptyInput";
     } elseif (passMatch($password, $ConfPassword) !== false) {
         $errorMessage = "PassNotMatching";
@@ -20,7 +21,7 @@ if (isset($_POST["submit"])) {
     } elseif (userExist($conn, $email) !== false) {
         $errorMessage = "UsernameTaken";
     } else {
-        createUser($conn, $email, $Lname, $Fname, $password);
+        createUser($conn, $email, $Lname, $Fname, $password, $contact);
         $errorMessage = "none";
     }
 

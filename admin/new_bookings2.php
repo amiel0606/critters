@@ -113,7 +113,7 @@
                   ? "Completed"
                   : `
                                     <button class="btn btn-primary btn-sm btn-remind" data-id="${appointment.appointment_id}">Email Reminder</button>
-                                    <button class="btn btn-warning btn-sm complete-btn" data-id="${appointment.appointment_id}">SMS Reminder</button>
+                                    <button class="btn btn-warning btn-sm sms-btn" data-id="${appointment.appointment_id}">SMS Reminder</button>
                                     <button class="btn btn-success btn-sm complete-btn" data-id="${appointment.appointment_id}">Complete</button>
                                     <button class="btn btn-danger btn-sm btn-cancel" data-id="${appointment.appointment_id}">Cancel</button>
                                 `}
@@ -158,6 +158,25 @@
         $.ajax({
           type: "POST",
           url: "./inc/sendReminder.php", 
+          data: { id: appointmentId },
+          dataType: "json",
+          success: function (response) {
+            if (response.status) {
+              alert("Reminder email sent successfully!");
+            } else {
+              alert("Failed to send reminder: " + (response.error || "Unknown error"));
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error occurred while sending reminder: " + textStatus + " - " + errorThrown);
+          }
+        });
+      });
+      $(document).on('click', '.sms-btn', function () {
+        const appointmentId = $(this).data('id');
+        $.ajax({
+          type: "POST",
+          url: "./inc/sendSMS.php", 
           data: { id: appointmentId },
           dataType: "json",
           success: function (response) {

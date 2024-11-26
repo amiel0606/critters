@@ -50,21 +50,21 @@ function userExist($conn, $email)
     mysqli_stmt_close($stmt);
 }
 
-function createUser($conn, $email, $Lname, $Fname, $password)
+function createUser($conn, $email, $Lname, $Fname, $password, $contact)
 {
     mysqli_begin_transaction($conn);
 
     try {
-        $sql = "INSERT INTO tbl_users(username, password, firstName, lastName) VALUES(?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_users(username, password, firstName, lastName, contact) VALUES(?, ?, ?, ?, ?)";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             throw new Exception("Failed to prepare statement");
         }
 
         $hashedPass = password_hash($password, PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt, "ssss", $email, $hashedPass, $Fname, $Lname);
+        mysqli_stmt_bind_param($stmt, "sssss", $email, $hashedPass, $Fname, $Lname, $contact);
         mysqli_stmt_execute($stmt);
-        $userId = mysqli_stmt_insert_id($stmt);
+        $userId = mysqli_insert_id($conn); // Corrected function to fetch inserted ID
         mysqli_stmt_close($stmt);
 
         mysqli_commit($conn);
@@ -76,6 +76,7 @@ function createUser($conn, $email, $Lname, $Fname, $password)
         exit();
     }
 }
+
 
 function createPet($conn, $owner_id, $petName, $petType, $breed, $birthdate, $gender, $color, $unique, $file)
 {

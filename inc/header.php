@@ -1,5 +1,5 @@
 <?php
-//$userID = $_SESSION['id'];
+$userID =  isset($_SESSION['id']) ? $_SESSION['id'] : 0;
 try {
     if (isset($_GET['login'])) {
         if ($_GET['login'] == 'success') { ?>
@@ -177,7 +177,12 @@ try {
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Password</label>
-                        <input name="password" type="password" class="form-control shadow-none" id="myInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Enter Corrrect Password" required>
+                        <input name="password" type="password" class="form-control shadow-none" id="myInput"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            placeholder="Enter Corrrect Password" required>
+                        <input id="showPass" type="checkbox" onclick="myPassword()">
+                        <label for="showPass">Show Password</label>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <button name="submit" type="submit" class="btn btn-dark shadow-none">LOGIN</button>
@@ -223,7 +228,7 @@ try {
                                 <label class="form-label">Contact No.</label>
                                 <input
                                     id="phone-input"
-                                    name="phone"
+                                    name="contact"
                                     type="tel"
                                     class="form-control shadow-none"
                                     placeholder="Enter Valid Phone Number"
@@ -234,17 +239,16 @@ try {
                             </div>
                             <div class="col-md-6 ps-0 mb-3">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none" id="registerPassword"
+                                <input name="password" type="password" class="form-control shadow-none" id=""
                                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                     placeholder="Choose a strong password" required>
-
+                                <input type="checkbox" onclick="myFunction()">Show Password
                             </div>
-                            <div class="col-md-6 ps-0 mb-3">
+                            <div class="col-md-6 p-0 mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="ConfPassword" type="password" class="form-control shadow-none" id="confirmPassword"
+                                <input name="ConfPassword" type="password" class="form-control shadow-none"
                                     placeholder="Copy current Password" required>
-
                             </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
@@ -323,15 +327,22 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-            function togglePasswordVisibility(inputId) {
-                const input = document.getElementById(inputId);
-                if (input.type === "password") {
-                    input.type = "text";
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
                 } else {
-                    input.type = "password";
+                    x.type = "password";
                 }
             }
-
+            function myPassword() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
 
             $(document).ready(function() {
                 let uID = <?php echo $userID; ?>;

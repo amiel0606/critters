@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2024 at 12:14 AM
+-- Generation Time: Nov 27, 2024 at 12:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -229,7 +229,9 @@ CREATE TABLE `tbl_pets` (
 INSERT INTO `tbl_pets` (`id`, `petType`, `petName`, `breed`, `birth_date`, `gender`, `owner_ID`, `img`, `uniqueness`, `color`) VALUES
 (9, 'Dog', 'Knee Ga', 'Askal', '2021-05-22', 'Male', 4, '67325aede5b433.33269204.png', '', ''),
 (12, 'Dog', 'Calcifer', 'Beagle', '2024-11-13', 'Male', 1, 'dog.png', 'Mataba parang baboy', 'Black/Brown/White'),
-(13, 'Cat', 'ming', 'British Shorthair', '2024-11-13', 'Female', 1, 'cat.png', 'Inheat', 'Black/Gray');
+(13, 'Cat', 'ming', 'British Shorthair', '2024-11-13', 'Female', 1, 'cat.png', 'Inheat', 'Black/Gray'),
+(15, 'Cat', 'ww', 'ww', '2024-11-06', 'Female', 11, 'cat.png', 'Mataba parang baboy', 'qeqeqe'),
+(16, 'Dog', 'ww', 'British Shorthair', '2024-11-01', 'Male', 13, 'dog.png', 'Inheat', 'qeqeqe');
 
 -- --------------------------------------------------------
 
@@ -318,7 +320,9 @@ INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`,
 (21, '2024-11-12', 'Amiel Carhyl Lapid', '9', '17', '1', '11:30 AM - 12:00 PM', 'Completed'),
 (22, '2024-11-12', 'hehehe', '9', '17', '1', '3:00 PM - 3:30 PM', 'Completed'),
 (23, '2024-12-12', 'Bench Joshu Timonio', '9', '18', '4', '3:00 PM - 3:30 PM', 'Active'),
-(24, '2024-11-23', 'Earl John Makavinta', '12', '17', '1', '9:00 AM - 9:30 AM', 'Cancelled');
+(24, '2024-11-23', 'Earl John Makavinta', '12', '17', '1', '9:00 AM - 9:30 AM', 'Cancelled'),
+(25, '2024-11-25', 'sadqw eqweqwe', '15', '17', '11', '2:30 PM - 3:00 PM', 'Active'),
+(26, '2024-11-27', 'qeqweqwe hawqeq', '16', '17', '13', '11:00 AM - 11:30 AM', 'Active');
 
 -- --------------------------------------------------------
 
@@ -353,21 +357,24 @@ CREATE TABLE `tbl_users` (
   `password` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL DEFAULT 'Customer'
+  `role` varchar(255) NOT NULL DEFAULT 'Customer',
+  `contact` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, `role`) VALUES
-(1, 'amiellapid22@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Earl John', 'Makavinta', 'Customer'),
-(2, 'hans@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Hans Patrick', 'Gregorio', 'Customer'),
-(3, 'pepito@gmail.com', '$2y$10$NpxXm7aFAKQZ0VCfDoRtuO2NlJJBmrSZByR37knzABJMFL0v7HaSS', 'Tom Vincent', 'Pepito', 'Customer'),
-(4, 'joshua@gmail.com', '$2y$10$z4lkMhD05AlPfn.g5ik3vu1ZOv8/jPxFhAdk9G6MZ3.o1GEL5Oy/y', 'Bench Joshua', 'Timonio', 'Customer'),
-(8, 'amiellapid06@gmail.com', '$2y$10$on7FFlw1wMp1YaROp/V7oOCA8ph0757FwLYlFeoRzf1ENzB7qkf5u', 'Amiel Carhyl', 'Lapid', 'Customer'),
-(9, 'amiel', '$2y$10$h1RN55eMpki9xkIz/HPUqOqgegzneP2IIoyMZwXvGHleUA7iTgHPS', 'Amiel Carhyl', 'Lapid', 'Admin'),
-(10, 'amiellapid22@gmail.com', '$2y$10$fAvgPD/Rgq.AF/BV8.jOeeuRW81noYTPW5yG6iqm1cY11CaEexgXS', 'Amiel Carhyl', 'Lapid', 'Customer');
+INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, `role`, `contact`) VALUES
+(1, 'amiellapid22@gmail.com', '$2y$10$IGSOgLX9.X5un5l.UlbVceQ0mTgFSAcgURCZkxatjsftSShUnR9wu', 'Earl John', 'Makavinta', 'Customer', ''),
+(2, 'hans@gmail.com', '$2y$10$h1SzV.xKHU0vAb8zH1GeNemvY0MOoHXhz29bIkX0JzfejhRSreZjC', 'Hans Patrick', 'Gregorio', 'Customer', ''),
+(3, 'pepito@gmail.com', '$2y$10$NpxXm7aFAKQZ0VCfDoRtuO2NlJJBmrSZByR37knzABJMFL0v7HaSS', 'Tom Vincent', 'Pepito', 'Customer', ''),
+(4, 'joshua@gmail.com', '$2y$10$z4lkMhD05AlPfn.g5ik3vu1ZOv8/jPxFhAdk9G6MZ3.o1GEL5Oy/y', 'Bench Joshua', 'Timonio', 'Customer', ''),
+(9, 'amiel', '$2y$10$h1RN55eMpki9xkIz/HPUqOqgegzneP2IIoyMZwXvGHleUA7iTgHPS', 'Amiel Carhyl', 'Lapid', 'Admin', ''),
+(10, 'amiellapid22@gmail.com', '$2y$10$fAvgPD/Rgq.AF/BV8.jOeeuRW81noYTPW5yG6iqm1cY11CaEexgXS', 'Amiel Carhyl', 'Lapid', 'Customer', ''),
+(11, 'amiellapid06@gmail.com', '$2y$10$mOjkJW.MMUO2wAqMHqawJ.OTymzj3ucTwnG2ZNjKukLR1opiOBDZG', 'sadqw', 'eqweqwe', 'Customer', ''),
+(12, 'bench', '$2y$10$10j9sm8YQoKij99ghc0VHeFQzy5bCObNMozE6chW0vyHF2q7aoD86', 'bench', 'timonio', 'Admin', ''),
+(13, 'agrivetcritters@gmail.com', '$2y$10$V/Al3lBEuZ7U.3b8spjRN.lLx7tQtNdIB7X.3xuceWyYGfw1O.7yC', 'qeqweqwe', 'hawqeq', 'Customer', '+639940576891');
 
 --
 -- Indexes for dumped tables
@@ -501,7 +508,7 @@ ALTER TABLE `tbl_message`
 -- AUTO_INCREMENT for table `tbl_pets`
 --
 ALTER TABLE `tbl_pets`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -519,7 +526,7 @@ ALTER TABLE `tbl_services`
 -- AUTO_INCREMENT for table `tbl_setappointment`
 --
 ALTER TABLE `tbl_setappointment`
-  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `appointment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_team`
@@ -531,7 +538,7 @@ ALTER TABLE `tbl_team`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
