@@ -154,8 +154,13 @@
               const testimonialHTML = `
               <div class="swiper-slide p-4">
                 <div class="profile d-flex align-item-center mb-3">
-                  <h6 class="m-0 ms-2">${review.firstName || 'Anonymous'}</h6>
+                  <h6 class="m-0 ms-2">
+                    ${review.firstName 
+                      ? review.firstName.charAt(0) + '*'.repeat(review.firstName.length - 2) + review.firstName.slice(-1) 
+                      : 'Anonymous'}
+                  </h6>
                 </div>
+
                 <p>${review.review}</p>
                 ${stars}
               </div>

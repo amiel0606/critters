@@ -92,6 +92,13 @@ try {
     .bg-danger {
         background-image: linear-gradient(to right, #D09192, #C82471);
     }
+    .btn-outline-secondary:hover {
+    background-color: #e2e6ea;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-danger px-lg-3 py-lg-2 shadow-sm sticky-top ">
     <div class="container-fluid">
@@ -193,6 +200,9 @@ try {
     </div>
 </div>
 
+<!-- TERMS AND CONDITIONS MODAL -->
+
+
 <div class="modal fade <?php echo isset($_SESSION["id"]) ? "invisible" : ""; ?>" id="registerModal"
     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
@@ -250,6 +260,11 @@ try {
                                 <input name="ConfPassword" type="password" class="form-control shadow-none"
                                     placeholder="Copy current Password" required>
                             </div>
+                            <div class="form-check mb-3">
+                            <label class="form-check-label" for="termsCheck">
+                                I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                            </label>
+                        </div>
                             <div class="col-md-6 p-0 mb-3" id="otp-section" style="display:none;">
                                 <label class="form-label">Enter OTP</label>
                                 <input type="text" id="otp" class="form-control shadow-none form-input"
@@ -273,6 +288,39 @@ try {
         </div>
     </div>
 </div>
+<div class="modal fade" id="termsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 shadow-lg" style="border: none; background-color: #ffffff;">
+            <!-- Header -->
+            <div class="modal-header bg-primary text-white py-3">
+                <h5 class="modal-title fw-bold mx-auto" id="termsModalLabel">Terms and Conditions</h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body p-5" style="background-color: #f8f9fa; border-radius: 10px; max-height: 70vh; overflow-y: auto;">
+                <p class="fs-5 text-dark fw-normal" style="line-height: 1.8; margin-bottom: 20px;">
+                    By using this platform, you agree to the following terms and conditions: all users must adhere to our privacy policy and data protection guidelines. The platform reserves the right to modify its terms at any time with prior notice. Services provided are subject to availability and may change without prior notice. Unauthorized use of this platform may result in restrictions or legal action.
+                </p>
+                
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-top-0 py-3" style="background-color: #ffffff; border-radius: 0 0 10px 10px; justify-content: center;">
+                <button type="button" class="btn btn-outline-secondary shadow-none border-0 px-4 py-2 me-2" data-bs-dismiss="modal" style="font-weight: 600; color: #6c757d; background-color: #f1f1f1; border: 1px solid #6c757d; border-radius: 50px;">Decline</button>
+                <button type="button" class="btn btn-success shadow-none px-4 py-2" style="font-weight: 600; border-radius: 50px; background-color: #28a745; color: #ffffff;">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 <div class="container text-center my-4">
     <!-- Chatbot Button Positioned at the Bottom Right Corner -->
     <button type="button" class="btn btn-outline-dark shadow-none position-fixed bottom-0 end-0 m-3" id="chatbotButton"
@@ -327,6 +375,21 @@ try {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
+            function toggleRegisterButton() {
+        const termsCheck = document.getElementById("termsCheck");
+        const registerButton = document.getElementById("register");
+        registerButton.disabled = !termsCheck.checked;
+    }
+
+    // Show or hide password
+    function myFunction() {
+        const passwordField = document.querySelector('input[name="password"]');
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
             function myFunction() {
                 var x = document.getElementById("myInput");
                 if (x.type === "password") {

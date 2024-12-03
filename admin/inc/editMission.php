@@ -13,14 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "
             <script>
                 alert('Mission and Vision updated successfully');
-                window.location.href = '../settings.php';
             </script>
         ";
     } else {
         echo "
             <script>
                 alert('Failed to update Mission and Vision');
-                window.location.href = '../settings.php';
             </script>
         ";
     }

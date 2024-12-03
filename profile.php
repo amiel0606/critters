@@ -12,6 +12,67 @@
         body {
             background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
         }
+        /* View History Button */
+.view-history-btn {
+    background: linear-gradient(135deg, #e7aad7, #f79cce);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.view-history-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header {
+    background: linear-gradient(135deg, #f79cce, #f4a6c4);
+    color: white;
+    border-bottom: 4px solid #e7aad7;
+}
+
+/* Modal Header Close Button */
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+/* Modal Body */
+.modal-body {
+    background-color: #fef0f5;
+    font-family: 'Arial', sans-serif;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    line-height: 1.7;
+}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: #fce4e8;
+    padding: 15px;
+    text-align: center;
+}
+
+.modal-footer .btn {
+    background: linear-gradient(135deg, #e7aad7, #f79cce);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.modal-footer .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
 
         .profile-container {
             background-color: #e9ecef;
@@ -25,6 +86,7 @@
             padding: 15px;
             color: white;
         }
+        
 
         .profile-section {
             background-color: white;
@@ -117,7 +179,8 @@
                         </div>
                         <div class="modal-body">
                             <form id="editPetForm">
-                                <input type="hidden" id="petID-edit" name="pet_id"> <!-- Add this line to store the pet ID -->
+                                <input type="hidden" id="petID-edit" name="pet_id">
+                                <!-- Add this line to store the pet ID -->
                                 <div class="mb-3">
                                     <label for="pet-name-edit" class="form-label">Pet Name</label>
                                     <input type="text" class="form-control" id="pet-name-edit" name="pet_name" value="">
@@ -314,7 +377,31 @@
                         <button type="button" data-id="${selectedPet.id}" class="btn btn-danger delete-pet-btn">Delete Pet</button>
                         <div class="edit-btnss" style="margin-top: 50px;">
                             <button type="button" data-id="${selectedPet.id}" class="btn btn-primary edit-pet-btn"  data-bs-toggle="modal" data-bs-target="#editPetModal">Edit Pet</button>
+                            <button type="button" data-id="${selectedPet.id}" class="btn btn-info view-history-btn" data-bs-toggle="modal" data-bs-target="#viewHistoryModal" style="background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+        View History
+    </button>
                         </div>
+                        <div class="modal fade" id="viewHistoryModal" tabindex="-1" aria-labelledby="viewHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+            <div class="modal-header" style="background: linear-gradient(45deg, #ff512f, #f09819); color: white; border-bottom: 3px solid #ff6f61;">
+                <h5 class="modal-title" id="viewHistoryModalLabel">Service History</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body" style="background-color: #f9f9f9; padding: 20px; font-family: 'Arial', sans-serif;">
+                <!-- Dynamic content goes here -->
+                <div id="history-content" style="font-size: 1.1em; line-height: 1.6;">
+                    <p><strong>Visit 1:</strong> 12th March 2024 - Vaccination</p>
+                    <p><strong>Visit 2:</strong> 30th March 2024 - Grooming</p>
+                    <p><strong>Visit 3:</strong> 10th April 2024 - Checkup</p>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: #ffe4e1;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background: linear-gradient(45deg, #34e89e, #0f3443); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
                     </div>
                 `;
 

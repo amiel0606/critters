@@ -18,6 +18,12 @@
             font-size: 0.9rem;
             text-decoration: underline;
         }
+        #editor {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 
@@ -182,6 +188,8 @@
 
 
 
+
+
                 <!-- CLINIC SPECIFICATION SECTION -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div id="clinic-specify" class="card-body">
@@ -196,8 +204,6 @@
                         <p class="card-text" id="clinic_specify">The clinic only accepts Dogs and Cats services</p>
                     </div>
                 </div>
-
-
 
                 <!-- CLINIC SPECIFICATION MODAL -->
                 <div class="modal fade" id="clinic-specify-modal" data-bs-backdrop="static" data-bs-keyboard="true"
@@ -226,6 +232,52 @@
                         </div>
                     </div>
                 </div>
+                <!-- TERMS AND CONDITIONS SECTION -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div id="terms-conditions" class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title m-0">Terms and Conditions</h5>
+                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#terms-conditions-modal">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                        </div>
+                        <h6 class="card-subtitle mb-1 fw-bold">Current Terms</h6>
+                        <p class="card-text" id="terms_text">
+                            Customers must arrive 15 minutes before their scheduled appointment. Payment for services is
+                            required immediately after the session.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- TERMS AND CONDITIONS MODAL -->
+                <div class="modal fade" id="terms-conditions-modal" data-bs-backdrop="static" data-bs-keyboard="true"
+                    tabindex="-1" aria-labelledby="termsConditionsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Edit Terms and Conditions</h1>
+                            </div>
+                            <form action="./inc/editTerms.php" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Terms and Conditions</label>
+                                        <textarea name="terms_conditions" id="terms-conditions-text"
+                                            class="form-control shadow-none" rows="6" required>
+Customers must arrive 15 minutes before their scheduled appointment. Payment for services is required immediately after the session.
+                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">CANCEL</button>
+                                    <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- CLINIC APPOINTMENT MODAL -->
                 <div class="modal fade" id="clinic-appointment-modal" data-bs-backdrop="static" data-bs-keyboard="true"
@@ -267,12 +319,6 @@
                         <p class="card-text" id="max_appointments">20</p>
                     </div>
                 </div>
-
-
-
-
-
-
 
 
                 <!-- SHUTDOWN SECTION -->
@@ -467,6 +513,7 @@
                         </div>
 
                         <!-- Bootstrap JS -->
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
                         <script
                             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -476,6 +523,19 @@
                 </div>
             </div>
             <script>
+
+document.getElementById('applySettings').addEventListener('click', () => {
+            const fontSelect = document.getElementById('fontSelect').value;
+            const fontSizeSelect = document.getElementById('fontSizeSelect').value;
+
+            const editor = document.getElementById('editor');
+            editor.style.fontFamily = fontSelect;
+            editor.style.fontSize = fontSizeSelect;
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
+            modal.hide();
+        });
                 function toggleAvailability(element, memberId) {
                     var isAvailable = $(element).is(':checked') ? 'true' : 'false';
                     $.ajax({

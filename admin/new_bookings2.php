@@ -43,6 +43,7 @@
                 <th>Owner's Name</th>
                 <th>Service</th>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -66,6 +67,7 @@
                   <p><strong>Owner's Name:</strong> <span id="modalOwnerName"></span></p>
                   <p><strong>Service:</strong> <span id="modalService"></span></p>
                   <p><strong>Date:</strong> <span id="modalDate"></span></p>
+                  <p><strong>Time:</strong> <span id="modalDate"></span></p>
                 </div>
               </div>
               <div class="modal-footer">
@@ -108,6 +110,8 @@
                             <td>${appointment.ownerName}</td>
                             <td>${appointment.service_name}</td>
                             <td>${appointment.booking_date}</td>
+                            <td>${appointment.time}</td>
+                            
                             <td>
                                 ${appointment.status === "Completed"
                   ? "Completed"
