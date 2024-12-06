@@ -39,7 +39,12 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Username</th>
                                         <th scope="col">Owner Name</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Pet Name</th>
+                                        <th scope="col">Pet Type</th>
+                                        <th scope="col">Breed</th>
+                                        <th scope="col">Birth Date</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Unique</th>
                                     </tr>
                                 </thead>
                                 <tbody  id="users_data" >
@@ -145,129 +150,12 @@
         </div>
     </div>
     </div>
-    <!-- Customer Information Modal -->
-<div class="modal fade" id="customerInfoModal" tabindex="-1" aria-labelledby="customerInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="customerInfoModalLabel">Customer Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Customer Information -->
-                <div class="container mt-4">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4 class="card-title">Customer Information</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <strong>Name:</strong> <span id="customer-name">John Doe</span>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Email:</strong> <span id="customer-email">johndoe@example.com</span>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Contact No:</strong> <span id="customer-contact">+1234567890</span>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <strong>Total Pets:</strong> <span id="customer-pets">2</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Customer Pets Section -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4 class="card-title">Customer Pets</h4>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Pet Name</th>
-                                        <th>Pet Type</th>
-                                        <th>Breed</th>
-                                        <th>Birth Date</th>
-                                        <th>Gender</th>
-                                        <th>Color</th>
-                                        <th>Unique</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="pet-list">
-                                    <!-- Example Pet Data -->
-                                    <tr>
-                                        <td>Fluffy</td>
-                                        <td>Dog</td>
-                                        <td>Golden Retriever</td>
-                                        <td>12/25/2002</td>
-                                        <td>Male</td>
-                                        <td>Brown</td>
-                                        <td>Pwet na pula</td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Booking History Section -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4 class="card-title">Booking History</h4>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Booking ID</th>
-                                        <th>Date</th>
-                                        <th>Service</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="booking-history">
-                                    <!-- Example Booking Data -->
-                                    <tr>
-                                        <td>#1001</td>
-                                        <td>2024-10-15</td>
-                                        <td>Checkup</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1002</td>
-                                        <td>2024-11-05</td>
-                                        <td>Vaccination</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1003</td>
-                                        <td>2024-11-20</td>
-                                        <td>Grooming</td>
-                                        <td><span class="badge bg-danger     text-dark">Cancelled</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
     <?php require('inc/scripts.php'); ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Script to Fetch User Data -->
     <script>
-        
         function acceptUser(id) {
             alert('User with ID ' + id + ' accepted!');
         }
@@ -285,13 +173,12 @@
                                 <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.firstName} ${user.lastName}</td>
-                                <td>${user.action}</td>
-                                  <td>
-                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#customerInfoModal" onclick="showCustomerInfo('John Doe', 'johndoe@example.com', '+1234567890', 2, 'Fluffy, Golden Retriever, 4 Years; Whiskers, Siamese, 2 Years', '#1001, 2024-10-15, Checkup, Completed; #1002, 2024-11-05, Vaccination, Completed')">View</button>
-
-
-                                    
-                                </td>
+                                <td>${user.petName}</td>
+                                <td>${user.petType}</td>
+                                <td>${user.breed}</td>
+                                <td>${user.birth_date}</td>
+                                <td>${user.gender}</td>
+                                <td>${user.uniqueness}</td>
                             </tr>
                         `);
                     });
@@ -300,7 +187,6 @@
                     console.error('Error fetching user data:', error);
                 }
             });
-            
             $.ajax({
                 url: './inc/getAdmin.php',
                 method: 'GET',
