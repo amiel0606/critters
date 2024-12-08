@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 12:41 AM
+-- Generation Time: Dec 09, 2024 at 12:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -132,7 +132,9 @@ CREATE TABLE `tbl_cms` (
   `social` varchar(255) NOT NULL,
   `viber` varchar(255) NOT NULL,
   `logo` varchar(255) NOT NULL,
-  `mission_vision` varchar(255) NOT NULL,
+  `mission` longtext NOT NULL,
+  `vision` longtext NOT NULL,
+  `terms` longtext NOT NULL,
   `map` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -140,8 +142,8 @@ CREATE TABLE `tbl_cms` (
 -- Dumping data for table `tbl_cms`
 --
 
-INSERT INTO `tbl_cms` (`cms_id`, `title`, `about`, `address`, `link_address`, `social`, `viber`, `logo`, `mission_vision`, `map`) VALUES
-(1, 'hello title', 'heheh', 'sa bahay namin wahb', 'https://maps.app.goo.gl/t2tHJgzFfj4T1CyP8', 'https://www.facebook.com/groups/139347112936126', '096969', '674023085a2df1.94531229.png', 'To provide exceptional veterinary\r\n                                          care through personalized treatment, advanced\r\n                                          medical practices, andzzzz', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.620855686803!2d120.98435447576225!3d14.33344228356032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1729118822196!5m2!1sen!2sph\" width=\"450\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>');
+INSERT INTO `tbl_cms` (`cms_id`, `title`, `about`, `address`, `link_address`, `social`, `viber`, `logo`, `mission`, `vision`, `terms`, `map`) VALUES
+(1, 'hello title', 'heheh', 'sa bahay namin wahb', 'https://maps.app.goo.gl/t2tHJgzFfj4T1CyP8', 'https://www.facebook.com/groups/139347112936126', '096969', '674023085a2df1.94531229.png', '                            To provide exceptional veterinary care through personalized treatment, advanced medical practices, and a caring approach.\r\n                        ', '                            Ensuring the well-being and quality of life for every pet and peace of mind for every pet owner.\r\n                        ', 'Customers must arrive 15 minutes before their scheduled appointment. Payment for services is required immediately after the session.', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.620855686803!2d120.98435447576225!3d14.33344228356032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d42779def01d%3A0xced13867358a2082!2sCritters!5e0!3m2!1sen!2sph!4v1729118822196!5m2!1sen!2sph\" width=\"450\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>');
 
 -- --------------------------------------------------------
 
@@ -293,6 +295,7 @@ CREATE TABLE `tbl_setappointment` (
   `pet_id` varchar(255) NOT NULL,
   `booking_id` varchar(255) NOT NULL,
   `owner_id` varchar(255) NOT NULL,
+  `endorsed_to` varchar(255) NOT NULL,
   `time` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -301,28 +304,28 @@ CREATE TABLE `tbl_setappointment` (
 -- Dumping data for table `tbl_setappointment`
 --
 
-INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `pet_id`, `booking_id`, `owner_id`, `time`, `status`) VALUES
-(6, '2024-10-26', 'Amiel Carhyl Lapid', '', '7', '1', '9:30 AM - 10:00 AM', 'Completed'),
-(7, '2024-10-26', 'Amiel Carhyl Lapid', '', '8', '1', '1:00 PM - 1:30 PM', 'Completed'),
-(8, '2024-10-26', 'Amiel Carhyl Lapid', '', '15', '1', '4:00 PM - 4:30 PM', 'Active'),
-(9, '2024-11-22', 'Amiel Carhyl Lapid', '7', '17', '1', '4:00 PM - 4:30 PM', 'Active'),
-(10, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '2:30 PM - 3:00 PM', 'Completed'),
-(11, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:30 PM - 5:00 PM', 'Completed'),
-(12, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '3:30 PM - 4:00 PM', 'Completed'),
-(13, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:00 PM - 4:30 PM', 'Completed'),
-(14, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '4:30 PM - 5:00 PM', 'Completed'),
-(15, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '3:00 PM - 3:30 PM', 'Completed'),
-(16, '2024-11-07', 'Amiel Carhyl Lapid', '', '17', '1', '4:00 PM - 4:30 PM', 'Completed'),
-(17, '2024-11-13', 'Amiel Carhyl Lapid', '7', '17', '1', '10:00 AM - 10:30 AM', 'Completed'),
-(18, '2024-11-13', 'Amiel Carhyl Lapid', '8', '18', '1', '10:00 AM - 10:30 AM', 'Completed'),
-(19, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '3:00 PM - 3:30 PM', 'Completed'),
-(20, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '2:30 PM - 3:00 PM', 'Reviewed'),
-(21, '2024-11-12', 'Amiel Carhyl Lapid', '9', '17', '1', '11:30 AM - 12:00 PM', 'Completed'),
-(22, '2024-11-12', 'hehehe', '9', '17', '1', '3:00 PM - 3:30 PM', 'Completed'),
-(23, '2024-12-12', 'Bench Joshu Timonio', '9', '18', '4', '3:00 PM - 3:30 PM', 'Active'),
-(24, '2024-11-23', 'Earl John Makavinta', '12', '17', '1', '9:00 AM - 9:30 AM', 'Cancelled'),
-(25, '2024-11-25', 'sadqw eqweqwe', '15', '17', '11', '2:30 PM - 3:00 PM', 'Active'),
-(26, '2024-11-27', 'qeqweqwe hawqeq', '16', '17', '13', '11:00 AM - 11:30 AM', 'Active');
+INSERT INTO `tbl_setappointment` (`appointment_id`, `booking_date`, `ownerName`, `pet_id`, `booking_id`, `owner_id`, `endorsed_to`, `time`, `status`) VALUES
+(6, '2024-10-26', 'Amiel Carhyl Lapid', '', '7', '1', '', '9:30 AM - 10:00 AM', 'Completed'),
+(7, '2024-10-26', 'Amiel Carhyl Lapid', '', '8', '1', '', '1:00 PM - 1:30 PM', 'Completed'),
+(8, '2024-10-26', 'Amiel Carhyl Lapid', '', '15', '1', '', '4:00 PM - 4:30 PM', 'Active'),
+(9, '2024-11-22', 'Amiel Carhyl Lapid', '7', '17', '1', '', '4:00 PM - 4:30 PM', 'Active'),
+(10, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '', '2:30 PM - 3:00 PM', 'Completed'),
+(11, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '', '4:30 PM - 5:00 PM', 'Completed'),
+(12, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '', '3:30 PM - 4:00 PM', 'Completed'),
+(13, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '', '4:00 PM - 4:30 PM', 'Completed'),
+(14, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '', '4:30 PM - 5:00 PM', 'Completed'),
+(15, '2024-10-26', 'Amiel Carhyl Lapid', '', '17', '1', '', '3:00 PM - 3:30 PM', 'Completed'),
+(16, '2024-11-07', 'Amiel Carhyl Lapid', '', '17', '1', '', '4:00 PM - 4:30 PM', 'Completed'),
+(17, '2024-11-13', 'Amiel Carhyl Lapid', '7', '17', '1', '', '10:00 AM - 10:30 AM', 'Completed'),
+(18, '2024-11-13', 'Amiel Carhyl Lapid', '8', '18', '1', '', '10:00 AM - 10:30 AM', 'Completed'),
+(19, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '', '3:00 PM - 3:30 PM', 'Completed'),
+(20, '2024-11-12', 'Amiel Carhyl Lapid', '7', '18', '1', '', '2:30 PM - 3:00 PM', 'Reviewed'),
+(21, '2024-11-12', 'Amiel Carhyl Lapid', '9', '17', '1', '', '11:30 AM - 12:00 PM', 'Completed'),
+(22, '2024-11-12', 'hehehe', '9', '17', '1', '', '3:00 PM - 3:30 PM', 'Completed'),
+(23, '2024-12-12', 'Bench Joshu Timonio', '9', '18', '4', 'Benchz', '3:00 PM - 3:30 PM', 'Completed'),
+(24, '2024-11-23', 'Earl John Makavinta', '12', '17', '1', '', '9:00 AM - 9:30 AM', 'Cancelled'),
+(25, '2024-11-25', 'sadqw eqweqwe', '15', '17', '11', 'Benchz', '2:30 PM - 3:00 PM', 'Completed'),
+(26, '2024-11-27', 'qeqweqwe hawqeq', '16', '17', '13', '', '11:00 AM - 11:30 AM', 'Active');
 
 -- --------------------------------------------------------
 
@@ -374,7 +377,8 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `firstName`, `lastName`, 
 (10, 'amiellapid22@gmail.com', '$2y$10$fAvgPD/Rgq.AF/BV8.jOeeuRW81noYTPW5yG6iqm1cY11CaEexgXS', 'Amiel Carhyl', 'Lapid', 'Customer', ''),
 (11, 'amiellapid06@gmail.com', '$2y$10$mOjkJW.MMUO2wAqMHqawJ.OTymzj3ucTwnG2ZNjKukLR1opiOBDZG', 'sadqw', 'eqweqwe', 'Customer', ''),
 (12, 'bench', '$2y$10$10j9sm8YQoKij99ghc0VHeFQzy5bCObNMozE6chW0vyHF2q7aoD86', 'bench', 'timonio', 'Admin', ''),
-(13, 'agrivetcritters@gmail.com', '$2y$10$V/Al3lBEuZ7U.3b8spjRN.lLx7tQtNdIB7X.3xuceWyYGfw1O.7yC', 'qeqweqwe', 'hawqeq', 'Customer', '+639940576891');
+(13, 'agrivetcritters@gmail.com', '$2y$10$V/Al3lBEuZ7U.3b8spjRN.lLx7tQtNdIB7X.3xuceWyYGfw1O.7yC', 'qeqweqwe', 'hawqeq', 'Customer', '+639940576891'),
+(14, 'duke', '$2y$10$vN2nK1V645EN5ZLhc2U90.YD6bqWQecA4q9fo/2GcVUg1u4gLDsUq', 'Darius', 'Gavino', 'Secretary', '');
 
 --
 -- Indexes for dumped tables
@@ -538,7 +542,7 @@ ALTER TABLE `tbl_team`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -135,7 +135,8 @@
                                 <td>John Doe</td> <!-- Example Endorsed By -->
                                 <td>
                                     <button class="btn btn-warning cancel-btn">Cancel Booking</button>
-                                    <button class="btn btn-primary review-btn" data-bs-toggle="modal" data-bs-target="#reviewModal">Add Review</button>
+                                    <button class="btn btn-primary review-btn" data-bs-toggle="modal"
+                                        data-bs-target="#reviewModal">Add Review</button>
                                 </td>
                             </tr>
                             <tr>
@@ -213,18 +214,18 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $.ajax({
                     url: './inc/getAppointments.php',
                     method: 'GET',
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         var tableBody = $("#booking-data");
                         console.log(response);
 
                         tableBody.empty();
                         if (response.length > 0) {
-                            $.each(response, function(index, appointment) {
+                            $.each(response, function (index, appointment) {
                                 // Check if 'endorsed_by' is empty and set to 'N/A' if so
                                 var endorsedBy = appointment.endorsed_by ? appointment.endorsed_by : 'N/A';
 
@@ -237,7 +238,7 @@
                 <td>${appointment.category_name}</td>
                 <td>${appointment.booking_date}</td>
                 <td>${appointment.status}</td>
-                <td>${endorsedBy}</td> <!-- Use the 'endorsedBy' variable here -->
+                <td>${appointment.endorsed_to}</td>
                 <td>
                     <button class="btn btn-warning" data-id="${appointment.appointment_id}">Cancel Booking</button>
                 </td>
@@ -253,7 +254,7 @@
                 <td>${appointment.category_name}</td>
                 <td>${appointment.booking_date}</td>
                 <td>${appointment.status}</td>
-                <td>${endorsedBy}</td> <!-- Use the 'endorsedBy' variable here -->
+                <td>${appointment.endorsed_to}</td> <!-- Use the 'endorsedBy' variable here -->
                 <td>
                     <button class="btn-review-modal btn btn-primary review-btn" data-bs-toggle="modal" data-id="${appointment.appointment_id}" data-bs-target="#reviewModal">Add Review</button>
                 </td>
@@ -280,11 +281,11 @@
                             tableBody.append('<tr><td colspan="7">No appointments found.</td></tr>');
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Error fetching appointments: ", textStatus, errorThrown);
                     }
                 });
-                $(document).on('click', '.btn-warning', function() {
+                $(document).on('click', '.btn-warning', function () {
                     const appointmentId = $(this).data('id');
                     $.ajax({
                         type: 'POST',
@@ -293,20 +294,20 @@
                             appointmentId: appointmentId,
                             type: 'user'
                         },
-                        success: function(response) {
+                        success: function (response) {
                             alert('Booking cancelled successfully!');
                             window.location.reload();
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             alert('Error cancelling booking:', error);
                         }
                     });
                 });
-                $(document).on('click', '.btn-review-modal', function() {
+                $(document).on('click', '.btn-review-modal', function () {
                     const appointmentId = $(this).data('id');
                     $('#appointment-id').val(appointmentId);
                 });
-                $('#submitReview').on('click', function() {
+                $('#submitReview').on('click', function () {
                     const reviewText = $('#reviewText').val();
                     const rating = $('#rating').val();
                     const userId = $('#userId').val();
@@ -324,12 +325,12 @@
                             user_id: userId,
                             appointment_id: appointmentId
                         },
-                        success: function(response) {
+                        success: function (response) {
                             alert("Review submitted successfully!");
                             $('#reviewModal').modal('hide');
                             location.reload();
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             console.log("Error submitting review: ", error);
                             alert("There was an error submitting your review. Please try again.");
                         }

@@ -290,7 +290,7 @@ try {
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Your terms and conditions content goes here...</p>
+                <p id="termsAndConditions" >Your terms and conditions content goes here...</p>
             </div>
         </div>
     </div>
@@ -481,6 +481,7 @@ try {
                             var cms_about = response[0].about;
                             var cms_logo = response[0].logo;
                             $('#cms-logo').attr('src', `http://localhost/critters/admin/inc/uploads/${cms_logo}`);
+                            $('#termsAndConditions').text(response[0].terms);
                             if (response.error) {
                                 console.error(response.error);
                             } else {

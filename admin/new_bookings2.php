@@ -52,7 +52,8 @@
         </div>
 
         <!-- Modal for Appointment Completion -->
-        <div class="modal fade" id="completeAppointmentModal" tabindex="-1" aria-labelledby="completeAppointmentModalLabel" aria-hidden="true">
+        <div class="modal fade" id="completeAppointmentModal" tabindex="-1"
+          aria-labelledby="completeAppointmentModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
@@ -67,12 +68,10 @@
                   <p><strong>Service Provider:</strong> <span id="modalServiceProvider"></span></p>
                 </div>
 
-                <!-- Dropdown for Endorsed To (Employee) -->
                 <div class="mb-3">
                   <label for="endorsedToSelect" class="form-label">Endorsed To</label>
                   <select id="endorsedToSelect" class="form-select">
                     <option value="">Select Employee</option>
-                    <!-- Example employees; you can populate this dynamically from the database -->
                     <option value="1">Dr. Jane Doe</option>
                     <option value="2">Dr. John Smith</option>
                     <option value="3">Dr. Emily Clark</option>
@@ -125,8 +124,8 @@
                     <td>${appointment.booking_date}</td>
                     <td>
                         ${appointment.status === "Completed"
-                        ? "Completed"
-                        : `
+                  ? "Completed"
+                  : `
                               <button class="btn btn-primary btn-sm btn-remind" data-id="${appointment.appointment_id}">Email Reminder</button>
                               <button class="btn btn-warning btn-sm sms-btn" data-id="${appointment.appointment_id}">SMS Reminder</button>
                               <button class="btn btn-success btn-sm complete-btn" data-id="${appointment.appointment_id}" data-owner="${appointment.ownerName}" data-service="${appointment.service_name}" data-date="${appointment.booking_date}">Complete</button>
@@ -138,23 +137,19 @@
               tableBody.append(rowHTML);
             });
 
-            // Handling "Complete" button click
             $('.complete-btn').on('click', function () {
               const appointmentId = $(this).data('id');
               const ownerName = $(this).data('owner');
               const serviceName = $(this).data('service');
               const bookingDate = $(this).data('date');
-              
-              // Populate the modal with appointment data
+
               $('#modalOwnerName').text(ownerName);
               $('#modalService').text(serviceName);
               $('#modalDate').text(bookingDate);
-              
-              // Open the modal
+
               $('#completeAppointmentModal').modal('show');
-              
-              // Handle the "Complete Appointment" action
-              $('#confirmCompleteButton').off('click').on('click', function () {
+
+              $('#confirmCompleteButton').on('click', function () {
                 const endorsedTo = $('#endorsedToSelect').val();
                 if (!endorsedTo) {
                   alert("Please select a vet employee to endorse to.");
@@ -172,7 +167,6 @@
         });
       }
 
-      // Update appointment status to completed
       function updateAppointmentStatus(appointmentId, endorsedTo) {
         $.ajax({
           type: "POST",
@@ -193,11 +187,25 @@
         });
       }
 
-      // Event listeners
       $('#sortBookings').on('change', fetchSortedAppointments);
       $('#searchAppointments').on('input', fetchSortedAppointments);
-
-      // Initial fetch of appointments
+      $.ajax({
+        url: './inc/fetchTeam.php',
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          const filteredData = data.filter(item => item.availability == 1);
+          const $select = $('#endorsedToSelect');
+          $select.empty(); 
+          $select.append('<option value="" selected disable>Select Employee</option>');
+          filteredData.forEach(item => {
+            $select.append(`<option value="${item.name}">${item.name}</option>`);
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching data:', error);
+        }
+      });
       fetchSortedAppointments();
     });
   </script>

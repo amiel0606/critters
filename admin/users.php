@@ -42,7 +42,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody  id="users_data" >
+                                <tbody id="users_data">
                                 </tbody>
                             </table>
                         </div>
@@ -75,21 +75,22 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-data" >
-                                <tr>
-                                    <td>1</td>
-                                    <td>admin123</td>
-                                    <td>John Doe</td>
-                                    <td>Password</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editAdminModal">
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-sm btn-danger">
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
+                                <tbody id="admin-data">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>admin123</td>
+                                        <td>John Doe</td>
+                                        <td>Password</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
+                                                data-bs-target="#editAdminModal">
+                                                Edit
+                                            </button>
+                                            <button class="btn btn-sm btn-danger">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -115,11 +116,13 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="name" class="form-label">First name</label>
-                                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter first name">
+                                        <input type="text" class="form-control" name="firstName" id="firstName"
+                                            placeholder="Enter first name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Last name</label>
-                                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter last name">
+                                        <input type="text" class="form-control" name="lastName" id="lastName"
+                                            placeholder="Enter last name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="accountType" class="form-label">Account Type</label>
@@ -130,7 +133,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="pass" class="form-label">Password</label>
-                                        <input type="password" name="pass" class="form-control" id="pass" placeholder="Enter Password">
+                                        <input type="password" name="pass" class="form-control" id="pass"
+                                            placeholder="Enter Password">
                                     </div>
                             </div>
                             <div class="modal-footer">
@@ -146,7 +150,7 @@
     </div>
     </div>
     <!-- Customer Information Modal -->
-<div class="modal fade" id="customerInfoModal" tabindex="-1" aria-labelledby="customerInfoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="customerInfoModal" tabindex="-1" aria-labelledby="customerInfoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -267,7 +271,7 @@
 
     <!-- Script to Fetch User Data -->
     <script>
-        
+
         function acceptUser(id) {
             alert('User with ID ' + id + ' accepted!');
         }
@@ -277,7 +281,6 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
                     $('#users_data').empty();
                     data.forEach(function (user, index) {
                         $('#users_data').append(`
@@ -285,12 +288,8 @@
                                 <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.firstName} ${user.lastName}</td>
-                                <td>${user.action}</td>
-                                  <td>
-                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#customerInfoModal" onclick="showCustomerInfo('John Doe', 'johndoe@example.com', '+1234567890', 2, 'Fluffy, Golden Retriever, 4 Years; Whiskers, Siamese, 2 Years', '#1001, 2024-10-15, Checkup, Completed; #1002, 2024-11-05, Vaccination, Completed')">View</button>
-
-
-                                    
+                                <td>
+                                    <button class="btn-view btn btn-warning" data-bs-toggle="modal" data-id="${user.id}" data-bs-target="#customerInfoModal">View</button>
                                 </td>
                             </tr>
                         `);
@@ -300,7 +299,61 @@
                     console.error('Error fetching user data:', error);
                 }
             });
-            
+            function populateModal(customerId) {
+                $.ajax({
+                    url: './inc/getUsers.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: { action: 'getInfo', userId: customerId }, 
+                    success: function (response) {
+                        console.log(response);
+                        
+                        const customer = response.customerInfo;
+                        $('#customer-name').text(`${customer.firstName} ${customer.lastName}`);
+                        $('#customer-email').text(customer.username);
+                        $('#customer-contact').text(customer.contact || 'N/A');
+                        $('#customer-pets').text(customer.petCount || 0);
+
+                        const petList = response.pets || [];
+                        const petListHtml = petList.map(pet => `
+                <tr>
+                    <td>${pet.petName}</td>
+                    <td>${pet.petType}</td>
+                    <td>${pet.breed}</td>
+                    <td>${pet.birth_date}</td>
+                    <td>${pet.gender}</td>
+                    <td>${pet.color}</td>
+                    <td>${pet.uniqueMarkings || 'N/A'}</td>
+                </tr>
+            `).join('');
+                        $('#pet-list').html(petListHtml);
+
+                        const bookingHistory = response.bookings || [];
+                        const bookingHistoryHtml = bookingHistory.map(booking => `
+                <tr>
+                    <td>#${booking.bookingId}</td>
+                    <td>${booking.booking_date}</td>
+                    <td>${booking.service_name}</td>
+                    <td>
+                        <span class="badge bg-${booking.status === 'Completed' ? 'success' : 'danger'}">
+                            ${booking.status}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+                        $('#booking-history').html(bookingHistoryHtml);
+
+                        $('#customerInfoModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching customer details:', error);
+                    }
+                });
+            }
+            $(document).on('click', '.btn-view', function () {
+                const customerId = $(this).data('id');
+                populateModal(customerId);
+            });
             $.ajax({
                 url: './inc/getAdmin.php',
                 method: 'GET',
@@ -313,6 +366,7 @@
                                 <td>${admin.id}</td>
                                 <td>${admin.username}</td>
                                 <td>${admin.firstName} ${admin.lastName}</td>
+                                <td>${admin.role}</td>
                                 <td>
                                     <button class="btn btn-warning">Edit</button>
                                     <button class="btn btn-danger">Delete</button>

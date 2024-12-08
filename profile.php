@@ -312,12 +312,47 @@
                 </div>
             </div>
         </div>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function () {
+//             $(document).on('click', '.view-history-btn', function() {
+//     const petId = $(this).data('id');
+    
+//     $.ajax({
+//         url: './inc/getPetHistory.php',
+//         method: 'POST',
+//         dataType: 'json',
+//         data: { petId: petId },
+//         success: function(response) {
+//             if (response.success) {
+//                 // Clear any previous history in the table
+//                 $('#history-table-body').empty();
+
+//                 // Populate the table with the new history data
+//                 const historyHtml = response.history.map(appointment => `
+//                     <tr>
+//                         <td>${appointment.booking_date}</td>
+//                         <td>${appointment.service}</td>
+//                         <td>${appointment.service_provider}</td>
+//                     </tr>
+//                 `).join('');
+
+//                 $('#history-table-body').html(historyHtml);
+//                 $('#viewHistoryModal').modal('show');
+//             } else {
+//                 console.error('No history found for this pet.');
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('Error fetching pet history:', error);
+//         }
+//     });
+// });
+
             $.ajax({
                 type: "POST",
                 url: "./inc/getPets.php",
@@ -377,52 +412,11 @@
                         <button type="button" data-id="${selectedPet.id}" class="btn btn-danger delete-pet-btn">Delete Pet</button>
                         <div class="edit-btnss" style="margin-top: 50px;">
                             <button type="button" data-id="${selectedPet.id}" class="btn btn-primary edit-pet-btn"  data-bs-toggle="modal" data-bs-target="#editPetModal">Edit Pet</button>
-                          <!-- View History Button -->
-<div class="mt-2">
-    <button type="button" data-id="${selectedPet.id}" class="btn btn-info view-history-btn" data-bs-toggle="modal" data-bs-target="#viewHistoryModal">
-        <i class="bi bi-clock-history me-2"></i> View History
-    </button>
-</div>
-
-<!-- Modal for Viewing Pet History (Hidden by Default, Only Shown on Button Click) -->
-<div class="modal fade" id="viewHistoryModal" tabindex="-1" aria-labelledby="viewHistoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="viewHistoryModalLabel">Pet Service History</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5 class="text-center mb-4">Appointment History</h5>
-                <table class="table table-striped table-bordered">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Appointment Time</th>
-                            <th scope="col">Service Provided</th>
-                            <th scope="col">Service Provider</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-table-body">
-                        <!-- Example data, this will be dynamically inserted -->
-                        <tr>
-                            <td>2024-12-05 10:00 AM</td>
-                            <td>Vaccination</td>
-                            <td>Dr. Smith</td>
-                        </tr>
-                        <tr>
-                            <td>2024-11-20 02:00 PM</td>
-                            <td>Checkup</td>
-                            <td>Dr. Johnson</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div class="mt-2">
+                            <button type="button" data-id="${selectedPet.id}" class="btn-view btn btn-info view-history-btn" data-bs-toggle="modal" data-bs-target="#viewHistoryModal">
+                                <i class="bi bi-clock-history me-2"></i> View History
+                            </button>
+                        </div>
 
                 `;
 
@@ -470,7 +464,6 @@
                     }
                 });
             });
-
             $(document).on("click", ".delete-pet-btn", function () {
                 var petId = $(this).data('id');
                 $.ajax({
@@ -483,6 +476,7 @@
                     }
                 });
             });
+            
         });
     </script>
 </body>

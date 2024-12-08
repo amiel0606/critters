@@ -46,6 +46,7 @@
                             <th>Owner Name</th>
                             <th>Breed</th>
                             <th>Service</th>
+                            <th>Endorsed To</th>
                             <th>Booking Date</th>
                             <th>Actions</th>
                         </tr>
@@ -68,7 +69,6 @@
             function fetchHistory() {
                 const searchTerm = $('#search-history').val();
                 const sortOption = $('#sortHistory').val();
-
                 $.ajax({
                     url: './inc/getHistory.php',
                     method: 'GET',
@@ -78,6 +78,8 @@
                         sort: sortOption
                     },
                     success: function (data) {
+                        console.log(data);
+                        
                         $('#appointmentTable').empty(); 
                         if (data.length === 0) {
                             $('#appointmentTable').append('<tr><td colspan="7" class="text-center">No results found</td></tr>');
@@ -92,6 +94,7 @@
                         <td>${appointment.ownerName}</td>
                         <td>${appointment.breed}</td>
                         <td>${appointment.service_name}</td>
+                        <td>${appointment.endorsed_to}</td>
                         <td>${appointment.booking_date}</td>
                         <td>
                             <button data-id="${appointment.appointment_id}" class="btn btn-danger btn-sm">Delete</button>
