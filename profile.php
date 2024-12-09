@@ -311,6 +311,45 @@
                     </div>
                 </div>
             </div>
+<!-- Modal for Viewing Pet History (Hidden by Default, Only Shown on Button Click) -->
+<div class="modal fade" id="viewHistoryModal" tabindex="-1" aria-labelledby="viewHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="viewHistoryModalLabel">Pet Service History</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center mb-4">Appointment History</h5>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Appointment Time</th>
+                            <th scope="col">Service Provided</th>
+                            <th scope="col">Service Provider</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        <!-- Example data, this will be dynamically inserted -->
+                        <tr>
+                            <td>2024-12-05 10:00 AM</td>
+                            <td>Vaccination</td>
+                            <td>Dr. Smith</td>
+                        </tr>
+                        <tr>
+                            <td>2024-11-20 02:00 PM</td>
+                            <td>Checkup</td>
+                            <td>Dr. Johnson</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
         
     </div>
