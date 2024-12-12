@@ -1,7 +1,7 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-include_once './dbCon.php';
+include_once '../admin/inc/dbCon.php';
 
 if (!isset($_SESSION['id'])) {
     echo json_encode(['success' => false, 'message' => 'User not logged in']);
@@ -13,15 +13,19 @@ $ownerId = $_SESSION['id'];
 
 if ($petId > 0) {
     $sql = "
-        SELECT 
-            st.appointment_id AS bookingId, 
-            st.booking_date, 
-            st.service, 
-            st.status
-        FROM 
-            tbl_setappointment st
-        WHERE 
-            st.pet_id = ? AND st.owner_id = ?
+SELECT 
+    st.appointment_id AS bookingId, 
+    st.booking_date, 
+    st.status,
+    st.endorsed_to,
+    s.service_name,
+    s.service_price
+FROM 
+    tbl_setappointment st
+INNER JOIN 
+    tbl_services s ON st.booking_id = s.service_id
+WHERE 
+    st.pet_id = ? AND st.owner_id = ?
     ";
 
     $stmt = $conn->prepare($sql);

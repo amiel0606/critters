@@ -12,8 +12,57 @@
         body {
             background-image: linear-gradient(to right, #EE9CA7, #FFDDE1);
         }
-        /* View History Button */
-.view-history-btn {
+
+        .profile-container {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .profile-header {
+            background-color: #cc0000;
+            padding: 15px;
+            color: white;
+        }
+
+
+        .profile-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .add-pet-btn {
+            background-color: #007bff;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .delete-pet-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .profile-container {
+            background-color: #FFD0DF;
+        }
+
+        .profile-section {
+            background-color: #FFE5EC;
+        }
+
+        .view-history-btn {
     background: linear-gradient(135deg, #e7aad7, #f79cce);
     color: white;
     border: none;
@@ -74,54 +123,6 @@
 }
 
 
-        .profile-container {
-            background-color: #e9ecef;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .profile-header {
-            background-color: #cc0000;
-            padding: 15px;
-            color: white;
-        }
-        
-
-        .profile-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .save-btn {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .add-pet-btn {
-            background-color: #007bff;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .delete-pet-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .profile-container {
-            background-color: #FFD0DF;
-        }
-
-        .profile-section {
-            background-color: #FFE5EC;
-        }
     </style>
 </head>
 
@@ -311,86 +312,87 @@
                     </div>
                 </div>
             </div>
-<!-- Modal for Viewing Pet History (Hidden by Default, Only Shown on Button Click) -->
-<div class="modal fade" id="viewHistoryModal" tabindex="-1" aria-labelledby="viewHistoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="viewHistoryModalLabel">Pet Service History</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5 class="text-center mb-4">Appointment History</h5>
-                <table class="table table-striped table-bordered">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Appointment Time</th>
-                            <th scope="col">Service Provided</th>
-                            <th scope="col">Service Provider</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-table-body">
-                        <!-- Example data, this will be dynamically inserted -->
-                        <tr>
-                            <td>2024-12-05 10:00 AM</td>
-                            <td>Vaccination</td>
-                            <td>Dr. Smith</td>
-                        </tr>
-                        <tr>
-                            <td>2024-11-20 02:00 PM</td>
-                            <td>Checkup</td>
-                            <td>Dr. Johnson</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- Modal for Viewing Pet History (Hidden by Default, Only Shown on Button Click) -->
+            <div class="modal fade" id="viewHistoryModal" tabindex="-1" aria-labelledby="viewHistoryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="viewHistoryModalLabel">Pet Service History</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="text-center mb-4">Appointment History</h5>
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Appointment Time</th>
+                                        <th scope="col">Service Provided</th>
+                                        <th scope="col">Service Provider</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body">
+                                    <!-- Example data, this will be dynamically inserted -->
+                                    <tr>
+                                        <td>2024-12-05 10:00 AM</td>
+                                        <td>Vaccination</td>
+                                        <td>Dr. Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2024-11-20 02:00 PM</td>
+                                        <td>Checkup</td>
+                                        <td>Dr. Johnson</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-        </div>
-        
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function () {
-//             $(document).on('click', '.view-history-btn', function() {
-//     const petId = $(this).data('id');
-    
-//     $.ajax({
-//         url: './inc/getPetHistory.php',
-//         method: 'POST',
-//         dataType: 'json',
-//         data: { petId: petId },
-//         success: function(response) {
-//             if (response.success) {
-//                 // Clear any previous history in the table
-//                 $('#history-table-body').empty();
+            $(document).on('click', '.view-history-btn', function () {
+                const petId = $(this).data('id');
 
-//                 // Populate the table with the new history data
-//                 const historyHtml = response.history.map(appointment => `
-//                     <tr>
-//                         <td>${appointment.booking_date}</td>
-//                         <td>${appointment.service}</td>
-//                         <td>${appointment.service_provider}</td>
-//                     </tr>
-//                 `).join('');
+                $.ajax({
+                    url: './inc/getPetHistory.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: { petId: petId },
+                    success: function (response) {
+                        console.log(response);
+                        
+                        if (response.success) {
+                            $('#history-table-body').empty();
 
-//                 $('#history-table-body').html(historyHtml);
-//                 $('#viewHistoryModal').modal('show');
-//             } else {
-//                 console.error('No history found for this pet.');
-//             }
-//         },
-//         error: function(xhr, status, error) {
-//             console.error('Error fetching pet history:', error);
-//         }
-//     });
-// });
+                            const historyHtml = response.history.map(appointment => `
+                                <tr>
+                                    <td>${appointment.booking_date}</td>
+                                    <td>${appointment.service_name}</td>
+                                    <td>${appointment.endorsed_to}</td>
+                                </tr>
+                            `).join('');
+
+                            $('#history-table-body').html(historyHtml);
+                            $('#viewHistoryModal').modal('show');
+                        } else {
+                            console.error('No history found for this pet.');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching pet history:', error);
+                    }
+                });
+            });
 
             $.ajax({
                 type: "POST",
@@ -515,7 +517,7 @@
                     }
                 });
             });
-            
+
         });
     </script>
 </body>
